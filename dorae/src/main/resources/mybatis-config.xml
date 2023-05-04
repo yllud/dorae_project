@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- SQL문 정의할 때 VO표현을 간단하게 하고 싶은 경우. 
+     별명을 지어서 사용 -->
+   <typeAliases>
+      <typeAlias type="com.multi.dorae.search.PlayVO" alias="playVO"></typeAlias>
+      <typeAlias type="com.multi.dorae.search.StageVO" alias="stageVO"></typeAlias>
+      <typeAlias type="com.multi.dorae.search.RankVO" alias="rankVO"></typeAlias>
+
+
+   </typeAliases>
+   <mappers>
+   <!-- SQL문 정의하는 파일들의 목록을 지정. -->
+      <mapper resource="mapper/playMapper.xml" />
+      <mapper resource="mapper/stageMapper.xml" />
+      <mapper resource="mapper/rankMapper.xml" />
+
+
+   </mappers>
+</configuration>
