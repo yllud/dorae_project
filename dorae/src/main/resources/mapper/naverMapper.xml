@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="naverMember"> 
+
+	<select id="naverFind" resultType="naverVO">
+		select * from member where nickname=#{nickname} and email=#{email}
+	</select>
+	
+	<insert id="naverInsert" parameterType="naverVO" >
+		insert into member 
+		values (#{nickname}, #{name}, #{email}, #{gender}, #{age}, #{birthday}, #{profile_image})
+	</insert>
+	
+</mapper>
