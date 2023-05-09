@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seat">
+	
+	<insert id="insert" parameterType="seatVO">
+		insert into seat values (#{seat_member}, #{play_id}, #{seat_date}, #{seat_time}, #{seat_number})
+	</insert>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
