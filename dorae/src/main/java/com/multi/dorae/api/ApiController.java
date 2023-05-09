@@ -21,7 +21,7 @@ public class ApiController {
 	ApiParsing api; //전역변수(글로벌 변수)
 	
 	
-	@RequestMapping("playApi")
+	@RequestMapping("api/playApi")
 	public void playDetailInsert() {
 		System.out.println("play api 추가 요청됨.");
 		try {
@@ -45,7 +45,7 @@ public class ApiController {
 	}
 
 	
-	@RequestMapping("stageApi")
+	@RequestMapping("api/stageApi")
 	public void stageApiInsert() {
 		System.out.println("stage api 추가 요청됨.");
 		try {
@@ -68,7 +68,7 @@ public class ApiController {
 		}
 	}
 	
-	@RequestMapping("rankApi")
+	@RequestMapping("api/rankApi")
 	public void rankApiInsert() {
 		System.out.println("rank api 추가 요청됨.");
 		try {
