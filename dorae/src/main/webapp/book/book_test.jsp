@@ -11,14 +11,14 @@
 <form action="insert_book" method="get">
 	이메일 : <input name="email" value="abc123@naver.com"><br>
 	공연id : <input name="play_id" value="PF121682"><br>
-	<button type="submit" >서버로 전송</button>
+	<button onclick="alert('insert_book이 요청됨!');" type="submit" >서버로 전송</button>
 </form>
 <hr color="red">
 
 <h3>삭제 화면입니다.</h3>
 <form action="delete_book" method="get">
 	공연id : <input name="play_id" ><br>
-	<button type="submit">서버로 전송</button>
+	<button onclick="alert('delete_book이 요청됨!');" type="submit">서버로 전송</button>
 </form>
 <hr color="red">
 

@@ -11,16 +11,16 @@ public class BookDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
-	public int delete(String play_id) {
-		int result = my.insert("book.del", play_id);
-		return result;
-	}	
-	
 	public int insert(BookVO bag) {
 		int result = my.insert("book.create", bag);
 		return result;
 	}
 	
+	public int delete(String play_id) {
+		int result = my.insert("book.del", play_id);
+		return result;
+	}	
+
 	public List<BookVO> all(String email) {
 		List<BookVO> list = my.selectList("book.all", email);
 		return list;
