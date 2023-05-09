@@ -11,8 +11,8 @@ public class BookDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
-	public int delete(int id) {
-		int result = my.insert("book.del", id);
+	public int delete(String play_id) {
+		int result = my.insert("book.del", play_id);
 		return result;
 	}	
 	

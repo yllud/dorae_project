@@ -18,17 +18,17 @@ public class BookController {
 	
 	@RequestMapping("insert_book")
 	public void insert(BookVO bag) {
-		System.out.println("insert3요청됨.");
+		System.out.println("insert_book요청됨.");
 		System.out.println(bag);
 		System.out.println(dao);
 		
 		dao.insert(bag);
 	}
 	@RequestMapping("delete_book")
-	public void delete(int id) {
-		System.out.println("delete3요청됨.");
-		System.out.println(id);
-		dao.delete(id);
+	public void delete(String email) {
+		System.out.println("delete_book요청됨.");
+		System.out.println(email);
+		dao.delete(email);
 	}	
 	
 //	@RequestMapping("one_book")
