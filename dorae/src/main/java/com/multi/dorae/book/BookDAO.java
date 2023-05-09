@@ -17,7 +17,7 @@ public class BookDAO {
 	}
 	
 	public int delete(String play_id) {
-		int result = my.insert("book.del", play_id);
+		int result = my.delete("book.del", play_id);
 		return result;
 	}	
 

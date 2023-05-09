@@ -17,18 +17,22 @@ public class BookController {
 //	ReplyDAO dao2;
 	
 	@RequestMapping("insert_book")
-	public void insert(BookVO bag) {
+	public String insert(BookVO bag) {
 		System.out.println("insert_book요청됨.");
 		System.out.println(bag);
 		System.out.println(dao);
 		
 		dao.insert(bag);
+		
+		return "book/insert_book";
 	}
 	@RequestMapping("delete_book")
-	public void delete(String email) {
+	public String delete(String play_id) {
 		System.out.println("delete_book요청됨.");
-		System.out.println(email);
-		dao.delete(email);
+		System.out.println(play_id);
+		dao.delete(play_id);
+		
+		return "book/delete_book";
 	}	
 	
 //	@RequestMapping("one_book")
@@ -40,10 +44,12 @@ public class BookController {
 //	}
 	
 	@RequestMapping("all_book")
-	public void all(String email, Model model) {
+	public String all(String email, Model model) {
 		System.out.println("all요청됨.");
 		System.out.println(email);
 		List<BookVO> list = dao.all(email);
 		model.addAttribute("list", list);
+		
+		return "book/all_book";
 	}
 }
