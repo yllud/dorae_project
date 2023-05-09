@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faq">
+
+	<select id="selectOne" parameterType="int" resultType="faqVO">
+		select * from faq where id = #{id}
+	</select>
+	
+	<select id="selectList" resultType="faqVO" >
+		select * from faq;
+	</select>
+	
+	<select id="selectListByHelpCategory" parameterType="String" resultType="faqVO" >
+		select * from faq where helpCategory = #{helpCategory}
+	</select>
+	
+	<select id="selectListBySearch" parameterType="String" resultType="faqVO" >
+		select * from faq where title like concat('%',#{search},'%')
+	</select>
+	
+</mapper>

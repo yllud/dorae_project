@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="contact">
+	
+	<insert id="create" parameterType="contactVO">
+		insert into contact values (#{contact_id}, #{member_id}, #{title}, #{content}, #{created_at}, #{admin_id}, #{answer})
+	</insert>
+	
+	<delete id="delete"  parameterType="contactVO">
+		delete from contact where contact_id = #{contact_id}
+	</delete>
+	
+	<select id="selectList" parameterType="String" resultType="contactVO">
+		select * from contact where member_id = #{member_id}
+	</select>
+	
+</mapper>
