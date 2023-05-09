@@ -3,12 +3,11 @@
 <mapper namespace="book">
 
 	<insert id="create" parameterType="bookVO">
-		insert into book values (null,
-		#{name}, #{url}, #{img})
+		insert into book values (null, #{email}, #{play_id})
 	</insert>
 
-	<delete id="del" parameterType="int">
-		delete from book where id = #{id}
+	<delete id="del" parameterType="String">
+		delete from book where play_id = #{play_id}
 	</delete>
 <!-- 
 	<update id="up" parameterType="bookVO">
@@ -20,11 +19,11 @@
 		select * from
 		book where id = #{id}
 	</select>
-
-	<select id="all" resultType="bookVO">
-		select * from book
-	</select>
 -->
+	<select id="all" parameterType="String" resultType="bookVO">
+		select * from book where email = #{email}
+	</select>
+
 </mapper>
 
 

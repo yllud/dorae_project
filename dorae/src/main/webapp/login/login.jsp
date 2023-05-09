@@ -7,25 +7,7 @@
 <title>로그인페이지</title>
 <script type="text/javascript" src="resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
-	$(function() {
-		//시작하자마자 보여줄 ajax
-		$.ajax({
-			url : "login/testPage.jsp",
-			success : function(x) {
-				$('#result').append(x)
-			}//success
-		})//ajax
-
-		$('#b1').click(function() {
-			$('#result').empty() //기존것 삭제됨
-			$.ajax({
-				url : "buy.jsp",
-				success : function(x) {
-					$('#result').append(x)
-				}//success
-			})//ajax
-		})//b1
-	})//$
+	
 </script>
 </head>
 <body>
