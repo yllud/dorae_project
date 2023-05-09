@@ -13,7 +13,7 @@ import twitter4j.TwitterException;
 public class TwitterController {
 
 
-	@RequestMapping("search2")
+	@RequestMapping("twitterSearch")
 	@ResponseBody
 	public List<TwitterVO> searchTweets(@RequestParam("keyword") String keyword) throws TwitterException {
 		List<TwitterVO> tweets = TwitterAPI.searchTweets(keyword);

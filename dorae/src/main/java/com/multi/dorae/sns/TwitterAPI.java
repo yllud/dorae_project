@@ -13,7 +13,7 @@ public class TwitterAPI {
         String consumerSecret = "iqJdooedkoVi1VckFFtu6VvEMXYM3i0HaC3E1jcGoQYhAgqv7S";
         String accessToken = "1651470021489721344-RcvL8t0JHmsGzskjJ0CFrd2MNXsrfa";
         String accessTokenSecret = "R8Ix7nZwfzdys7IEZgOPdIznV4BcZEkNuEZIJgk081fWJ";
-
+        
         // Twitter 객체 생성
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
