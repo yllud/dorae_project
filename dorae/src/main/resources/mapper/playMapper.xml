@@ -4,19 +4,19 @@
 
 	<insert id="create" parameterType="playVO">
 		insert into play values
-		(#{play_id}, #{stage_id},#{play_name},#{play_start}, #{play_end}, 
+		(#{play_id}, #{stage_id},#{play_name},#{play_start}, #{play_end},
 		#{stage_name},#{casting},#{crew}, #{runtime},
 		#{play_age},#{enterprise},#{price},#{poster},
 		#{content},#{genre_name},#{state},#{openrun},
 		#{image},#{play_time}
-		
+
 		)
 	</insert>
-	
+
 	<select id="playIdList" resultType="String">
 		select play_id from play
 	</select>
-	
+
 	<select id="stageIdList" resultType="String">
 		select stage_id from play
 	</select>
@@ -24,6 +24,7 @@
 	<!-- <select id="idList" resultType="String"> -->
 	<!-- select play_id from play -->
 	<!-- </select> -->
+
 	<!-- <update id="update" parameterType="playVO"> -->
 	<!-- update member set play_name = #{play_name} where play_id = #{play_id} -->
 	<!-- </update> -->
@@ -37,8 +38,8 @@
 	<!-- play where play_id=#{play_id} -->
 	<!-- </select> -->
 
-	<!-- <select id="all" resultType="playVO"> -->
-	<!-- select * from member -->
-	<!-- </select> -->
+	<select id="all" resultType="playVO">
+		select * from member
+	</select>
 
 </mapper>

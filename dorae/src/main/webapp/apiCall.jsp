@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-순서대로!!
+순서대로!!!!
 <a href="playApi">play</a>
 <a href="stageApi">stage</a>
 <a href="rankApi">rank</a>

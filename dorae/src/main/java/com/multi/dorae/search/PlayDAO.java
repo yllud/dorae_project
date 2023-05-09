@@ -27,4 +27,9 @@ public class PlayDAO {
 		List<String> list=my.selectList("play.stageIdList");
 		return list;
 	}
+	
+	public List<PlayVO> list(){
+		List<PlayVO> list=my.selectList("play.all");
+		return list;
+	}
 }
