@@ -27,7 +27,6 @@
 			alias="twitterVO"></typeAlias>
 
 		<!-- 구윤진 -->
-		<typeAlias type="com.multi.dorae.login.MemberVO" alias="memberVO"></typeAlias>
       <typeAlias type="com.multi.dorae.login.KakaoDTO" alias="kdto"></typeAlias>
       <typeAlias type="com.multi.dorae.login.NaverVO" alias="naverVO"></typeAlias>
 
