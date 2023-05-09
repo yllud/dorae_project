@@ -19,7 +19,7 @@
 				} else {
 				// RestController 호출하는 ajax 코드
 					$.ajax({
-						url : 'search2',
+						url : '../search2',
 						type : 'GET',
 						dataType : 'json',
 						data : {

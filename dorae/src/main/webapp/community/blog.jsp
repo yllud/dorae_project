@@ -30,7 +30,7 @@ pageEncoding="UTF-8"%>
             } else {
             	// RestController 호출하는 ajax 코드
                 $.ajax({
-                    url : 'search',
+                    url : '../search',
                     type : 'GET',
                     data : { query : query },
                     success : function(result) {
