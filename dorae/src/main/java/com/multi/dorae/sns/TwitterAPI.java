@@ -37,6 +37,8 @@ public class TwitterAPI {
             tweet.setUser(status.getUser().getName());
             tweet.setScreenName(status.getUser().getScreenName());
             tweet.setText(status.getText());
+            
+            tweet.setText(status.getText());
 
             // 미디어 정보 추출
             MediaEntity[] mediaEntities = status.getMediaEntities();
