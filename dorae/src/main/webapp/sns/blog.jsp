@@ -20,7 +20,7 @@ pageEncoding="UTF-8"%>
             } else {
             	// Controller 호출하는 ajax 코드
                 $.ajax({
-                    url : '../blogSearch',
+                    url : 'blogSearch',
                     type : 'GET',
                     data : { query : query },
                     success : function(result) {
