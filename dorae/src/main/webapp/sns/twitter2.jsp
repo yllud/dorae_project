@@ -19,7 +19,7 @@
                 } else {
                 // Controller 호출하는 ajax 코드
                     $.ajax({
-                        url : '../twitterSearch2',
+                        url : 'twitterSearch2',
                         type : 'GET',
                         dataType : 'json',
                         data : {
