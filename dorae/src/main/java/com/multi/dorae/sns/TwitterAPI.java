@@ -2,7 +2,6 @@ package com.multi.dorae.sns;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -38,6 +37,17 @@ public class TwitterAPI {
             tweet.setUser(status.getUser().getName());
             tweet.setScreenName(status.getUser().getScreenName());
             tweet.setText(status.getText());
+
+            // 미디어 정보 추출
+            MediaEntity[] mediaEntities = status.getMediaEntities();
+            if (mediaEntities != null && mediaEntities.length > 0) {
+                List<String> mediaUrls = new ArrayList<>();
+                for (MediaEntity mediaEntity : mediaEntities) {
+                    mediaUrls.add(mediaEntity.getMediaURL());
+                }
+                tweet.setMediaUrls(mediaUrls);
+            }
+
             tweets.add(tweet);
         }
 
