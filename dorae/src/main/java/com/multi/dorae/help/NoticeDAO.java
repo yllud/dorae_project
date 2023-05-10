@@ -20,12 +20,12 @@ public class NoticeDAO {
 		return sql.update("notice.update", vo);
 	}
 	
-	public int delete(int notice_id) {
+	public int delete(long notice_id) {
 		return sql.delete("notice.delete", notice_id);
 	}
 	
-	public NoticeVO selectOne() {
-		return sql.selectOne("notice.selectOne");
+	public NoticeVO selectOne(long notice_id) {
+		return sql.selectOne("notice.selectOne", Long.valueOf(notice_id));
 	}
 	
 	public List<NoticeVO> selectList() {

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.dorae.help.ContactDAO;
+import com.multi.dorae.help.ContactVO;
 import com.multi.dorae.help.FaqDAO;
 import com.multi.dorae.help.FaqVO;
 import com.multi.dorae.help.NoticeDAO;
@@ -27,31 +29,44 @@ public class AdminController {
 		return "admin/admin";
 	}
 	
-	@RequestMapping(value = "faqCreate", method = RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value = "faqCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String faqCreate(FaqVO vo) {
 		System.out.println(vo);
 		faqDAO.insert(vo);
-		return "redirect:help/help.jsp";
+		return "FAQ 등록 성공";
 	}
 	
-	@RequestMapping(value = "faqUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value = "faqUpdate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String faqUpdate(FaqVO vo) {
 		System.out.println(vo);
 		faqDAO.update(vo);
-		return "redirect:help/help.jsp";
+		return "FAQ 수정 성공";
 	}
 	
-	@RequestMapping(value = "noticeCreate", method = RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value = "noticeCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String noticeCreate(NoticeVO vo) {
 		System.out.println(vo);
 		noticeDAO.insert(vo);
-		return "redirect:help/help.jsp";
+		return "공지사항 등록 성공";
 	}
 	
-	@RequestMapping(value = "noticeUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value = "noticeUpdate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String noticeUpdate(NoticeVO vo) {
 		System.out.println(vo);
 		noticeDAO.update(vo);
-		return "redirect:help/help.jsp";
+		return "공지사항 수정 성공";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "answerUpdate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
+	public String answerUpdate(ContactVO vo) {
+		System.out.println(vo);
+		contactDAO.answerUpdate(vo);
+		return "답변 등록 성공";
+	}
+	
 }

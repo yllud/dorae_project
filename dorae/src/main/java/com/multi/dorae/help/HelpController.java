@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -26,8 +27,8 @@ public class HelpController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("faq")
-	public FaqVO faq(int faq_id) {
+	@RequestMapping("faqOne")
+	public FaqVO faqOne(int faq_id) {
 		return faqDAO.selectOne(faq_id);
 	}
 	
@@ -52,21 +53,35 @@ public class HelpController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("noticeOne")
+	public NoticeVO noticeOne(long notice_id) {
+		System.out.println(notice_id);
+		return noticeDAO.selectOne(notice_id);
+	}
+	
+	@ResponseBody
 	@RequestMapping("noticeList")
 	public List<NoticeVO> noticeList() {
 		return noticeDAO.selectList();
 	}
 	
 	@ResponseBody
-	@RequestMapping("contactList")
-	public List<ContactVO> contactList() {
-		return contactDAO.selectList("abcd@naver.com");
+	@RequestMapping("contactOne")
+	public ContactVO contactOne(long contact_id) {
+		return contactDAO.selectOne(contact_id);
 	}
 	
-	@RequestMapping("contactCreate")
+	@ResponseBody
+	@RequestMapping("contactList")
+	public List<ContactVO> contactList(String member_id) {
+		return contactDAO.selectList(member_id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "contactCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String contactCreate(ContactVO vo) {
 		contactDAO.insert(vo);
-		return "redirect:help.jsp";
+		return "1:1 문의 등록 성공";
 	}
 	
 }

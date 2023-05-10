@@ -28,4 +28,8 @@ public class ContactDAO {
 		return sql.selectList("contact.selectList", member);
 	}
 	
+	public int answerUpdate(ContactVO vo) {
+		return sql.update("contact.answerUpdate", vo);
+	}
+	
 }

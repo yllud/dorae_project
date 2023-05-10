@@ -11,6 +11,7 @@ public class ContactVO {
 	private Date created_at;
 	private String admin_id;
 	private String answer;
+	
 	public long getContact_id() {
 		return contact_id;
 	}
