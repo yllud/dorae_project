@@ -12,7 +12,7 @@ public class FaqDAO {
 	@Autowired
 	SqlSessionTemplate sql;
 	
-	public int create(FaqVO vo) {
+	public int insert(FaqVO vo) {
 		return sql.insert("faq.create", vo);
 	}
 	
@@ -20,8 +20,8 @@ public class FaqDAO {
 		return sql.update("faq.updateAnswer", vo);
 	}
 	
-	public FaqVO selectOne(int id) {
-		return sql.selectOne("faq.selectOne", id);
+	public FaqVO selectOne(int faq_id) {
+		return sql.selectOne("faq.selectOne", faq_id);
 	}
 	
 	public List<FaqVO> selectList() {

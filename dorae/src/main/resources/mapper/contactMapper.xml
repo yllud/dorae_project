@@ -10,8 +10,12 @@
 		delete from contact where contact_id = #{contact_id}
 	</delete>
 	
-	<select id="selectList" parameterType="String" resultType="contactVO">
-		select * from contact where member_id = #{member_id}
+	<select id="selectList" resultType="contactVO">
+		select * from contact
+	</select>
+	
+	<select id="selectOne" resultType="contactVO" parameterType="int">
+		select * from contact where contact_id = #{contact_id}
 	</select>
 	
 </mapper>

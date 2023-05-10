@@ -3,7 +3,7 @@
 <mapper namespace="faq">
 
 	<select id="selectOne" parameterType="int" resultType="faqVO">
-		select * from faq where id = #{id}
+		select * from faq where faq_id = #{faq_id}
 	</select>
 	
 	<select id="selectList" resultType="faqVO" >

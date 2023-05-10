@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebFilter("/admin/*")
 public class AdminFilter implements Filter{
@@ -26,7 +27,8 @@ public class AdminFilter implements Filter{
 		HttpServletRequest hsr = (HttpServletRequest) request;
 		System.out.println("FilterTest doFilter >> " + hsr.getRequestURI());
 
-		chain.doFilter(request, response);
+//		chain.doFilter(request, response);
+		((HttpServletResponse)response).sendRedirect("help/help.jsp"); //리다이렉트
 	}
 
 	@Override

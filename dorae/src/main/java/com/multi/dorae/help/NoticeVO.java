@@ -5,7 +5,7 @@ import java.util.Date;
 public class NoticeVO {
 	
 	private int notice_id;
-	private String member_id;
+	private String admin_id;
 	private String title;
 	private String content;
 	private Date created_at;
@@ -17,11 +17,11 @@ public class NoticeVO {
 	void setNotice_id(int notice_id) {
 		this.notice_id = notice_id;
 	}
-	String getMember_id() {
-		return member_id;
+	String getAdmin_id() {
+		return admin_id;
 	}
-	void setMember_id(String member_id) {
-		this.member_id = member_id;
+	void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
 	}
 	String getTitle() {
 		return title;
@@ -49,9 +49,10 @@ public class NoticeVO {
 	}
 	@Override
 	public String toString() {
-		return "noticeVO [notice_id=" + notice_id + ", member_id=" + member_id + ", title=" + title + ", content="
+		return "NoticeVO [notice_id=" + notice_id + ", admin_id=" + admin_id + ", title=" + title + ", content="
 				+ content + ", created_at=" + created_at + ", tag=" + tag + "]";
 	}
+	
 	
 	
 }
