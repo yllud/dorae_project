@@ -17,9 +17,9 @@
 				if (query == '') {
 					alert('검색어를 입력하세요.');
 				} else {
-				// RestController 호출하는 ajax 코드
+				// Controller 호출하는 ajax 코드
 					$.ajax({
-						url : 'search2',
+						url : '../twitterSearch',
 						type : 'GET',
 						dataType : 'json',
 						data : {
