@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class BlogController {
 
-	@RequestMapping("blogSearch")
+	@RequestMapping("sns/blogSearch")
 	@ResponseBody
 	public ArrayList<BlogVO> searchBlog(@RequestParam("query") String query) {
 		ArrayList<BlogVO> resultList = BlogAPI.searchNaverBlog(query);

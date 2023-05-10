@@ -13,14 +13,14 @@ import twitter4j.TwitterException;
 public class TwitterController {
 
 
-	@RequestMapping("twitterSearch")
+	@RequestMapping("sns/twitterSearch")
 	@ResponseBody
 	public List<TwitterVO> searchTweets(@RequestParam("keyword") String keyword) throws TwitterException {
 		List<TwitterVO> tweets = TwitterAPI.searchTweets(keyword);
 		return tweets;
 	}
 	
-	@RequestMapping("twitterSearch2")
+	@RequestMapping("sns/twitterSearch2")
 	@ResponseBody
 	public List<TwitterVO> searchTweets2(@RequestParam("keyword") String keyword) throws TwitterException {
 		List<TwitterVO> tweets = TwitterAPI2.searchTweets2(keyword);
