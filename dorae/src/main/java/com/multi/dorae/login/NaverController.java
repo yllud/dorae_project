@@ -16,12 +16,20 @@ public class NaverController {
 	@RequestMapping("login/naverLogin")
 	public void home(NaverVO vo, Model model) {
 		System.out.println(vo + "===================");
-		
-		model.addAttribute("vo", vo);
+		int result =  dao.insert(vo);
+		if (result != 0) {
+			model.addAttribute("vo", vo);
+			
+		}else {
+			
+			model.addAttribute("result", result);
+		}
 	}
 	
-	@RequestMapping("naverInsert")
-	public void insert(NaverVO bag) {
-		dao.insert(bag);
-	}
+	
+	
+//	@RequestMapping("naverInsert")
+//	public void insert(NaverVO bag) {
+//		dao.insert(bag);
+//	}
 }

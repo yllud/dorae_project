@@ -10,8 +10,15 @@ public class NaverDAO {
 	@Autowired
 	SqlSessionTemplate mn;
 	
-	public void insert(NaverVO bag) {
-		mn.insert("naverMember.naverInsert", bag);
+	public int insert(NaverVO bag) {
+		int result = 0;
+		try {
+			result = mn.insert("naverMember.naverInsert", bag);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
 	}
 
 }
