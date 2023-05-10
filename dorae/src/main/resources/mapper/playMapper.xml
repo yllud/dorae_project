@@ -39,7 +39,7 @@
 	<!-- </select> -->
 
 	<select id="all" resultType="playVO">
-		select * from member
+		select * from play
 	</select>
 
 </mapper>

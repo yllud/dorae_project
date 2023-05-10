@@ -29,7 +29,11 @@ public class PlayDAO {
 	}
 	
 	public List<PlayVO> list(){
+		System.out.println("list dao입니다...");
 		List<PlayVO> list=my.selectList("play.all");
+		for(PlayVO bag:list) {
+			System.out.println(bag.getPlay_name());
+		}
 		return list;
 	}
 }
