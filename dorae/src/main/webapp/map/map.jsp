@@ -1,3 +1,4 @@
+<!-- map.jsp파일 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ taglib prefix="c"
 	uri="http://java.sun.com/jsp/jstl/core"%>
@@ -38,6 +39,10 @@
             position: new naver.maps.LatLng(37.5666103, 126.9783882), // 마커의 위치를 설정합니다.
             map: map // 마커를 지도에 표시합니다.
         });
+        
+    	// 지도의 줌 레벨을 조정하여 자동으로 줌되도록 합니다.
+        map.setZoom(15);
+        map.panTo(marker.getPosition());
     });
 </script>
 <link rel="stylesheet" href="${path}/resources/css/style.css" />
