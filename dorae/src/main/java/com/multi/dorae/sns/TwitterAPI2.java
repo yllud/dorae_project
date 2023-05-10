@@ -2,12 +2,11 @@ package com.multi.dorae.sns;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class TwitterAPI {
-    public static List<TwitterVO> searchTweets(String keyword) throws TwitterException {
+public class TwitterAPI2 {
+    public static List<TwitterVO> searchTweets2(String keyword) throws TwitterException {
         // Twitter API 인증 정보
         String consumerKey = "2bC5GdvhJiWAqzZs2vq99msHh";
         String consumerSecret = "iqJdooedkoVi1VckFFtu6VvEMXYM3i0HaC3E1jcGoQYhAgqv7S";
@@ -38,6 +37,17 @@ public class TwitterAPI {
             tweet.setUser(status.getUser().getName());
             tweet.setScreenName(status.getUser().getScreenName());
             tweet.setText(status.getText());
+
+            // 미디어 정보 추출
+            MediaEntity[] mediaEntities = status.getMediaEntities();
+            if (mediaEntities != null && mediaEntities.length > 0) {
+                List<String> mediaUrls = new ArrayList<>();
+                for (MediaEntity mediaEntity : mediaEntities) {
+                    mediaUrls.add(mediaEntity.getMediaURL());
+                }
+                tweet.setMediaUrls(mediaUrls);
+            }
+
             tweets.add(tweet);
         }
 
