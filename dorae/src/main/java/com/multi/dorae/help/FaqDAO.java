@@ -16,8 +16,8 @@ public class FaqDAO {
 		return sql.insert("faq.create", vo);
 	}
 	
-	public int updateAnswer(FaqVO vo) {
-		return sql.update("faq.updateAnswer", vo);
+	public int update(FaqVO vo) {
+		return sql.update("faq.update", vo);
 	}
 	
 	public FaqVO selectOne(int faq_id) {

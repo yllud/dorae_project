@@ -24,9 +24,9 @@ public class AdminFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest hsr = (HttpServletRequest) request;
-		System.out.println("FilterTest doFilter >> " + hsr.getRequestURI());
-		System.out.println("request body >> " + hsr.getQueryString());
+//		HttpServletRequest hsr = (HttpServletRequest) request;
+//		System.out.println("FilterTest doFilter >> " + hsr.getRequestURI());
+//		System.out.println("request body >> " + hsr.getQueryString());
 //		System.out.println("request body >> " + hsr.getReader().readLine());
 
 		chain.doFilter(request, response);

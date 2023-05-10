@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="help_category">
+
+	<insert id="create" parameterType="helpCategoryVO">
+		insert into help_category values (#{helpCategory_id}, #{name}, #{depth}, #{parentCategory_id})
+	</insert>
+	
+	<update id="updateName" parameterType="helpCategoryVO">
+		update help_category set name = #{name} where helpCategory_id = #{helpCategory_id}
+	</update>
+
+	<select id="selectOne" parameterType="String" resultType="helpCategoryVO">
+		select * from help_category where helpCategory_id = #{helpCategory_id}
+	</select>
+	
+	<select id="selectList" resultType="helpCategoryVO" >
+		select * from help_category;
+	</select>
+	
+	<select id="selectListBySearch" parameterType="String" resultType="helpCategoryVO" >
+		select * from help_category where title like concat('%',#{search},'%')
+	</select>
+	
+</mapper>

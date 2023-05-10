@@ -25,6 +25,8 @@ public class HelpController {
 		return "redirect:help/help.jsp";
 	}
 	
+	@ResponseBody
+	@RequestMapping("faq")
 	public FaqVO faq(int faq_id) {
 		return faqDAO.selectOne(faq_id);
 	}
@@ -35,14 +37,18 @@ public class HelpController {
 		return faqDAO.selectList();
 	}
 	
+	@ResponseBody
 	@RequestMapping("faqByCategory")
-	public void faqListByHelpCategory(String helpCategory, Model model) {
-		model.addAttribute("faqList", faqDAO.selectListByCategory(helpCategory));
+	public List<FaqVO> faqListByHelpCategory(String helpCategory, Model model) {
+//		model.addAttribute("faqList", faqDAO.selectListByCategory(helpCategory));
+		return faqDAO.selectListByCategory(helpCategory);
 	}
 	
+	@ResponseBody
 	@RequestMapping("faqBySearch")
-	public void faqSearch(String search, Model model) {
-		model.addAttribute("faqList", faqDAO.selectListBySearch(search));
+	public List<FaqVO> faqSearch(String search, Model model) {
+//		model.addAttribute("faqList", faqDAO.selectListBySearch(search));
+		return faqDAO.selectListBySearch(search);
 	}
 	
 	@ResponseBody
@@ -54,7 +60,13 @@ public class HelpController {
 	@ResponseBody
 	@RequestMapping("contactList")
 	public List<ContactVO> contactList() {
-		return new ArrayList<ContactVO>();
+		return contactDAO.selectList("abcd@naver.com");
+	}
+	
+	@RequestMapping("contactCreate")
+	public String contactCreate(ContactVO vo) {
+		contactDAO.insert(vo);
+		return "redirect:help.jsp";
 	}
 	
 }

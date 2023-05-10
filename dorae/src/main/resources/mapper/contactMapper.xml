@@ -3,7 +3,7 @@
 <mapper namespace="contact">
 	
 	<insert id="create" parameterType="contactVO">
-		insert into contact values (#{contact_id}, #{member_id}, #{title}, #{content}, #{created_at}, #{admin_id}, #{answer})
+		insert into contact values (#{contact_id}, #{member_id}, #{title}, #{content}, now(), #{admin_id}, #{answer})
 	</insert>
 	
 	<delete id="delete"  parameterType="contactVO">
