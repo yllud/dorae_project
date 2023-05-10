@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-순서대로!
-<a href="playApi">play</a>
-<a href="stageApi">stage</a>
-<a href="rankApi">rank</a>
+api 불러와서 rank db에 추가완료
 </body>
 </html>

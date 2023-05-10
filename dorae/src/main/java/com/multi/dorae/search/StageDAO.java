@@ -20,6 +20,14 @@ public class StageDAO {
 		return result;
 	}
 	
+	//공연장 id로 공연장 정보 하나 검색
+	public StageVO stageDetail(String stage_id) {
+		System.out.println("stage 추가요청");
+		System.out.println(stage_id);
+		StageVO vo = my.selectOne("stage.one", stage_id);
+		return vo;
+	}
+	
 //	public List<String> listId() {
 //		List<String> list=my.selectList("place.idList");
 //		return list;
