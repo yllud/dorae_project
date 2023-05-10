@@ -6,9 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component 
+@Component
 public class PlayDAO {
-	
+
 	// mybatis 싱글톤 객체 찾아서 주소 넣어줌
 	@Autowired
 	SqlSessionTemplate my;
@@ -17,23 +17,52 @@ public class PlayDAO {
 		int result = my.insert("play.create", bag);
 		return result;
 	}
-	
+
 	public List<String> listPlayId() {
-		List<String> list=my.selectList("play.playIdList");
+		List<String> list = my.selectList("play.playIdList");
 		return list;
 	}
-	
+
 	public List<String> listStageId() {
-		List<String> list=my.selectList("play.stageIdList");
+		List<String> list = my.selectList("play.stageIdList");
 		return list;
 	}
-	
-	public List<PlayVO> list(){
-		System.out.println("list dao입니다...");
-		List<PlayVO> list=my.selectList("play.all");
-		for(PlayVO bag:list) {
+
+	public List<PlayVO> list() {
+		System.out.println("list dao입니다");
+		List<PlayVO> list = my.selectList("play.all");
+		return list;
+	}
+
+	// 검색어로 공연 리스트 검색
+	public List<PlayVO> searchList(String title) {
+		System.out.println("searchlist dao입니다");
+		System.out.println(title);
+		List<PlayVO> list = my.selectList("play.search", title);
+		for (PlayVO bag : list) {
 			System.out.println(bag.getPlay_name());
 		}
 		return list;
 	}
+
+	// 공연 id로 공연 한개 검색
+	public PlayVO playDetail(String play_id) {
+		System.out.println("playDetail dao...");
+		System.out.println(play_id);
+		PlayVO vo = my.selectOne("play.one", play_id);
+
+		return vo;
+
+	}
+
+	// 공연 id로 공연장 id 검색
+	public String stageId(String play_id) {
+		System.out.println("공연 id로 공연장 Id 검색중..");
+		System.out.println(play_id);
+		String stage_id = my.selectOne("play.searchStageId", play_id);
+		
+		return stage_id;
+
+	}
+
 }

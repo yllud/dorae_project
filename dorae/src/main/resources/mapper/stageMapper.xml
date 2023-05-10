@@ -13,6 +13,11 @@
 		select stage_id from stage
 	</select>
 	
+	<select id="one" resultType="stageVO" parameterType="String">
+		select * from stage where stage_id=#{stage_id}
+	
+	</select>
+	
 	<!-- <update id="update" parameterType="playVO"> -->
 	<!-- update member set play_name = #{play_name} where play_id = #{play_id} -->
 	<!-- </update> -->
