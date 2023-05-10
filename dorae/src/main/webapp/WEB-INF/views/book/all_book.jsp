@@ -19,7 +19,7 @@
 <c:forEach var="bag" items="${list}">
 <tr>
 <td>${bag.book_no}</td>
-<td>${bag.email}</a></td>
+<td>${bag.email}</td>
 <td>${bag.play_id}</td>
 </tr>
 </c:forEach>
