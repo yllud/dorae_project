@@ -38,7 +38,7 @@ public class PlayController {
 	}
 	
 	@RequestMapping("search/playDetail")
-	public void bbs_one(String play_id,Model model) {
+	public void playDetail(String play_id,Model model) {
 		System.out.println("playDetail");
 		System.out.println(play_id);
 		PlayVO vo=dao.playDetail(play_id);
