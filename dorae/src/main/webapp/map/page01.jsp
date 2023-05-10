@@ -31,16 +31,11 @@
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder"></script>
 <script>
 	$(function() {
-		$("#header").load("../header.jsp");
+		$("#header").load("../header.jsp");   
+        
+        $('#map').load('map.jsp');
 		
-        $("#map").load("mainBanner.jsp");        
-
-        $(document).on('click', '.main-img', function() {
-            // 이미지 삭제
-            $('.main-img').remove();
-            // map.jsp 로드
-            $('#map').load('map.jsp');
-        });
+        $("#map").load("mainBanner.jsp");     
 	})
 </script>
 <link rel="stylesheet" href="${path}/resources/css/style.css" />
