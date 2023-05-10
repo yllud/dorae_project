@@ -25,7 +25,7 @@
 				},
 				success: function(res) {
 					console.log(res);
-					$("#result").html(res);
+					$("#result1").html(res);
 				}
 			})
 		});
@@ -47,6 +47,22 @@
 				}
 			})
 		});
+		
+		$("#faqCreateBtn").click(function() {
+			let thelpCategory = $("#helpCategory").val();
+			$.ajax({
+				url: "../admin/faqCreate",
+				type: "POST",
+				data: {
+					helpCategory: thelpCategory,
+					title: $("#title").val(),
+					content: $("#content").val()
+				},
+				success: function(res) {
+					console.log(res);
+				}
+			})
+		});
 	})
 </script>
 </head>
@@ -57,7 +73,19 @@
 	<button id="contactListBtn">contactList</button>
 	<hr color="red">
 	
-	<div id="result">
+	<div id="result1">
+	</div>
+	<hr color="blue">
+	
+	<select id="helpCategory">
+		<option value="asdf">asdf</option>
+	</select>
+	<input id="title"/>
+	<input id="content"/>
+	<button id="faqCreateBtn">FAQ 등록</button>
+	<hr color="red">
+	
+	<div id="result2">
 	</div>
 </body>
 </html>

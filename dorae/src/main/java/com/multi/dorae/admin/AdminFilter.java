@@ -26,9 +26,11 @@ public class AdminFilter implements Filter{
 			throws IOException, ServletException {
 		HttpServletRequest hsr = (HttpServletRequest) request;
 		System.out.println("FilterTest doFilter >> " + hsr.getRequestURI());
+		System.out.println("request body >> " + hsr.getQueryString());
+//		System.out.println("request body >> " + hsr.getReader().readLine());
 
-//		chain.doFilter(request, response);
-		((HttpServletResponse)response).sendRedirect("help/help.jsp"); //리다이렉트
+		chain.doFilter(request, response);
+//		((HttpServletResponse)response).sendRedirect("../help/help.jsp"); //리다이렉트
 	}
 
 	@Override

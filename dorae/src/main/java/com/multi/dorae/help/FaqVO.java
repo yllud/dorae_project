@@ -7,16 +7,16 @@ public class FaqVO {
 	private String title;
 	private String content;
 	
-	int getFaq_id() {
+	public int getFaq_id() {
 		return faq_id;
 	}
-	void setFaq_id(int faq_id) {
+	public void setFaq_id(int faq_id) {
 		this.faq_id = faq_id;
 	}
-	String getHelpCategory() {
+	public String getHelpCategory() {
 		return helpCategory;
 	}
-	void setHelpCategory(String helpCategory) {
+	public void setHelpCategory(String helpCategory) {
 		this.helpCategory = helpCategory;
 	}
 	public String getTitle() {

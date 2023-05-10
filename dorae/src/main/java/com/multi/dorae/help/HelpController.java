@@ -22,7 +22,7 @@ public class HelpController {
 	
 	@RequestMapping()
 	public String main() {
-		return "help/help.jsp";
+		return "redirect:help/help.jsp";
 	}
 	
 	public FaqVO faq(int faq_id) {
