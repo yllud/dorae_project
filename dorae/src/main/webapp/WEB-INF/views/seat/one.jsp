@@ -17,12 +17,14 @@ $(function() {
 	$("#selector").flatpickr({
 		
 	    dateFormat: 'Y-m-d H:i',         // 선택한 날짜, 시간 input에 표시되는 형식(송신용)
-	    defaultDate: new Date(),         // 기본 선택 시간(오늘)
-	    minDate: "today",         		 // 최소 선택 날짜(이전날짜 선택 불가능)
-	    maxDate: new Date().fp_incr(30), // 최대 선택 가능 날짜
-	    disable: [function(date) { 		 // return true to disable
-	    	return (date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 3 || date.getDay() === 4);} ], // 요일 비활성화(일요일 0)    
+	    //disable: [function(date) { 		 // return true to disable
+	    //	return (date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 3 || date.getDay() === 4);}], // 요일 비활성화(일요일 0)    
 	    //disable: [new Date(), new Date().fp_incr(2), new Date().fp_incr(4)], // 날짜 비활성화
+	    enable: [{ from: "${vo.play_start}", to: "${vo.play_end}"},
+	        	function(date) {// return true to enable
+	          	return (date.getDay() === 1 || date.getDay() === 2);}], // 특정날짜만 가능
+	    minDate: "today",         		 // 최소 선택 날짜(이전날짜 선택 불가능)
+	    maxDate: new Date().fp_incr(45), // 최대 선택 가능 날짜     	
 	    
 	    enableTime: true,  				 // 시간 선택 가능
 	    time_24hr: true, 				 // 24시간 단위
@@ -54,6 +56,8 @@ ${vo.genre_name} || ${vo.play_name}
 <hr>
 <!-- 달력 위치 -->
 관람 날짜, 시간: <input id="selector"><br>
+<div class="flatpickr"></div> 
+ 
 <button type="submit">좌석선택</button>
 <hr>
 
