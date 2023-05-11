@@ -8,6 +8,32 @@
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$.ajax({
+			url: "helpCategoryListByParentId",
+			data: {
+				parentCategory_id: "None"
+			},
+			success: function(res) {
+				res.forEach(element => {
+					$("#helpCategory").append(
+						$("<option>").prop(
+							{
+								value: element.helpCategory_id,
+								text: element.name
+							}
+						)
+					)					
+					$("#testHelpCategory").append(
+						$("<option>").prop(
+							{
+								value: element.helpCategory_id,
+								text: element.name
+							}
+						)
+					)					
+				})
+			}
+		})
 		// FAQ 테스트
 		$("#faqOneBtn").click(function() {
 			$.ajax({
@@ -80,7 +106,7 @@
 			$.ajax({
 				url: "noticeOne",
 				data: {
-					notice_id: $("#notice_id").val()
+					notice_id: $("#noticeId").val()
 				},
 				success: function(res) {
 					console.log(res);
@@ -184,6 +210,21 @@
 				}
 			})
 		});
+		
+		// 문의 유형 테스트
+		$("#hcNameUpdateBtn").click(function() {
+			$.ajax({
+				url: "/dorae/admin/hcNameUpdate",
+				type: "POST",
+				data: {
+					helpCategory_id: $("#testHelpCategory").val(),
+					name: $("#helpCategoryName").val(),
+				},
+				success: function(res) {
+					console.log(res);
+				}
+			})
+		});
 	})
 </script>
 </head>
@@ -196,7 +237,7 @@
 	<p>내용 : <input id="faqContent"/></p>
 	<p>검색 : <input id="faqSearch"/></p>
 	<select id="helpCategory">
-		<option value="asdf">문의 유형</option>
+		<option value="None">문의 유형</option>
 	</select>
 	
 	<button id="faqOneBtn">FAQ 단건</button>
@@ -241,6 +282,19 @@
 	<button id="contactListBtn">1:1 문의 목록</button>
 	<button id="contactCreateBtn">1:1 문의 등록</button>
 	<button id="answerUpdateBtn">1:1 답변 등록</button>
+	
+	<hr color="red">
+	<div id="contactResult"></div>
+	<hr color="orange">
+	
+	<!--  -->
+	<h2>문의 유형 테스트</h2>
+	
+	<select id="testHelpCategory">
+		<option value="None">문의 유형</option>
+	</select>
+	<p>유형 이름 : <input id="helpCategoryName"/></p>
+	<button id="hcNameUpdateBtn">유형 이름 수정</button>
 	
 	<hr color="red">
 	<div id="contactResult"></div>

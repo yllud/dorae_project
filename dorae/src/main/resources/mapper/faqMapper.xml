@@ -6,8 +6,8 @@
 		insert into faq values (#{faq_id}, #{helpCategory}, #{title}, #{content})
 	</insert>
 	
-	<update id="update">
-		update faq set title = #{title}, content = #{content} where faq_id = #{faq_id}
+	<update id="answerUpdate" parameterType="faqVO">
+		update faq set content = #{content} where faq_id = #{faq_id}
 	</update>
 
 	<select id="selectOne" parameterType="int" resultType="faqVO">

@@ -7,21 +7,24 @@ import javax.annotation.PostConstruct;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-//@Component
-public class HelpCategory {
+@Repository
+public class HelpCategoryDAO {
 	
-//	@Autowired
-//	SqlSessionTemplate sql;
-//	
-//	@PostConstruct // 빈이 초기화 된 이후 호출
-//	public void init() {
-//		System.out.println("start HelpCategory");
-//		List<HelpCategoryVO> selectList = sql.selectList("help_category.selectList");
-//		for (HelpCategoryVO vo : selectList) {
-//			System.out.println(vo);
-//		}
-//	}
-
+	@Autowired
+	SqlSessionTemplate sql;
+	
+	public int insert(HelpCategoryVO vo) {
+		return sql.insert("helpCategory.create", vo);
+	}
+	
+	public int updateName(HelpCategoryVO vo) {
+		return sql.update("helpCategory.updateName", vo);
+	}
+	
+	public List<HelpCategoryVO> selectListByParentId(String parentCategory_id) {
+		return sql.selectList("helpCategory.selectListByParentId", parentCategory_id);
+	}
 	
 }

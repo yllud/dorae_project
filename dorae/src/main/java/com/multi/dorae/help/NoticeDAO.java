@@ -25,7 +25,7 @@ public class NoticeDAO {
 	}
 	
 	public NoticeVO selectOne(long notice_id) {
-		return sql.selectOne("notice.selectOne", Long.valueOf(notice_id));
+		return sql.selectOne("notice.selectOne", notice_id);
 	}
 	
 	public List<NoticeVO> selectList() {
