@@ -33,9 +33,10 @@
 	$(function() {
 		$("#header").load("../header.jsp");   
         
-        $('#map').load('map.jsp');
-		
-        $("#map").load("mainBanner.jsp");     
+        $('#map').load('map.jsp', function(){
+        	$('#map').append("<div id='banner'></div>");
+        	$('#banner').load("mainBanner.jsp");
+        }); 
 	})
 </script>
 <link rel="stylesheet" href="${path}/resources/css/style.css" />
