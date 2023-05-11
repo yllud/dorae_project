@@ -18,6 +18,11 @@
 	
 	</select>
 	
+	<!-- stageMapper.xml -->
+	<select id="searchLatLng" resultType="stageVO">
+		select latitude, longitude from dorae.stage where stage_id in (select stage_id from dorae.play)
+	</select>
+	
 	<!-- <update id="update" parameterType="playVO"> -->
 	<!-- update member set play_name = #{play_name} where play_id = #{play_id} -->
 	<!-- </update> -->
