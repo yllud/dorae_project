@@ -1,6 +1,8 @@
 package com.multi.dorae.login;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +15,11 @@ public class NaverController {
 	@Autowired
 	NaverDAO dao;
 	
+	@Autowired
+	private HttpSession session;
+	
 	@RequestMapping("login/naverLogin")
-	public void home(NaverVO vo, Model model) {
+	public void login(NaverVO vo, Model model) {
 		System.out.println(vo + "===================");
 		int result =  dao.insert(vo);
 		if (result != 0) {
