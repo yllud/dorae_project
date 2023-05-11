@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인페이지</title>
+<title>로그인 페이지</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
@@ -45,6 +45,7 @@
 	<hr color="orange">
 	<%}else{ %>
 	${nickname} 님이 로그인 하셨습니다
+	<a href="http://localhost:8888/dorae/login/mypage.jsp">첫페이지로</a>
 	<%} %>
 </body>
 </html>
