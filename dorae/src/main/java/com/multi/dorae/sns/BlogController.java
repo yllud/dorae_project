@@ -1,9 +1,11 @@
 package com.multi.dorae.sns;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,12 @@ public class BlogController {
 		dao.insert(resultList);
 //		결과 화면 출력을 위해 반환
 		return resultList;
+	}
+	
+	@RequestMapping("sns/blogList")
+	public void list(Model model) {
+		List<BlogVO> list = dao.list();
+		model.addAttribute("list", list);
 	}
 
 }
