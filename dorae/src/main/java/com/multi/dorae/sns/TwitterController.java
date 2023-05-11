@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +25,13 @@ public class TwitterController {
 		dao.insert(tweets);
 //		결과 화면 출력을 위해 반환
 		return tweets;
+	}
+	
+	
+	@RequestMapping("sns/twitterList")
+	public void list(Model model) {
+		List<TwitterVO> list = dao.list();
+		model.addAttribute("list", list);
 	}
 	
 	
