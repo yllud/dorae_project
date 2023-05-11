@@ -13,6 +13,8 @@
 			alias="stageVO"></typeAlias>
 		<typeAlias type="com.multi.dorae.search.RankVO"
 			alias="rankVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.search.Criteria"
+			alias="cri"></typeAlias>
 
 		<!-- 장희진 -->
 		<typeAlias type="com.multi.dorae.book.BookVO" alias="bookVO"></typeAlias>

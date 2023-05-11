@@ -21,32 +21,34 @@
 		select stage_id from play
 	</select>
 
-	<!-- <select id="idList" resultType="String"> -->
-	<!-- select play_id from play -->
-	<!-- </select> -->
-
-	<!-- <update id="update" parameterType="playVO"> -->
-	<!-- update member set play_name = #{play_name} where play_id = #{play_id} -->
-	<!-- </update> -->
-
-	<!-- <delete id="delete" parameterType="String"> -->
-	<!-- delete from member where play_id =#{play_id} -->
-	<!-- </delete> -->
 
 	<select id="one" parameterType="String"
 		resultType="playVO">
 		select * from
 		play where play_id=#{play_id}
 	</select>
+	
+	
+	
 
-	<select id="all" resultType="playVO">
-		select * from play limit 20
+<!-- 페이징 처리 리스트 -->
+	
+	<select id="page" resultType="playVO" parameterType="cri">
+		select * from (
+		select ROW_NUMBER() over(order by play_id desc) as rownum, p.*
+		from play p) play2
+		where play2.rownum between #{start} and #{end}
 	</select>
+	
 
+	
+<!--검색 페이징 처리 리스트 -->
 	<select id="search" parameterType="String" resultType="playVO">
 		select *
 		from play where play_name LIKE CONCAT('%', #{title}, '%')
 	</select>
+
+
 
 	<select id="searchStageId" parameterType="String"
 		resultType="String">

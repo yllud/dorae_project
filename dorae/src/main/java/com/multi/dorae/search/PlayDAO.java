@@ -13,24 +13,29 @@ public class PlayDAO {
 	@Autowired
 	SqlSessionTemplate my;
 
+	//공연 추가
 	public int insert(PlayVO bag) {
 		int result = my.insert("play.create", bag);
 		return result;
 	}
 
+	//모든 공연의 play id 불러오기 (api)
 	public List<String> listPlayId() {
 		List<String> list = my.selectList("play.playIdList");
 		return list;
 	}
 
+	//모든 공연의 stageid 불러오기 (api)
 	public List<String> listStageId() {
 		List<String> list = my.selectList("play.stageIdList");
 		return list;
 	}
 
-	public List<PlayVO> list() {
+	//공연 페이지 리스트로 불러오기
+	public List<PlayVO> list(Criteria cri) {
 		System.out.println("list dao입니다");
-		List<PlayVO> list = my.selectList("play.all");
+		System.out.println(cri.getStart());
+		List<PlayVO> list = my.selectList("play.page",cri);
 		return list;
 	}
 
