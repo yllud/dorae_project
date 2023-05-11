@@ -1,12 +1,12 @@
 package com.multi.dorae.search;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
@@ -21,13 +21,12 @@ public class PlayController {
 	StageDAO dao2;
 	
 	@RequestMapping("search/playList")
-	public void playList(Model model) {
+	public void playList(Criteria cri,Model model) {
 		//Model은 컨트롤러의 list를 views/list.jsp까지만 전달할 수 있는 객체 
 		System.out.println("play 전체 list 요청됨..");
-		List<PlayVO> list = dao.list();
+		cri.setStartEnd(cri.getPage());
+		List<PlayVO> list = dao.list(cri);
 		model.addAttribute("list", list);
-		
-		
 	}
 	
 	@RequestMapping("search/playSearch")
@@ -48,5 +47,13 @@ public class PlayController {
 		
 		model.addAttribute("vo", vo);
 		model.addAttribute("vo2", vo2);
+	}
+	
+	@RequestMapping(value="map/latLngList")
+	@ResponseBody
+	public List<StageVO> latLngList() {
+		System.out.println("latLngList");
+		List<StageVO> list2 = dao2.stageLatLng();
+		return list2;
 	}
 }

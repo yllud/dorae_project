@@ -31,10 +31,11 @@ public class PlayDAO {
 		return list;
 	}
 
-	//공연 20개만 리스트로 불러오기
-	public List<PlayVO> list() {
+	//공연 페이지 리스트로 불러오기
+	public List<PlayVO> list(Criteria cri) {
 		System.out.println("list dao입니다");
-		List<PlayVO> list = my.selectList("play.all");
+		System.out.println(cri.getStart());
+		List<PlayVO> list = my.selectList("play.page",cri);
 		return list;
 	}
 

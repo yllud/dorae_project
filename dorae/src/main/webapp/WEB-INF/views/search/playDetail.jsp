@@ -38,15 +38,13 @@ td {
 	<a href="../seat/one?play_id=${vo.play_id}"><button>예매하기</button></a>
 
 	<hr color="red">
-	<h3>공연장 상세</h3>
+	<h3>공연장 정보</h3>
 	${vo2.stage_name}
 	<br> 좌석: ${vo2.seat_cnt}석
 	<br> 전화번호: ${vo2.tel}
 	<br> 싸이트:
 	<a href=${vo2.website}>${vo2.website}</a>
 	<br> 주소: ${vo2.address}
-
-
 
 	<!-- 공연장 위치 -->
 	<div id="map" style="width: 350px; height: 350px;"></div>
@@ -78,5 +76,8 @@ td {
 		// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 		// marker.setMap(null);
 	</script>
+	
+	<hr color="red">
+	리뮤 목록~
 </body>
 </html>
