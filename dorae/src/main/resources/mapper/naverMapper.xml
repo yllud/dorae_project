@@ -9,7 +9,7 @@
 	
 	<insert id="naverInsert" parameterType="naverVO" >
 		insert into member 
-		values (#{nickname}, #{name}, #{email}, #{gender}, #{age}, #{birthday}, #{profile_image})
+		values (null, #{nickname}, #{name}, #{email}, #{gender}, #{age}, #{birthday}, #{profile_image}, 'user')
 	</insert>
 	
 </mapper>
