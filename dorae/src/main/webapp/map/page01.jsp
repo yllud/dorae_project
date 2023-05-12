@@ -39,7 +39,7 @@
         
 		$.ajax({
 			url : "latLngList",
-			success : function(x) {
+			success : function(x) {				
 				// 네이버 지도 API를 로드합니다.
 				var map = new naver.maps.Map('map', {
 					zoom : 7,
@@ -51,10 +51,37 @@
 			       }
 				});
 				
+				//geolocation 성공했다면
+			    if (navigator.geolocation) {
+			      navigator.geolocation.getCurrentPosition(
+			        function(position) {
+			          var latitude = position.coords.latitude; // 위도
+			          var longitude = position.coords.longitude; // 경도
+			          map.setCenter(new naver.maps.LatLng(latitude, longitude)); // 기존의 map의 center를 업데이트
+			          map.setZoom(13); // zoom level 업데이트
+			        },
+			        function(error) {
+			          // 위치 정보를 가져오는데 실패한 경우 처리
+			          console.error("Error occurred. Error code: " + error.code);
+			        }
+			      );
+			    }
+				
+				/*
+				var map = new naver.maps.Map('map', {
+					zoom : 7,
+					center : new naver.maps.LatLng(37.5666103, 126.9783882), // 서울 시청을 지도 중심으로 설정
+					zoomControl: true,
+				    zoomControlOptions: {
+			           position: naver.maps.Position.TOP_LEFT,
+			           style: naver.maps.ZoomControlStyle.SMALL
+			       }
+				});
+				*/
 				var markers = [];	// Array
 				for (var i = 0; i < x.length; i++) {
-				    var lat = x[i].latitude; // 대한민국 지역 내에서 랜덤 위도 생성
-				    var lng = x[i].longitude; // 대한민국 지역 내에서 랜덤 경도 생성
+				    var lat = x[i].latitude; // 위도 정보 받아오기
+				    var lng = x[i].longitude; // 경도 정보 받아오기
 				    
 				    marker = new naver.maps.Marker({
 				    	position: new naver.maps.LatLng(lat, lng),
@@ -112,8 +139,6 @@
 			            $(clusterMarker.getElement()).find('div:first-child').text(count);
 			        }
 			    });
-
-		//$('#result').append(x)
 			}
 		})
         
