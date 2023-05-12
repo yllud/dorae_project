@@ -11,35 +11,12 @@
 		$.ajax({
 			url : "playList",
 			data : {
-				page : 1,
-				title : $('#title').val()
+				page : 1
 			},
 			success : function(x) {
 				$('#result').append(x)
 			}
 		})
-
-		$('#b0').click(function() {
-			//기존의 것 삭제됨.
-			$('#result').empty()
-
-			$.ajax({
-				url : "playList",
-				data : {
-					page : 1,
-					title : $('#title').val()
-				},
-				success : function(x) {
-					//alert(x)
-					$('#result').append(x)
-					$('#result0').empty()
-					$('#result0').append($('#title').val())
-				},//success
-				error : function() {
-					alert('검색 실패')
-				}//error
-			})//ajax
-		})//b0
 
 		$('#b1').click(function() {
 			//기존의 것 삭제됨.
@@ -48,15 +25,14 @@
 			$.ajax({
 				url : "playList",
 				data : {
-					page : 1,
-					title : $('#result0').text()
+					page : 1
 				},
-				success : function(x,title) {
+				success : function(x) {
 					$('#result').append(x)
 				}
 			})
 		})//b1
-
+		
 		$('#b2').click(function() {
 			//기존의 것 삭제됨.
 			$('#result').empty()
@@ -64,15 +40,14 @@
 			$.ajax({
 				url : "playList",
 				data : {
-					page : 2,
-					title : $('#result0').text()
+					page : 2
 				},
 				success : function(x) {
 					$('#result').append(x)
 				}
 			})
 		})//b2
-
+		
 		$('#b3').click(function() {
 			//기존의 것 삭제됨.
 			$('#result').empty()
@@ -80,14 +55,32 @@
 			$.ajax({
 				url : "playList",
 				data : {
-					page : 3,
-					title : $('#result0').text()
+					page : 3
 				},
 				success : function(x) {
 					$('#result').append(x)
 				}
 			})
 		})//b2
+
+		$('#b0').click(function() {
+			//기존의 것 삭제됨.
+			$('#result').empty()
+
+			$.ajax({
+				url : "playSearch",
+				data : {
+					title : $('#title').val()
+				},
+				success : function(x) {
+					//alert(x)
+					$('#result').append(x)
+				},//success
+				error : function() {
+					alert('검색 실패')
+				}//error
+			})//ajax
+		})//b0
 
 	})//$
 </script>
@@ -100,11 +93,8 @@
 	<!-- 		<button type="submit">서버로 전송</button> -->
 	<!-- 	</form> -->
 
-
-	페이지:
-	<button id="b1">1</button>
-	<button id="b2">2</button>
-	<button id="b3">3</button>
+	
+	페이지:<button id="b1">1</button><button id="b2">2</button><button id="b3">3</button>
 	<hr color="red">
 
 	공연 제목:
@@ -125,7 +115,6 @@
 	<!-- 	<button id="b12">뮤지컬</button> -->
 
 	<hr color="red">
-	<div id="result0"></div>
 	<div id="result"></div>
 	<!-- 	<div id="result" style="background: yellow"></div> -->
 

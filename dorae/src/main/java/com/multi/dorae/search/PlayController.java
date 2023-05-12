@@ -22,12 +22,16 @@ public class PlayController {
 	
 	@RequestMapping("search/playList")
 	public void playList(Criteria cri,Model model) {
-		//Model은 컨트롤러의 list를 views/list.jsp까지만 전달할 수 있는 객체 
+		
 		System.out.println("play 전체 list 요청됨..");
 		cri.setStartEnd(cri.getPage());
+		System.out.println(cri);
 		List<PlayVO> list = dao.list(cri);
 		model.addAttribute("list", list);
 	}
+	
+	
+	
 	
 	@RequestMapping("search/playSearch")
 	public void playSearch(String title,Model model) {

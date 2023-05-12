@@ -7,15 +7,25 @@ import lombok.ToString;
 @ToString
 public class Criteria {
 	private int start;
-	private int end;	//한 페이지 당 공연 수
+	private int end; // 한 페이지 당 공연 수
 	private int page;
-	
+	private String title;
+
 	
 	public void setStartEnd(int page) {
-		int amount=4;
-		start=1+(page-1)*amount;
-		end=page*amount;
+		int amount = 4;
+		start = 1 + (page - 1) * amount;
+		end = page * amount;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 
 	public int getStart() {
 		return start;
@@ -41,8 +51,9 @@ public class Criteria {
 		this.page = page;
 	}
 
-
-	
-	
+	@Override
+	public String toString() {
+		return "Criteria [start=" + start + ", end=" + end + ", page=" + page + ", title=" + title + "]";
+	}
 
 }
