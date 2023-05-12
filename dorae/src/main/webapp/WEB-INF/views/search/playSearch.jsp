@@ -28,7 +28,7 @@ td {
 	<h3>검색 결과(전체 장르)</h3>
 	<c:forEach items="${list}" var="bag">
 		<!-- el 속성만 받아올 수 있는 표현식 -->
-		<img src="${bag.poster}" width="300" height="300">
+		<img src="${bag.poster}" width="200" height="200">
 		<br>
 		제목 : <a href="playDetail?play_id=${bag.play_id}">${bag.play_name}</a><br>
 		장르: ${bag.genre_name}<br>
