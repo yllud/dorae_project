@@ -37,8 +37,16 @@ public class PlayDAO {
 		System.out.println(cri.getStart());
 		System.out.println(cri.getTitle());
 		List<PlayVO> list = my.selectList("play.page",cri);
+		for (PlayVO bag : list) {
+			System.out.println(bag.getPlay_name());
+		}
 		return list;
 	}
+	
+	//페이지 불러올 때 전체 리시트 숫자 불러오기
+	public int count(Criteria cri) {
+		return my.selectOne("play.count",cri);
+	} 
 	
 	
 
