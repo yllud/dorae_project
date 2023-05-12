@@ -45,9 +45,17 @@
 		$.ajax({
 			url : "latLngList",
 			success : function(x) {
+				//region순서 : 강원도 - 경기도 - 경상남도 - 경상북도 - 광주 - 대구 - 대전 - 부산
+				//			- 서울 - 울산 - 인천 - 전남 - 전북 - 제주도 - 충남 - 충북 - 세종
+			    urlPrefix = '../resources/data/region';
+			    urlSuffix = '.json',
+			    regionGeoJson = [],
+			    loadCount = 0;
+				
 				// 네이버 지도 API를 로드합니다.
 				var map = new naver.maps.Map('map', {
 					zoom : 7,
+					mapTypeId: 'normal',	
 					center : new naver.maps.LatLng(37.5666103,
 							126.9783882), // 서울 시청을 지도 중심으로 설정
 					zoomControl : true,
@@ -57,12 +65,93 @@
 					}
 				});
 				
+				naver.maps.Event.once(map, 'init', function () {
+				    for (var i = 1; i < 18; i++) {
+				        var keyword = i +'';
+
+				        if (keyword.length === 1) {
+				            keyword = '0'+ keyword;
+				        }
+
+				        $.ajax({
+				            url: urlPrefix + keyword + urlSuffix,
+				            success: function(idx) {
+				                return function(geojson) {
+				                    regionGeoJson[idx] = geojson;
+
+				                    loadCount++;
+
+				                    if (loadCount === 17) {
+				                        startDataLayer();
+				                    }
+				                }
+				            }(i - 1)
+				        });
+				    }
+				});
+				
+				function startDataLayer() {
+				    map.data.setStyle(function(feature) {
+				        var styleOptions = {
+				            fillColor: '#ff0000',
+				            fillOpacity: 0.0001,
+				            strokeColor: '#ff0000',
+				            strokeWeight: 2,
+				            strokeOpacity: 0.4
+				        };
+				        if (feature.getProperty('focus')) {
+				            styleOptions.fillOpacity = 0.6;
+				            styleOptions.fillColor = '#0f0';
+				            styleOptions.strokeColor = '#0f0';
+				            styleOptions.strokeWeight = 4;
+				            styleOptions.strokeOpacity = 1;
+				        }
+				        return styleOptions;
+				    });
+				
+				    regionGeoJson.forEach(function(geojson) {
+				        map.data.addGeoJson(geojson);
+				    });
+				
+				    map.data.addListener('click', function(e) {
+				        var feature = e.feature;
+				        map.setZoom(9);
+				        /*
+				        if (feature.getProperty('focus') !== true) {
+				            feature.setProperty('focus', true);
+				        } else {
+				            feature.setProperty('focus', false);
+				        }*/
+				    });
+				
+				    map.data.addListener('mouseover', function(e) {
+				        var feature = e.feature,
+				            regionName = feature.getProperty('area1');
+				
+				        tooltip.css({
+				            display: '',
+				            left: e.offset.x,
+				            top: e.offset.y
+				        }).text(regionName);
+				
+				        map.data.overrideStyle(feature, {
+				            fillOpacity: 0.25,
+				            strokeWeight: 3,
+				            strokeOpacity: 1
+				        });
+				    });
+				
+				    map.data.addListener('mouseout', function(e) {
+				        tooltip.hide().empty();
+				        map.data.revertStyle();
+				    });
+				}
+				
 				var infowindow = new naver.maps.InfoWindow();
 
 				function onSuccessGeolocation(position) {
 				    var location = new naver.maps.LatLng(position.coords.latitude,
 				                                         position.coords.longitude);
-
 				    map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
 				    map.setZoom(10); // 지도의 줌 레벨을 변경합니다.
 
@@ -78,10 +167,10 @@
 				function onErrorGeolocation() {
 				    var center = map.getCenter();
 
-				    infowindow.setContent('<div style="padding:20px;">' +
-				        '<h5 style="margin-bottom:5px;color:#f00;">Geolocation failed!</h5>'+ "latitude: "+ center.lat() +"<br />longitude: "+ center.lng() +'</div>');
+				    //infowindow.setContent('<div style="padding:20px;">' +
+				    //    '<h5 style="margin-bottom:5px;color:#f00;">Geolocation failed!</h5>'+ "latitude: "+ center.lat() +"<br />longitude: "+ center.lng() +'</div>');
 				    console.log("onError 실행!");
-				    infowindow.open(map, center);
+				    //infowindow.open(map, center);
 				    addMarkers(x, map);
 				    map.setZoom(7);
 				}
@@ -161,6 +250,36 @@
 						}
 					});
 				}
+
+				//데이터 레이어
+				naver.maps.Event.once(map, 'init', function () {
+				    for (var i = 1; i < 18; i++) {
+				        var keyword = i +'';
+
+				        if (keyword.length === 1) {
+				            keyword = '0'+ keyword;
+				        }
+
+				        $.ajax({
+				            url: urlPrefix + keyword + urlSuffix,
+				            success: function(idx) {
+				                return function(geojson) {
+				                    regionGeoJson[idx] = geojson;
+
+				                    loadCount++;
+
+				                    if (loadCount === 17) {
+				                        startDataLayer();
+				                    }
+				                }
+				            }(i - 1)
+				        });
+				    }
+				});
+				
+				var tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
+
+				tooltip.appendTo(map.getPanes().floatPane);		
 			}
 		})
 		$('#banner').load("mainImg.jsp");
