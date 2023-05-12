@@ -11,70 +11,28 @@
 		$.ajax({
 			url : "playList",
 			data : {
-				page : 1
+				page : 1,
+				title : $('#title').val()
+// 				title : "서울"
 			},
 			success : function(x) {
-				$('#result').append(x)
+				$('#result').html(x)
 			}
 		})
-
-		$('#b1').click(function() {
-			//기존의 것 삭제됨.
-			$('#result').empty()
-
-			$.ajax({
-				url : "playList",
-				data : {
-					page : 1
-				},
-				success : function(x) {
-					$('#result').append(x)
-				}
-			})
-		})//b1
-		
-		$('#b2').click(function() {
-			//기존의 것 삭제됨.
-			$('#result').empty()
-
-			$.ajax({
-				url : "playList",
-				data : {
-					page : 2
-				},
-				success : function(x) {
-					$('#result').append(x)
-				}
-			})
-		})//b2
-		
-		$('#b3').click(function() {
-			//기존의 것 삭제됨.
-			$('#result').empty()
-
-			$.ajax({
-				url : "playList",
-				data : {
-					page : 3
-				},
-				success : function(x) {
-					$('#result').append(x)
-				}
-			})
-		})//b2
 
 		$('#b0').click(function() {
 			//기존의 것 삭제됨.
 			$('#result').empty()
 
 			$.ajax({
-				url : "playSearch",
+				url : "playList",
 				data : {
+					page : 1,
 					title : $('#title').val()
 				},
 				success : function(x) {
 					//alert(x)
-					$('#result').append(x)
+					$('#result').html(x)
 				},//success
 				error : function() {
 					alert('검색 실패')
@@ -88,13 +46,6 @@
 </head>
 <body>
 	<h3>공연검색 화면</h3>
-	<!-- 	<form action="bbs_one" method="get"> -->
-	<!-- 		id : <input name="no" value="1"><br> -->
-	<!-- 		<button type="submit">서버로 전송</button> -->
-	<!-- 	</form> -->
-
-	
-	페이지:<button id="b1">1</button><button id="b2">2</button><button id="b3">3</button>
 	<hr color="red">
 
 	공연 제목:

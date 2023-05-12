@@ -40,6 +40,12 @@
 		where play2.rownum between #{start} and #{end}
 	</select>
 	
+	
+	
+	<select id="count" resultType="Integer" parameterType="cri">
+		select count(*) from play where play_name LIKE CONCAT('%', #{title}, '%') limit 30
+	</select>
+	
 
 	
 <!--검색 페이징 처리 리스트 -->
