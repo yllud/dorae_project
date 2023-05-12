@@ -12,7 +12,7 @@
 <style>
 .main-img {
 	width: 100%;
-	height: 800px;
+	height: 850px;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -23,7 +23,7 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 800px;
+	height: 850px;
 	z-index: 3;
 	text-align: center;
 }
