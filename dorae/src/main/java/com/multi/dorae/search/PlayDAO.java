@@ -50,16 +50,6 @@ public class PlayDAO {
 	
 	
 
-	// 검색어로 공연 리스트 검색
-	public List<PlayVO> searchList(String title) {
-		System.out.println("searchlist dao입니다");
-		System.out.println(title);
-		List<PlayVO> list = my.selectList("play.search", title);
-		for (PlayVO bag : list) {
-			System.out.println(bag.getPlay_name());
-		}
-		return list;
-	}
 
 	// 공연 id로 공연 한개 검색
 	public PlayVO playDetail(String play_id) {

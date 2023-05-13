@@ -54,32 +54,8 @@ public class PlayController {
 		model.addAttribute("list", list);
 	}
 	
-//	@RequestMapping("search/playList2")
-//	public void list2(PageVO vo, Model model) {
-//		vo.setStartEnd(vo.getPage());
-//		List<BbsVO> list = dao.list2(vo);
-//		model.addAttribute("list", list);
-//	}
-	
-//	@RequestMapping("search/playList")
-//	public void playListCopy(Criteria cri,Model model) {
-//		
-//		System.out.println("play list 요청됨..");
-//		cri.setStartEnd(cri.getPage());
-//		System.out.println(cri);
-//		List<PlayVO> list = dao.list(cri);
-//		model.addAttribute("list", list);
-//	}
-	
-	
-	
-	
-	@RequestMapping("search/playSearch")
-	public void playSearch(String title,Model model) {
-		System.out.println("play search 요청");
-		List<PlayVO> list=dao.searchList(title);
-		model.addAttribute("list", list);
-	}
+
+
 	
 	@RequestMapping("search/playDetail")
 	public void playDetail(String play_id,Model model) {

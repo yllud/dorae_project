@@ -59,7 +59,7 @@ td {
 		}
 	%>
 	<div id="result3">${cri.title}</div>
-	<h3>검색 결과(전체 장르)</h3>
+	<h3>검색 결과</h3>
 	<div id="result2">
 		<c:forEach items="${list}" var="bag">
 			<!-- el 속성만 받아올 수 있는 표현식 -->
