@@ -1,13 +1,16 @@
 package com.multi.dorae.login;
 
+import java.sql.Timestamp;
+
 import lombok.Data;
 
 @Data
-public class KakaoDTO {
+public class KakaoVO {
 
 	private long m_number;
 	private String nickname;
 	private String email;
+	private Timestamp joinDate; // 가입 날짜
 	
 	public long getM_number() {
 		return m_number;
@@ -27,12 +30,18 @@ public class KakaoDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public Timestamp getJoinDate() {
+		return joinDate;
+	}
+	public void setJoinDate(Timestamp joinDate) {
+		this.joinDate = joinDate;
+	}
 	
 	@Override
 	public String toString() {
-		return "KakaoDTO [m_number=" + m_number + ", nickname=" + nickname + ", email=" + email + "]";
-	}
-	
+		return "KakaoVO [m_number=" + m_number + ", nickname=" + nickname + ", email=" + email + ", joinDate="
+				+ joinDate + "]";
+	} 
 
 	}
 
