@@ -190,7 +190,7 @@
 		</dependency>
 		<!-- 구윤진 여기까지 -->
 
-		<!--최현석 dependency 추가 -->
+		<!--최현석 dependency 추가 시작 -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -205,6 +205,7 @@
 			<version>1.1</version>
 		</dependency>
 
+		<!--트위터 api 사용  -->
 		<dependency>
 			<groupId>org.twitter4j</groupId>
 			<artifactId>twitter4j-core</artifactId>
@@ -222,7 +223,29 @@
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>1.9.1.RELEASE</version>
 		</dependency>
+		
+		<!--파일 업로드 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib -->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+		
+		<!-- 최현석 추가 끝 -->
 
+		<!-- 허성만 - dependency 시작 -->
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
+        <!-- 허성만 - dependency 끝 -->
 
 	</dependencies>
 	<build>

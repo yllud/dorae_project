@@ -12,16 +12,24 @@ public class ContactDAO {
 	@Autowired
 	SqlSessionTemplate sql;
 
-	public int create(ContactVO vo) {
+	public int insert(ContactVO vo) {
 		return sql.insert("contact.create", vo);
 	}
 	
-	public int updateAnswer(ContactVO vo) {
-		return sql.update("contact.updateAnswer", vo);
+	public int delete(long contact_id) {
+		return sql.delete("contact.delete", contact_id);
+	}
+	
+	public ContactVO selectOne(long contact_id) {
+		return sql.selectOne("contact.selectOne", contact_id);
 	}
 	
 	public List<ContactVO> selectList(String member) {
 		return sql.selectList("contact.selectList", member);
+	}
+	
+	public int answerUpdate(ContactVO vo) {
+		return sql.update("contact.answerUpdate", vo);
 	}
 	
 }

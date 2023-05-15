@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
 
 @WebFilter("/admin/*")
 public class AdminFilter implements Filter{
@@ -23,10 +22,13 @@ public class AdminFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest hsr = (HttpServletRequest) request;
-		System.out.println("FilterTest doFilter >> " + hsr.getRequestURI());
+//		HttpServletRequest hsr = (HttpServletRequest) request;
+//		System.out.println("FilterTest doFilter >> " + hsr.getRequestURI());
+//		System.out.println("request body >> " + hsr.getQueryString());
+//		System.out.println("request body >> " + hsr.getReader().readLine());
 
 		chain.doFilter(request, response);
+//		((HttpServletResponse)response).sendRedirect("../help/help.jsp"); //리다이렉트
 	}
 
 	@Override

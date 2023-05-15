@@ -3,15 +3,23 @@
 <mapper namespace="contact">
 	
 	<insert id="create" parameterType="contactVO">
-		insert into contact values (#{contact_id}, #{member_id}, #{title}, #{content}, #{created_at}, #{admin_id}, #{answer})
+		insert into contact values (#{contact_id}, #{member_id}, #{title}, #{content}, now(), #{admin_id}, #{answer})
 	</insert>
 	
 	<delete id="delete"  parameterType="contactVO">
 		delete from contact where contact_id = #{contact_id}
 	</delete>
 	
-	<select id="selectList" parameterType="String" resultType="contactVO">
-		select * from contact where member_id = #{member_id}
+	<select id="selectList" resultType="contactVO" parameterType="String">
+		select * from contact
 	</select>
+	
+	<select id="selectOne" resultType="contactVO" parameterType="long">
+		select * from contact where contact_id = #{contact_id}
+	</select>
+	
+	<update id="answerUpdate" parameterType="contactVO">
+		update contact set admin_id = #{admin_id}, answer = #{answer} where contact_id = #{contact_id}
+	</update>
 	
 </mapper>
