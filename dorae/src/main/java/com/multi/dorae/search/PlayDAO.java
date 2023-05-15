@@ -35,9 +35,20 @@ public class PlayDAO {
 	public List<PlayVO> list(Criteria cri) {
 		System.out.println("list dao입니다");
 		System.out.println(cri.getStart());
+		System.out.println(cri.getTitle());
 		List<PlayVO> list = my.selectList("play.page",cri);
+		for (PlayVO bag : list) {
+			System.out.println(bag.getPlay_name());
+		}
 		return list;
 	}
+	
+	//페이지 불러올 때 전체 리시트 숫자 불러오기
+	public int count(Criteria cri) {
+		return my.selectOne("play.count",cri);
+	} 
+	
+	
 
 	// 검색어로 공연 리스트 검색
 	public List<PlayVO> searchList(String title) {

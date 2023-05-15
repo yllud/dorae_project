@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+
 @Controller
 public class PlayController {
 
@@ -22,12 +23,56 @@ public class PlayController {
 	
 	@RequestMapping("search/playList")
 	public void playList(Criteria cri,Model model) {
-		//Model은 컨트롤러의 list를 views/list.jsp까지만 전달할 수 있는 객체 
-		System.out.println("play 전체 list 요청됨..");
+		
+		System.out.println("play list 요청됨..");
+		
+		int count = dao.count(cri);
+		System.out.println("all count>> " + count);
+		int page_cnt = count / 10 + 1; //전체 페이지 개수 구하기 
+		
 		cri.setStartEnd(cri.getPage());
+		System.out.println(cri);
 		List<PlayVO> list = dao.list(cri);
+		
+
+		model.addAttribute("list", list);
+		model.addAttribute("cri", cri);
+		model.addAttribute("page_cnt", page_cnt);
+	}
+	
+	@RequestMapping("search/playList2")
+	public void playList2(Criteria cri,Model model) {
+		
+		System.out.println("play list2 요청됨..");
+		
+		
+		cri.setStartEnd(cri.getPage());
+		System.out.println(cri);
+		List<PlayVO> list = dao.list(cri);
+		
+
 		model.addAttribute("list", list);
 	}
+	
+//	@RequestMapping("search/playList2")
+//	public void list2(PageVO vo, Model model) {
+//		vo.setStartEnd(vo.getPage());
+//		List<BbsVO> list = dao.list2(vo);
+//		model.addAttribute("list", list);
+//	}
+	
+//	@RequestMapping("search/playList")
+//	public void playListCopy(Criteria cri,Model model) {
+//		
+//		System.out.println("play list 요청됨..");
+//		cri.setStartEnd(cri.getPage());
+//		System.out.println(cri);
+//		List<PlayVO> list = dao.list(cri);
+//		model.addAttribute("list", list);
+//	}
+	
+	
+	
 	
 	@RequestMapping("search/playSearch")
 	public void playSearch(String title,Model model) {
