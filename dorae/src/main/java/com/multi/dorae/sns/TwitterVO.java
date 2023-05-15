@@ -8,7 +8,14 @@ public class TwitterVO {
     private String text;
     private List<String> mediaUrls;
     private String originalLink;
+    private int rank;
     
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 	public String getOriginalLink() {
 		return originalLink;
 	}

@@ -16,32 +16,25 @@ public class TwitterController {
 
 	@Autowired
 	TwitterDAO dao;
-	
-	@RequestMapping("sns/twitterSearch")
-	@ResponseBody
-	public List<TwitterVO> searchTweets(@RequestParam("keyword") String keyword) throws TwitterException {
-		List<TwitterVO> tweets = TwitterAPI.searchTweets(keyword);
-//		검색 결과를 몽고db에 저장
-		dao.insert(tweets);
-//		결과 화면 출력을 위해 반환
-		return tweets;
-	}
-	
 
-	
-	
-	@RequestMapping("sns/twitterList")
-	public void list(Model model) {
-		List<TwitterVO> list = dao.list();
-		model.addAttribute("list", list);
-	}
-	
 	// 추천검색어 트위터 검색 후 db 저장
 	@RequestMapping("sns/saveTwitter")
-	public void saveTweets(String query) throws TwitterException {
+	public void saveTweets(String query, int rank) throws TwitterException {
 		List<TwitterVO> tweets = TwitterAPI.searchTweets(query);
+		// 각 입력에 대해 rank 값을 설정
+		for (TwitterVO twitter : tweets) {
+			twitter.setRank(rank);
+		}
 		dao.insert(tweets);
 	}
+
+
 	
-	
+//	키워드로 검색한 블로그 data 가져오기
+	@RequestMapping("sns/twitterList")
+	public void list2(int rank, Model model) {
+		List<TwitterVO> list = dao.list(rank);
+		model.addAttribute("list", list);
+	}
+
 }
