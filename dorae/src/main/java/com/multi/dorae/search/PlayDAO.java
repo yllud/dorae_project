@@ -58,7 +58,6 @@ public class PlayDAO {
 		PlayVO vo = my.selectOne("play.one", play_id);
 
 		return vo;
-
 	}
 
 	// 공연 id로 공연장 id 검색
@@ -68,7 +67,6 @@ public class PlayDAO {
 		String stage_id = my.selectOne("play.searchStageId", play_id);
 		
 		return stage_id;
-
 	}
 
 }
