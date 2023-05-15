@@ -96,6 +96,7 @@
 				}
 			});
 		}
+		// 추천검색어로 트위터 후기 검색하는 함수
 		function searchTwitter(rank) {
 			$.ajax({
 				url : "twitterList",

@@ -49,8 +49,6 @@ public class BlogController {
 	@ResponseBody
 	public ArrayList<BlogVO> searchBlog(@RequestParam("query") String query) {
 		ArrayList<BlogVO> resultList = BlogAPI.searchNaverBlog(query);
-//		검색 결과를 몽고db에 저장
-		dao.insert(resultList);
 //		결과 화면 출력을 위해 반환
 		return resultList;
 	}
