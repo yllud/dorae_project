@@ -52,6 +52,7 @@
 			    regionGeoJson = [],
 			    loadCount = 0;
 				
+			    //각 지역 레이어 center location 지정
 			    var gangwon = new naver.maps.LatLng(37.880962, 128.3009629),
 			    geonggi = new naver.maps.LatLng(37.767167, 127.190292),
 			    gyeongsang_nam = new naver.maps.LatLng(35.509787, 128.364734),
@@ -60,14 +61,12 @@
 			    daegu = new naver.maps.LatLng(35.798838, 128.583052),
 			    daejeon = new naver.maps.LatLng(36.321655, 127.378953),
 			    busan = new naver.maps.LatLng(35.1797865, 129.0750194),
-			    seoul = new naver.maps.LatLngBounds(
-		                new naver.maps.LatLng(37.42829747263545, 126.76620435615891),
-		                new naver.maps.LatLng(37.7010174173061, 127.18379493229875)),
+			    seoul = new naver.maps.LatLng(37.587167, 126.890292),
 		        ulsan = new naver.maps.LatLng(35.519301, 129.239078),
 		        incheon = new naver.maps.LatLng(37.469221, 126.573234),
-		        jeolla_nam  = new naver.maps.LatLng(34.919400, 126.893113),
+		        jeolla_nam  = new naver.maps.LatLng(37.0006890, 126.5930664),
 		        jeolla_buk  = new naver.maps.LatLng(35.816705, 127.144185),
-			    jeju = new naver.maps.LatLng(33.3590628, 126.534361),
+			    jeju = new naver.maps.LatLng(33.4090628, 126.534361),
 			    chung_nam = new naver.maps.LatLng(36.657229, 126.779757),
 			    chung_buk = new naver.maps.LatLng(36.528503, 127.929344),
 			    sejong = new naver.maps.LatLng(36.48750, 127.28167);
@@ -75,7 +74,8 @@
 				// 네이버 지도 API를 로드합니다.
 				var map = new naver.maps.Map('map', {
 					zoom : 7,
-					mapTypeId: 'normal',	
+					mapTypeId: 'normal',
+					minZoom: 7, // 줌 아웃 레벨을 7로 제한
 					center : new naver.maps.LatLng(36.5566103, 127.9783882), // 대한민국 중심
 					zoomControl : true,
 					zoomControlOptions : {
@@ -177,7 +177,7 @@
 				        	map.setZoom(11);
 				        } else if(area === "서울특별시"){
 				        	map.setCenter(seoul);
-				        	map.setZoom(13);
+				        	map.setZoom(11);
 				        } else if(area === "울산광역시"){
 				        	map.setCenter(ulsan);
 				        	map.setZoom(11);
@@ -203,12 +203,13 @@
 				        	map.setCenter(sejong);
 				        	map.setZoom(11);
 				        }
-				        /*
+						
+						/*
 				        if (feature.getProperty('focus') !== true) {
 				            feature.setProperty('focus', true);
 				        } else {
 				            feature.setProperty('focus', false);
-				        }*/ //지역레이터 클릭 시 초록색으로 fill
+				        } //지역레이터 클릭 시 초록색으로 fill*/
 				    });
 				
 				    map.data.addListener('mouseover', function(e) {
@@ -348,18 +349,24 @@
 				                strokeOpacity: 0.4
 				            };
 				            if (feature.getProperty('focus')) {
-				                styleOptions.fillOpacity = 0.6;
-				                styleOptions.fillColor = '#0f0';
-				                styleOptions.strokeColor = '#0f0';
-				                styleOptions.strokeWeight = 4;
+				                styleOptions.fillOpacity = 0.25;
+				                styleOptions.fillColor = '#ff0000';
+				                styleOptions.strokeColor = '#ff0000';
+				                styleOptions.strokeWeight = 3;
 				                styleOptions.strokeOpacity = 1;
 				            }
 				            return styleOptions;
 				        });
 				    } else {
 				        console.log("줌 레벨이 11 이상입니다.");
-				        map.data.setStyle({
-				            visible: false
+				        map.data.setStyle(function(feature) {
+				            var styleOptions = {
+				                visible: false
+				            };
+				            if (feature.getProperty('focus')) {
+				                styleOptions.visible = true;
+				            }
+				            return styleOptions;
 				        });
 				    }
 				}
