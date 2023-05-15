@@ -299,6 +299,5 @@
 	<hr color="red">
 	<div id="contactResult"></div>
 	<hr color="orange">
-	
 </body>
 </html>

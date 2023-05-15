@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.multi.dorae.help.NoticeDAO;
 import com.multi.dorae.help.NoticeService;
 import com.multi.dorae.help.NoticeVO;
 

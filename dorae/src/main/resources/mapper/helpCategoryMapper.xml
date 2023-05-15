@@ -7,11 +7,11 @@
 	</insert>
 	
 	<update id="updateName" parameterType="helpCategoryVO">
-		update help_category set name = #{name} where helpCategory_id = #{helpCategory_id}
+		update help_category set name = #{name} where help_category_id = #{helpCategory_id}
 	</update>
 
 	<select id="selectOne" parameterType="String" resultType="helpCategoryVO">
-		select * from help_category where helpCategory_id = #{helpCategory_id}
+		select * from help_category where help_category_id = #{helpCategory_id}
 	</select>
 	
 	<select id="selectList" resultType="helpCategoryVO" >
@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="selectListByParentId" parameterType="String" resultType="helpCategoryVO" >
-		select * from help_category where parentCategory_id = #{parentCategory_id}
+		select * from help_category where parent_category_id = #{parentCategory_id}
 	</select>
 	
 </mapper>
