@@ -42,7 +42,7 @@ public class KakaoController {
 		session.setAttribute("kakaoE", list.get(1));
 		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
 		// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
-
+		
 		// 리턴값은 용도에 맞게 변경하세요~
 		model.addAttribute("result", (int) (list.get(1)));
 		return "login/testPage";

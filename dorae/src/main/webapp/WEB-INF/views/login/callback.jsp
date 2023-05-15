@@ -1,41 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.parser.JSONParser"%>
+<%@ page import="java.net.URLEncoder"%>
+<%@ page import="java.net.URL"%>
+<%@ page import="java.net.HttpURLConnection"%>
+<%@ page import="java.io.BufferedReader"%>
+<%@ page import="java.io.InputStreamReader"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<!doctype html>
+<html lang="ko">
 <head>
-<title>NAVER LOGIN TEST</title>
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-<h1>Login Form</h1>
-<hr>	
-<br>
- 
-<center>
-	<c:choose>
-		<c:when test="${sessionId != null}">
-			<h2> 네이버 아이디 로그인 성공하셨습니다!! </h2>
-			<h3>'${sessionId}' 님 환영합니다! </h3>
-            	<h3><a href="logout">로그아웃</a></h3>
- 
-		</c:when>
-		<c:otherwise>
-			<form action="login.userdo" method="post" name="frm"  style="width:470px;">
-				<h2>로그인</h2>
-				  <input type="text" name="id" id="id" class="w3-input w3-border" placeholder="아이디" value="${id}"> <br>
-				  <input type="password" id="pwd" name="pwd" class="w3-input w3-border" placeholder="비밀번호" >	<br>
-				<input type="submit" value="로그인" onclick="#"> <br>
-			</form>
-			<br>
-			
-			<!-- 네이버 로그인 창으로 이동 -->
-			<div id="naver_id_login" style="text-align:center"><a href="${url}">
-			<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
-			<br>
-		
-		</c:otherwise>
-	</c:choose>
-	
-</center>
-ㅗㅗㅓㅗㅓㅏㅗㅓㅗㅓ
+	<script type="text/javascript">
+		var naver_id_login = new naver_id_login("AMkeOwuTJY71fYcpifZl",
+				"http://localhost:8888/dorae/login/callback.jsp");
+		//alert(naver_id_login.oauthParams.access_token);
+		//naver_id_login.setPopup();
+		naver_id_login.get_naver_userprofile("naverSignInCallback()");
+		// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+		function naverSignInCallback() {
+			//username = naver_id_login.getProfileData('id')
+			nickname = naver_id_login.getProfileData('nickname')
+			name = naver_id_login.getProfileData('name')
+			email = naver_id_login.getProfileData('email')
+			gender = naver_id_login.getProfileData('gender')
+			age = naver_id_login.getProfileData('age')
+			birthday = naver_id_login.getProfileData('birthday')
+			profile_image = naver_id_login.getProfileData('profile_image')
+
+			//alert("naverLogin?nickname=" + nickname
+			//		+ "&name=" + name + "&email=" + email + "&gender=" + gender
+			//		+ "&age=" + age + "&birthday=" + birthday
+			//		+ "&profile_image=" + profile_image)
+			location.href ="naverLogin?nickname=" + nickname
+					+ "&name=" + name + "&email=" + email + "&gender=" + gender
+					+ "&age=" + age + "&birthday=" + birthday
+					+ "&profile_image=" + profile_image
+
+		}
+	</script>
 </body>
 </html>

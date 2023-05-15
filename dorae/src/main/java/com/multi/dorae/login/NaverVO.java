@@ -1,6 +1,7 @@
 package com.multi.dorae.login;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class NaverVO {
 	private long m_number;
@@ -12,7 +13,7 @@ public class NaverVO {
 	private String age;
 	private String birthday;
 	private String profile_image;
-	
+	private Timestamp joinDate;
 	
 	public long getM_number() {
 		return m_number;
@@ -68,12 +69,18 @@ public class NaverVO {
 	public void setProfile_image(String profile_image) {
 		this.profile_image = profile_image;
 	}
+	public Timestamp getJoinDate() {
+		return joinDate;
+	}
+	public void setJoinDate(Timestamp joinDate) {
+		this.joinDate = joinDate;
+	}
 	
 	@Override
 	public String toString() {
 		return "NaverVO [m_number=" + m_number + ", id=" + id + ", nickname=" + nickname + ", name=" + name + ", email="
 				+ email + ", gender=" + gender + ", age=" + age + ", birthday=" + birthday + ", profile_image="
-				+ profile_image + "]";
+				+ profile_image + ", joinDate=" + joinDate + "]";
 	}
 	
 }
