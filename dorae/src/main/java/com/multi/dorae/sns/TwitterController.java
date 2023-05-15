@@ -37,4 +37,13 @@ public class TwitterController {
 		model.addAttribute("list", list);
 	}
 
+
+	// api 검색 테스트용
+	@RequestMapping("sns/twitterSearch")
+	@ResponseBody
+	public List<TwitterVO> searchTweets(@RequestParam("keyword") String keyword) throws TwitterException {
+		List<TwitterVO> tweets = TwitterAPI.searchTweets(keyword);
+//		결과 화면 출력을 위해 반환
+		return tweets;
+	}
 }
