@@ -13,7 +13,7 @@
 			style="border: 1px solid gray; padding: 10px; margin-bottom: 10px;">
 			<h3>${item.title}</h3>
 			<p>${item.description}</p>
-			<a href="${item.link}">${item.link}</a>
+			<a href="${item.link}" target="_blank">${item.link}</a>
 		</div>
 	</c:forEach>
 

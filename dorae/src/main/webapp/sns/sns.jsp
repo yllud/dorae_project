@@ -5,13 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>SNS 후기 검색 결과</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-
 		// 추천 검색어로 검색해서 db 저장 기능 -> 현재는 버튼.
 		// 추후에 주기적으로 api 최신화로 변경 필요
 		$.ajax({
@@ -117,12 +117,13 @@
 </script>
 </head>
 <body>
+	<div id="sns">
 	<h1>SNS 후기 검색 결과</h1>
 	<button id="saveData">db에 데이터 저장</button>
 	<hr color="red">
 	<div id="recommend"></div>
 	<hr color="red">
-
 	<div id="result"></div>
+	</div>
 </body>
 </html>
