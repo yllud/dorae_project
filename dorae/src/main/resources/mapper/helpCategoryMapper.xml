@@ -3,15 +3,15 @@
 <mapper namespace="helpCategory">
 
 	<insert id="create" parameterType="helpCategoryVO">
-		insert into help_category values (#{helpCategory_id}, #{name}, #{depth}, #{parentCategory_id})
+		insert into help_category values (#{help_category_id}, #{name}, #{depth}, #{parent_category_id})
 	</insert>
 	
 	<update id="updateName" parameterType="helpCategoryVO">
-		update help_category set name = #{name} where help_category_id = #{helpCategory_id}
+		update help_category set name = #{name} where help_category_id = #{help_category_id}
 	</update>
 
 	<select id="selectOne" parameterType="String" resultType="helpCategoryVO">
-		select * from help_category where help_category_id = #{helpCategory_id}
+		select * from help_category where help_category_id = #{help_category_id}
 	</select>
 	
 	<select id="selectList" resultType="helpCategoryVO" >
@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="selectListByParentId" parameterType="String" resultType="helpCategoryVO" >
-		select * from help_category where parent_category_id = #{parentCategory_id}
+		select * from help_category where parent_category_id = #{parent_category_id}
 	</select>
 	
 </mapper>

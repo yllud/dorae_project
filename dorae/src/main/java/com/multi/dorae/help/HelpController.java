@@ -29,8 +29,8 @@ public class HelpController {
 	
 	@ResponseBody
 	@RequestMapping("helpCategoryListByParentId")
-	public List<HelpCategoryVO> helpCategoryListByParentId(String parentCategory_id) {
-		return helpCategoryService.selectListByParentId(parentCategory_id);
+	public List<HelpCategoryVO> helpCategoryListByParentId(String parent_category_id) {
+		return helpCategoryService.selectListByParentId(parent_category_id);
 	}
 	
 	@ResponseBody

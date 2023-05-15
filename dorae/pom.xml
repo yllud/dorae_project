@@ -223,6 +223,13 @@
 			<version>1.9.1.RELEASE</version>
 		</dependency>
 
+		<!-- 허성만 - dependency 시작 -->
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
+        <!-- 허성만 - dependency 끝 -->
 
 	</dependencies>
 	<build>

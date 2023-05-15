@@ -44,7 +44,7 @@
 		<typeAlias type="com.multi.dorae.help.FaqVO" alias="faqVO"></typeAlias>
 		<typeAlias type="com.multi.dorae.help.NoticeVO"
 			alias="noticeVO"></typeAlias>
-
+		<typeAlias type="com.multi.dorae.help.HelpCategoryVO" alias="helpCategoryVO"></typeAlias>
 
 	</typeAliases>
 	<mappers>
@@ -76,5 +76,6 @@
 		<mapper resource="mapper/noticeMapper.xml" />
 		<mapper resource="mapper/contactMapper.xml" />
 		<mapper resource="mapper/faqMapper.xml" />
+		<mapper resource="mapper/helpCategoryMapper.xml" />
 	</mappers>
 </configuration>

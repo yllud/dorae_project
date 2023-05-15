@@ -11,14 +11,14 @@
 		$.ajax({
 			url: "helpCategoryListByParentId",
 			data: {
-				parentCategory_id: "None"
+				parent_category_id: "None"
 			},
 			success: function(res) {
 				res.forEach(element => {
 					$("#helpCategory").append(
 						$("<option>").prop(
 							{
-								value: element.helpCategory_id,
+								value: element.help_category_id,
 								text: element.name
 							}
 						)
@@ -26,7 +26,7 @@
 					$("#testHelpCategory").append(
 						$("<option>").prop(
 							{
-								value: element.helpCategory_id,
+								value: element.help_category_id,
 								text: element.name
 							}
 						)
@@ -217,7 +217,7 @@
 				url: "/dorae/admin/hcNameUpdate",
 				type: "POST",
 				data: {
-					helpCategory_id: $("#testHelpCategory").val(),
+					help_category_id: $("#testHelpCategory").val(),
 					name: $("#helpCategoryName").val(),
 				},
 				success: function(res) {

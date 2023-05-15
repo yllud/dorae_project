@@ -2,15 +2,15 @@ package com.multi.dorae.help;
 
 public class HelpCategoryVO {
 	
-	private String helpCategory_id;
+	private String help_category_id;
 	private String name;
-	private String parentCategory_id;
+	private String parent_category_id;
 	
-	public String getHelpCategory_id() {
-		return helpCategory_id;
+	public String getHelp_category_id() {
+		return help_category_id;
 	}
-	public void setHelpCategory_id(String helpCategory_id) {
-		this.helpCategory_id = helpCategory_id;
+	public void setHelp_category_id(String help_category_id) {
+		this.help_category_id = help_category_id;
 	}
 	public String getName() {
 		return name;
@@ -18,16 +18,18 @@ public class HelpCategoryVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getParentCategory_id() {
-		return parentCategory_id;
+	public String getParent_category_id() {
+		return parent_category_id;
 	}
-	public void setParentCategory_id(String parentCategory_id) {
-		this.parentCategory_id = parentCategory_id;
+	public void setParent_category_id(String parent_category_id) {
+		this.parent_category_id = parent_category_id;
 	}
 	@Override
 	public String toString() {
-		return "HelpCategoryVO [helpCategory_id=" + helpCategory_id + ", name=" + name + ", parentCategory_id="
-				+ parentCategory_id + "]";
+		return "HelpCategoryVO [help_category_id=" + help_category_id + ", name=" + name + ", parent_category_id="
+				+ parent_category_id + "]";
 	}
+	
+	
 	
 }
