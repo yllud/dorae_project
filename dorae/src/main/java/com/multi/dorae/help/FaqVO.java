@@ -3,7 +3,7 @@ package com.multi.dorae.help;
 public class FaqVO {
 	
 	private int faq_id;
-	private String helpCategory;
+	private String help_category_id;
 	private String title;
 	private String content;
 	
@@ -13,11 +13,11 @@ public class FaqVO {
 	public void setFaq_id(int faq_id) {
 		this.faq_id = faq_id;
 	}
-	public String getHelpCategory() {
-		return helpCategory;
+	public String getHelp_category_id() {
+		return help_category_id;
 	}
-	public void setHelpCategory(String helpCategory) {
-		this.helpCategory = helpCategory;
+	public void setHelp_category_id(String help_category_id) {
+		this.help_category_id = help_category_id;
 	}
 	public String getTitle() {
 		return title;
@@ -33,10 +33,8 @@ public class FaqVO {
 	}
 	@Override
 	public String toString() {
-		return "FaqVO [faq_id=" + faq_id + ", helpCategory=" + helpCategory + ", title=" + title + ", content="
+		return "FaqVO [faq_id=" + faq_id + ", help_category_id=" + help_category_id + ", title=" + title + ", content="
 				+ content + "]";
 	}
-	
-	
-	
+		
 }

@@ -27,8 +27,8 @@ public class FaqService {
 		return faqDAO.selectList();
 	}
 	
-	public List<FaqVO> faqListByHelpCategory(String helpCategory) {
-		return faqDAO.selectListByCategory(helpCategory);
+	public List<FaqVO> faqListByHelpCategory(String help_category_id) {
+		return faqDAO.selectListByCategory(help_category_id);
 	}
 	
 	public List<FaqVO> faqBySearch(String search) {

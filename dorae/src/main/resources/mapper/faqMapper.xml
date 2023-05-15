@@ -3,7 +3,7 @@
 <mapper namespace="faq">
 
 	<insert id="create">
-		insert into faq values (#{faq_id}, #{helpCategory}, #{title}, #{content})
+		insert into faq values (#{faq_id}, #{help_category_id}, #{title}, #{content})
 	</insert>
 	
 	<update id="answerUpdate" parameterType="faqVO">
@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="selectListByHelpCategory" parameterType="String" resultType="faqVO" >
-		select * from faq where helpCategory = #{helpCategory}
+		select * from faq where help_category_id = #{help_category_id}
 	</select>
 	
 	<select id="selectListBySearch" parameterType="String" resultType="faqVO" >

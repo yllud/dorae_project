@@ -8,7 +8,7 @@
 <script type="text/javascript">
 	//웹소켓
 	let websocket;
-
+	let res;
 	//입장 버튼을 눌렀을 때 호출되는 함수
 	function connect() {
 		// 웹소켓 주소
@@ -25,17 +25,20 @@
 	}
 
 	// * 1 메시지 전송
-	function sendMessage(message) {
+	function sendMessage() {
+		websocket.send("Hello Server");
 	}
 
 	// * 2 메세지 수신
 	function onMessage(evt) {
+		console.log(evt);
+		res = evt;
 	}
 	
 	connect();
 </script>
 </head>
 <body>
-
+	<button onclick="sendMessage()">메시지 전송</button>
 </body>
 </html>
