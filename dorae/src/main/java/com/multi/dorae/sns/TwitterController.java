@@ -27,11 +27,20 @@ public class TwitterController {
 		return tweets;
 	}
 	
+
+	
 	
 	@RequestMapping("sns/twitterList")
 	public void list(Model model) {
 		List<TwitterVO> list = dao.list();
 		model.addAttribute("list", list);
+	}
+	
+	// 추천검색어 트위터 검색 후 db 저장
+	@RequestMapping("sns/saveTwitter")
+	public void saveTweets(String query) throws TwitterException {
+		List<TwitterVO> tweets = TwitterAPI.searchTweets(query);
+		dao.insert(tweets);
 	}
 	
 	

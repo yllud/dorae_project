@@ -26,12 +26,13 @@
                             keyword : query
                         },
                         success: function(result) {
+                        	console.log(result)
                             if (result && result.length) {
                                 var html = '';
                                 for (var i = 0; i < result.length; i++) {
                                     var tweet = result[i];
                                     html += '<div style="border: 1px solid gray; padding: 10px; margin-bottom: 10px;">';
-                                    html += '<h3>' + tweet.user + ' (@' + tweet.screenName + ')</h3>';
+                                    html += '<h3><a href="' + tweet.originalLink + '" target="_blank">' + tweet.user + ' (@' + tweet.screenName + ')</a></h3>';
                                     html += '<p>' + tweet.text + '</p>';
                                     
                                     // 미디어가 있으면 가져옴
