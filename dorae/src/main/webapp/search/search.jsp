@@ -12,10 +12,12 @@
 			url : "playList",
 			data : {
 				page : 1,
-				title : $('#title').val()
-// 				title : "서울"
+				title : $('#title').val(),
+				genre: "전체(장르)",
+				state: "공연중"
 			},
-			success : function(x) {
+			
+			success : function(x,genre) {
 				$('#result').html(x)
 			}
 		})
@@ -28,7 +30,9 @@
 				url : "playList",
 				data : {
 					page : 1,
-					title : $('#title').val()
+					title : $('#title').val(),
+					genre: "전체(장르)",
+					state: "공연중"
 				},
 				success : function(x) {
 					//alert(x)
@@ -47,23 +51,8 @@
 <body>
 	<h3>공연검색 화면</h3>
 	<hr color="red">
-
-	공연 제목:
-	<input id="title">
+	공연제목: <input id="title">
 	<button id="b0">검색</button>
-
-
-	<!-- 	<button id="b2">전체</button> -->
-	<!-- 	<button id="b3">연극</button> -->
-	<!-- 	<button id="b4">무용(서양/한국무용)</button> -->
-	<!-- 	<button id="b5">대중무용</button> -->
-	<!-- 	<button id="b6">클래식(서양음악)</button> -->
-	<!-- 	<button id="b7">국악(한국음악)</button> -->
-	<!-- 	<button id="b8">대중음악</button> -->
-	<!-- 	<button id="b9">복합</button> -->
-	<!-- 	<button id="b10">서커스/마술</button> -->
-	<!-- 	<button id="b11">서커스/마술</button> -->
-	<!-- 	<button id="b12">뮤지컬</button> -->
 
 	<hr color="red">
 	<div id="result"></div>
