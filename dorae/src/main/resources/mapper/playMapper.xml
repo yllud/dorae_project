@@ -36,8 +36,14 @@
 	<select id="page" resultType="playVO" parameterType="cri">
 		select * from (
 		select ROW_NUMBER() over(order by play_id desc) as rownum, p.*
-		from play p) play2
+		from play p where play_name LIKE CONCAT('%', #{title}, '%')) play2
 		where play2.rownum between #{start} and #{end}
+	</select>
+	
+	
+	
+	<select id="count" resultType="Integer" parameterType="cri">
+		select count(*) from play where play_name LIKE CONCAT('%', #{title}, '%') limit 30
 	</select>
 	
 

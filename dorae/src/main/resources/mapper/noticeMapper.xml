@@ -2,12 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 	
-	<select id="selectOne">
-		select * from contact where contact_id = #{contact_id}
+	<insert id="create" parameterType="noticeVO">
+		insert into notice values (#{notice_id}, #{admin_id}, #{title}, #{content}, now(), #{tag})
+	</insert>
+	
+	<select id="selectOne" resultType="noticeVO" parameterType="long">
+		select * from notice where notice_id = #{notice_id}
 	</select>
 	
-	<select id="selectList">
-		select * from contact
+	<select id="selectList" resultType="noticeVO">
+		select * from notice
 	</select>
+	
+	<update id="update" parameterType="noticeVO">
+		update notice set title = #{title}, content = #{content}, tag = #{tag} where notice_id = #{notice_id}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		delete from notice where notice_id = #{notice_id}
+	</delete>
 	
 </mapper>

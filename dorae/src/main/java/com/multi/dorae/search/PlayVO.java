@@ -3,12 +3,13 @@ package com.multi.dorae.search;
 import java.sql.Date;
 
 public class PlayVO {
-	int rnum;
-	public int getRnum() {
-		return rnum;
+	int rownum;
+
+	public int getRownum() {
+		return rownum;
 	}
-	public void setRnum(int rnum) {
-		this.rnum = rnum;
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
 	}
 	String play_id,stage_id,play_name;
 	Date play_start,play_end;

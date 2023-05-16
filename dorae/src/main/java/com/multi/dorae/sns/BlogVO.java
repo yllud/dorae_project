@@ -7,8 +7,15 @@ public class BlogVO {
     private String bloggername;
     private String bloggerlink;
     private String postdate;
+    private int rank;
     
-    public String getTitle() {
+    public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	public String getTitle() {
         return title;
     }
     public void setTitle(String title) {

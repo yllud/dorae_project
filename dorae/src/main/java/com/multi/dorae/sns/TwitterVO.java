@@ -7,7 +7,21 @@ public class TwitterVO {
     private String screenName;
     private String text;
     private List<String> mediaUrls;
+    private String originalLink;
+    private int rank;
     
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	public String getOriginalLink() {
+		return originalLink;
+	}
+	public void setOriginalLink(String originalLink) {
+		this.originalLink = originalLink;
+	}
 	public String getUser() {
 		return user;
 	}
@@ -32,14 +46,7 @@ public class TwitterVO {
 	public void setMediaUrls(List<String> mediaUrls) {
 		this.mediaUrls = mediaUrls;
 	}
-	@Override
-	public String toString() {
-		return "TwitterVO [user=" + user + ", screenName=" + screenName + ", text=" + text + ", mediaUrls=" + mediaUrls
-				+ "]";
-	}
-
 	
-
 	
 
 }
