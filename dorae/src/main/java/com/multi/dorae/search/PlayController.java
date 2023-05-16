@@ -20,20 +20,24 @@ public class PlayController {
 	
 	@Autowired
 	StageDAO dao2;
+
 	
 	@RequestMapping("search/playList")
 	public void playList(Criteria cri,Model model) {
 		
 		System.out.println("play list 요청됨..");
 		
-		int count = dao.count(cri);
+		int count = dao.count(cri);	//리스트 개수
 		System.out.println("all count>> " + count);
-		int page_cnt = count / 10 + 1; //전체 페이지 개수 구하기 
+		int page_cnt = cri.makePageBtn(count);	//페이지 버튼 개수
+		System.out.println(page_cnt);
+		
+//		System.out.println(cri.getGenre());
+		
 		
 		cri.setStartEnd(cri.getPage());
 		System.out.println(cri);
 		List<PlayVO> list = dao.list(cri);
-		
 
 		model.addAttribute("list", list);
 		model.addAttribute("cri", cri);
@@ -44,6 +48,12 @@ public class PlayController {
 	public void playList2(Criteria cri,Model model) {
 		
 		System.out.println("play list2 요청됨..");
+		int count = dao.count(cri);	//리스트 개수
+		System.out.println("all count>> " + count);
+		int page_cnt = cri.makePageBtn(count);	//페이지 버튼 개수
+		System.out.println(page_cnt);
+		
+//		System.out.println(cri.getGenre());
 		
 		
 		cri.setStartEnd(cri.getPage());
@@ -52,6 +62,7 @@ public class PlayController {
 		
 
 		model.addAttribute("list", list);
+		model.addAttribute("page_cnt", page_cnt);
 	}
 	
 

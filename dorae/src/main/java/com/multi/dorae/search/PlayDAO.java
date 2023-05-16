@@ -31,21 +31,24 @@ public class PlayDAO {
 		return list;
 	}
 
-	//공연 페이지 리스트로 불러오기
+	
+	//공연 페이지 리스트로 불러오기 테스트
 	public List<PlayVO> list(Criteria cri) {
 		System.out.println("list dao입니다");
 		System.out.println(cri.getStart());
 		System.out.println(cri.getTitle());
 		List<PlayVO> list = my.selectList("play.page",cri);
-		for (PlayVO bag : list) {
-			System.out.println(bag.getPlay_name());
-		}
+//		for (PlayVO bag : list) {
+//			System.out.println(bag.getPlay_name());
+//		}
 		return list;
 	}
 	
 	//페이지 불러올 때 전체 리시트 숫자 불러오기
 	public int count(Criteria cri) {
-		return my.selectOne("play.count",cri);
+		int cnt=my.selectOne("play.count",cri);
+		System.out.println(cnt);
+		return cnt;
 	} 
 	
 	
