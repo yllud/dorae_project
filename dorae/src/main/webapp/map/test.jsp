@@ -10,12 +10,15 @@
 #map {
 	width: 100%;
 	height: 400px;
+	z-index: 2;
 }
 
 #tab-container {
 	margin-top: 20px;
-	display: flex;
+	width: 20%;
 	justify-content: space-between;
+	background-color: yellow;
+	z-index: 9999;
 }
 
 .tab {
@@ -39,28 +42,29 @@
 </style>
 </head>
 <body>
-	<div id="map"></div>
+	<div id="map">
 
-	<div id="tab-container">
-		<div class="tab active" onclick="showList('restaurant')">레스토랑</div>
-		<div class="tab" onclick="showList('cafe')">카페</div>
-		<div class="tab" onclick="showList('hotel')">호텔</div>
+		<div id="tab-container">
+			<div class="tab active" onclick="showList('restaurant')">레스토랑</div>
+			<div class="tab" onclick="showList('cafe')">카페</div>
+			<div class="tab" onclick="showList('hotel')">호텔</div>
+
+
+			<div id="list-container">
+				<div class="list-item restaurant">레스토랑 1</div>
+				<div class="list-item restaurant">레스토랑 2</div>
+				<div class="list-item restaurant">레스토랑 3</div>
+				<div class="list-item cafe">카페 1</div>
+				<div class="list-item cafe">카페 2</div>
+				<div class="list-item cafe">카페 3</div>
+				<div class="list-item hotel">호텔 1</div>
+				<div class="list-item hotel">호텔 2</div>
+				<div class="list-item hotel">호텔 3</div>
+			</div>
+		</div>
 	</div>
-
-	<div id="list-container">
-		<div class="list-item restaurant">레스토랑 1</div>
-		<div class="list-item restaurant">레스토랑 2</div>
-		<div class="list-item restaurant">레스토랑 3</div>
-		<div class="list-item cafe">카페 1</div>
-		<div class="list-item cafe">카페 2</div>
-		<div class="list-item cafe">카페 3</div>
-		<div class="list-item hotel">호텔 1</div>
-		<div class="list-item hotel">호텔 2</div>
-		<div class="list-item hotel">호텔 3</div>
-	</div>
-
 	<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder"></script>
+		src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder"></script>
 	<script>
 		var map = new naver.maps.Map('map', {
 			center : new naver.maps.LatLng(37.5665, 126.9780),
