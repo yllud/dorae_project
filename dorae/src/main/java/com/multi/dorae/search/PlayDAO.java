@@ -31,35 +31,28 @@ public class PlayDAO {
 		return list;
 	}
 
-	//공연 페이지 리스트로 불러오기
+	
+	//공연 페이지 리스트로 불러오기 테스트
 	public List<PlayVO> list(Criteria cri) {
 		System.out.println("list dao입니다");
 		System.out.println(cri.getStart());
 		System.out.println(cri.getTitle());
 		List<PlayVO> list = my.selectList("play.page",cri);
-		for (PlayVO bag : list) {
-			System.out.println(bag.getPlay_name());
-		}
+//		for (PlayVO bag : list) {
+//			System.out.println(bag.getPlay_name());
+//		}
 		return list;
 	}
 	
 	//페이지 불러올 때 전체 리시트 숫자 불러오기
 	public int count(Criteria cri) {
-		return my.selectOne("play.count",cri);
+		int cnt=my.selectOne("play.count",cri);
+		System.out.println(cnt);
+		return cnt;
 	} 
 	
 	
 
-	// 검색어로 공연 리스트 검색
-	public List<PlayVO> searchList(String title) {
-		System.out.println("searchlist dao입니다");
-		System.out.println(title);
-		List<PlayVO> list = my.selectList("play.search", title);
-		for (PlayVO bag : list) {
-			System.out.println(bag.getPlay_name());
-		}
-		return list;
-	}
 
 	// 공연 id로 공연 한개 검색
 	public PlayVO playDetail(String play_id) {
@@ -68,7 +61,6 @@ public class PlayDAO {
 		PlayVO vo = my.selectOne("play.one", play_id);
 
 		return vo;
-
 	}
 
 	// 공연 id로 공연장 id 검색
@@ -78,7 +70,6 @@ public class PlayDAO {
 		String stage_id = my.selectOne("play.searchStageId", play_id);
 		
 		return stage_id;
-
 	}
 
 }

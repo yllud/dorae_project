@@ -47,9 +47,9 @@ public class HelpController {
 	
 	@ResponseBody
 	@RequestMapping("faqByCategory")
-	public List<FaqVO> faqListByHelpCategory(String helpCategory, Model model) {
-//		model.addAttribute("faqList", faqService.selectListByCategory(helpCategory));
-		return faqService.faqListByHelpCategory(helpCategory);
+	public List<FaqVO> faqListByHelpCategory(String help_category_id, Model model) {
+//		model.addAttribute("faqList", faqService.selectListByCategory(help_category_id));
+		return faqService.faqListByHelpCategory(help_category_id);
 	}
 	
 	@ResponseBody
