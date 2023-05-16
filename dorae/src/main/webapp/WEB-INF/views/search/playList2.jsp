@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	$(function() {
 		$('.pages').click(function() {
-			// 			alert($(this).text())
+			//alert($(this).text())
 			$('#result2').empty()
 			$.ajax({
 				url : "playList2",
@@ -16,7 +16,6 @@
 					title : $('#title_id').text(),
 					genre : $('#genre_id').text(),
 					state : $('#state_id').text()
-				// 						$(cri.title)
 				},
 				success : function(x) {
 					$('#result2').html(x)
@@ -27,7 +26,6 @@
 			})
 		})//page 버튼
 
-		
 	})
 </script>
 
@@ -41,7 +39,6 @@
 		출연진: ${bag.casting}<br>
 		기간: ${bag.play_start} ~ ${bag.play_end}<br>
 		공연 상태: ${bag.state}<br>
-
 </c:forEach>
 <br>
 <%

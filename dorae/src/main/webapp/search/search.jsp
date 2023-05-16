@@ -13,14 +13,17 @@
 			data : {
 				page : 1,
 				title : $('#title').val(),
-				genre: "전체(장르)",
-				state: "공연중"
+				genre : "전체(장르)",
+				state : "공연중"
 			},
-			
-			success : function(x,genre) {
+
+			success : function(x, genre) {
 				$('#result').html(x)
-			}
-		})
+			},//success
+			error : function() {
+				alert('실패.@@@')
+			}//error
+		})//ajax
 
 		$('#b0').click(function() {
 			//기존의 것 삭제됨.
@@ -31,15 +34,14 @@
 				data : {
 					page : 1,
 					title : $('#title').val(),
-					genre: "전체(장르)",
-					state: "공연중"
+					genre : "전체(장르)",
+					state : "공연중"
 				},
 				success : function(x) {
-					//alert(x)
 					$('#result').html(x)
 				},//success
 				error : function() {
-					alert('검색 실패')
+					alert('실패.@@@')
 				}//error
 			})//ajax
 		})//b0
@@ -51,7 +53,8 @@
 <body>
 	<h3>공연검색 화면</h3>
 	<hr color="red">
-	공연제목: <input id="title">
+	공연제목:
+	<input id="title">
 	<button id="b0">검색</button>
 
 	<hr color="red">
