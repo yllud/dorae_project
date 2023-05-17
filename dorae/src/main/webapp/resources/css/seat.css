@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans&display=swap');
+
+* { /*박스의 크기를 화면에 표시하는 방식을 변경하는 속성*/
+  box-sizing: border-box; /* 테두리를 포함한 크기 지정가능*/
+}
+
+body { 
+  background-color: #ffffff;
+  color: #000000;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+}
+
+.container { 
+  perspective: 1000px;
+  margin-bottom: 30px; /* container 기준으로 아래 여백*/
+}
+
+.seat {
+  background-color: #444451;
+  height: 22px;
+  width: 25px;
+  margin: 5px; /* 여백*/
+  border-top-left-radius: 5px; /* 좌석 왼쪽 모서리 깎은 정도*/
+  border-top-right-radius: 5px; /* 좌석 오른쪽 모서리 깎은 정도*/
+}
+
+.seat.selected { /* 좌석 선택시 색깔*/
+  background-color: #8080ff;
+}
+
+.seat.occupied { /* 예매된 좌석(선택불가) 색깔*/
+  background-color: #fff;
+}
+
+.seat:nth-of-type(2) { /* div의 자식이면서 같은 유형 2번째 오른쪽 공백*/
+  margin-right: 20px;
+}
+
+.seat:nth-last-of-type(2) { /* div의 자식이면서 같은 유형 끝에서 2번째 왼쪽 공백*/
+  margin-left: 20px;
+}
+
+.seat:not(.occupied):hover { /* 이미 예매된 좌석이 아닌 좌석에 커서를 올렸을 때 좌석의 크기가 1.2배로 확대*/
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.showcase.seat:not(.occupied):hover {
+  cursor: default;
+  transform: scale(1);
+}
+
+.stage { /* 무대표시*/
+  background-color: #c0c0c0;
+  height: 50px;
+  width: 100%;
+  margin: 15px 0;
+  transform: rotateX(-45deg);
+}
+
+.row { /* row 가로 나열*/
+  display: flex;
+}
+
+p.text span { /* p영역 텍스트 색깔*/
+  color: #000000;
+}
