@@ -23,7 +23,7 @@
 				// b1 버튼을 클릭할 때 Ajax 요청을 보내고 결과를 받아옴
 				$(document).on("click", "#b1", function() {
 					$.ajax({
-						url : "ticketList.jsp", // 표시할 페이지의 URL
+						url : "../mypage/ticketList.jsp", // 표시할 페이지의 URL
 						type : "GET",
 						dataType : "html",
 						success : function(data) {
@@ -56,6 +56,7 @@
 </script>
 </head>
 <body>
+${email}
 <%
 	if(session.getAttribute("email") != null){
 %>

@@ -26,6 +26,17 @@ public class NaverDAO {
 		return result;
 	}
 	
+	public int login(NaverVO bag) {
+		int result = 0;
+		try {
+			result = mn.selectOne("naverMember.naverFind", bag);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+	
+	
 //	public int update(NaverVO bag) {
 //		int result = 0;
 //		try {
@@ -46,4 +57,5 @@ public class NaverDAO {
         }
         return result;
     }
+	
 }
