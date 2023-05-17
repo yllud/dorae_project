@@ -28,6 +28,26 @@
 
 	})
 </script>
+<%
+	int rank=1;
+%>
+<div style="position: absolute; right: 800px; top: 250px;">
+<table>
+	<tr>
+		<td class="left">순위</td>
+		<td class="right">박스 오피스 ${cri.genre} 순위</td>
+	</tr>
+	<c:forEach items="${list2}" var="one">
+		<tr>
+			<td class="left"><%=rank%></td>
+			<%	
+				rank+=1;
+			%>
+			<td class="right"><a href="playDetail?play_id=${one.play_id}">${one.play_name}</a></td>
+		</tr>
+	</c:forEach>
+</table>
+</div>
 
 <c:forEach items="${list}" var="bag">
 	<!-- el 속성만 받아올 수 있는 표현식 -->

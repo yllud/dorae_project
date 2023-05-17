@@ -16,6 +16,9 @@ public class PlayController {
 
 	@Autowired
 	StageDAO dao2;
+	
+	@Autowired
+	RankDAO dao3;
 
 	@RequestMapping("search/playList")
 	public void playList(Criteria cri, Model model) {
@@ -50,8 +53,13 @@ public class PlayController {
 		cri.setStartEnd(cri.getPage());	//페이지 번호로 시작번호 끝번호 설정
 		System.out.println(cri);
 		List<PlayVO> list = dao.list(cri);
+		
+		List<RankVO> list2=dao3.rankList(cri.getGenre());
+		
 
 		model.addAttribute("list", list);
+		model.addAttribute("cri", cri);
+		model.addAttribute("list2", list2);
 		model.addAttribute("page_cnt", page_cnt);
 	}
 

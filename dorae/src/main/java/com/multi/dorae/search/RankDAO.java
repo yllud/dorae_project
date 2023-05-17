@@ -20,6 +20,13 @@ public class RankDAO {
 		return result;
 	}
 	
+	public List<RankVO> rankList(String genre){
+		List<RankVO> vo=my.selectList("rank.list", genre);
+				
+		return vo;
+		
+	}
+	
 //	public List<String> listId() {
 //		List<String> list=my.selectList("place.idList");
 //		return list;

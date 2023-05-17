@@ -7,14 +7,14 @@
 		(#{rank_id}, #{play_id},#{rank_genre},#{rank_area}, #{rank_date},
 		#{ranking})
 	</insert>
-	
+
 	<select id="playIdList" resultType="String">
 		select play_id from ranking
 	</select>
-	
-<!-- 	<select id="stageIdList" resultType="String"> -->
-<!-- 		select stage_id from ranking -->
-<!-- 	</select> -->
+
+	<!-- <select id="stageIdList" resultType="String"> -->
+	<!-- select stage_id from ranking -->
+	<!-- </select> -->
 
 	<!-- <select id="idList" resultType="String"> -->
 	<!-- select play_id from play -->
@@ -32,8 +32,14 @@
 	<!-- play where play_id=#{play_id} -->
 	<!-- </select> -->
 
-	<!-- <select id="all" resultType="playVO"> -->
-	<!-- select * from member -->
-	<!-- </select> -->
+	<select id="list" parameterType="String" resultType="rankVO">
+		select
+		rank_id, ranking.play_id , rank_genre,rank_area,
+		rank_date,ranking,play_name
+		from ranking inner join play on ranking.play_id =play.play_id where
+		ranking.rank_genre =#{rank_genre} limit 5
+	</select>
+
+
 
 </mapper>
