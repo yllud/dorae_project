@@ -26,17 +26,46 @@ public class NaverController {
 	
 
 	@RequestMapping("login/naverLogin")
-	public void login(NaverVO vo, Model model) {
+	public String login(NaverVO vo, Model model) {
 		System.out.println(vo + "===================");
-		int result =  dao.insert(vo);
-		if (result != 0) {
-			model.addAttribute("vo", vo);
-			
+		
+		int result2 = dao.login(vo); //WHERE EMAIL = ${EMAIL} 이  있으면 SESSION설정하고 REDIRECT
+		if(result2 != 1) {
+			int result =  dao.insert(vo);
+			System.out.println(result);
+			if (result != 0) {
+				
+				//로그인 성공하면 session 잡아주기
+				session.setAttribute("email", vo.getEmail());
+				// 세션 유지 시간 설정 (옵션)
+			    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
+			    return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
+				
+			}else {
+				return "redirect:/login/login.jsp"; // 로그인 실패 시 로그인 페이지로 리다이렉트
+			}
 		}else {
-			
-			model.addAttribute("result", result);
-		}
+			session.setAttribute("email", vo.getEmail());
+			// 세션 유지 시간 설정 (옵션)
+		    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
+		    return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
+			}
 	}
+
+	
+	 @RequestMapping("logout")
+	    public String logout(Model model, HttpSession session) {
+	        // 세션에서 로그인 정보 제거
+	        session.removeAttribute("email");
+	        // 세션 무효화
+	        session.invalidate();
+	        
+	     // 로그아웃 후 처리할 코드
+	        model.addAttribute("message", "로그아웃되었습니다.");
+	        
+	        // 로그아웃 후 리다이렉트할 페이지 반환
+	        return "redirect:login/login.jsp";
+	    }
 	
 //	@RequestMapping("login/update")
 //	public void update(NaverVO bag, Model model) {

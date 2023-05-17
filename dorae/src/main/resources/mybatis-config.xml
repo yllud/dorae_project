@@ -27,11 +27,9 @@
 			alias="twitterVO"></typeAlias>
 
 		<!-- 구윤진 -->
-		<typeAlias type="com.multi.dorae.login.KakaoVO"
-			alias="kakaoVO"></typeAlias>
-		<typeAlias type="com.multi.dorae.login.NaverVO"
-			alias="naverVO"></typeAlias>
-		<typeAlias type="com.multi.dorae.mypage.BbsVO" alias="bbsVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.login.KakaoVO" alias="kakaoVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.login.NaverVO" alias="naverVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.mypage.ReplyVO" alias="replyVO"></typeAlias>
 
 
 		<!-- 이아람 -->
@@ -68,7 +66,7 @@
 		<!-- 구윤진 -->
 		<mapper resource="mapper/kakaoMapper.xml" />
 		<mapper resource="mapper/naverMapper.xml" />
-		<mapper resource="mapper/bbsMapper.xml" />
+		<mapper resource="mapper/replyMapper.xml" />
 
 		<!-- 이아람 -->
 		<mapper resource="mapper/seatMapper.xml" />

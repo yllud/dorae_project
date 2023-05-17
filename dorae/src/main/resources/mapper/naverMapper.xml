@@ -3,38 +3,39 @@
 
 <mapper namespace="naverMember">
 
-	<select id="naverFind" resultType="naverVO">
-		select * from member where
-		nickname=#{nickname} and email=#{email}
+	<select id="naverFind" resultType="int" parameterType="naverVO">
+		select count(*) from member 
+		where email=#{email}
 	</select>
 
 	<insert id="naverInsert" parameterType="naverVO">
-		insert into
-		member
-		values (null, #{nickname}, #{name}, #{email}, #{gender}, #{age},
-		#{birthday}, #{profile_image}, #{joinDate}, 'user')
+		insert into member
+		values(null, #{nickname}, #{name}, #{email}, #{gender}, #{age}, #{birthday}, #{profile_image}, #{joinDate}, 'user')
 	</insert>
 
 	<delete id="naverDelete" parameterType="String">
 		delete from member
-		where email = #{email}
+		where
+		email = #{email}
 	</delete>
 
 	<update id="naverUpdate" parameterType="naverVO">
 		update member
-		set nickname = #{nickname},
+		set nickname
+		= #{nickname},
 		name = #{name},
 		gender = #{gender},
 		age = #{age},
-		birthday = #{birthday},
+		birthday
+		= #{birthday},
 		profile_image = #{profile_image},
 		where email = #{email}
 	</update>
-	
+
 	<update id="insertProfileImage" parameterType="naverVO">
-  UPDATE member
-  SET profile_image = #{profile_image}
-  WHERE email = #{email}
-</update>
-	
+		UPDATE member
+		SET profile_image = #{profile_image}
+		WHERE email = #{email}
+	</update>
+
 </mapper>
