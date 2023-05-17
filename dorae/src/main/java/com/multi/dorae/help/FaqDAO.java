@@ -28,8 +28,8 @@ public class FaqDAO {
 		return sql.selectList("faq.selectList");
 	}
 	
-	public List<FaqVO> selectListByCategory(String helpCategory) {
-		return sql.selectList("faq.selectListByHelpCategory", helpCategory);
+	public List<FaqVO> selectListByCategory(String help_category_id) {
+		return sql.selectList("faq.selectListByHelpCategory", help_category_id);
 	}
 	
 	public List<FaqVO> selectListBySearch(String search) {

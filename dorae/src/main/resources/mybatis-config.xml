@@ -23,8 +23,6 @@
 		<typeAlias type="com.multi.dorae.review.ReviewVO"
 			alias="reviewVO"></typeAlias>
 		<typeAlias type="com.multi.dorae.sns.BlogVO" alias="blogVO"></typeAlias>
-		<typeAlias type="com.multi.dorae.sns.InstaVO"
-			alias="instaVO"></typeAlias>
 		<typeAlias type="com.multi.dorae.sns.TwitterVO"
 			alias="twitterVO"></typeAlias>
 
@@ -50,6 +48,10 @@
 		<typeAlias type="com.multi.dorae.help.HelpCategoryVO" alias="helpCategoryVO"></typeAlias>
 
 	</typeAliases>
+	<typeHandlers>
+		<!-- 커스텀 타입 핸들러 등록 -->
+		<typeHandler handler="com.multi.dorae.review.StringListTypeHandler" />
+	</typeHandlers>
 	<mappers>
 		<!-- SQL문 정의하는 파일들의 목록을 지정. -->
 
@@ -64,7 +66,6 @@
 		<!-- 최현석 -->
 		<mapper resource="mapper/reviewMapper.xml" />
 		<mapper resource="mapper/blogMapper.xml" />
-		<mapper resource="mapper/instaMapper.xml" />
 		<mapper resource="mapper/twitterMapper.xml" />
 
 		<!-- 구윤진 -->
