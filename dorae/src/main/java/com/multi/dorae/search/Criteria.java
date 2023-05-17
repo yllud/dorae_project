@@ -7,28 +7,25 @@ import lombok.ToString;
 @ToString
 public class Criteria {
 	private int start;
-	private int end; // 한 페이지 당 공연 수
+	private int end;
 	private int page;
 	private String title;
 	private String genre;
 	private String state;
 
+	int amount = 3; // 한 페이지당 공연 수
 
-	int amount = 3;	//한페이지에 리스트 개수
-
-
+	//페이지 번호로 rownum 시작번호와 끝번호 설정
 	public void setStartEnd(int page) {
 		start = 1 + (page - 1) * amount;
 		end = page * amount;
 	}
-	
-	public int makePageBtn(int count) {
-		return (int)Math.ceil((double)count / amount);
-	}
-	
-	
 
-	
+	//리스트 수에 맞는 페이지 버튼 수 설정
+	public int makePageBtn(int count) {
+		return (int) Math.ceil((double) count / amount);
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -36,7 +33,7 @@ public class Criteria {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public String getGenre() {
 		return genre;
 	}
@@ -44,7 +41,7 @@ public class Criteria {
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	
+
 	public String getState() {
 		return state;
 	}
@@ -52,7 +49,6 @@ public class Criteria {
 	public void setState(String state) {
 		this.state = state;
 	}
-
 
 	public int getStart() {
 		return start;

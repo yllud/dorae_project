@@ -6,31 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-#header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 9999;
-}
-
-#map {
-	width: 100%;
-	height: 850px;
-	z-index: 1;
-	position: relative;
-	z-index: 1;
-}
-
-:root { -
-	-header-height: 0;
-}
-
-.banner {
-	z-index: 9999; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
-}
-</style>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"
 	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
 	crossorigin="anonymous"></script>
@@ -52,52 +27,49 @@
 			    urlSuffix = '.json',
 			    regionGeoJson = [],
 			    loadCount = 0;
-				
-			    //각 지역 레이어 center location 지정
+						
 			    var gangwon = new naver.maps.LatLng(37.880962, 128.3009629),
-			    geonggi = new naver.maps.LatLng(37.767167, 127.190292),
-			    gyeongsang_nam = new naver.maps.LatLng(35.509787, 128.364734),
-			    gyeongsang_buk = new naver.maps.LatLng(36.528503, 128.664734),
-			    gwangju = new naver.maps.LatLng(35.126033, 126.831302),
-			    daegu = new naver.maps.LatLng(35.798838, 128.583052),
-			    daejeon = new naver.maps.LatLng(36.321655, 127.378953),
-			    busan = new naver.maps.LatLng(35.1797865, 129.0750194),
-			    seoul = new naver.maps.LatLng(37.587167, 126.890292),
-		        ulsan = new naver.maps.LatLng(35.519301, 129.239078),
-		        incheon = new naver.maps.LatLng(37.469221, 126.573234),
-		        jeolla_nam  = new naver.maps.LatLng(37.0006890, 126.5930664),
-		        jeolla_buk  = new naver.maps.LatLng(35.816705, 127.144185),
-			    jeju = new naver.maps.LatLng(33.4090628, 126.534361),
-			    chung_nam = new naver.maps.LatLng(36.657229, 126.779757),
-			    chung_buk = new naver.maps.LatLng(36.528503, 127.929344),
-			    sejong = new naver.maps.LatLng(36.48750, 127.28167);
+				geonggi = new naver.maps.LatLng(37.767167, 127.190292),
+				gyeongsang_nam = new naver.maps.LatLng(35.509787, 128.364734),
+				gyeongsang_buk = new naver.maps.LatLng(36.528503, 128.664734),
+				gwangju = new naver.maps.LatLng(35.126033, 126.831302),
+				daegu = new naver.maps.LatLng(35.798838, 128.583052),
+				daejeon = new naver.maps.LatLng(36.321655, 127.378953),
+				busan = new naver.maps.LatLng(35.1797865, 129.0750194),
+				seoul = new naver.maps.LatLng(37.587167, 126.890292),
+				ulsan = new naver.maps.LatLng(35.519301, 129.239078),
+				incheon = new naver.maps.LatLng(37.469221, 126.573234),
+				jeolla_nam  = new naver.maps.LatLng(37.0006890, 126.5930664),
+				jeolla_buk  = new naver.maps.LatLng(35.816705, 127.144185),
+				jeju = new naver.maps.LatLng(33.4090628, 126.534361),
+				chung_nam = new naver.maps.LatLng(36.657229, 126.779757),
+				chung_buk = new naver.maps.LatLng(36.528503, 127.929344),
+				sejong = new naver.maps.LatLng(36.48750, 127.28167);
 			    
 				// 네이버 지도 API를 로드합니다.
 				var map = new naver.maps.Map('map', {
 					zoom : 7,
 					mapTypeId: 'normal',
-					minZoom: 7, // 줌 아웃 레벨을 7로 제한
 					center : new naver.maps.LatLng(36.5566103, 127.9783882), // 대한민국 중심
 					zoomControl : true,
 					zoomControlOptions : {
 						position : naver.maps.Position.TOP_LEFT,
 						style : naver.maps.ZoomControlStyle.SMALL
 					}
-				});
+				});//new map
 				
 				//줌레벨이 바뀔때마다 호출
 				map.addListener('zoom_changed', function () {
            			checkZoomLevel();
-       		 	});
+       		 	});//zoom_changed
 				
+       		 	//dataLayer
 				naver.maps.Event.once(map, 'init', function () {
 				    for (var i = 1; i < 18; i++) {
 				        var keyword = i +'';
-
 				        if (keyword.length === 1) {
 				            keyword = '0'+ keyword;
 				        }
-
 				        $.ajax({
 				            url: urlPrefix + keyword + urlSuffix,
 				            success: function(idx) {
@@ -106,14 +78,33 @@
 
 				                    loadCount++;
 
-				                    if (loadCount === 17) {
+				                    if (loadCount === 17 && map.getZoom() <= 7 ) {
 				                        startDataLayer();
 				                    }
 				                }
 				            }(i - 1)
 				        });
 				    }
-				});
+				});//map-event once
+				
+				// 입력받은 주소로 지도 이동하기
+		        function moveToAddress() {
+		            var address = document.getElementById('addressInput').value;
+		            var geocoder = new naver.maps.Service.Geocoder();
+		
+		            geocoder.addressToCoord(address, function(result, status) {
+		                if (status === naver.maps.Service.Status.ERROR) {
+		                    console.log("주소 변환 오류");
+		                    return;
+		                }
+		
+		                var coords = result.v2.addresses[0].x + ", " + result.v2.addresses[0].y;
+		
+		                var center = new naver.maps.LatLng(result.v2.addresses[0].y, result.v2.addresses[0].x);
+		                map.setCenter(center);
+		                map.setZoom(14);
+		            });
+		        }		
 				
 				function startDataLayer() {
 				    map.data.setStyle(function(feature) {
@@ -133,7 +124,7 @@
 				        }
 				        
 				        return styleOptions;
-				    });
+				    });//setStyle
 				    
 				    // 기존에 추가된 레이어 제거
 				    map.data.forEach(function(feature) {
@@ -148,7 +139,6 @@
 				        var feature = e.feature;
 				        console.log(feature);
 				        console.log(feature.getProperty('area1'));
-				        var location;
 				       	var area = feature.getProperty('area1');
 				        //var location = new naver.maps.LatLng(e.coord.lat(), e.coord.lng())
 				        //map.setCenter(location);
@@ -211,7 +201,7 @@
 				        } else {
 				            feature.setProperty('focus', false);
 				        } //지역레이터 클릭 시 초록색으로 fill*/
-				    });
+				    });//click addListener
 				
 				    map.data.addListener('mouseover', function(e) {
 				        var feature = e.feature,
@@ -226,55 +216,33 @@
 				            strokeWeight: 3,
 				            strokeOpacity: 1
 				        });
-				    });
+				    });//mouseover addListener
+				    
 				    map.data.addListener('mouseout', function(e) {
 				        tooltip.hide().empty();
 				        map.data.revertStyle();
-				    });
-				}
+				    });//mouseout addListener
+				    
+				}//startdataLayer
 				
 				var infowindow = new naver.maps.InfoWindow();
-
-				function onSuccessGeolocation(position) {
-				    var location = new naver.maps.LatLng(position.coords.latitude,
-				                                         position.coords.longitude);
-				    map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
-				    map.setZoom(10); // 지도의 줌 레벨을 변경합니다.
-
-				    infowindow.setContent('<div style="padding:20px;">' + 'geolocation.getCurrentPosition() 위치' + '</div>');
-
-				    infowindow.open(map, location);
-				    console.log('Coordinates: ' + location.toString());
-				    console.log("onSuccess 실행!");
-				    addMarkers(x, map);
-				    map.setZoom(14);
-				}
-
-				function onErrorGeolocation() {
-				    var center = map.getCenter();
-
-				    //infowindow.setContent('<div style="padding:20px;">' +
-				    //    '<h5 style="margin-bottom:5px;color:#f00;">Geolocation failed!</h5>'+ "latitude: "+ center.lat() +"<br />longitude: "+ center.lng() +'</div>');
-				    console.log("onError 실행!");
-				    //infowindow.open(map, center);
-				    addMarkers(x, map);
-				    map.setZoom(7);
-				}
-
+				
+				/*
 				$(window).on("load", function() {
 				    if (navigator.geolocation) {
-				        /**
-				         * navigator.geolocation 은 Chrome 50 버젼 이후로 HTTP 환경에서 사용이 Deprecate 되어 HTTPS 환경에서만 사용 가능 합니다.
-				         * http://localhost 에서는 사용이 가능하며, 테스트 목적으로, Chrome 의 바로가기를 만들어서 아래와 같이 설정하면 접속은 가능합니다.
-				         * chrome.exe --unsafely-treat-insecure-origin-as-secure="http://example.com"
-				         */
+				        //navigator.geolocation 은 Chrome 50 버젼 이후로 HTTP 환경에서 사용이 Deprecate 되어 HTTPS 환경에서만 사용 가능 합니다.
+				        //http://localhost 에서는 사용이 가능하며, 테스트 목적으로, Chrome 의 바로가기를 만들어서 아래와 같이 설정하면 접속은 가능합니다.
+				        //chrome.exe --unsafely-treat-insecure-origin-as-secure="http://example.com"
+				        
 				        navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
 				    } else {
 				        var center = map.getCenter();
 				        infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>');
 				        infowindow.open(map, center);
 				    }
-				});
+				});//window load fun
+				
+				*/
 				
 				function addMarkers(x, map) {
 					var markers = [];
@@ -288,7 +256,7 @@
 						});
 						markers.push(marker);
 						addMarkerToList(markers[i]);
-					}
+					}//for
 					
 					var marker1 = {
 						style : "circle",
@@ -336,8 +304,8 @@
 							$(clusterMarker.getElement()).find(
 									'div:first-child').text(count);
 						}
-					});
-				}
+					}); //markerClustering
+				}//addMarkers
 				
 				//마커 리스트
 				function addMarkerToList(marker) {
@@ -346,7 +314,7 @@
 				  var listItem = document.createElement('li');
 				  listItem.textContent = marker.title; // 예시로 제목을 목록에 표시
 				  markerList.appendChild(listItem);
-				}
+				} //addMarkerToList
 				
 				function checkZoomLevel() {
 				    var currentZoom = map.getZoom();
@@ -369,7 +337,7 @@
 				                styleOptions.strokeOpacity = 1;
 				            }
 				            return styleOptions;
-				        });
+				        });//setStyle
 				    } else {
 				        console.log("줌 레벨이 11 이상입니다.");
 				        map.data.setStyle(function(feature) {
@@ -380,36 +348,12 @@
 				                styleOptions.visible = true;
 				            }
 				            return styleOptions;
-				        });
-				    }
-				}
-				//데이터 레이어
-				naver.maps.Event.once(map, 'init', function () {
-				    for (var i = 1; i < 18; i++) {
-				        var keyword = i +'';
-				        if (keyword.length === 1) {
-				            keyword = '0'+ keyword;
-				        }
-				        $.ajax({
-				            url: urlPrefix + keyword + urlSuffix,
-				            success: function(idx) {
-				                return function(geojson) {
-				                    regionGeoJson[idx] = geojson;
-
-				                    loadCount++;
-
-				                    if (loadCount === 17 && map.getZoom() <= 7 ) {
-				                        startDataLayer();
-				                    }
-				                }
-				            }(i - 1)
-				        });
-				    }
-				});				
+				        }); //setStyle
+				    }//else
+				}//checkZoomLevel
+						
 				var tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
 				tooltip.appendTo(map.getPanes().floatPane);
-				
-				
 			}//success
 		})//ajax
 		$('#banner').load("mainImg.jsp");
@@ -422,12 +366,16 @@
 <body>
 	<header id="header" class="fixed-top"></header>
 	<div id="map">
-		<div id="tab-container">
+		<div id="banner"><input type="text" value="testtest"></div>
+		<div class="tab-container">
+			
 			<ul id="marker-list">
 			<!-- 공연 정보 목록 추가 -->
 			</ul>
 		</div>
-		<div id="banner"></div>
 	</div>
+	
+	<input id="address_input"type="text" id="addressInput" placeholder="주소를 입력하세요">
+	<button onclick="moveToAddress()">검색</button>
 </body>
 </html>

@@ -53,10 +53,10 @@
 					$('#result2').html(x)
 				},//success
 				error : function() {
-					alert('검색 실패')
+					alert('실패.@@@')
 				}//error
 			})//ajax
-		})//b0
+		})//b1
 	})
 </script>
 <style type="text/css">
@@ -66,7 +66,6 @@
 td {
 	width: 100px;
 }
-
 /* .top{ */
 /* 	background: black; */
 /* 	color:white; */
@@ -78,14 +77,10 @@ td {
 </head>
 <body>
 
-
-
-<%-- 	키워드:<div id="result3">${cri.title}</div> --%>
 	<mark id="title_id">${cri.title}</mark>
 	<mark id="genre_id">${cri.genre}</mark>
 	<mark id="state_id">${cri.state}</mark>
 	<br>
-
 	<select id="genre" name="type">
 		<option value="전체(장르)">전체(장르)</option>
 		<option value="뮤지컬">뮤지컬</option>
@@ -117,9 +112,7 @@ td {
 		출연진: ${bag.casting}<br>
 		기간: ${bag.play_start} ~ ${bag.play_end}<br>
 		공연 상태: ${bag.state}<br>
-
 		</c:forEach>
-	
 	<br>
 	<%
 		int page_cnt = (int) request.getAttribute("page_cnt");
