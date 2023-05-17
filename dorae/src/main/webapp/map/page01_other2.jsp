@@ -49,6 +49,7 @@
 				// 네이버 지도 API를 로드합니다.
 				var map = new naver.maps.Map('map', {
 					zoom : 7,
+					minZoom: 7,
 					mapTypeId: 'normal',
 					center : new naver.maps.LatLng(36.5566103, 127.9783882), // 대한민국 중심
 					zoomControl : true,
@@ -357,6 +358,7 @@
 			}//success
 		})//ajax
 		$('#banner').load("mainImg.jsp");
+		$('#sidebar').load("sidemenu.jsp");
 	})
 </script>
 <link rel="stylesheet" href="${path}/resources/css/style.css" />
@@ -365,17 +367,14 @@
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
-	<div id="map">
-		<div id="banner"><input type="text" value="testtest"></div>
-		<div class="tab-container">
-			
-			<ul id="marker-list">
-			<!-- 공연 정보 목록 추가 -->
-			</ul>
+	<main>
+		<div id="map">
+			<div id="banner"><input type="text"></div>
+			<div id="sidebar"></div>
 		</div>
-	</div>
-	
-	<input id="address_input"type="text" id="addressInput" placeholder="주소를 입력하세요">
-	<button onclick="moveToAddress()">검색</button>
+		
+		<input id="address_input"type="text" id="addressInput" placeholder="주소를 입력하세요">
+		<button onclick="moveToAddress()">검색</button>
+	</main>	
 </body>
 </html>

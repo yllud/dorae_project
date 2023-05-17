@@ -58,6 +58,7 @@ html {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+/*
 ul {
 	/*list-style-type: none;*/
 	display: flex;
@@ -68,19 +69,21 @@ ul {
 	background-color: #FFFFFF;
 	text-align: center;
 }
-
+*/
+/*
 li {
   display: inline-block;
   position: relative;
   text-align: center;
 }
+*/ 
 
 a {
 	text-decoration: none;
 	color: black;
 }
 
-li a {
+. header_li a {
   display: flex;
   align-items: center; /* 수직 가운데 정렬 */
   color: #000000;
@@ -90,11 +93,11 @@ li a {
   height: 100%; /* li의 높이만큼 a 요소의 높이 설정 */
 }
 
-li a span {
+.header_li a span {
   margin: 0 auto; /* 수평 가운데 정렬 */
 }
 
-li a:hover {
+.header_li a:hover {
 	/*color: #597812;*/
 	/*color: #FFD400;*/
 	/*color : #185bd9;*/
@@ -102,7 +105,7 @@ li a:hover {
 	font-weight: 800;
 }
 
-li a:visited {
+.header_li a:visited {
 	/*color: #597812;*/
 	/*color: #FFD400;*/
 	/*color : #185bd9;*/
@@ -166,7 +169,11 @@ body .bold {
 	background-color: #fff;
 	z-index: 999;
 }
-
+main {
+	margin-top: 100px; /* 헤더의 높이에 맞게 조정 */
+	padding: 20px;
+	box-sizing: border-box;
+}
 #result_temp {
 	position: fixed;
 	margin-top: 20px;
@@ -201,11 +208,6 @@ h1 {
 
 
 /* 지도추천 페이지에서 쓰이는 스타일*/
-.container {
-  position: relative;
-  display: flex;
-}
-
 #map {
 	width: 100%;
 	height: 850px;
@@ -213,7 +215,7 @@ h1 {
 	position: relative;
 }
 
-.tab-container {
+#sidebar {
   position: relative;
   z-index: 2;
   left: 0;
@@ -242,5 +244,4 @@ h1 {
   padding-left: 10px;
   background-color: rgb(233, 233, 233);
   /* 필요한 위치와 스타일 속성들 */
-}
 }
