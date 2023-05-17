@@ -14,6 +14,19 @@
 	$(function() {
 		$("#header").load("/dorae/header.jsp");
 	})
+	
+	function faqBySearch() {
+		$.ajax({
+			url: "faqBySearch",
+			data: {
+				search: $("#searchInput").val()
+			},
+			success: function(res) {
+				$("#helpContent").html(res);
+				history.pushState(null, null, "faqBySearch?search=" + $("#searchInput").val());
+			}
+		})
+	}
 </script>
 <style type="text/css">
 	#helpBody {
@@ -106,11 +119,11 @@
 	
 	<div id="helpBody">
 		<!-- FAQ 검색 -->
-		<form action="faqBySearch">
+		<div id="search">
 			<h2 id="faqTitle">FAQ 검색</h2>
-			<input type="text" id="searchInput" name="search" value="${search }"/>
-			<button type="submit" id="searchBtn">검색</button>
-		</form>
+			<input type="text" id="searchInput" name="search"/>
+			<button type="button" id="searchBtn" onclick="faqBySearch()">검색</button>
+		</div>
 		
 		<div id="helpContent">
 			<div id="searchItemList">
@@ -126,7 +139,6 @@
 				</ul>
 			</div>
 		</div>
-		
 	</div>
 	
 	<!-- 챗봇 -->

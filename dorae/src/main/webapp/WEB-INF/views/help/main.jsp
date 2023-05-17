@@ -108,25 +108,28 @@
 		<!-- FAQ 검색 -->
 		<form action="faqBySearch">
 			<h2 id="faqTitle">FAQ 검색</h2>
-			<input type="text" id="searchInput" name="search" value="${search }"/>
+			<input type="text" id="searchInput" name="search"/>
 			<button type="submit" id="searchBtn">검색</button>
 		</form>
-		
+
 		<div id="helpContent">
-			<div id="searchItemList">
-				<ul id="searchList">
-					<c:forEach items="${faqList }" var="item">
-						<li class="searchItem">
-							<button class="searchItemBtn">
-								<h4>${item.title }</h4>
-								<p>${item.content }</p>
-							</button>
-						</li>
-					</c:forEach>
-				</ul>
+			<!-- FAQ 유형별 버튼 -->
+			<div id="faqBtnList">
+				<c:forEach items="${helpCategory}" var="item">
+				<a href="faqByCategory?help_category_id=${item.help_category_id }">
+					<button class="btn-large">${item.name }</button>
+				</a>
+				</c:forEach>
 			</div>
+			<hr color="red">
 		</div>
 		
+		<!-- 1:1 문의 -->
+		<div id="other">
+			<a href="contactList">
+				<button class="btn-large">1:1문의</button>
+			</a>
+		</div>
 	</div>
 	
 	<!-- 챗봇 -->

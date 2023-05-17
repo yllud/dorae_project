@@ -13,6 +13,25 @@
 <script type="text/javascript">
 	$(function() {
 		$("#header").load("/dorae/header.jsp");
+		
+		$(".faqItemBtn").click(function() {
+			$.ajax({
+				url: "faqOne",
+				data: {
+					faq_id: $(this).val()
+				},
+				context: this, // ajax에서 현재 객체(.faqItemBtn)를 사용할 수 있다.
+				success: function(res) {					
+					if ($(this).children().length != 0) { // 자식 노드가 있으면 제거
+						$(this).children().remove(); // 자식 노드 삭제
+					}
+					
+					$(this).closest("li")
+						.append($("<p>", {class: "faqItemContent"})
+						.text(res.content)); // this 와 가장 가까운 상위 요소(부모) 에 내용 추가
+				}
+			})
+		})
 	})
 </script>
 <style type="text/css">
@@ -65,39 +84,38 @@
 	}
 	
 	.btn-small {
+		font-size: 20px;
 		margin: 4px;
 	}
 	
-	#searchList {
-		padding: 0 40px;
+	.searchItemBtn p {
+		margin-bottom: 0;
 	}
 	
-	.searchItem:first-child {
+	.faqItem:first-child {
 		border-top: 1px solid grey;
 	}
 	
-	.searchItem {
+	.faqItem {
 		list-style: none;
 		border-bottom: 1px solid grey;
-		text-align: left;
 		width: 100%;
+		text-align: left;
 	}
 	
-	.searchItemBtn {
+	.faqItemBtn {
 		padding: 12px;
-		font-size: 20px;
+		font-size: 24px;
 		border: 0;
 		background-color: transparent;
 		cursor: pointer;
 		text-align: left;
 	}
 	
-	.searchItemBtn h4 {
-		margin-top: 0;
-	}
-	
-	.searchItemBtn p {
-		margin-bottom: 0;
+	.faqItemContent {
+		font-size: 20px;
+		text-align: center;
+		padding: 0 10%;
 	}
 </style>
 </head>
@@ -108,25 +126,38 @@
 		<!-- FAQ 검색 -->
 		<form action="faqBySearch">
 			<h2 id="faqTitle">FAQ 검색</h2>
-			<input type="text" id="searchInput" name="search" value="${search }"/>
+			<input type="text" id="searchInput" name="search"/>
 			<button type="submit" id="searchBtn">검색</button>
 		</form>
 		
 		<div id="helpContent">
-			<div id="searchItemList">
-				<ul id="searchList">
+			<!-- FAQ 유형별 버튼 -->
+			<div id="faqBtnList">
+				<c:forEach items="${helpCategory}" var="item">
+				<a href="faqByCategory?help_category_id=${item.help_category_id }">
+					<button class="btn-small">${item.name }</button>
+				</a>
+				</c:forEach>
+			</div>
+			<hr color="red">
+			
+			<div id="faqItemList">
+				<ul id="faqList">
 					<c:forEach items="${faqList }" var="item">
-						<li class="searchItem">
-							<button class="searchItemBtn">
-								<h4>${item.title }</h4>
-								<p>${item.content }</p>
-							</button>
-						</li>
+					<li class="faqItem">
+						<button class="faqItemBtn" value="${item.faq_id }">${item.title }</button>
+					</li>
 					</c:forEach>
 				</ul>
 			</div>
 		</div>
 		
+		<!-- 1:1 문의 -->
+		<div id="other">
+			<a href="contactList">
+				<button class="btn-large">1:1문의</button>
+			</a>
+		</div>
 	</div>
 	
 	<!-- 챗봇 -->

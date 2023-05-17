@@ -19,7 +19,7 @@ public class HelpCategoryService {
 		return helpCategoryDAO.updateName(vo);
 	}
 	
-	public List<HelpCategoryVO> selectListByParentId(String parentCategory_id) {
-		return helpCategoryDAO.selectListByParentId(parentCategory_id);
+	public List<HelpCategoryVO> selectListByParentId(String parent_category_id) {
+		return helpCategoryDAO.selectListByParentId(parent_category_id);
 	}
 }

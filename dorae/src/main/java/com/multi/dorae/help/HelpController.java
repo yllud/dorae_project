@@ -1,5 +1,6 @@
 package com.multi.dorae.help;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,18 @@ public class HelpController {
 	
 	@RequestMapping()
 	public String main() {
-		return "redirect:help/help.jsp";
+		return "redirect:help/main";
 	}
 	
 	@ResponseBody
 	@RequestMapping("helpCategoryListByParentId")
 	public List<HelpCategoryVO> helpCategoryListByParentId(String parent_category_id) {
 		return helpCategoryService.selectListByParentId(parent_category_id);
+	}
+	
+	@RequestMapping("main")
+	public void helpMain(Model model) {
+		model.addAttribute("helpCategory", helpCategoryService.selectListByParentId("None"));
 	}
 	
 	@ResponseBody
@@ -45,18 +51,16 @@ public class HelpController {
 		return faqService.faqList();
 	}
 	
-	@ResponseBody
 	@RequestMapping("faqByCategory")
-	public List<FaqVO> faqListByHelpCategory(String help_category_id, Model model) {
-//		model.addAttribute("faqList", faqService.selectListByCategory(help_category_id));
-		return faqService.faqListByHelpCategory(help_category_id);
+	public void faqListByHelpCategory(String help_category_id, Model model) {
+		model.addAttribute("helpCategory", helpCategoryService.selectListByParentId("None"));
+		model.addAttribute("faqList", faqService.faqListByHelpCategory(help_category_id));
 	}
 	
-	@ResponseBody
 	@RequestMapping("faqBySearch")
-	public List<FaqVO> faqSearch(String search, Model model) {
-//		model.addAttribute("faqList", faqService.selectListBySearch(search));
-		return faqService.faqBySearch(search);
+	public void faqSearch(String search, Model model) {
+		model.addAttribute("faqList", faqService.faqBySearch(search));
+		model.addAttribute("search", search);
 	}
 	
 	@ResponseBody
@@ -90,5 +94,4 @@ public class HelpController {
 		contactService.contactCreate(vo);
 		return "1:1 문의 등록 성공";
 	}
-	
 }

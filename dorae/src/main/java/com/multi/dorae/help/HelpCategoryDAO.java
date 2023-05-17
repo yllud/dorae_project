@@ -20,8 +20,8 @@ public class HelpCategoryDAO {
 		return sql.update("helpCategory.updateName", vo);
 	}
 	
-	public List<HelpCategoryVO> selectListByParentId(String parentCategory_id) {
-		return sql.selectList("helpCategory.selectListByParentId", parentCategory_id);
+	public List<HelpCategoryVO> selectListByParentId(String parent_category_id) {
+		return sql.selectList("helpCategory.selectListByParentId", parent_category_id);
 	}
 	
 }
