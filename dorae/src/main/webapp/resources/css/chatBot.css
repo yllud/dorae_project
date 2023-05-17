@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+.chatCommon {
+	border-radius: 30px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 12px 60px;
+	position: fixed;
+	right: 30px;
+	bottom: 30px;
+	box-sizing: border-box;
+}
+
+#chatOpenBtn {
+	background-color: rgba(255, 165, 0, 0.9);
+	padding: 10px;
+}
+
+#chatOpenBtn span {
+	font-size: 50px;
+	color: white;
+}
+
+#chatMain {
+	background-color: rgba(247, 247, 248, 0.9);
+	width: 350px;
+	height: 600px;
+}
+
+.msgBox {
+	background-color: rgba(0, 0, 0, 0.05);
+	padding: 12px;
+	margin: 10px 0;
+	border-radius: 20px;
+}
+
+.btnBox {
+	text-align: center;
+}
+
+.suggestBtn {
+	border-radius: 10px;
+	padding: 10px;
+	font-weight: bold;
+	font-size: 18px;
+	margin: 0 6px 6px 0;
+}
+
+.chatMenuBtn {
+	border: 0;
+	padding: 8px;
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+#chatTop {
+	position: absolute;
+	top: 20px;
+	box-sizing: border-box;
+	display: flex;
+	padding: 0 20px;
+	width: 100%;
+	align-items: center;
+}
+
+#chatTitle {
+	width: 100%
+}
+
+#chatTitle span {
+	vertical-align: middle;
+}
+
+#chat {
+	height: 100%;
+	padding: 80px 20px;
+	box-sizing: border-box;
+}
+
+#chatList {
+	overflow: auto;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	-ms-overflow-style: none; /* 인터넷 익스플로러 */
+  	scrollbar-width: none; /* 파이어폭스 */
+}
+
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+#chatList::-webkit-scrollbar {
+  display: none;
+}
+
+
+#chatBottom {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+}
+
+.chatBtn {
+	cursor: pointer;
+}
+
+.symbol {
+	font-size: 30px; 
+}

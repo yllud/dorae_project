@@ -65,7 +65,7 @@
 	
 	function chatToggle() {
 		$("#chatMain").toggle();
-		$("#chatBtn").toggle();
+		$("#chatOpenBtn").toggle();
 	}
 	
 	connect();
@@ -80,12 +80,12 @@
 	box-sizing: border-box;
 }
 
-#chatBtn {
+#chatOpenBtn {
 	background-color: rgba(255, 165, 0, 0.9);
 	padding: 10px;
 }
 
-#chatBtn span {
+#chatOpenBtn span {
 	font-size: 50px;
 	color: white;
 }
@@ -99,7 +99,7 @@
 .msgBox {
 	background-color: rgba(0, 0, 0, 0.05);
 	padding: 12px;
-	margin: 8px 0;
+	margin: 10px 0;
 	border-radius: 20px;
 }
 
@@ -167,7 +167,7 @@
 	bottom: 20px;
 }
 
-button {
+.chatBtn {
 	cursor: pointer;
 }
 
@@ -184,7 +184,7 @@ button {
 				<span class="material-symbols-outlined symbol">confirmation_number</span>
 				<span style="font-size: 24px;">도래 챗봇</span>
 			</div>
-			<button id="close" class="chatMenuBtn" onclick="chatToggle()">
+			<button class="chatBtn chatMenuBtn" onclick="chatToggle()">
 				<span class="material-symbols-outlined symbol">close</span>
 			</button>
 		</div>
@@ -197,7 +197,7 @@ button {
 			</button>
 		</div>
 	</div>
-	<button id="chatBtn" class="chatCommon" onclick="chatToggle()">
+	<button id="chatOpenBtn" class="chatBtn chatCommon" onclick="chatToggle()">
 		<span class="material-symbols-outlined symbol">contact_support</span>
 	</button>
 </body>
