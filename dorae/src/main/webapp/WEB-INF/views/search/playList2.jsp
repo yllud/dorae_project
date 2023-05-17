@@ -29,46 +29,56 @@
 	})
 </script>
 <%
-	int rank=1;
+	int rank = 1;
 %>
-<div style="position: absolute; right: 800px; top: 250px;">
-<table>
-	<tr>
-		<td class="left">순위</td>
-		<td class="right">박스 오피스 ${cri.genre} 순위</td>
-	</tr>
-	<c:forEach items="${list2}" var="one">
-		<tr>
-			<td class="left"><%=rank%></td>
-			<%	
-				rank+=1;
-			%>
-			<td class="right"><a href="playDetail?play_id=${one.play_id}">${one.play_name}</a></td>
-		</tr>
-	</c:forEach>
-</table>
-</div>
 
-<c:forEach items="${list}" var="bag">
-	<!-- el 속성만 받아올 수 있는 표현식 -->
-	<img src="${bag.poster}" width="200" height="200">
-	<br>
-		제목 : <a href="playDetail?play_id=${bag.play_id}">${bag.play_name}</a>
-	<br>
-		장르: ${bag.genre_name}<br>
-		출연진: ${bag.casting}<br>
-		기간: ${bag.play_start} ~ ${bag.play_end}<br>
-		공연 상태: ${bag.state}<br>
-</c:forEach>
-<br>
-<%
-	int page_cnt = (int) request.getAttribute("page_cnt");
-	for (int p = 1; p <= page_cnt; p++) {
-		if (p > 10) {
-			break;
-		}
-%>
-<button class="pages"><%=p%></button>
-<%
-	}
-%>
+	<div style="position: absolute; right: 60px; top: 200px;">
+	<table>
+		<tr>
+			<td class="rank-left">순위</td>
+			<td class="rank-right">박스 오피스 ${cri.genre} 순위</td>
+		</tr>
+		<c:forEach items="${list2}" var="one">
+			<tr>
+				<td class="rank-left"><%=rank%></td>
+				<%
+					rank += 1;
+				%>
+				<td class="rank-right"><a
+					href="playDetail?play_id=${one.play_id}">
+						<div class="rank-right2">${one.play_name}</div>
+				</a></td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
+<!-- </div> -->
+
+<div class="product-list">
+	<c:forEach items="${list}" var="bag">
+		<!-- el 속성만 받아올 수 있는 표현식 -->
+		<a href="playDetail?play_id=${bag.play_id}" class="product"> <img
+			src="${bag.poster}" width="200" height="200">
+			<div class="product-name">${bag.play_name}</div>
+			<div>${bag.genre_name}</div>
+			<div>${bag.state}</div>
+			<div>${bag.play_start}~${bag.play_end}</div>
+		</a>
+	</c:forEach>
+	<div class="clearfix">
+
+		<div class="footer">
+			<%
+				int page_cnt = (int) request.getAttribute("page_cnt");
+				for (int p = 1; p <= page_cnt; p++) {
+					if (p > 10) {
+						break;
+					}
+			%>
+			<button class="pages"><%=p%></button>
+			<%
+				}
+			%>
+		</div>
+	</div>
+</div>

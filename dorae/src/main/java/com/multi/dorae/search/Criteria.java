@@ -13,7 +13,7 @@ public class Criteria {
 	private String genre;
 	private String state;
 
-	int amount = 3; // 한 페이지당 공연 수
+	int amount = 12; // 한 페이지당 공연 수
 
 	//페이지 번호로 rownum 시작번호와 끝번호 설정
 	public void setStartEnd(int page) {
