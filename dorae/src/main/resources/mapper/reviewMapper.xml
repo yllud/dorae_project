@@ -2,12 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
 
-	<insert id="insert" 
-			parameterType="reviewVO" 
-			useGeneratedKeys="true" 
-			keyProperty="review_id">
-        insert into review values (null, null, #{title}, #{images}, #{content}, #{tag})
-    </insert>
+	<insert id="insert" parameterType="reviewVO"
+		useGeneratedKeys="true" keyProperty="review_id">
+		insert into review values (null, null, #{title}, #{images}, #{content},
+		#{tag})
+	</insert>
 
+	<select id="all" resultType="reviewVO">
+		select
+		review_title as title,
+		review_content as content,
+		review_tag as tag,
+		review_img as images
+		from review
+		order by review_id desc
+	</select>
 
+	<select id="tagSearch" resultType="reviewVO">
+		select
+		review_title as title,
+		review_content as content,
+		review_tag as tag,
+		review_img as images
+		from review
+		where review_tag = ${tag}
+		order by review_id desc
+	</select>
 </mapper>

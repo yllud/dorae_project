@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -55,8 +56,9 @@ public class ReviewController {
 		
 	}
 	
+//	다녀온 후기 등록(사진 복수 첨부)
 	@RequestMapping("review/insert2")
-	public void insert2(ReviewVO reviewVO, HttpServletRequest request, MultipartFile[] files, Model model)
+	public String insert2(ReviewVO reviewVO, HttpServletRequest request, MultipartFile[] files, Model model)
 			throws Exception {
 
 		List<String> savedNames = new ArrayList<>();
@@ -74,5 +76,22 @@ public class ReviewController {
 		reviewVO.setImages(savedNames);
 
 		dao.insert(reviewVO);
+		return "redirect:/review/reviewBbs.jsp";
+	}
+	
+//	다녀온 후기 전체 리스트 불러오기
+	@RequestMapping("review/all")
+	@ResponseBody
+	public List<ReviewVO> all() {
+		List<ReviewVO> list = dao.all();
+		System.out.println(list);
+		return list;
+	}
+	
+//	태그로 후기 검색
+	@RequestMapping("review/tagSearch")
+	public List<ReviewVO> tagSearch(String tag) {
+		List<ReviewVO> list = dao.tagSearch(tag);
+		return list;
 	}
 }
