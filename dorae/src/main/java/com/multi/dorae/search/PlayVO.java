@@ -3,17 +3,12 @@ package com.multi.dorae.search;
 import java.sql.Date;
 
 public class PlayVO {
-	int rownum;
-
-	public int getRownum() {
-		return rownum;
-	}
-	public void setRownum(int rownum) {
-		this.rownum = rownum;
-	}
 	String play_id,stage_id,play_name;
 	Date play_start,play_end;
 	String stage_name,casting,crew,runtime,play_age,enterprise,price,poster,content,genre_name,state,openrun,image,play_time;
+	// 페이징을 위한 rownum 변수 추가
+	int rownum;
+	
 	public String getPlay_id() {
 		return play_id;
 	}
@@ -127,6 +122,14 @@ public class PlayVO {
 	}
 	public void setPlay_time(String play_time) {
 		this.play_time = play_time;
+	}
+	
+	
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
 	}
 	@Override
 	public String toString() {

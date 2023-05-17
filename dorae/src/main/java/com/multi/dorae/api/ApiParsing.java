@@ -287,7 +287,8 @@ public class ApiParsing {
 		List<String> idList = new ArrayList<String>();
 
 		// 장르 구분
-		String[] listGenre = { "AAAA", "GGGA", "CCCA", "CCCC", "CCCD", "BBBC", "BBBR", "EEEB", "EEEA", "KID", "OPEN" };
+		String[] listGenre = { "AAAA", "GGGA", "CCCA", "CCCC", "CCCD", "BBBC", "BBBR", "EEEB", "EEEA" };
+//		, "KID", "OPEN"}
 		// 지역 코드
 		String[] listSi = { "11", "26", "27", "28", "29", "30", "31", "40", "41", "42", "43", "44", "45", "46", "47",
 				"48", "50", "UNI" };
@@ -296,13 +297,14 @@ public class ApiParsing {
 		int[] list_cnt = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		for (int i = 0; i < listGenre.length; i++) {
-			for (int j = 0; j < listSi.length; j++) {
+			//서울만
+			for (int j = 0; j < 1; j++) {
 
 				// 20200601~20230601까지 공연중
 				// listSi[i]시or도
 				// 공연 데이터 중 500개까지 불러옴
 				String parsingUrl = "http://kopis.or.kr/openApi/restful/boxoffice?service=e2622608ee6c4fa2a38d5f75a26a7e50"
-						+ "&ststype=day&date=20230503&catecode=" + listGenre[i] + "&area=" + listSi[j];
+						+ "&ststype=day&date=20230516&catecode=" + listGenre[i] + "&area=" + listSi[j];
 
 				System.out.println(parsingUrl);
 

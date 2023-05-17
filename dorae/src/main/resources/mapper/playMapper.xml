@@ -9,7 +9,6 @@
 		#{play_age},#{enterprise},#{price},#{poster},
 		#{content},#{genre_name},#{state},#{openrun},
 		#{image},#{play_time}
-
 		)
 	</insert>
 
@@ -53,8 +52,6 @@
 			and genre_name=#{genre}
 		</if>
 	</select>
-
-
 
 
 	<select id="searchStageId" parameterType="String"
