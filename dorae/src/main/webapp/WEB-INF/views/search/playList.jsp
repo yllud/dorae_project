@@ -90,7 +90,7 @@ td {
 		<option value="전체(장르)">전체(장르)</option>
 		<option value="뮤지컬">뮤지컬</option>
 		<option value="연극">연극</option>
-		<option value="서커스/마술">서커스</option>
+		<option value="서커스/마술">서커스/마술</option>
 		<option value="서양음악(클래식)">클래식</option>
 		<option value="한국음악(국악)">국악</option>
 		<option value="대중음악">대중음악</option>
