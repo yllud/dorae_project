@@ -20,6 +20,6 @@ public class ReviewDAO {
 	}
 	
 	public List<ReviewVO> tagSearch(String tag) {
-		return my.selectList("review.tagsearch", tag);
+		return my.selectList("review.tagSearch", tag);
 	}
 }

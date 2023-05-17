@@ -84,14 +84,16 @@ public class ReviewController {
 	@ResponseBody
 	public List<ReviewVO> all() {
 		List<ReviewVO> list = dao.all();
-		System.out.println(list);
+//		System.out.println(list);
 		return list;
 	}
 	
 //	태그로 후기 검색
 	@RequestMapping("review/tagSearch")
+	@ResponseBody
 	public List<ReviewVO> tagSearch(String tag) {
 		List<ReviewVO> list = dao.tagSearch(tag);
+		System.out.println(list);
 		return list;
 	}
 }

@@ -52,6 +52,7 @@
 			}
 		});
 		
+		// 태그 검색
 		$('#tagSearch').click(function() {
 			var tag = $('#tag').val();
 			$.ajax({
