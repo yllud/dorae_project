@@ -47,6 +47,34 @@ public class KakaoController {
 		model.addAttribute("result", (int) (list.get(1)));
 		return "login/testPage";
 	}
+	
+//	//내가 만든 로그인
+//	@RequestMapping("login/kakaoLogin")
+//	public String login(KakaoVO vo, Model model) {
+//		System.out.println(vo + "===================");
+//		
+//		int result2 = dao.login(vo); //WHERE EMAIL = ${EMAIL} 이  있으면 SESSION설정하고 REDIRECT
+//		if(result2 != 1) {
+//			int result =  dao.insert(vo);
+//			System.out.println(result);
+//			if (result != 0) {
+//				
+//				//로그인 성공하면 session 잡아주기
+//				session.setAttribute("email", vo.getEmail());
+//				// 세션 유지 시간 설정 (옵션)
+//			    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
+//			    return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
+//				
+//			}else {
+//				return "redirect:/login/login.jsp"; // 로그인 실패 시 로그인 페이지로 리다이렉트
+//			}
+//		}else {
+//			session.setAttribute("email", vo.getEmail());
+//			// 세션 유지 시간 설정 (옵션)
+//		    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
+//		    return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
+//			}
+//	}
 
 	// 네이버랑 email 겹치면 지우려고 만든 것 (회원탈퇴시에도 적용할 예정)
 	@RequestMapping(value = "login/kakaoDelete", method = RequestMethod.GET)

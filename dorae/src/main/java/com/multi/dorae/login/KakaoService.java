@@ -95,9 +95,7 @@ public class KakaoService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		// catch 아래 코드 추가.
-		
 		
 		System.out.println("userInfo" + vo);
 //		KakaoVO result = dao.findkakao(userInfo);
@@ -112,9 +110,9 @@ public class KakaoService {
 			return list;
 			// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
 			//  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
-////		} else {
-////			return result;
-////			// 정보가 이미 있기 때문에 result를 리턴함.
+//		} else {
+//			return result;
+//			// 정보가 이미 있기 때문에 result를 리턴함.
 //		}
         
 	}

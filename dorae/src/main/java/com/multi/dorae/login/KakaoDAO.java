@@ -53,17 +53,37 @@ public class KakaoDAO {
 //		sql.insert("kakaoMember.kakaoInsert",userInfo);
 //	}
 
+
 	// 정보 확인
 	public KakaoVO findkakao(HashMap<String, Object> userInfo) {
 		System.out.println("RN:"+userInfo.get("nickname"));
 		System.out.println("RE:"+userInfo.get("email"));
 		return sql.selectOne("kakaoMember.kakaoFind", userInfo);
 	}
-	
-	public void delete(String email) {
-		int result = sql.delete("kakaoMember.kakaoDelete", email);
-		System.out.println(result);
+
+
+	public int delete(String email) {
+		int result = sql.delete(email);
+		return result;
 	}
+	
+	
+//	//새로 로그인 짠거
+//	public int login(KakaoVO bag) {
+//		int result = 0;
+//		try {
+//			result = sql.selectOne("kakaoMember.kakaoFind", bag);
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return result;
+//	}
+//	
+//	public void delete(String email) {
+//		int result = sql.delete("kakaoMember.kakaoDelete", email);
+//		System.out.println(result);
+//	}
 	
 
 }
