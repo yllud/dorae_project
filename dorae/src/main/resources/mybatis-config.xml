@@ -22,10 +22,12 @@
 		<!-- 최현석 -->
 		<typeAlias type="com.multi.dorae.review.ReviewVO"
 			alias="reviewVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.review.ReviewPageVO"
+			alias="reviewPageVO"></typeAlias>
 		<typeAlias type="com.multi.dorae.sns.BlogVO" alias="blogVO"></typeAlias>
 		<typeAlias type="com.multi.dorae.sns.TwitterVO"
 			alias="twitterVO"></typeAlias>
-
+		
 		<!-- 구윤진 -->
 		<typeAlias type="com.multi.dorae.login.KakaoVO" alias="kakaoVO"></typeAlias>
 		<typeAlias type="com.multi.dorae.login.NaverVO" alias="naverVO"></typeAlias>
