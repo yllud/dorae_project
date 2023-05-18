@@ -41,7 +41,7 @@ public class PlayDAO {
 		return list;
 	}
 
-	// 페이지 불러올 때 전체 리시트 숫자 불러오기
+	// 리시트 개수
 	public int count(Criteria cri) {
 		System.out.println("(DAO) count");
 		int cnt = my.selectOne("play.count", cri);
