@@ -3,6 +3,7 @@ package com.multi.dorae.ticket;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.multi.dorae.search.PlayVO;
 
@@ -18,6 +19,12 @@ public class SeatDAO {
 			PlayVO vo = my.selectOne("play.one", play_id);
 
 			return vo;
-
 		}
+		public PlayVO one2(String play_id) {
+			System.out.println(play_id);
+			PlayVO vo = my.selectOne("play.one", play_id);
+
+			return vo;
+		}
+		
 }
