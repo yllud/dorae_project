@@ -79,16 +79,15 @@ $(function() {
  			 console.log(value);
 		    } //onChange
 	  }); //selector flatpickr
-	  
+  
 	$('#b').click(function() {
-		  $('#seats').empty()
 			$.ajax({
 				url: "seats",
 				data: {
 					play_id: "${vo.play_id}"
 				},
-				success: function(x) {
-					$('#seats').append(x)
+				success: function(x){
+					$('#seats').html(x);
 					day_time.innerText = $('#selector').val() + $('.time').val(); // 관람날짜, 시간나타나도록
 					
 				} //success
@@ -118,9 +117,10 @@ ${vo.genre_name} || ${vo.play_name}
 	</select>
 
 <!-- 날짜, 시간 선택해야 버튼 활성화 -->
-<button type="submit" class="btn btn-dark" disabled="disabled" id="b" name="play_id" value="${vo.play_id}">다음단계</button> 
+<button type="button" class="btn btn-dark" disabled="disabled" id="b" name="play_id" value="${vo.play_id}">다음단계</button> 
 
 <!-- <button type="submit" onclick="window.open('http://localhost:8887/dorae/seat.jsp','좌석선택','width=430,height=500,location=no,status=no')">좌석선택</button> -->
+
 <hr>
 <!-- 좌석선택 -->
 <div id="seats"></div>
