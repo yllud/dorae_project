@@ -50,7 +50,6 @@ public class ReviewController {
 
 //	다녀온 후기 전체 리스트 불러오기
 	@RequestMapping("review/all")
-	@ResponseBody
 	public List<ReviewVO> all() {
 		List<ReviewVO> list = dao.all();
 //		System.out.println(list);
@@ -59,7 +58,6 @@ public class ReviewController {
 
 //	태그로 후기 검색
 	@RequestMapping("review/tagSearch")
-	@ResponseBody
 	public List<ReviewVO> tagSearch(String tag) {
 		List<ReviewVO> list = dao.tagSearch(tag);
 		System.out.println(list);
