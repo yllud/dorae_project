@@ -3,6 +3,7 @@ package com.multi.dorae.help;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.multi.dorae.login.KakaoVO;
 
 @Controller
 @RequestMapping("help")
@@ -78,10 +81,11 @@ public class HelpController {
 	}
 	
 	@RequestMapping("contact")
-	public void contact(String email, Model model, HttpServletRequest hsr) {
-		System.out.println(hsr.getSession().getAttribute("email"));
-		System.out.println(hsr.getSession().getAttribute("kakaoE"));
-		model.addAttribute("contactList", contactService.contactList(email));
+	public void contact(String email, Model model, HttpSession session) {
+		System.out.println(session.getAttribute("email"));
+		System.out.println(session.getAttribute("kakaoE"));
+		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");
+		model.addAttribute("contactList", contactService.contactList(kvo.getEmail()));
 	}
 	
 	@RequestMapping("contactOne")
@@ -106,8 +110,12 @@ public class HelpController {
 	}
 	
 	@RequestMapping(value = "contactCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String contactCreate(ContactVO vo) {
+	public String contactCreate(ContactVO vo, HttpSession session) {
+		System.out.println(session.getAttribute("kakaoE"));
+		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");
+		vo.setMember_id(kvo.getEmail());
+		
 		contactService.contactCreate(vo);
-		return "redirect:/help/main";
+		return "redirect:/help/contact";
 	}
 }
