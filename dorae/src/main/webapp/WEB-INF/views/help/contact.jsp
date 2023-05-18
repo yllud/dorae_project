@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고객센터</title>
+<title>1:1 문의 - 고객센터</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /> <!-- 구글 폰트/아이콘 -->
 <link rel="stylesheet" href="/dorae/resources/css/chatBot.css" />
 <script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
@@ -13,25 +13,6 @@
 <script type="text/javascript">
 	$(function() {
 		$("#header").load("/dorae/header.jsp");
-		
-		$(".faqItemBtn").click(function() {
-			$.ajax({
-				url: "faqOne",
-				data: {
-					faq_id: $(this).val()
-				},
-				context: this, // ajax에서 현재 객체(.faqItemBtn)를 사용할 수 있다.
-				success: function(res) {					
-					if ($(this).next("p.faqItemContent").length != 0) { // 내용 요소가 있으면 
-						$(this).next("p.faqItemContent").text(res.content); // 해당 요소의 텍스트만 바꾸기	
-					} else {
-						$(this).closest("li")
-							.append($("<p>", {class: "faqItemContent"})
-							.text(res.content)); // this 와 가장 가까운 상위 요소(부모) 에 내용 추가					
-					}
-				}
-			})
-		})
 	})
 </script>
 <style type="text/css">
@@ -43,40 +24,6 @@
 		top: 200px;
 	}
 	
-	#faqTitle {
-		display: inline-block;
-		border-right: 1px solid;
-		padding-right: 10px;
-	}
-
-	#search {
-		text-align: center;
-	}
-	
-	#searchInput {
-		width: 500px;
-		font-size: 20px;
-		margin-left: 7px;
-	}
-	
-	#searchBtn {
-		font-size: 20px;
-	}
-	
-	#search {
-		text-align: center;
-	}
-	
-	#searchInput {
-		width: 500px;
-		font-size: 20px;
-		margin-left: 7px;
-	}
-	
-	#searchBtn {
-		font-size: 20px;
-	}
-	
 	.btn-large {
 		font-size: 26px;
 		margin: 10px;
@@ -84,26 +31,25 @@
 	}
 	
 	.btn-small {
-		font-size: 20px;
 		margin: 4px;
 	}
 	
-	.searchItemBtn p {
-		margin-bottom: 0;
-	}
-	
-	.faqItem:first-child {
+	.contactItem:first-child {
 		border-top: 1px solid grey;
 	}
 	
-	.faqItem {
+	.contactItem {
 		list-style: none;
 		border-bottom: 1px solid grey;
 		width: 100%;
 		text-align: left;
 	}
 	
-	.faqItemBtn {
+	.contactItem a {
+		padding: 0;
+	}
+	
+	.contactItemBtn {
 		padding: 12px;
 		font-size: 24px;
 		border: 0;
@@ -111,51 +57,31 @@
 		cursor: pointer;
 		text-align: left;
 	}
-	
-	.faqItemContent {
-		font-size: 20px;
-		text-align: center;
-		padding: 0 10%;
-	}
 </style>
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
 	
 	<div id="helpBody">
-		<!-- FAQ 검색 -->
-		<form action="faqBySearch">
-			<h2 id="faqTitle">FAQ 검색</h2>
-			<input type="text" id="searchInput" name="search"/>
-			<button type="submit" id="searchBtn">검색</button>
-		</form>
-		
-		<div id="helpContent">
-			<!-- FAQ 유형별 버튼 -->
-			<div id="faqBtnList">
-				<c:forEach items="${helpCategory}" var="item">
-				<a href="faqByCategory?help_category_id=${item.help_category_id }">
-					<button class="btn-small">${item.name }</button>
-				</a>
-				</c:forEach>
-			</div>
-			<hr color="red">
-			
-			<div id="faqItemList">
-				<ul id="faqList">
-					<c:forEach items="${faqList }" var="item">
-					<li class="faqItem">
-						<button class="faqItemBtn" value="${item.faq_id }">${item.title }</button>
-					</li>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
+		<c:if test="${empty contactList }">
+		<!-- 배열이 비어있으면 -->
+		<p>문의 내역이 없습니다.</p>
+		</c:if>
+		<c:if test="${not empty contactList }">
+		<!-- 배열이 비어있지 않으면 -->
+		<c:forEach items="${contactList }" var="item">
+		<li class="contactItem">
+			<a href="contactOne?contact_id=${item.contact_id }">
+				<button class="contactItemBtn" value="${item.contact_id }">${item.title }</button>
+			</a>
+		</li>
+		</c:forEach>
+		</c:if>
 		
 		<!-- 1:1 문의 -->
 		<div id="other">
-			<a href="contact">
-				<button class="btn-large">1:1문의</button>
+			<a href="contactCreate">
+				<button class="btn-large">문의 작성</button>
 			</a>
 		</div>
 	</div>

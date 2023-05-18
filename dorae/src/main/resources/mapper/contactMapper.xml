@@ -11,7 +11,7 @@
 	</delete>
 	
 	<select id="selectList" resultType="contactVO" parameterType="String">
-		select * from contact
+		select * from contact where member_id = #{member_id}
 	</select>
 	
 	<select id="selectOne" resultType="contactVO" parameterType="long">

@@ -1,6 +1,5 @@
 package com.multi.dorae.help;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,10 +75,19 @@ public class HelpController {
 		return noticeService.noticeList();
 	}
 	
-	@ResponseBody
+	@RequestMapping("contact")
+	public void contact(String email, Model model) {
+		model.addAttribute("contactList", contactService.contactList(email));
+	}
+	
 	@RequestMapping("contactOne")
-	public ContactVO contactOne(long contact_id) {
-		return contactService.contactOne(contact_id);
+	public String contactOne(long contact_id, Model model) {
+		if (contactService.contactOne(contact_id) == null) {
+			return "redirect:/help/main";
+		} else {
+			model.addAttribute("vo", contactService.contactOne(contact_id));
+			return "help/contactOne";
+		}
 	}
 	
 	@ResponseBody
@@ -88,10 +96,14 @@ public class HelpController {
 		return contactService.contactList(member_id);
 	}
 	
-	@ResponseBody
+	@RequestMapping(value = "contactCreate", method = RequestMethod.GET)
+	public void contactCreatePage() {
+
+	}
+	
 	@RequestMapping(value = "contactCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String contactCreate(ContactVO vo) {
 		contactService.contactCreate(vo);
-		return "1:1 문의 등록 성공";
+		return "redirect:/help/main";
 	}
 }

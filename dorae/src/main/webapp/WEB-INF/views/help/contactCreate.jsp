@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고객센터</title>
+<title>1:1 문의 작성 - 고객센터</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /> <!-- 구글 폰트/아이콘 -->
 <link rel="stylesheet" href="/dorae/resources/css/chatBot.css" />
 <script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
@@ -24,40 +24,6 @@
 		top: 200px;
 	}
 	
-	#faqTitle {
-		display: inline-block;
-		border-right: 1px solid;
-		padding-right: 10px;
-	}
-
-	#search {
-		text-align: center;
-	}
-	
-	#searchInput {
-		width: 500px;
-		font-size: 20px;
-		margin-left: 7px;
-	}
-	
-	#searchBtn {
-		font-size: 20px;
-	}
-	
-	#search {
-		text-align: center;
-	}
-	
-	#searchInput {
-		width: 500px;
-		font-size: 20px;
-		margin-left: 7px;
-	}
-	
-	#searchBtn {
-		font-size: 20px;
-	}
-	
 	.btn-large {
 		font-size: 26px;
 		margin: 10px;
@@ -67,68 +33,19 @@
 	.btn-small {
 		margin: 4px;
 	}
-	
-	#searchList {
-		padding: 0 40px;
-	}
-	
-	.searchItem:first-child {
-		border-top: 1px solid grey;
-	}
-	
-	.searchItem {
-		list-style: none;
-		border-bottom: 1px solid grey;
-		text-align: left;
-		width: 100%;
-	}
-	
-	.searchItemBtn {
-		padding: 12px;
-		font-size: 20px;
-		border: 0;
-		background-color: transparent;
-		cursor: pointer;
-		text-align: left;
-	}
-	
-	.searchItemBtn h4 {
-		margin-top: 0;
-	}
-	
-	.searchItemBtn p {
-		margin-bottom: 0;
-	}
 </style>
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
 	
 	<div id="helpBody">
-		<!-- FAQ 검색 -->
-		<form action="faqBySearch">
-			<h2 id="faqTitle">FAQ 검색</h2>
-			<input type="text" id="searchInput" name="search"/>
-			<button type="submit" id="searchBtn">검색</button>
-		</form>
-
-		<div id="helpContent">
-			<!-- FAQ 유형별 버튼 -->
-			<div id="faqBtnList">
-				<c:forEach items="${helpCategory}" var="item">
-				<a href="faqByCategory?help_category_id=${item.help_category_id }">
-					<button class="btn-large">${item.name }</button>
-				</a>
-				</c:forEach>
-			</div>
-			<hr color="red">
-		</div>
-		
-		<!-- 1:1 문의 -->
-		<div id="other">
-			<a href="contact">
-				<button class="btn-large">1:1문의</button>
-			</a>
+		<div>
+			<form action="contactCreate" method="post">
+				<p>회원 : <input id="contactMemberId" name="member_id" value="abcd@naver.com"/></p>
+				<p>제목 : <input id="contactTitle"  name="title" /></p>
+				<p>내용 : <textarea id="contactContent" name="content"></textarea></p>
+				<button type="submit" id="contactCreateBtn">1:1 문의 등록</button>			
+			</form>
 		</div>
 	</div>
 	
