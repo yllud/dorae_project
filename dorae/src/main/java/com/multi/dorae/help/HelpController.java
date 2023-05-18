@@ -81,7 +81,7 @@ public class HelpController {
 	}
 	
 	@RequestMapping("contact")
-	public void contact(String email, Model model, HttpSession session) {
+	public void contact(Model model, HttpSession session) {
 		System.out.println(session.getAttribute("email"));
 		System.out.println(session.getAttribute("kakaoE"));
 		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");
