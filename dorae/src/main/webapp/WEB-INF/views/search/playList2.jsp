@@ -30,9 +30,10 @@
 </script>
 <%
 	int rank = 1;
+	String g = (String) request.getAttribute("genre_name");
+	if (!g.equals("전체(장르)")) {
 %>
-
-	<div style="position: absolute; right: 60px; top: 200px;">
+<div style="position: absolute; right: 60px; top: 200px;">
 	<table>
 		<tr>
 			<td class="rank-left">순위</td>
@@ -52,7 +53,11 @@
 		</c:forEach>
 	</table>
 </div>
-<!-- </div> -->
+<%
+	}
+%>
+
+
 
 <div class="product-list">
 	<c:forEach items="${list}" var="bag">

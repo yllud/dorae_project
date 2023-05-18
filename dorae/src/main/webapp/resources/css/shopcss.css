@@ -97,18 +97,18 @@
 
 
 .rank-left {
-	width: 50px;
+	width: 30px;
 }
 
 .rank-right {
-	width: 150px;
+	width: 180px;
 	/* 	overflow: hidden; */
 	/*     text-overflow: ellipsis; */
 	/*     white-space: nowrap;  */
 }
 
 .rank-right2 {
-	width: 150px;
+	width: 180px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

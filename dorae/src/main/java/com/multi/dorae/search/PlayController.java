@@ -56,11 +56,13 @@ public class PlayController {
 		
 		List<RankVO> list2=dao3.rankList(cri.getGenre());
 		
+		String genre_name=cri.getGenre();
 
 		model.addAttribute("list", list);
 		model.addAttribute("cri", cri);
 		model.addAttribute("list2", list2);
 		model.addAttribute("page_cnt", page_cnt);
+		model.addAttribute("genre_name", genre_name);
 	}
 
 	@RequestMapping("search/playDetail")
