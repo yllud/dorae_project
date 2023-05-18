@@ -20,16 +20,22 @@ padding: 10px;
 	<c:forEach var="i" begin="0" end="5">
 		<table>
 			<tr>
-				<td>포스터</td>
+				<td><img src="${vo.poster}" width="300" height="300"></td>
 			</tr>
 			<tr>
-				<td>공연${i}</td>
+				<td>제목 : ${vo.play_name}</td>
 			</tr>
 			<tr>
-				<td>공연장</td>
+				<td>장르: ${vo.genre_name}</td>
 			</tr>
 			<tr>
-				<td>주소</td>
+				<td>공연장: ${vo.stage_name}</td>
+			</tr>
+			<tr>
+				<td>기간: ${vo.play_start} ~ ${vo.play_end}</td>
+			</tr>
+			<tr>
+				<td>주소: ${vo2.address}</td>
 			</tr>
 		</table>
 	</c:forEach>
