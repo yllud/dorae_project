@@ -2,7 +2,7 @@ package com.multi.dorae.mypage;
 
 import java.sql.Timestamp;
 
-public class BbsVO {
+public class ReplyVO {
 	private long r_number;
 	private String text;
 	private String booking;
@@ -56,7 +56,7 @@ public class BbsVO {
 	
 	@Override
 	public String toString() {
-		return "BbsVO [r_number=" + r_number + ", text=" + text + ", booking=" + booking + ", date=" + date
+		return "ReplyVO [r_number=" + r_number + ", text=" + text + ", booking=" + booking + ", date=" + date
 				+ ", imp_uid=" + imp_uid + ", email=" + email + ", upload_date=" + upload_date + "]";
 	}
 	

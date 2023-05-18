@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="bbs">
+<mapper namespace="reply">
 
 
-	<insert id="create" parameterType="bbsVO">
+	<insert id="create" parameterType="replyVO">
 		insert into m_review values (null,
 		#{text}, #{booking}, #{date}, #{imp_uid}, #{email}, #{upload_date})
 	</insert>
 
-	<update id="update" parameterType="bbsVO">
+	<update id="update" parameterType="replyVO">
 		update m_review
 		set text =
 		#{text}
@@ -19,7 +19,7 @@
 		where r_number = #{r_number}
 	</delete>
 	
-	<select id="one" parameterType="int" resultType="bbsVO">
+	<select id="one" parameterType="int" resultType="replyVO">
 		select * from m_review
 		where email = #{email}	
 	</select>

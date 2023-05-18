@@ -34,7 +34,7 @@
 		$('#b1').click(function() {
 			//기존의 것 삭제됨.
 			$('#result2').empty()
-			
+
 			$('#genre_id').empty()
 			$('#genre_id').append($('#genre').val())
 			$('#state_id').empty()
@@ -48,7 +48,7 @@
 					genre : $('#genre').val(),
 					state : $('#state_id').text()
 				},
-				success : function(x,genre) {
+				success : function(x, genre) {
 					//alert(x)
 					$('#result2').html(x)
 				},//success
@@ -64,8 +64,10 @@
 /* 	background: yellow; */
 /* } */
 td {
-	width: 100px;
+	/* 	width: 300px; */
+	background: lime;
 }
+
 /* .top{ */
 /* 	background: black; */
 /* 	color:white; */
@@ -77,54 +79,60 @@ td {
 </head>
 <body>
 
-	<mark id="title_id">${cri.title}</mark>
-	<mark id="genre_id">${cri.genre}</mark>
-	<mark id="state_id">${cri.state}</mark>
-	<br>
-	<select id="genre" name="type">
-		<option value="전체(장르)">전체(장르)</option>
-		<option value="뮤지컬">뮤지컬</option>
-		<option value="연극">연극</option>
-		<option value="서커스/마술">서커스/마술</option>
-		<option value="서양음악(클래식)">클래식</option>
-		<option value="한국음악(국악)">국악</option>
-		<option value="대중음악">대중음악</option>
-		<option value="복합">복합</option>
-		<option value="서양/한국무용(무용)">무용</option>
-		<option value="대중무용">대중무용</option>
-	</select>
-	<select id="state" name="type2">
-		<option value="공연중">공연중</option>
-		<option value="공연예정">공연예정</option>
-		<option value="공연완료">공연완료</option>
-	</select>
-	<button id="b1">적용</button>
-	<br>
-	<h3>검색 결과</h3>
-	<div id="result2">
-		<c:forEach items="${list}" var="bag">
-			<!-- el 속성만 받아올 수 있는 표현식 -->
-			<img src="${bag.poster}" width="200" height="200">
+	<div class="filter">
+			<select id="genre" name="type">
+				<option value="전체(장르)">전체(장르)</option>
+				<option value="뮤지컬">뮤지컬</option>
+				<option value="연극">연극</option>
+				<option value="서커스/마술">서커스/마술</option>
+				<option value="서양음악(클래식)">클래식</option>
+				<option value="한국음악(국악)">국악</option>
+				<option value="대중음악">대중음악</option>
+				<option value="복합">복합</option>
+				<option value="서양/한국무용(무용)">무용</option>
+				<option value="대중무용">대중무용</option>
+			</select> <select id="state" name="type2">
+				<option value="공연중">공연중</option>
+				<option value="공연예정">공연예정</option>
+				<option value="공연완료">공연완료</option>
+			</select>
+			<button id="b1">적용</button>
 			<br>
-		제목 : <a href="playDetail?play_id=${bag.play_id}">${bag.play_name}</a>
-			<br>
-		장르: ${bag.genre_name}<br>
-		출연진: ${bag.casting}<br>
-		기간: ${bag.play_start} ~ ${bag.play_end}<br>
-		공연 상태: ${bag.state}<br>
-		</c:forEach>
-	<br>
-	<%
-		int page_cnt = (int) request.getAttribute("page_cnt");
-		for (int p = 1; p <= page_cnt; p++) {
-			if (p > 10) {
-				break;
-			}
-	%>
-	<button class="pages"><%=p%></button>
-	<%
-		}
-	%>
+			<hr color="red">
+			<mark id="title_id">${cri.title}</mark>
+			<mark id="genre_id">${cri.genre}</mark>
+			<mark id="state_id">${cri.state}</mark>
+			<br> <br>
 	</div>
+	<div class="products">
+		<!-- 		<h3>검색 결과</h3> -->
+		<div class="product-list" id="result2">
+			<c:forEach items="${list}" var="bag">
+				<!-- el 속성만 받아올 수 있는 표현식 -->
+				<a href="playDetail?play_id=${bag.play_id}" class="product"> <img
+					src="${bag.poster}" width="200" height="200">
+					<div class="product-name">${bag.play_name}</div>
+					<div>${bag.genre_name}</div>
+					<div>${bag.state}</div>
+					<div>${bag.play_start}~${bag.play_end}</div>
+				</a>
+			</c:forEach>
+			<div class="clearfix">
+
+				<div class="footer">
+					<%
+						int page_cnt = (int) request.getAttribute("page_cnt");
+						for (int p = 1; p <= page_cnt; p++) {
+							if (p > 10) {
+								break;
+							}
+					%>
+					<button class="pages"><%=p%></button>
+					<%
+						}
+					%>
+				</div>
+			</div>
+		</div>
 </body>
 </html>

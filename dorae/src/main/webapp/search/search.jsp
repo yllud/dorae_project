@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../resources/css/shopcss.css">
 <title>Insert title here</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
@@ -51,15 +52,17 @@
 
 </head>
 <body>
-	<h3>공연검색 화면</h3>
-	<hr color="red">
-	공연제목:
-	<input id="title">
-	<button id="b0">검색</button>
+	<div class="filter">
+			<h3>공연검색 화면</h3>
+			<hr color="red">
+			공연제목: <input id="title">
+			<button id="b0">검색</button>
+			<hr color="red">
+	</div>
 
-	<hr color="red">
 	<div id="result"></div>
 	<!-- 	<div id="result" style="background: yellow"></div> -->
+
 
 </body>
 </html>

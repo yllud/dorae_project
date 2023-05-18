@@ -3,6 +3,8 @@ package com.multi.dorae.mypage;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.Data;
 
 @Controller //스프링에서 제어하는 역할로 등록! 
-public class BbsController {
+public class ReplyController {
 	
 	@Autowired
-	BbsDAO dao;
+	ReplyDAO dao;
 	//컨트롤 하는 기능(CRUD)
 	//회원가입, 수정, 탈퇴, 정보검색
 	
@@ -27,7 +29,7 @@ public class BbsController {
 	//요청된 주소가 어떻게 될 때
 	//바로 아래에 있는 메서드가 호출이 될지를 써주어야 한다. 
 	@RequestMapping("mypage/insert2")
-	public void insert(BbsVO bag) {
+	public void insert(ReplyVO bag) {
 		//메서드의 입력변수(파라메터)로 변수를 선언해두면, 컨트롤러내의 메서드내에서는
 		//1)bag을 만들어서 
 		//2)클라이언트로 부터 전달된 데이터도 받아줌.
@@ -44,7 +46,7 @@ public class BbsController {
 	}
 	
 	@RequestMapping("mypage/update2")
-	public void update(BbsVO bag) {
+	public void update(ReplyVO bag) {
 		System.out.println("update요청됨.");
 		System.out.println(bag);	
 		dao.update(bag);
@@ -62,11 +64,17 @@ public class BbsController {
 	public void one(int r_number, Model model) {
 		System.out.println("one요청됨.");
 		System.out.println(r_number);
-		BbsVO bag = dao.one(r_number);
+		ReplyVO bag = dao.one(r_number);
 		model.addAttribute("bag", bag);
 	}
 	
 
+	@RequestMapping("mypage/replyList")
+    public String list(Model model) {
+        List<ReplyVO> list = dao.list();
+        model.addAttribute("list", list);
+        return "mypage/replyList";
+    }
 	
 //	@RequestMapping("list2")
 //	public void list(Model model) {

@@ -23,7 +23,7 @@
     
     <script>
         function openPopup() {
-            var popupWindow = window.open("reply.jsp", "popupWindow", "width=500,height=500");
+            var popupWindow = window.open("../mypage/reply.jsp", "popupWindow", "width=500,height=500");
         }
     </script>
 	

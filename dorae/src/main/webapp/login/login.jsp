@@ -16,6 +16,7 @@
 </script>
 </head>
 <body>
+${email}
 <% if(session.getAttribute("email") == null){ %>
 	<h3>로그인페이지 입니다.</h3>
 

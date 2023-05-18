@@ -5,6 +5,9 @@ public class RankVO {
 	
 	int rank_id;
 	String play_id,rank_genre,rank_area,rank_date,ranking;
+	
+	String play_name;
+	
 	public int getRank_id() {
 		return rank_id;
 	}
@@ -40,6 +43,14 @@ public class RankVO {
 	}
 	public void setRanking(String ranking) {
 		this.ranking = ranking;
+	}
+	
+	
+	public String getPlay_name() {
+		return play_name;
+	}
+	public void setPlay_name(String play_name) {
+		this.play_name = play_name;
 	}
 	@Override
 	public String toString() {
