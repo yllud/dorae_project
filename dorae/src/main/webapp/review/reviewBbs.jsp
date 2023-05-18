@@ -104,7 +104,7 @@
 	});
 	// 후기 작성 페이지 여는 함수
 	function openMyReviewPage() {
-		window.location.href = "myReview2.jsp";
+		window.location.href = "myReview.jsp";
 	}
 </script>
 </head>
