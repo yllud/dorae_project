@@ -10,7 +10,7 @@
 
 	<insert id="naverInsert" parameterType="naverVO">
 		insert into member
-		values(null, #{nickname}, #{name}, #{email}, #{gender}, #{age}, #{birthday}, #{profile_image}, #{joinDate}, 'user')
+		values(#{nickname}, #{name}, #{email}, #{gender}, #{age}, #{birthday}, #{profile_image}, #{joinDate}, 'user')
 	</insert>
 
 	<delete id="naverDelete" parameterType="String">
@@ -21,13 +21,11 @@
 
 	<update id="naverUpdate" parameterType="naverVO">
 		update member
-		set nickname
-		= #{nickname},
+		set nickname = #{nickname},
 		name = #{name},
 		gender = #{gender},
 		age = #{age},
-		birthday
-		= #{birthday},
+		birthday = #{birthday},
 		profile_image = #{profile_image},
 		where email = #{email}
 	</update>

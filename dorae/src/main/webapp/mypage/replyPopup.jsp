@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>팝업 창</title>
+<title>후기 작성</title>
 <style>
 body {
 	text-align: center;
@@ -43,12 +43,13 @@ textarea {
 </head>
 <body>
 	<span class="close" onclick="window.close()">&times;</span>
-	<h2>팝업 창</h2>
+	<h2>후기 작성</h2>
 	<form action="insert2" method="get">
 	<div class="input-area">
 		<textarea placeholder="내용 입력 (최대 300글자)" id="inputText" name="text"
 			maxlength="300"></textarea>
 			email : <input name="email" value="${email}"><br>
+			작성자 : ${nickname}<br>
 	</div>
 	<div class="button-area">
 		<button onclick="confirmPopup()">확인</button>

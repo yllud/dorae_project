@@ -1,4 +1,5 @@
 <%@page import="com.multi.dorae.login.NaverVO"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@
 	$(document).ready(
 			function() {
 				function openPopup() {
-					var popupWindow = window.open("reply.jsp", "popupWindow",
+					var popupWindow = window.open("replyPopup.jsp", "popupWindow",
 							"width=500,height=500");
 				}
 
@@ -39,7 +40,7 @@
 				// b2 버튼을 클릭할 때 Ajax 요청을 보내고 결과를 받아옴
 				$(document).on("click", "#b2", function() {
 					$.ajax({
-						url: "mypage/list2", // 표시할 페이지의 URL
+						url: "mypage/replyList", // 표시할 페이지의 URL
 						type: "GET",
 						dataType: "html",
 						success: function(data) {
@@ -56,17 +57,14 @@
 </script>
 </head>
 <body>
-${email}
 <%
 	if(session.getAttribute("email") != null){
 %>
 	<h2>마이스테이지박스</h2>
 	${nickname} 님
-	${vo.nickname} 님
 
-	<a href="http://localhost:8888/dorae/login/login.jsp">
-		<button>로그인</button>
-	</a>
+		<button>로그아웃</button>
+	
 	<a href="http://localhost:8888/dorae/login/login.jsp">
 		<button>회원가입</button>
 	</a>
@@ -82,14 +80,14 @@ ${email}
   <input type="submit" value="프로필 사진 업로드">
 </form>
 <br>
-	<table border="1" width="180" heigth="30">
+	<table border="1" width="150" heigth="30">
 		<tr align="center">
 			<td>닉네임</td>
-			<td>id</td>
+			<td>${nickname}</td>
 		</tr>
 		<tr align="center">
 			<td>가입일</td>
-			<td>2000</td>
+			<td><fmt:formatDate value="${joinDate}" pattern="yyyy년 MM월 dd일"/></td>
 		</tr>
 		<tr align="center">
 			<td>관람수</td>
