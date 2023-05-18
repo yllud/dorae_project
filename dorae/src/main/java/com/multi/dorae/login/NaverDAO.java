@@ -1,6 +1,7 @@
 package com.multi.dorae.login;
 
-import java.sql.Timestamp;
+
+import java.sql.Date;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +14,31 @@ public class NaverDAO {
 	SqlSessionTemplate mn;
 	
 	public int insert(NaverVO bag) {
-		int result = 0;
-		try {
-			Timestamp joinDate = new Timestamp(System.currentTimeMillis());
-	        bag.setJoinDate(joinDate);
-			
-			result = mn.insert("naverMember.naverInsert", bag);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return result;
+	    int result = 0;
+	    try {
+	        if (bag.getJoinDate() == null) {
+	            Date joinDate = new Date(System.currentTimeMillis());
+	            bag.setJoinDate(joinDate);
+	        }
+	        result = mn.insert("naverMember.naverInsert", bag);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return result;
 	}
+//	public int insert(NaverVO bag) {
+//		int result = 0;
+//		try {
+//			Date joinDate = new Date(System.currentTimeMillis());
+//			bag.setJoinDate(joinDate);
+//			
+//			result = mn.insert("naverMember.naverInsert", bag);
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return result;
+//	}
 	
 	public int login(NaverVO bag) {
 		int result = 0;
