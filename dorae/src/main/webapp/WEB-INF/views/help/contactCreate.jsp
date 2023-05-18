@@ -41,7 +41,6 @@
 	<div id="helpBody">
 		<div>
 			<form action="contactCreate" method="post">
-				<p>회원 : <input id="contactMemberId" name="member_id" value="abcd@naver.com"/></p>
 				<p>제목 : <input id="contactTitle"  name="title" /></p>
 				<p>내용 : <textarea id="contactContent" name="content"></textarea></p>
 				<button type="submit" id="contactCreateBtn">1:1 문의 등록</button>			

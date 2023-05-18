@@ -2,6 +2,8 @@ package com.multi.dorae.help;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,7 @@ public class HelpController {
 	
 	@RequestMapping()
 	public String main() {
-		return "redirect:help/main";
+		return "redirect:main";
 	}
 	
 	@ResponseBody
@@ -76,7 +78,9 @@ public class HelpController {
 	}
 	
 	@RequestMapping("contact")
-	public void contact(String email, Model model) {
+	public void contact(String email, Model model, HttpServletRequest hsr) {
+		System.out.println(hsr.getSession().getAttribute("email"));
+		System.out.println(hsr.getSession().getAttribute("kakaoE"));
 		model.addAttribute("contactList", contactService.contactList(email));
 	}
 	

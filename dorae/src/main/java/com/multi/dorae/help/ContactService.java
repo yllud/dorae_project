@@ -49,8 +49,8 @@ public class ContactService {
 		return contactDAO.selectOne(contact_id);
 	}
 
-	public List<ContactVO> contactList(String member) {
-		return contactDAO.selectList(member);
+	public List<ContactVO> contactList(String member_id) {
+		return contactDAO.selectList(member_id);
 	}
 
 	
