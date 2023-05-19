@@ -4,28 +4,45 @@
 
 	<insert id="insert" parameterType="reviewVO"
 		useGeneratedKeys="true" keyProperty="review_id">
-		insert into review values (null, null, #{title}, #{images}, #{content},
+		insert into review values (null,
+		null, #{title}, #{images}, #{content},
 		#{tag})
 	</insert>
 
-	<select id="all" resultType="reviewVO">
-		select
-		review_title as title,
-		review_content as content,
-		review_tag as tag,
-		review_img as images
-		from review
-		order by review_id desc
+	<select id="all" resultType="reviewVO" parameterType="reviewPageVO">
+		SELECT title, content, tag, images
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY review_id DESC) AS review_no,
+		review_title AS title,
+		review_content AS content,
+		review_tag AS tag,
+		review_img AS images
+		FROM review
+		) review2
+		WHERE review2.review_no BETWEEN #{start} AND #{end};
 	</select>
 
-	<select id="tagSearch" resultType="reviewVO">
-		select
-		review_title as title,
-		review_content as content,
-		review_tag as tag,
-		review_img as images
-		from review
+	<select id="tagSearch" resultType="reviewVO" parameterType="java.util.Map">
+		SELECT title, content, tag, images
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY review_id DESC) AS review_no,
+		review_title AS title,
+		review_content AS content,
+		review_tag AS tag,
+		review_img AS images
+		FROM review
 		where review_tag = #{tag}
-		order by review_id desc
+		) review2
+		WHERE review2.review_no BETWEEN #{start} AND #{end};
+	</select>
+	
+	<!--전체 게시글 수 계산 -->
+	<select id="count" resultType="Integer">
+		select count(*) from review
+	</select>
+	
+	<!--태그검색 게시글 수 계산 -->
+	<select id="tagCount" resultType="Integer" parameterType="String">
+		select count(*) from review where review_tag = #{tag}
 	</select>
 </mapper>

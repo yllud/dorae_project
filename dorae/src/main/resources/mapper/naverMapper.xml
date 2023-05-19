@@ -3,8 +3,8 @@
 
 <mapper namespace="naverMember">
 
-	<select id="naverFind" resultType="int" parameterType="naverVO">
-		select count(*) from member 
+	<select id="naverFind" resultType="naverVO" parameterType="naverVO">
+		select * from member 
 		where email=#{email}
 	</select>
 

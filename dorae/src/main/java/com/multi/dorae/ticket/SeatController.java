@@ -15,7 +15,7 @@ public class SeatController {
 	
 	
 	//예매페이지(달력)
-	@RequestMapping("seat/one")
+	@RequestMapping("ticket.jsp")
 	public void one(String play_id, Model model) {
 		System.out.println(play_id);
 		PlayVO vo = dao.one(play_id);
