@@ -21,8 +21,8 @@ a {
 
 .left-side-bar {
     background-color: #dfdfdf;
-    width: 350px;
-    height: 600px;
+    width: 400px;
+    height: 750px;
     position: fixed;
     left: -295px;
     transition: left .3s;
@@ -87,4 +87,14 @@ a {
   /* 필요한 위치와 스타일 속성들 */
   margin: 0 auto;
   display: block; 
+}
+#infolist {
+	margin-top: 11px;
+	max-height: 650px;
+	width: 400px;
+	overflow-y: auto;
+}
+img{
+	width: 60%;
+	height: 60%;
 }

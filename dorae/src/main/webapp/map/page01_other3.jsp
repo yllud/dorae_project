@@ -31,11 +31,11 @@
 			minZoom: 7,
 			mapTypeId: 'normal',
 			center : new naver.maps.LatLng(36.5566103, 127.9783882), // 대한민국 중심
-			mapDataControl : false,
+			mapDataControl: false,
 			zoomControl : true,
 			zoomControlOptions : {
-				position : naver.maps.Position.TOP_RIGHT
-				//style : naver.maps.ZoomControlStyle.SMALL
+				position : naver.maps.Position.TOP_RIGHT,
+				style : naver.maps.ZoomControlStyle.SMALL
 			}
 		});//new map
 		
@@ -530,7 +530,7 @@
 			}
 		});
 		
-		//$('#side-bar').load("sidemenu.jsp");
+		$('#side-bar').load("sidemenu.jsp");
 		$('#banner').load("mainImg.jsp");
 	})
 </script>
@@ -544,14 +544,8 @@
 	<div id="map-container">
 		<div id="map">
 			<div id="banner"><input type="text"></div>
-			<div class="left-side-bar">
-				<div class="status-ico">
-					<span>▶</span> <span>▼</span>
-				</div>
-				
-				<input id="address_input" type="text" placeholder="도로명주소를 검색해주세요">
-				<div id="infolist"></div>
-			</div>
+			<div id="side-bar"></div>
+			
     	</div>
     	<input id="address" type="text" placeholder="주소를 입력해주세요"><button id="submit">주소검색</button>
 	        <div id="result">테스트테스트</div>

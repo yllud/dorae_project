@@ -6,22 +6,12 @@
 <head>
 <style>
 table{
-	width: 330px;
+	max-width: 350px;
 	margin: 0 auto;
 	padding: 10px;
 }
-.left-side.bar{
-	height: 600px;
-}
-#infolist {
-	margin-top: 11px;
-	max-height: 650px;
-	width: 350px;
-	overflow-y: auto;
-}
-img{
-	width: 60%;
-	height: 60%;
+th, td {
+  text-align: center;
 }
 </style>
 <meta charset="UTF-8">
