@@ -1,7 +1,5 @@
 package com.multi.dorae.search;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 

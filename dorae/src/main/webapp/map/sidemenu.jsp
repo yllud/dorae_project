@@ -5,19 +5,17 @@
 <html>
 <head>
 <style>
-#result {
-	overflow-y: auto; /* 수직 스크롤 적용 */
-	max-height: 750px; /* 스크롤이 나타날 최대 높이 */
-	padding-top: 11px;
-}
 table{
 	width: 330px;
 	margin: 0 auto;
 	padding: 10px;
 }
+.left-side.bar{
+	height: 600px;
+}
 #infolist {
 	margin-top: 11px;
-	max-height: 750px;
+	max-height: 650px;
 	width: 350px;
 	overflow-y: auto;
 }
@@ -55,11 +53,11 @@ img{
 
 				// 테이블 추가
 				$('#infolist').html(table);
-			},
+			}, //success
 			error : function() {
 				alert('실패@@@');
 			}
-		});
+		}); //ajax
 	});
 </script>
 </head>

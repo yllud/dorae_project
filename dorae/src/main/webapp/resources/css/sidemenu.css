@@ -21,8 +21,8 @@ a {
 
 .left-side-bar {
     background-color: #dfdfdf;
-    height: 850px; /* 변경된 부분 */
     width: 350px;
+    height: 600px;
     position: fixed;
     left: -295px;
     transition: left .3s;

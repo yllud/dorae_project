@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+</style>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"
 	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
 	crossorigin="anonymous"></script>
@@ -29,10 +31,11 @@
 			minZoom: 7,
 			mapTypeId: 'normal',
 			center : new naver.maps.LatLng(36.5566103, 127.9783882), // 대한민국 중심
+			mapDataControl : false,
 			zoomControl : true,
 			zoomControlOptions : {
-				position : naver.maps.Position.TOP_LEFT,
-				style : naver.maps.ZoomControlStyle.SMALL
+				position : naver.maps.Position.TOP_RIGHT
+				//style : naver.maps.ZoomControlStyle.SMALL
 			}
 		});//new map
 		
@@ -436,24 +439,17 @@
 		tooltip.appendTo(map.getPanes().floatPane);
 		
 		$.ajax({
-			url : "playDetail2",
-			success : function(x) {
-				/*
-				$(window).on("load", function() {
-				    if (navigator.geolocation) {
-				        //navigator.geolocation 은 Chrome 50 버젼 이후로 HTTP 환경에서 사용이 Deprecate 되어 HTTPS 환경에서만 사용 가능 합니다.
-				        //http://localhost 에서는 사용이 가능하며, 테스트 목적으로, Chrome 의 바로가기를 만들어서 아래와 같이 설정하면 접속은 가능합니다.
-				        //chrome.exe --unsafely-treat-insecure-origin-as-secure="http://example.com"
-				        
-				        navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
-				    } else {
-				        var center = map.getCenter();
-				        infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>');
-				        infowindow.open(map, center);
-				    }
-				});//window load fun
+			url : "infoList",
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json", // 데이터 형식을 JSON으로 지정
+			success : function(data) {
+				var response = data;
+
+				// delist1과 delist2 추출
+				var delist1 = response.delist1;
+				var delist2 = response.delist2;
 				
-				*/
+				addMarkers(delist2, map);
 				
 				function addMarkers(x, map) {
 					for (var i = 0; i < x.length; i++) {
@@ -465,7 +461,7 @@
 							map : map
 						});
 						markers.push(marker);
-						addMarkerToList(markers[i]);
+						//addMarkerToList(markers[i]);
 					}//for
 					
 					var marker1 = {
@@ -517,6 +513,8 @@
 					}); //markerClustering
 				}//addMarkers
 				
+				
+				/*
 				//마커 리스트
 				function addMarkerToList(marker) {
 				  // 마커 정보를 추출하여 목록에 추가
@@ -525,8 +523,14 @@
 				  listItem.textContent = marker.title; // 예시로 제목을 목록에 표시
 				  markerList.appendChild(listItem);
 				} //addMarkerToList
-			}//success
-		})//ajax
+				*/
+			}, //success
+			error : function() {
+				alert('실패@@@');
+			}
+		});
+		
+		//$('#side-bar').load("sidemenu.jsp");
 		$('#banner').load("mainImg.jsp");
 	})
 </script>
@@ -541,10 +545,12 @@
 		<div id="map">
 			<div id="banner"><input type="text"></div>
 			<div class="left-side-bar">
-		        <div class="status-ico">
-		            <span>▶</span>
-		            <span>▼</span>
-		        </div>
+				<div class="status-ico">
+					<span>▶</span> <span>▼</span>
+				</div>
+				
+				<input id="address_input" type="text" placeholder="도로명주소를 검색해주세요">
+				<div id="infolist"></div>
 			</div>
     	</div>
     	<input id="address" type="text" placeholder="주소를 입력해주세요"><button id="submit">주소검색</button>
