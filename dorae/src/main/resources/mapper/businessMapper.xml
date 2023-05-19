@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="business">
+	<!-- 사업자 페이지 생성 -->
+	<!-- 사업자 공연 리스트 불러오기 -->
+	<select id="page" resultType="playVO" parameterType="cri2">
+		select *
+		from (select ROW_NUMBER() over(order by business_id desc) as
+		rownum, play.play_id ,play.play_name
+		from play inner join business
+		on business.play_id=play.play_id where business.email=#{email}
+		) play2
+		where play2.rownum between #{start} and #{end}
+	</select>
+
+	<!-- 사업자 공연 리스트 개수(페이지 버튼 생성에 필요) -->
+	<select id="count" resultType="Integer" parameterType="cri2">
+		select count(*) from business where business.email=#{email}
+	</select>
 </mapper>
