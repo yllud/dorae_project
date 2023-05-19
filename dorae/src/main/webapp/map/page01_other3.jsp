@@ -21,6 +21,7 @@
 		
 		var map; // 전역 변수로 선언
 		var markers = []; // 전역 변수로 선언
+		var temp_marker; 
 		
 		// 네이버 지도 API를 로드합니다.
 		map = new naver.maps.Map('map', {
@@ -98,19 +99,13 @@
 	                '</div>'
 	            ].join('\n'));
 	            
-	            //마커 생성
-			    marker = new naver.maps.Marker({
-			        position: latlng,
-			        map: map,
-			        icon: {
-			            content: '<div class="custom-marker"></div>', // 마커 아이콘 HTML 또는 이미지 URL
-			            anchor: new naver.maps.Point(12, 12) // 마커 아이콘의 앵커 위치 설정
-			        }
-			    });
 				map.setCenter(latlng);
 				map.setZoom(14);
 	            infoWindow.open(map, latlng);
 	        });
+	    }
+	    function removeMarker(marker) {
+	        marker.setMap(null);
 	    }
 
 	    function searchAddressToCoordinate(address) {
@@ -552,7 +547,7 @@
 		        </div>
 			</div>
     	</div>
-    	<input id="address" type="text"><button id="submit">주소검색</button>
+    	<input id="address" type="text" placeholder="주소를 입력해주세요"><button id="submit">주소검색</button>
 	        <div id="result">테스트테스트</div>
 	</div>
 	

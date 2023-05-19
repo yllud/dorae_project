@@ -13,7 +13,7 @@
 	<div class="menu">
 		<nav class="clearfix">
 			<ul class="clearfix">
-				<li class="header_li"><a href="">공연</a></li>
+				<li class="header_li"><a href="search/search.jsp">공연</a></li>
 				<li class="header_li"><a href="">태그검색</a></li>
 				<li class="header_li"><a href="">고객센터</a></li>
 				<li class="header_li"><a href="">마이페이지</a></li>

@@ -5,23 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-/* body { */
-/* 	background: yellow; */
-/* } */
-td {
-	width: 100px;
+<style>
+table {
+border:1px solid #444444;
+width: 90%;
+margin: 10px;
+padding: 10px;
 }
-
-/* .top{ */
-/* 	background: black; */
-/* 	color:white; */
-/* } */
-/* .down{ */
-/* 	background: lime; */
-/* } */
 </style>
 </head>
 <body>
