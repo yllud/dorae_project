@@ -7,14 +7,9 @@ public class ReviewPageVO {
 
 	public void setStartEnd(int page) {
 		// page별로 start, end값만 구해주면 됨.
-		start = 1 + (page - 1) * 10;
-
-		// 무조건 1부터 시작
-		// 1page: 1 + 0 * 10 => start 1
-		// 2page: 1 + 1 * 10 => start 11
-		end = page * 10;
-		// 1page: 1 * 10 => end 10
-		// 2page: 2 * 10 => end 20
+		// 한 페이지에 4개씩 보여주기
+		start = 1 + (page - 1) * 4;
+		end = page * 4;
 	}
 
 	public int getStart() {

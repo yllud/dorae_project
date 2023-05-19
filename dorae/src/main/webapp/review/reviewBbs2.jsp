@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +14,9 @@
 
 		$.ajax({
 			url : "all",
+			data : {
+				page : 1
+			},
 			success : function(result) {
 				$('#reviewList').html(result);
 			},
@@ -19,14 +24,15 @@
 				alert('에러 발생');
 			}
 		});
-		
+
 		// 태그 검색
 		$('#tagSearch').click(function() {
 			var tag = $('#tag').val();
 			$.ajax({
 				url : "tagSearch",
 				data : {
-					tag : tag
+					tag : tag,
+					page : 1
 				},
 				success : function(result) {
 					$('#reviewList').html(result);
@@ -45,8 +51,11 @@
 </script>
 </head>
 <body>
-	<input type="text" id = "tag"><button id = "tagSearch">태그 검색</button>
+	<input type="text" id="tag">
+	<button id="tagSearch">태그 검색</button>
 	<button onclick="openMyReviewPage()">후기 작성</button>
+	<hr>
 	<div id="reviewList"></div>
+
 </body>
 </html>
