@@ -60,7 +60,7 @@
 <%
 	if(session.getAttribute("email") != null){
 %>
-	<h2>마이스테이지박스</h2>
+	<h2>도래도래</h2>
 	${nickname} 님
 
 		<button>로그아웃</button>
@@ -87,7 +87,7 @@
 		</tr>
 		<tr align="center">
 			<td>가입일</td>
-			<td><fmt:formatDate value="${joinDate}" pattern="yyyy년 MM월 dd일"/></td>
+			<td><fmt:formatDate value="${vo2.joinDate}" pattern="yyyy년 MM월 dd일"/></td>
 		</tr>
 		<tr align="center">
 			<td>관람수</td>

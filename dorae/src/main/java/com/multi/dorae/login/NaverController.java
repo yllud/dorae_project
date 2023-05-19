@@ -28,9 +28,12 @@ public class NaverController {
 	@RequestMapping("login/naverLogin")
 	public String login(NaverVO vo, Model model) {
 		System.out.println(vo + "===================");
+		//WHERE EMAIL = ${EMAIL} 이  있으면 SESSION설정하고 REDIRECT
 		
-		int result2 = dao.login(vo); //WHERE EMAIL = ${EMAIL} 이  있으면 SESSION설정하고 REDIRECT
-		if(result2 != 1) {
+		//NaverVO에 있는 정보를 다 불러오려고 vo2 만들음
+		NaverVO vo2 = dao.login(vo);
+		model.addAttribute("vo2", vo2);
+		if(vo2.getEmail() == null) { //email이 null이면 insert
 			int result =  dao.insert(vo);
 			System.out.println(result);
 			if (result != 0) {
@@ -38,12 +41,7 @@ public class NaverController {
 				//로그인 성공하면 session 잡아주기
 				session.setAttribute("email", vo.getEmail());
 				session.setAttribute("nickname", vo.getNickname());
-				session.setAttribute("joinDate", vo.getJoinDate());
-				session.setAttribute("gender", vo.getGender());
-				session.setAttribute("profile_image", vo.getProfile_image());
-				session.setAttribute("age", vo.getAge());
-				session.setAttribute("birthday", vo.getBirthday());
-				session.setAttribute("name", vo.getName());
+			
 				
 				// 세션 유지 시간 설정 (옵션)
 			    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
@@ -58,12 +56,7 @@ public class NaverController {
 		}else {
 			session.setAttribute("email", vo.getEmail());
 			session.setAttribute("nickname", vo.getNickname());
-			session.setAttribute("joinDate", vo.getJoinDate());
-			session.setAttribute("gender", vo.getGender());
-			session.setAttribute("profile_image", vo.getProfile_image());
-			session.setAttribute("age", vo.getAge());
-			session.setAttribute("birthday", vo.getBirthday());
-			session.setAttribute("name", vo.getName());
+		
 			
 			// 세션 유지 시간 설정 (옵션)
 		    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
@@ -73,7 +66,7 @@ public class NaverController {
 	}
 
 	
-	 @RequestMapping("logout")
+	 @RequestMapping("login/logout")
 	    public String logout(Model model, HttpSession session) {
 	        // 세션에서 로그인 정보 제거
 	        session.removeAttribute("email");
@@ -84,7 +77,7 @@ public class NaverController {
 	        model.addAttribute("message", "로그아웃되었습니다.");
 	        
 	        // 로그아웃 후 리다이렉트할 페이지 반환
-	        return "redirect:login/login.jsp";
+	        return "redirect:/login/login.jsp";
 	    }
 	
 //	@RequestMapping("login/update")
