@@ -13,10 +13,11 @@
 			// 			alert($(this).text())
 			$('#result2').empty()
 			$.ajax({
+				type : 'post',
 				url : "businessList2",
 				data : {
 					page : $(this).text(),
-					email : $('#email_id').text(),
+					email : $('#email_id').text()
 				},
 				success : function(x) {
 					$('#result2').html(x)
@@ -27,6 +28,11 @@
 			})
 		})//page 버튼
 	})
+
+	function businessDetail(play_id) {
+		
+
+	}
 </script>
 <style type="text/css">
 td {
@@ -36,6 +42,7 @@ td {
 </style>
 </head>
 <body>
+
 	<mark id="email_id">${cri.email}</mark>
 	<!-- 		<h3>검색 결과</h3> -->
 	<div id="result2">
@@ -47,7 +54,8 @@ td {
 			<c:forEach items="${list}" var="vo">
 				<tr>
 					<td>${vo.rownum}</td>
-					<td><a href="businessDetail?play_id=${vo.play_id}">${vo.play_name}</a></td>
+					<td><a href="javascript:businessDetail('${vo.play_id}')">${vo.play_name}</a></td>
+<%-- 				<td><a href="businessDetail?play_id=${vo.play_id}" target="_blank">${vo.play_name}</a></td> --%>
 				</tr>
 			</c:forEach>
 		</table>

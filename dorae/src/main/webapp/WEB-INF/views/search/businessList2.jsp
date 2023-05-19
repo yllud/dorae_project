@@ -16,7 +16,7 @@
 		<c:forEach items="${list2}" var="vo">
 			<tr>
 				<td>${vo.rownum }</td>
-				<td>${vo.play_name}</td>
+				<td><a href="javascript:businessDetail('${vo.play_id}')">${vo.play_name}</a></td>
 			</tr>
 		</c:forEach>
 	</table>
