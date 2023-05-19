@@ -14,7 +14,7 @@
 </head>
 <body>
 	<h2>예매내역</h2>
-	${vo.nickname} 님
+	${nickname} 님
 	
 
 <hr color="blue">
@@ -23,7 +23,7 @@
     
     <script>
         function openPopup() {
-            var popupWindow = window.open("../mypage/reply.jsp", "popupWindow", "width=500,height=500");
+            var popupWindow = window.open("../mypage/replyPopup.jsp", "popupWindow", "width=500,height=500");
         }
     </script>
 	

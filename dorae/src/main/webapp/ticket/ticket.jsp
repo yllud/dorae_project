@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/themes/material_blue.min.css">
 
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="resources/js/jquery-3.6.4.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/l10n/ko.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/minMaxTimePlugin.min.js"></script>
@@ -79,22 +79,12 @@ $(function() {
  			 console.log(value);
 		    } //onChange
 	  }); //selector flatpickr
-  
+	  
 	$('#b').click(function() {
-			$.ajax({
-				url: "seats",
-				data: {
-					play_id: "${vo.play_id}"
-				},
-				success: function(x){
-					$('#seats').html(x);
-					day_time.innerText = $('#selector').val() + $('.time').val(); // 관람날짜, 시간나타나도록
-					
-				} //success
-			}) //ajax
+		
+		localStorage.setItem("day_time", $('#selector').val() + $('.time').val()); //부모 창에서 로컬 스토리지에 정보 저장
+		
 		}) //b
-	
-	 
 }) //$
 </script>
 </head>
@@ -117,9 +107,10 @@ ${vo.genre_name} || ${vo.play_name}
 	</select>
 
 <!-- 날짜, 시간 선택해야 버튼 활성화 -->
-<button type="button" class="btn btn-dark" disabled="disabled" id="b" name="play_id" value="${vo.play_id}">다음단계</button> 
-
-<!-- <button type="submit" onclick="window.open('http://localhost:8887/dorae/seat.jsp','좌석선택','width=430,height=500,location=no,status=no')">좌석선택</button> -->
+<form action='seat/seats' method='get'>
+<button type="button" class="btn btn-dark" disabled="disabled" id="b" name="play_id" value="${vo.play_id}"
+onclick="window.open('http://localhost:8887/dorae/seat/seats','좌석선택','width=600,height=700,resizable=no,scrollbars=no')">다음단계</button>
+</form>
 
 <hr>
 <!-- 좌석선택 -->

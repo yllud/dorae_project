@@ -34,7 +34,7 @@ body {
   background-color: #74bcfe;
 }
 
-.seat.occupied { /* 예매된 좌석(선택불가) 색깔*/
+.seat.sold { /* 예매된 좌석(선택불가) 색깔*/
   background-color: #ffffff;
 }
 
@@ -46,12 +46,12 @@ body {
   margin-left: 20px;
 }
 
-.seat:not(.occupied):hover { /* 이미 예매된 좌석이 아닌 좌석에 커서를 올렸을 때 좌석의 크기가 1.2배로 확대*/
+.seat:not(.sold):hover { /* 이미 예매된 좌석이 아닌 좌석에 커서를 올렸을 때 좌석의 크기가 1.2배로 확대*/
   cursor: pointer;
   transform: scale(1.2);
 }
 
-.showcase.seat:not(.occupied):hover {
+.showcase.seat:not(.sold):hover {
   cursor: default;
   transform: scale(1);
 }
