@@ -24,8 +24,16 @@ public class ContactDAO {
 		return sql.selectOne("contact.selectOne", contact_id);
 	}
 	
-	public List<ContactVO> selectList(String member_id) {
-		return sql.selectList("contact.selectList", member_id);
+	public List<ContactVO> selectListAll() {
+		return sql.selectList("contact.selectListAll");
+	}
+	
+	public List<ContactVO> selectList() {
+		return sql.selectList("contact.selectList");
+	}
+	
+	public List<ContactVO> selectListByMemberId(String member_id) {
+		return sql.selectList("contact.selectListMemberId", member_id);
 	}
 	
 	public int answerUpdate(ContactVO vo) {

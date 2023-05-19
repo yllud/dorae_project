@@ -22,9 +22,9 @@ import com.multi.dorae.help.ContactVO;
 public class EmailSendService {
 
 	// @Value("${accessKey}")
-	String accessKey; // access key id (from portal or sub account)
+	String accessKey = "4F2BDC69826967D37B65";
 	// @Value("${secretKey}")
-	String secretKey; // secret key (from portal or sub account)
+	String secretKey = "DE6AAA53DEBADD68474D90821B631CB444D1E692";
 
 	public void send(ContactVO vo) {
 		try {

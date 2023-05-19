@@ -1,7 +1,10 @@
 package com.multi.dorae.admin;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,20 +12,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.multi.dorae.help.ContactService;
 import com.multi.dorae.help.ContactVO;
 
-@RequestMapping("admin")
+@RequestMapping("admin/contact")
 @Controller
 public class AdminContactController {
 	
 	@Autowired
 	ContactService contactService;
 	
-	@ResponseBody
 	@RequestMapping(value = "answerUpdate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String answerUpdate(ContactVO vo) {
+	public String answerUpdate(ContactVO vo, HttpSession session) {
+		System.out.println("answerUpdate 호출됨");
+//		vo.setAdmin_id((AdminVO) session.getAttribute("admin"));
+		vo.setAdmin_id("admin");
 		if (contactService.answerUpdate(vo)) {
-			return "답변 등록 성공";			
+			return "redirect:list";			
 		} else {
-			return "답변 등록 실패";
+			return "redirect:list";
 		}
+	}
+	
+	@RequestMapping("list")
+	public void contactList(Model model) {
+		model.addAttribute("contactList", contactService.contactListAll());
+	}
+	
+	@RequestMapping("one")
+	public void contactOne(long contact_id, Model model) {
+		model.addAttribute("vo", contactService.contactOne(contact_id));
 	}
 }

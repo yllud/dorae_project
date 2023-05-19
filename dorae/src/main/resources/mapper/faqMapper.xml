@@ -18,6 +18,10 @@
 		select * from faq;
 	</select>
 	
+	<select id="selectListWithPaging" resultType="faqVO" parameterType="hashmap">
+		select * from faq where help_category_id = #{help_category_id} limit #{offset}, #{limit}
+	</select>
+	
 	<select id="selectListByHelpCategory" parameterType="String" resultType="faqVO" >
 		select * from faq where help_category_id = #{help_category_id}
 	</select>

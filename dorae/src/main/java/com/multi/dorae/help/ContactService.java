@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.multi.dorae.admin.EmailSendService;
+import com.multi.dorae.login.KakaoVO;
 
 @Service
 public class ContactService {
@@ -45,12 +46,30 @@ public class ContactService {
 		return true;
 	}
 
+	public ContactVO contactOne(long contact_id, KakaoVO kakaoVO) {
+		ContactVO contactVO = contactDAO.selectOne(contact_id);
+		
+		if (!contactVO.getMember_id().equals(kakaoVO.getEmail())) { // 1:1 문의글의 작성자가 현재 세션의 사용자와 다르면
+			contactVO = null;
+		}
+		
+		return contactVO;
+	}
+	
 	public ContactVO contactOne(long contact_id) {
 		return contactDAO.selectOne(contact_id);
 	}
 
-	public List<ContactVO> contactList(String member_id) {
-		return contactDAO.selectList(member_id);
+	public List<ContactVO> contactListByMemberId(String member_id) {
+		return contactDAO.selectListByMemberId(member_id);
+	}
+	
+	public List<ContactVO> contactList() {
+		return contactDAO.selectList();
+	}
+	
+	public List<ContactVO> contactListAll() {
+		return contactDAO.selectListAll();
 	}
 
 	

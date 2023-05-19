@@ -14,6 +14,7 @@
 	<c:forEach items="${contactList }" var="item">
 		<li>
 			<span>${item.member_id } : ${item.created_at }</span>
+			<a href="one?contact_id=${item.contact_id }">${item.title }</a>
 			<c:if test="${empty item.admin_id }">
 			<span>답변 미완료</span>
 			</c:if>

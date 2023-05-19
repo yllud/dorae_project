@@ -28,6 +28,10 @@ public class FaqDAO {
 		return sql.selectList("faq.selectList");
 	}
 	
+	public List<FaqVO> selectListWithPaging() {
+		return sql.selectList("faq.selectListWithPaging");
+	}
+	
 	public List<FaqVO> selectListByCategory(String help_category_id) {
 		return sql.selectList("faq.selectListByHelpCategory", help_category_id);
 	}

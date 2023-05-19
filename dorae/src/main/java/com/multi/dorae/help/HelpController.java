@@ -39,7 +39,8 @@ public class HelpController {
 	}
 	
 	@RequestMapping("main")
-	public void helpMain(Model model) {
+	public void helpMain(Model model, HttpSession session) {
+		System.out.println("email : " + session.getAttribute("email"));
 		model.addAttribute("helpCategory", helpCategoryService.selectListByParentId("None"));
 	}
 	
@@ -85,23 +86,25 @@ public class HelpController {
 		System.out.println(session.getAttribute("email"));
 		System.out.println(session.getAttribute("kakaoE"));
 		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");
-		model.addAttribute("contactList", contactService.contactList(kvo.getEmail()));
+		model.addAttribute("contactList", contactService.contactListByMemberId(kvo.getEmail()));
 	}
 	
 	@RequestMapping("contact/one")
-	public String contactOne(long contact_id, Model model) {
-		if (contactService.contactOne(contact_id) == null) {
+	public String contactOne(long contact_id, HttpSession session, Model model) {
+		ContactVO contactVO = contactService.contactOne(contact_id, (KakaoVO) session.getAttribute("kakaoE"));
+		
+		if (contactVO == null) {
 			return "redirect:/help/main";
 		} else {
-			model.addAttribute("vo", contactService.contactOne(contact_id));
-			return "help/contact/one";
+			model.addAttribute("vo", contactVO);
+			return "one";
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping("contact/list")
-	public List<ContactVO> contactList(String member_id) {
-		return contactService.contactList(member_id);
+	public List<ContactVO> contactList(HttpSession session) {
+		return contactService.contactListByMemberId(((KakaoVO) session.getAttribute("kakaoE")).getEmail());
 	}
 	
 	@RequestMapping(value = "contact/create", method = RequestMethod.GET)
