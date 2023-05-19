@@ -30,7 +30,6 @@
 	})
 
 	function businessDetail(play_id) {
-		
 
 	}
 </script>
@@ -47,15 +46,16 @@ td {
 	<!-- 		<h3>검색 결과</h3> -->
 	<div id="result2">
 		<table>
-			<tr>
-				<td>번호</td>
-				<td>공연 제목</td>
-			</tr>
 			<c:forEach items="${list}" var="vo">
 				<tr>
 					<td>${vo.rownum}</td>
-					<td><a href="javascript:businessDetail('${vo.play_id}')">${vo.play_name}</a></td>
-<%-- 				<td><a href="businessDetail?play_id=${vo.play_id}" target="_blank">${vo.play_name}</a></td> --%>
+					<td>${vo.play_name}</td>
+					<!-- 					에이작스에 넣어주자 -> $("#pet-select").val() -->
+					<td><form action="businessUpdate" method="post">
+							<input type="hidden" name="play_id" value="${vo.play_id}">
+							<button>수정</button>
+						</form></td>
+					<td><button>삭제</button></td>
 				</tr>
 			</c:forEach>
 		</table>

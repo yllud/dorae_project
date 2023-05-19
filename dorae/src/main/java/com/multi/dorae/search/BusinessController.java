@@ -69,10 +69,23 @@ public class BusinessController {
 
 	}
 	
-//	@RequestMapping(value ="search/businessDetail",method = RequestMethod.POST)
-	@RequestMapping("search/businessDetail")
-	public void playDetail(String play_id, Model model) {
-		System.out.println("(Controller) business Detail 요청");
+	
+//	@RequestMapping(value ="search/businessUpdate",method = RequestMethod.POST)
+//	public void businessUpdate(String play_id, Model model) {
+//
+//		System.out.println("(Controller) business update 요청");
+//		
+//	}
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value ="search/businessUpdate",method = RequestMethod.POST)
+	public void businessUpdate(String play_id, Model model) {
+		System.out.println("(Controller) business update 요청");
 		System.out.println(play_id);
 		PlayVO vo = dao2.playDetail(play_id);
 
