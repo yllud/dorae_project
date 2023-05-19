@@ -2,7 +2,6 @@ package com.multi.dorae.help;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,36 +34,36 @@ public class HelpController {
 	@ResponseBody
 	@RequestMapping("helpCategoryListByParentId")
 	public List<HelpCategoryVO> helpCategoryListByParentId(String parent_category_id) {
-		return helpCategoryService.selectListByParentId(parent_category_id);
+		return helpCategoryService.listByParentId(parent_category_id);
 	}
 	
 	@RequestMapping("main")
 	public void helpMain(Model model, HttpSession session) {
 		System.out.println("email : " + session.getAttribute("email"));
-		model.addAttribute("helpCategory", helpCategoryService.selectListByParentId("None"));
+		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
 	}
 	
 	@ResponseBody
 	@RequestMapping("faq/one")
 	public FaqVO faqOne(int faq_id) {
-		return faqService.faqOne(faq_id);
+		return faqService.one(faq_id);
 	}
 	
 	@ResponseBody
 	@RequestMapping("faq/list")
 	public List<FaqVO> faqList() {
-		return faqService.faqList();
+		return faqService.list();
 	}
 	
 	@RequestMapping("faq/category")
 	public void faqListByHelpCategory(String help_category_id, Model model) {
-		model.addAttribute("helpCategory", helpCategoryService.selectListByParentId("None"));
-		model.addAttribute("faqList", faqService.faqListByHelpCategory(help_category_id));
+		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
+		model.addAttribute("faqList", faqService.listByCategory(help_category_id));
 	}
 	
 	@RequestMapping("faq/search")
 	public void faqSearch(String search, Model model) {
-		model.addAttribute("faqList", faqService.faqBySearch(search));
+		model.addAttribute("faqList", faqService.listBySearch(search));
 		model.addAttribute("search", search);
 	}
 	
@@ -72,13 +71,13 @@ public class HelpController {
 	@RequestMapping("notice/one")
 	public NoticeVO noticeOne(long notice_id) {
 		System.out.println("notice_id >> " + notice_id);
-		return noticeService.noticeOne(notice_id);
+		return noticeService.one(notice_id);
 	}
 	
 	@ResponseBody
 	@RequestMapping("notice/list")
 	public List<NoticeVO> noticeList() {
-		return noticeService.noticeList();
+		return noticeService.list();
 	}
 	
 	@RequestMapping("contact")
@@ -86,12 +85,12 @@ public class HelpController {
 		System.out.println(session.getAttribute("email"));
 		System.out.println(session.getAttribute("kakaoE"));
 		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");
-		model.addAttribute("contactList", contactService.contactListByMemberId(kvo.getEmail()));
+		model.addAttribute("contactList", contactService.listByMemberId(kvo.getEmail()));
 	}
 	
 	@RequestMapping("contact/one")
 	public String contactOne(long contact_id, HttpSession session, Model model) {
-		ContactVO contactVO = contactService.contactOne(contact_id, (KakaoVO) session.getAttribute("kakaoE"));
+		ContactVO contactVO = contactService.one(contact_id, (KakaoVO) session.getAttribute("kakaoE"));
 		
 		if (contactVO == null) {
 			return "redirect:/help/main";
@@ -104,7 +103,7 @@ public class HelpController {
 	@ResponseBody
 	@RequestMapping("contact/list")
 	public List<ContactVO> contactList(HttpSession session) {
-		return contactService.contactListByMemberId(((KakaoVO) session.getAttribute("kakaoE")).getEmail());
+		return contactService.listByMemberId(((KakaoVO) session.getAttribute("kakaoE")).getEmail());
 	}
 	
 	@RequestMapping(value = "contact/create", method = RequestMethod.GET)
@@ -118,7 +117,7 @@ public class HelpController {
 		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");
 		vo.setMember_id(kvo.getEmail());
 		
-		contactService.contactCreate(vo);
+		contactService.create(vo);
 		return "redirect:/help/contact";
 	}
 }

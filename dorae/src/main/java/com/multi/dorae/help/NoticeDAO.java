@@ -13,7 +13,7 @@ public class NoticeDAO {
 	SqlSessionTemplate sql;
 	
 	public int insert(NoticeVO vo) {
-		return sql.insert("notice.create", vo);
+		return sql.insert("notice.insert", vo);
 	}
 	
 	public int update(NoticeVO vo) {
@@ -24,11 +24,11 @@ public class NoticeDAO {
 		return sql.delete("notice.delete", notice_id);
 	}
 	
-	public NoticeVO selectOne(long notice_id) {
+	public NoticeVO one(long notice_id) {
 		return sql.selectOne("notice.selectOne", notice_id);
 	}
 	
-	public List<NoticeVO> selectList() {
+	public List<NoticeVO> list() {
 		return sql.selectList("notice.selectList");
 	}
 }

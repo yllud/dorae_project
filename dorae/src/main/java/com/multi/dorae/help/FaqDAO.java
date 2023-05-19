@@ -13,30 +13,30 @@ public class FaqDAO {
 	SqlSessionTemplate sql;
 	
 	public int insert(FaqVO vo) {
-		return sql.insert("faq.create", vo);
+		return sql.insert("faq.insert", vo);
 	}
 	
-	public int answerUpdate(FaqVO vo) {
-		return sql.update("faq.answerUpdate", vo);
+	public int updateAnswer(FaqVO vo) {
+		return sql.update("faq.updateAnswer", vo);
 	}
 	
-	public FaqVO selectOne(int faq_id) {
+	public FaqVO one(int faq_id) {
 		return sql.selectOne("faq.selectOne", faq_id);
 	}
 	
-	public List<FaqVO> selectList() {
+	public List<FaqVO> list() {
 		return sql.selectList("faq.selectList");
 	}
 	
-	public List<FaqVO> selectListWithPaging() {
+	public List<FaqVO> listWithPaging() {
 		return sql.selectList("faq.selectListWithPaging");
 	}
 	
-	public List<FaqVO> selectListByCategory(String help_category_id) {
+	public List<FaqVO> listByCategory(String help_category_id) {
 		return sql.selectList("faq.selectListByHelpCategory", help_category_id);
 	}
 	
-	public List<FaqVO> selectListBySearch(String search) {
+	public List<FaqVO> listBySearch(String search) {
 		return sql.selectList("faq.selectListBySearch", search);
 	}
 }

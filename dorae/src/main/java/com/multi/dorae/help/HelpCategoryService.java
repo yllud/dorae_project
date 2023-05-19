@@ -11,7 +11,7 @@ public class HelpCategoryService {
 	@Autowired
 	HelpCategoryDAO helpCategoryDAO;
 	
-	public int helpCategoryCreate(HelpCategoryVO vo) {
+	public int insertCategory(HelpCategoryVO vo) {
 		return helpCategoryDAO.insert(vo);
 	}
 	
@@ -19,7 +19,7 @@ public class HelpCategoryService {
 		return helpCategoryDAO.updateName(vo);
 	}
 	
-	public List<HelpCategoryVO> selectListByParentId(String parent_category_id) {
-		return helpCategoryDAO.selectListByParentId(parent_category_id);
+	public List<HelpCategoryVO> listByParentId(String parent_category_id) {
+		return helpCategoryDAO.listByParentId(parent_category_id);
 	}
 }

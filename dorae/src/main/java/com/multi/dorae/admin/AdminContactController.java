@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.dorae.help.ContactService;
 import com.multi.dorae.help.ContactVO;
@@ -19,13 +18,13 @@ public class AdminContactController {
 	@Autowired
 	ContactService contactService;
 	
-	@RequestMapping(value = "answerUpdate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
+	@RequestMapping(value = "updateAnswer", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String answerUpdate(ContactVO vo, HttpSession session) {
 		System.out.println("answerUpdate 호출됨");
 //		vo.setAdmin_id((AdminVO) session.getAttribute("admin"));
 		vo.setAdmin_id("admin");
-		if (contactService.answerUpdate(vo)) {
-			return "redirect:list";			
+		if (contactService.updateAnswer(vo)) {
+			return "redirect:list";
 		} else {
 			return "redirect:list";
 		}
@@ -33,11 +32,11 @@ public class AdminContactController {
 	
 	@RequestMapping("list")
 	public void contactList(Model model) {
-		model.addAttribute("contactList", contactService.contactListAll());
+		model.addAttribute("contactList", contactService.listAll());
 	}
 	
 	@RequestMapping("one")
 	public void contactOne(long contact_id, Model model) {
-		model.addAttribute("vo", contactService.contactOne(contact_id));
+		model.addAttribute("vo", contactService.one(contact_id));
 	}
 }

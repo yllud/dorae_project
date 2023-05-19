@@ -20,19 +20,19 @@ public class ContactDAO {
 		return sql.delete("contact.delete", contact_id);
 	}
 	
-	public ContactVO selectOne(long contact_id) {
+	public ContactVO one(long contact_id) {
 		return sql.selectOne("contact.selectOne", contact_id);
 	}
 	
-	public List<ContactVO> selectListAll() {
+	public List<ContactVO> listAll() {
 		return sql.selectList("contact.selectListAll");
 	}
 	
-	public List<ContactVO> selectList() {
+	public List<ContactVO> list() {
 		return sql.selectList("contact.selectList");
 	}
 	
-	public List<ContactVO> selectListByMemberId(String member_id) {
+	public List<ContactVO> listByMemberId(String member_id) {
 		return sql.selectList("contact.selectListMemberId", member_id);
 	}
 	

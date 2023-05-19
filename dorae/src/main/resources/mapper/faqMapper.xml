@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="faq">
 
-	<insert id="create">
+	<insert id="insert">
 		insert into faq values (#{faq_id}, #{help_category_id}, #{title}, #{content})
 	</insert>
 	
-	<update id="answerUpdate" parameterType="faqVO">
+	<update id="updateAnswer" parameterType="faqVO">
 		update faq set content = #{content} where faq_id = #{faq_id}
 	</update>
 

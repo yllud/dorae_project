@@ -19,14 +19,14 @@ public class AdminFaqController {
 	@ResponseBody
 	@RequestMapping(value = "faqCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String faqCreate(FaqVO vo) {
-		faqService.faqCreate(vo);
+		faqService.create(vo);
 		return "FAQ 등록 성공";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "faqUpdate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String faqUpdate(FaqVO vo) {
-		faqService.answerUpdate(vo);
+		faqService.updateAnswer(vo);
 		return "FAQ 수정 성공";
 	}
 }

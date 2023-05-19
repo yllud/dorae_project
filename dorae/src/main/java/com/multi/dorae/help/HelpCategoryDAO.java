@@ -13,14 +13,14 @@ public class HelpCategoryDAO {
 	SqlSessionTemplate sql;
 	
 	public int insert(HelpCategoryVO vo) {
-		return sql.insert("helpCategory.create", vo);
+		return sql.insert("helpCategory.insert", vo);
 	}
 	
 	public int updateName(HelpCategoryVO vo) {
 		return sql.update("helpCategory.updateName", vo);
 	}
 	
-	public List<HelpCategoryVO> selectListByParentId(String parent_category_id) {
+	public List<HelpCategoryVO> listByParentId(String parent_category_id) {
 		return sql.selectList("helpCategory.selectListByParentId", parent_category_id);
 	}
 	

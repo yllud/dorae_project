@@ -19,14 +19,14 @@ public class AdminNoticeController {
 	@ResponseBody
 	@RequestMapping(value = "noticeCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String noticeCreate(NoticeVO vo) {
-		noticeService.noticeCreate(vo);
+		noticeService.insert(vo);
 		return "공지사항 등록 성공";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "noticeUpdate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String noticeUpdate(NoticeVO vo) {
-		noticeService.noticeUpdate(vo);
+		noticeService.update(vo);
 		return "공지사항 수정 성공";
 	}
 }

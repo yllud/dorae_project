@@ -11,7 +11,7 @@
 	관리자 페이지
 	
 	<div>
-		<form action="answerUpdate" method="post">
+		<form action="updateAnswer" method="post">
 			<input value="${vo.contact_id}" name="contact_id" hidden="hidden">
 			<p>제목 : <span>${vo.title }</span></p>
 			<p>내용 : <span>${vo.content }</span></p>
