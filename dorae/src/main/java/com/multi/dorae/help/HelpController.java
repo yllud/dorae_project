@@ -44,38 +44,38 @@ public class HelpController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("faqOne")
+	@RequestMapping("faq/one")
 	public FaqVO faqOne(int faq_id) {
 		return faqService.faqOne(faq_id);
 	}
 	
 	@ResponseBody
-	@RequestMapping("faqList")
+	@RequestMapping("faq/list")
 	public List<FaqVO> faqList() {
 		return faqService.faqList();
 	}
 	
-	@RequestMapping("faqByCategory")
+	@RequestMapping("faq/category")
 	public void faqListByHelpCategory(String help_category_id, Model model) {
 		model.addAttribute("helpCategory", helpCategoryService.selectListByParentId("None"));
 		model.addAttribute("faqList", faqService.faqListByHelpCategory(help_category_id));
 	}
 	
-	@RequestMapping("faqBySearch")
+	@RequestMapping("faq/search")
 	public void faqSearch(String search, Model model) {
 		model.addAttribute("faqList", faqService.faqBySearch(search));
 		model.addAttribute("search", search);
 	}
 	
 	@ResponseBody
-	@RequestMapping("noticeOne")
+	@RequestMapping("notice/one")
 	public NoticeVO noticeOne(long notice_id) {
 		System.out.println("notice_id >> " + notice_id);
 		return noticeService.noticeOne(notice_id);
 	}
 	
 	@ResponseBody
-	@RequestMapping("noticeList")
+	@RequestMapping("notice/list")
 	public List<NoticeVO> noticeList() {
 		return noticeService.noticeList();
 	}
@@ -88,28 +88,28 @@ public class HelpController {
 		model.addAttribute("contactList", contactService.contactList(kvo.getEmail()));
 	}
 	
-	@RequestMapping("contactOne")
+	@RequestMapping("contact/one")
 	public String contactOne(long contact_id, Model model) {
 		if (contactService.contactOne(contact_id) == null) {
 			return "redirect:/help/main";
 		} else {
 			model.addAttribute("vo", contactService.contactOne(contact_id));
-			return "help/contactOne";
+			return "help/contact/one";
 		}
 	}
 	
 	@ResponseBody
-	@RequestMapping("contactList")
+	@RequestMapping("contact/list")
 	public List<ContactVO> contactList(String member_id) {
 		return contactService.contactList(member_id);
 	}
 	
-	@RequestMapping(value = "contactCreate", method = RequestMethod.GET)
+	@RequestMapping(value = "contact/create", method = RequestMethod.GET)
 	public void contactCreatePage() {
 
 	}
 	
-	@RequestMapping(value = "contactCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
+	@RequestMapping(value = "contact/create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String contactCreate(ContactVO vo, HttpSession session) {
 		System.out.println(session.getAttribute("kakaoE"));
 		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");

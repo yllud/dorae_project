@@ -13,6 +13,25 @@
 <script type="text/javascript">
 	$(function() {
 		$("#header").load("/dorae/header.jsp");
+		
+		$(".faqItemBtn").click(function() {
+			$.ajax({
+				url: "faqOne",
+				data: {
+					faq_id: $(this).val()
+				},
+				context: this, // ajax에서 현재 객체(.faqItemBtn)를 사용할 수 있다.
+				success: function(res) {					
+					if ($(this).next("p.faqItemContent").length != 0) { // 내용 요소가 있으면 
+						$(this).next("p.faqItemContent").text(res.content); // 해당 요소의 텍스트만 바꾸기	
+					} else {
+						$(this).closest("li")
+							.append($("<p>", {class: "faqItemContent"})
+							.text(res.content)); // this 와 가장 가까운 상위 요소(부모) 에 내용 추가					
+					}
+				}
+			})
+		})
 	})
 </script>
 <style type="text/css">
@@ -65,39 +84,38 @@
 	}
 	
 	.btn-small {
+		font-size: 20px;
 		margin: 4px;
 	}
 	
-	#searchList {
-		padding: 0 40px;
+	.searchItemBtn p {
+		margin-bottom: 0;
 	}
 	
-	.searchItem:first-child {
+	.faqItem:first-child {
 		border-top: 1px solid grey;
 	}
 	
-	.searchItem {
+	.faqItem {
 		list-style: none;
 		border-bottom: 1px solid grey;
-		text-align: left;
 		width: 100%;
+		text-align: left;
 	}
 	
-	.searchItemBtn {
+	.faqItemBtn {
 		padding: 12px;
-		font-size: 20px;
+		font-size: 24px;
 		border: 0;
 		background-color: transparent;
 		cursor: pointer;
 		text-align: left;
 	}
 	
-	.searchItemBtn h4 {
-		margin-top: 0;
-	}
-	
-	.searchItemBtn p {
-		margin-bottom: 0;
+	.faqItemContent {
+		font-size: 20px;
+		text-align: center;
+		padding: 0 10%;
 	}
 </style>
 </head>
@@ -106,29 +124,32 @@
 	
 	<div id="helpBody">
 		<!-- FAQ 검색 -->
-		<form action="faq/search">
+		<form action="search">
 			<h2 id="faqTitle">FAQ 검색</h2>
 			<input type="text" id="searchInput" name="search"/>
 			<button type="submit" id="searchBtn">검색</button>
 		</form>
-
+		
 		<div id="helpContent">
 			<!-- FAQ 유형별 버튼 -->
 			<div id="faqBtnList">
 				<c:forEach items="${helpCategory}" var="item">
-				<a href="faq/category?help_category_id=${item.help_category_id }">
-					<button class="btn-large">${item.name }</button>
+				<a href="category?help_category_id=${item.help_category_id }">
+					<button class="btn-small">${item.name }</button>
 				</a>
 				</c:forEach>
 			</div>
 			<hr color="red">
-		</div>
-		
-		<!-- 1:1 문의 -->
-		<div id="other">
-			<a href="contact">
-				<button class="btn-large">1:1문의</button>
-			</a>
+			
+			<div id="faqItemList">
+				<ul id="faqList">
+					<c:forEach items="${faqList }" var="item">
+					<li class="faqItem">
+						<button class="faqItemBtn" value="${item.faq_id }">${item.title }</button>
+					</li>
+					</c:forEach>
+				</ul>
+			</div>
 		</div>
 	</div>
 	

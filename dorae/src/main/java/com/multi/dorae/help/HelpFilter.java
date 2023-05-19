@@ -29,6 +29,7 @@ public class HelpFilter implements Filter {
 		
 		if (session.getAttribute("kakaoE") == null) { // 카카오로 로그인 되어있지 않다면
 			((HttpServletResponse)response).sendRedirect("/dorae/login/login.jsp"); // 로그인 페이지로 리다이렉트
+			System.out.println("필터 실행");
 			return; // 필터 체인을 타고 내려가지 않게 함수 중지
 		}
 		

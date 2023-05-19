@@ -71,7 +71,7 @@
 		<!-- 배열이 비어있지 않으면 -->
 		<c:forEach items="${contactList }" var="item">
 		<li class="contactItem">
-			<a href="contactOne?contact_id=${item.contact_id }">
+			<a href="one?contact_id=${item.contact_id }">
 				<button class="contactItemBtn" value="${item.contact_id }">${item.title }</button>
 			</a>
 		</li>
@@ -80,7 +80,7 @@
 		
 		<!-- 1:1 문의 -->
 		<div id="other">
-			<a href="contactCreate">
+			<a href="create">
 				<button class="btn-large">문의 작성</button>
 			</a>
 		</div>
