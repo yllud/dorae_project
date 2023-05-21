@@ -19,44 +19,61 @@
 
 </head>
 <body>
-
  <input type="hidden" class="class" name="name" id="show_price" value="35000">
-
+ 
     <div class="container">
       <div class="stage"></div>		<!-- 무대 -->
- 
       <div class="row"></div>  <!-- 좌석 -->
-</div>
-
-    <p class="text">
-      <span id="play_name">${vo.play_name}</span><br>
+    </div>
+    
+	<div>
+      <fieldset>
+      <legend>예매정보</legend>
+      <img src="${vo.poster}" width="180" height="180"><br>
+       <input type="hidden" id="play_id" value="${vo.play_id}">
       <c:set var="today" value="<%=new java.util.Date() %>"/>
 	  예매일 <a id="booking"><fmt:formatDate value="${today}" type="date" pattern="yyyy-MM-dd" /></a><br>
-	  관람일시 <span id="day_time"></span><br>
-	  좌석수 <span id="count">0</span>개<br>
+      상품명 <span id="play_name">${vo.play_name}</span><br>
+      장소 <span id="place">${vo.stage_name}</span><br>
+      <hr>
+	  관람날짜 <span id="d_day"></span><br>
+	  관람시간<span id="d_time"></span><br>
 	  좌석번호 <span id="seat_num"></span><br>
-      티켓가격 <span id="price">0</span>원<br>
-      수수료 <span id="fee">0</span>원<br>
-      총결제 <span id="total">0</span>원<br>
+	  좌석수 <span id="count">0</span>개<br>
+	  </fieldset>
+	  
+	  <fieldset>
+	  <legend>결제정보</legend>
+      티켓금액 <span id="price">0</span>원<br>
+      예매수수료 <span id="fee">0</span>원<br>
+      <hr>
+      총결제 <span id="total">0</span>원<br><br>
+      </fieldset>
       
+      <fieldset>
+      <legend>주문자확인</legend>
 	  구매자이름: <input id="name" value="이아람"><br>
 	  전화번호: <input id="tel" value="010-4808-1750"><br>
 	  이메일: <input id="email" value="ahryee@hanmail.net"><br>
-    </p>
-    <button id="clearBtn" class="clear" onclick='location.reload()'>다시선택</button>
-    
+	  </fieldset>
+	  <br>
+	<button id="clearBtn" class="clear" onclick='location.reload()'>다시선택</button>
+    <button type="submit" id="next">다음단계</button>
     <button type="submit" id="payment">결제하기</button>
-    
-   <script type="text/javascript">
+    </div>
+  
+ <script type="text/javascript">
 $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태그의 로드만을 감지, 중복가능
-	  day_time.innerText = localStorage.getItem("day_time"); //자식 창 로컬 스토리지 정보를 가져옴
-	  const num_rows = 6; // 좌석의 행 수
-	  const num_cols = 8; // 좌석의 열 수
+	d_day.innerText = localStorage.getItem("d_day"); 
+	d_time.innerText = localStorage.getItem("d_time"); //부
+	  
+	  const num_rows = 20; // 좌석의 행 수
+	  const num_cols = 20; // 좌석의 열 수
 
 	  const seatContainer = document.querySelector('.container');
-	  const seats = []; // 좌석 요소를 저장할 배열
+	  const seat_arr = []; // 좌석 요소를 저장할 배열
 	  const maxSeats = 4; // 최대 선택 가능한 좌석 수
-	  let selectedSeats = []; // 선택한 좌석 배열
+	  let clickSeats = []; // 선택한 좌석 배열
 	  
 	  for (let i = 0; i < num_rows; i++) { // 좌석 행 생성
 	    const row = document.createElement('div');
@@ -65,36 +82,45 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 	    for (let j = 0; j < num_cols; j++) { //좌석 열 생성
 	      const seat = document.createElement('div');
 	      seat.classList.add('seat');
-	      const seatNum = String.fromCharCode(65 + i) + "열" + " " + (j + 1); // 좌석이름(65(ASCII 코드) = A >> A1,A2,B1,B2...)
-	   
-	     
+	      const seatNum = (1 + i) + "열" + " " + (j + 1) + "번"; // 
 	      
 	      seat.addEventListener('click', function() { //좌석 클릭 이벤트
 	    	  if (this.classList.contains('selected')) {
 	              // 클릭된 좌석 다시 클릭하면 선택 해제
 	              this.classList.remove('selected');
-	              selectedSeats = selectedSeats.filter((seat) => seat !== seatNum); //seatNum과 일치하지 않는 좌석을 제거하고 새로운 배열생성
+	              clickSeats = clickSeats.filter((seat) => seat !== seatNum); //seatNum과 일치하지 않는 좌석을 제거하고 새로운 배열생성
 	              } else {
 	                // 좌석 클릭할 때
-	                if (selectedSeats.length < maxSeats) { //4개까지 선택가능
+	                if (clickSeats.length < maxSeats) { //4개까지 선택가능
 	                  this.classList.add('selected');
-	                  selectedSeats.push(seatNum); // 선택한 좌석 넘버 배열로 push
+	                  clickSeats.push(seatNum); // 선택한 좌석 넘버 배열로 push
 	                } else {
 	                  alert('최대 선택 가능한 좌석 수를 초과했습니다.');
 	                } //else
 	              } //else
-	    	  console.log(selectedSeats); 
-	    	  seat_num.innerText = selectedSeats.sort(); // 좌석번호 오름차순 정렬
-	    	  updateSelectedCount();
+	    	  console.log(clickSeats); 
+	    	  seat_num.innerText = clickSeats.sort(); // 좌석번호 오름차순 정렬
+	    	  updateSelectedCount(); // total과 count 업데이트
 	        }); //seat.addEventListener
-	     
+	        
+	        $('#next').click(function() { // 다음버튼 눌렀을 때 선택되어 있는 좌석 sold로 변경(선택x)
+	        	if (seat.classList.contains('selected')) {
+	        		seat.classList.add('sold');
+	        		seat.classList.remove('selected');
+	        		clickSeats.pop(seatNum);
+	        		seat_num.innerText = clickSeats; 
+	        		updateSelectedCount();
+	        	}
+	        }) //next버튼
+	        
 	      row.appendChild(seat);
-	      seats.push(seat); //좌석 배열에 저장
+	      seat_arr.push(seat); //좌석 배열에 저장
 	    } //for(seat)
 	    seatContainer.appendChild(row);
 	  } //for(row)
 }); //$
-const seats = document.querySelectorAll('.row .seat:not(.sold)'); // 배열과 비슷한 객체인 nodeList를 반환 -  for문 또는 forEach문을 사용
+
+const seats = document.querySelectorAll('.row .seat:not(.sold)'); 
 const count = document.getElementById('count');
 const price = document.getElementById('price');
 const fee = document.getElementById('fee');
@@ -121,7 +147,9 @@ function updateSelectedCount() {
   fee.innerText = selectedSeatsCount * 1000;
   total.innerText = selectedSeatsCount * ticketPrice + selectedSeatsCount * 1000;
 }
+
 </script>
+  
 <script type="text/javascript" src="../resources/js/pay.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <mapper namespace="seat">
 	
 	<insert id="insert" parameterType="seatVO">
-		insert into seat values (#{seat_member}, #{play_id}, #{seat_date}, #{seat_time}, #{seat_number})
+		insert into seat values (#{seat_member}, #{play_id}, #{seat_date}, #{seat_time}, #{seat_number}, #{seat_id})
 	</insert>
 	
 	

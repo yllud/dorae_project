@@ -14,47 +14,43 @@
 			m_redirect_url : 'www.yourdomain.com/payments/complete'
 		}, function(rsp) {
 			if (rsp.success) {
-				var msg = '결제가 완료되었습니다.';
-			      alert(msg);
-			      location.href = "ticket.jsp" 
 			      $.ajax({
-			    	  url: "insert",
-			    	  data: {
-			    		 imp_uid: rsp.imp_uid, //결제고유번호
-			    		 merchant_uid: rsp.merchant_uid, //주문번호
-			    		 apply_num: rsp.apply_num, //결제카드번호
-			    		 paid_amount: rsp.paid_amount, //결제금액
-			    		 pay_member: ahryee, //회원ID
-			    		 buyer_name: rsp.buyer_name, //주문자 이름
-			    		 buyer_tel: rsp.buyer_tel, //주문자 전화번호
-			    		 buyer_email: rsp.buyer_email, //주문자 이메일
-			    		 play_id: '${vo.play_id}', //공연ID
-			    		 booking: 'today',//예매일
-			    		 seat_id: 20230518001//티켓번호
-			    		 
+			    	  url: "insert", // 티켓정보(seatDB)
+			    	  data: { 
+			    		  seat_member: "ahryee", //회원ID
+			    		  play_id: $('#play_id').val(), //공연ID
+			    		  seat_date: $('#d_day').text(), //공연날짜
+			    		  seat_time: $('#d_time').text(), //공연시간
+			    		  seat_number: $('#seat_num').text(), //좌석번호
+			    		  seat_id: "20230518001"//티켓번호(pk)
 			    	  },
 			    	  success: function(){
-			    		  
-			    	  }//success
+			    	  $.ajax({
+			    	  	url: "../pay/insert", // 결제정보(payDB)
+			    	  	data: {      
+			    		 	imp_uid: rsp.imp_uid, //결제고유번호
+			    		 	merchant_uid: rsp.merchant_uid, //주문번호
+			    		 	apply_num: rsp.apply_num, //결제카드번호
+			    		 	paid_amount: rsp.paid_amount, //결제금액
+			    		 	pay_member: "ahryee", //회원ID
+			    		 	buyer_name: rsp.buyer_name, //주문자 이름
+			    		 	buyer_tel: rsp.buyer_tel, //주문자 전화번호
+			    			 buyer_email: rsp.buyer_email, //주문자 이메일
+			    			 play_id: $('#play_id').val(), //공연ID
+			    			 booking: $('#booking').text(),//예매일
+			    		 	seat_id: "20230518001"//티켓번호
+			    	 	 	},
+			    	 	 success: function() {
+					    var msg = '결제가 완료되었습니다.';
+						alert(msg);
+						location.href = "http://localhost:8887/dorae/seat/insert";
+							} //success - insert2
+			      		}) //ajax - insert2
+			
+			    	  } //success -insert
 			      })//ajax - insert
-			      $.ajax({
-			    	  url: "insert2",
-			    	  data: {
-			    		  seat_member: ahryee, //회원ID
-			    		  play_id: '${vo.play_id}', //공연ID
-			    		  seat_date: 20230518001, //공연날짜
-			    		  seat_time: 20230518001, //공연시간
-			    		  seat_number: 20230518001, //좌석번호
-			    		  seat_id: 20230518001//티켓번호(pk)
-			    	  },
-			    	  success: function() {
-						
-					} //success
-			      }) //ajax - insert2
-			      
 			    } else {
 			      var msg = '결제에 실패하였습니다.';
-			      msg += '에러내용 : ' + rsp.error_msg;
 			      alert(msg);
 			    } //else
 			  });
