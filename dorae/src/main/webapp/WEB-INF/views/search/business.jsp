@@ -14,8 +14,8 @@
 			url : "businessList",
 			data : {
 				page : 1,
-				email : $('#email_id').text()
-// 				email : "ahn@naver.com"
+// 				email : $('#email_id').text()
+				email : "ahn@naver.com"
 			},
 
 			success : function(x) {
@@ -30,8 +30,7 @@
 </head>
 <body>
 	<h3>사업자 공연 관리 화면</h3>
-	<mark id="email_id">ahn@naver.com</mark>
-<!-- 	<mark id="email_id">session.getAttribute("email")</mark> -->
+<%-- 	<mark id="email_id">${cri.email}</mark> --%>
 	<hr color="red">
 
 	<div id="result"></div>

@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+</style>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"
 	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
 	crossorigin="anonymous"></script>
@@ -21,17 +23,19 @@
 		
 		var map; // 전역 변수로 선언
 		var markers = []; // 전역 변수로 선언
+		var temp_marker; 
 		
 		// 네이버 지도 API를 로드합니다.
 		map = new naver.maps.Map('map', {
 			zoom : 7,
 			minZoom: 7,
 			mapTypeId: 'normal',
-			center : new naver.maps.LatLng(36.5566103, 127.9783882), // 대한민국 중심
+			center : new naver.maps.LatLng(36.0566103, 127.9783882), // 대한민국 중심
+			mapDataControl: false,
 			zoomControl : true,
 			zoomControlOptions : {
-				position : naver.maps.Position.TOP_LEFT,
-				style : naver.maps.ZoomControlStyle.SMALL
+				position : naver.maps.Position.TOP_RIGHT
+				//style : naver.maps.ZoomControlStyle.SMALL
 			}
 		});//new map
 		
@@ -42,9 +46,9 @@
 	    regionGeoJson = [],
 	    loadCount = 0;
 				
-	    var gangwon = new naver.maps.LatLng(37.880962, 128.3009629),
-		geonggi = new naver.maps.LatLng(37.767167, 127.190292),
-		gyeongsang_nam = new naver.maps.LatLng(35.509787, 128.364734),
+	    var gangwon = new naver.maps.LatLng(37.800962, 128.3009629),
+		geonggi = new naver.maps.LatLng(37.607167, 127.190292),
+		gyeongsang_nam = new naver.maps.LatLng(35.359787, 128.364734),
 		gyeongsang_buk = new naver.maps.LatLng(36.528503, 128.664734),
 		gwangju = new naver.maps.LatLng(35.126033, 126.831302),
 		daegu = new naver.maps.LatLng(35.798838, 128.583052),
@@ -52,15 +56,181 @@
 		busan = new naver.maps.LatLng(35.1797865, 129.0750194),
 		seoul = new naver.maps.LatLng(37.587167, 126.890292),
 		ulsan = new naver.maps.LatLng(35.519301, 129.239078),
-		incheon = new naver.maps.LatLng(37.469221, 126.573234),
-		jeolla_nam  = new naver.maps.LatLng(37.0006890, 126.5930664),
-		jeolla_buk  = new naver.maps.LatLng(35.816705, 127.144185),
+		incheon = new naver.maps.LatLng(37.559221, 126.573234),
+		jeolla_nam  = new naver.maps.LatLng(34.8006890, 126.5930664),
+		jeolla_buk  = new naver.maps.LatLng(35.616705, 127.144185),
 		jeju = new naver.maps.LatLng(33.4090628, 126.534361),
-		chung_nam = new naver.maps.LatLng(36.657229, 126.779757),
-		chung_buk = new naver.maps.LatLng(36.528503, 127.929344),
+		chung_nam = new naver.maps.LatLng(36.507229, 126.779757),
+		chung_buk = new naver.maps.LatLng(36.628503, 127.929344),
 		sejong = new naver.maps.LatLng(36.48750, 127.28167);
 	    
-	
+	    var infoWindow = new naver.maps.InfoWindow({
+	        anchorSkew: true
+	    });
+
+	    map.setCursor('pointer');
+
+	    function searchCoordinateToAddress(latlng) {
+	        infoWindow.close();
+
+	        naver.maps.Service.reverseGeocode({
+	            coords: latlng,
+	            orders: [
+	                naver.maps.Service.OrderType.ADDR,
+	                naver.maps.Service.OrderType.ROAD_ADDR
+	            ].join(',')
+	        }, function(status, response) {
+	            if (status === naver.maps.Service.Status.ERROR) {
+	                return alert('Something Wrong!');
+	            }
+	            var items = response.v2.results,
+	                address = '',
+	                htmlAddresses = [];
+
+	            for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
+	                item = items[i];
+	                address = makeAddress(item) || '';
+	                addrType = item.name === 'roadaddr' ? '[도로명 주소]' : '[지번 주소]';
+
+	                htmlAddresses.push((i+1) +'. '+ addrType +' '+ address);
+	            }
+	            //추후 주석처리예정
+	            infoWindow.setContent([
+	                '<div style="padding:10px;min-width:200px;line-height:150%;">',
+	                '<h4 style="margin-top:5px;">검색 좌표</h4>',
+	                htmlAddresses.join('<br />'),
+	                '</div>'
+	            ].join('\n'));
+	            
+				map.setCenter(latlng);
+				map.setZoom(14);
+	            infoWindow.open(map, latlng);
+	        });
+	    }
+	    function removeMarker(marker) {
+	        marker.setMap(null);
+	    }
+
+	    function searchAddressToCoordinate(address) {
+	        naver.maps.Service.geocode({
+	            query: address
+	        }, function(status, response) {
+	            if (status === naver.maps.Service.Status.ERROR) {
+	                return alert('Something Wrong!');
+	            }
+	            if (response.v2.meta.totalCount === 0) {
+	                return alert('totalCount' + response.v2.meta.totalCount);
+	            }
+	            var htmlAddresses = [],
+	                item = response.v2.addresses[0],
+	                point = new naver.maps.Point(item.x, item.y);
+	            if (item.roadAddress) {
+	                htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
+	            }
+	            if (item.jibunAddress) {
+	                htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
+	            }
+	            if (item.englishAddress) {
+	                htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
+	            }
+	            //추후 주석처리예정
+	            infoWindow.setContent([
+	                '<div style="padding:10px;min-width:200px;line-height:150%;">',
+	                '<h4 style="margin-top:5px;">검색 주소 : '+ address +'</h4>',
+	                htmlAddresses.join('<br />'),
+	                '</div>'
+	            ].join('\n'));
+	            
+	            map.setCenter(point);
+	            map.setZoom(14);
+	            infoWindow.open(map, point);
+	        });
+	    }
+
+	    function initGeocoder() {
+	        map.addListener('click', function(e) {
+	            searchCoordinateToAddress(e.coord);
+	        });
+	        $('#address').on('keydown', function(e) {
+	            var keyCode = e.which;
+
+	            if (keyCode === 13) { // Enter Key
+	                searchAddressToCoordinate($('#address').val());
+	            }
+	        });
+	        $('#submit').on('click', function(e) {
+	            e.preventDefault();
+
+	            searchAddressToCoordinate($('#address').val());
+	        });
+	        //searchAddressToCoordinate('미사강변대로95');
+	    }
+	    function makeAddress(item) {
+	        if (!item) {
+	            return;
+	        }
+	        var name = item.name,
+	            region = item.region,
+	            land = item.land,
+	            isRoadAddress = name === 'roadaddr';
+
+	        var sido = '', sigugun = '', dongmyun = '', ri = '', rest = '';
+
+	        if (hasArea(region.area1)) {
+	            sido = region.area1.name;
+	        }
+	        if (hasArea(region.area2)) {
+	            sigugun = region.area2.name;
+	        }
+	        if (hasArea(region.area3)) {
+	            dongmyun = region.area3.name;
+	        }
+	        if (hasArea(region.area4)) {
+	            ri = region.area4.name;
+	        }
+	        if (land) {
+	            if (hasData(land.number1)) {
+	                if (hasData(land.type) && land.type === '2') {
+	                    rest += '산';
+	                }
+	                rest += land.number1;
+
+	                if (hasData(land.number2)) {
+	                    rest += ('-' + land.number2);
+	                }
+	            }
+	            if (isRoadAddress === true) {
+	                if (checkLastString(dongmyun, '면')) {
+	                    ri = land.name;
+	                } else {
+	                    dongmyun = land.name;
+	                    ri = '';
+	                }
+	                if (hasAddition(land.addition0)) {
+	                    rest += ' ' + land.addition0.value;
+	                }
+	            }
+	        }
+	        return [sido, sigugun, dongmyun, ri, rest].join(' ');
+	    }
+	    
+	    function hasArea(area) {
+	        return !!(area && area.name && area.name !== '');
+	    }
+	    
+	    function hasData(data) {
+	        return !!(data && data !== '');
+	    }
+
+	    function checkLastString (word, lastString) {
+	        return new RegExp(lastString + '$').test(word);
+	    }
+
+	    function hasAddition (addition) {
+	        return !!(addition && addition.value);
+	    }
+
+	    naver.maps.onJSContentLoaded = initGeocoder;
 		
 		//줌레벨이 바뀔때마다 호출
 		map.addListener('zoom_changed', function () {
@@ -269,24 +439,17 @@
 		tooltip.appendTo(map.getPanes().floatPane);
 		
 		$.ajax({
-			url : "playDetail2",
-			success : function(x) {
-				/*
-				$(window).on("load", function() {
-				    if (navigator.geolocation) {
-				        //navigator.geolocation 은 Chrome 50 버젼 이후로 HTTP 환경에서 사용이 Deprecate 되어 HTTPS 환경에서만 사용 가능 합니다.
-				        //http://localhost 에서는 사용이 가능하며, 테스트 목적으로, Chrome 의 바로가기를 만들어서 아래와 같이 설정하면 접속은 가능합니다.
-				        //chrome.exe --unsafely-treat-insecure-origin-as-secure="http://example.com"
-				        
-				        navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
-				    } else {
-				        var center = map.getCenter();
-				        infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>');
-				        infowindow.open(map, center);
-				    }
-				});//window load fun
+			url : "infoList",
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json", // 데이터 형식을 JSON으로 지정
+			success : function(data) {
+				var response = data;
+
+				// delist1과 delist2 추출
+				var delist1 = response.delist1;
+				var delist2 = response.delist2;
 				
-				*/
+				addMarkers(delist2, map);
 				
 				function addMarkers(x, map) {
 					for (var i = 0; i < x.length; i++) {
@@ -298,7 +461,7 @@
 							map : map
 						});
 						markers.push(marker);
-						addMarkerToList(markers[i]);
+						//addMarkerToList(markers[i]);
 					}//for
 					
 					var marker1 = {
@@ -350,6 +513,8 @@
 					}); //markerClustering
 				}//addMarkers
 				
+				
+				/*
 				//마커 리스트
 				function addMarkerToList(marker) {
 				  // 마커 정보를 추출하여 목록에 추가
@@ -358,9 +523,15 @@
 				  listItem.textContent = marker.title; // 예시로 제목을 목록에 표시
 				  markerList.appendChild(listItem);
 				} //addMarkerToList
-			}//success
-		})//ajax
-		$('#banner').load("mainImg.jsp");
+				*/
+			}, //success
+			error : function() {
+				alert('실패@@@');
+			}
+		});
+		
+		$('#side-bar').load("sidemenu.jsp");
+		//$('#banner').load("mainImg.jsp");
 	})
 </script>
 <link rel="stylesheet" href="${path}/resources/css/style.css" />
@@ -372,17 +543,11 @@
 	<header id="header" class="fixed-top"></header>
 	<div id="map-container">
 		<div id="map">
-			<div id="banner"><input type="text"></div>
-			<div class="left-side-bar">
-		        <div class="status-ico">
-		            <span>▶</span>
-		            <span>▼</span>
-		        </div>
-	    	<input id="address_input" type="text">
+			<div id="side-bar"></div>
+    	</div>
+    	<div id="banner"><input type="text"></div>
+    	<input id="address" type="text" placeholder="주소를 입력해주세요"><button id="submit">주소검색</button>
 	        <div id="result">테스트테스트</div>
-		</div>
-		
-    </div>
 	</div>
 	
 </body>

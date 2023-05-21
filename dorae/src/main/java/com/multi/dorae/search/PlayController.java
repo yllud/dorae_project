@@ -78,11 +78,4 @@ public class PlayController {
 		model.addAttribute("vo2", vo2);
 	}
 
-	@RequestMapping(value = "map/latLngList")
-	@ResponseBody
-	public List<StageVO> latLngList() {
-		System.out.println("latLngList");
-		List<StageVO> list2 = dao2.stageLatLng();
-		return list2;
-	}
 }
