@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.multi.dorae.help.ContactService;
 import com.multi.dorae.help.ContactVO;
+import com.multi.dorae.help.PageVO;
 
 @RequestMapping("admin/contact")
 @Controller
@@ -31,8 +32,14 @@ public class AdminContactController {
 	}
 	
 	@RequestMapping("list")
-	public void contactList(Model model) {
-		model.addAttribute("contactList", contactService.listAll());
+	public void contactList(PageVO pageVO, Model model) {
+		pageVO.setTotal(contactService.count());
+		pageVO.calcLastPage();
+		pageVO.calcStartEnd();
+		pageVO.calcStartEndPage();
+		System.out.println(pageVO);
+		model.addAttribute("page", pageVO);
+		model.addAttribute("contactList", contactService.listWithPaging(pageVO));
 	}
 	
 	@RequestMapping("one")

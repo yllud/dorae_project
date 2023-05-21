@@ -81,11 +81,11 @@ public class HelpController {
 	}
 	
 	@RequestMapping("contact")
-	public void contact(Model model, HttpSession session) {
+	public void contact(PageVO pageVO, Model model, HttpSession session) {
 		System.out.println(session.getAttribute("email"));
 		System.out.println(session.getAttribute("kakaoE"));
 		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");
-		model.addAttribute("contactList", contactService.listByMemberId(kvo.getEmail()));
+		model.addAttribute("contactList", contactService.listByMemberIdWithPaging(pageVO, kvo.getEmail()));
 	}
 	
 	@RequestMapping("contact/one")
@@ -102,8 +102,8 @@ public class HelpController {
 	
 	@ResponseBody
 	@RequestMapping("contact/list")
-	public List<ContactVO> contactList(HttpSession session) {
-		return contactService.listByMemberId(((KakaoVO) session.getAttribute("kakaoE")).getEmail());
+	public List<ContactVO> contactList(PageVO pageVO, HttpSession session) {
+		return contactService.listByMemberIdWithPaging(pageVO, ((KakaoVO) session.getAttribute("kakaoE")).getEmail());
 	}
 	
 	@RequestMapping(value = "contact/create", method = RequestMethod.GET)

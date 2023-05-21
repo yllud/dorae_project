@@ -10,18 +10,6 @@
 <body>
 	관리자 페이지
 	
-	<ul>
-	<c:forEach items="${contactList }" var="item">
-		<li>
-			<span>${item.member_id } : ${item.created_at }</span>
-			<c:if test="${empty item.admin_id }">
-			<span>답변 미완료</span>
-			</c:if>
-			<c:if test="${not empty item.admin_id }">
-			<span>답변 완료</span>
-			</c:if>
-		</li>
-	</c:forEach>
-	</ul>
+	<a href="admin/contact/list?page=1">1:1 문의 목록</a>
 </body>
 </html>

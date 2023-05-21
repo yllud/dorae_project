@@ -36,7 +36,7 @@ public class ContactService {
 			return false;
 		}
 
-		contactDAO.answerUpdate(vo);
+		contactDAO.updateAnswer(vo);
 
 		emailSendService.send(vo);
 		
@@ -57,17 +57,19 @@ public class ContactService {
 		return contactDAO.one(contact_id);
 	}
 
-	public List<ContactVO> listByMemberId(String member_id) {
-		return contactDAO.listByMemberId(member_id);
+	public List<ContactVO> listWithPaging(PageVO pageVO) {
+		return contactDAO.listWithPaging(pageVO);
+	}
+	
+	public List<ContactVO> listByMemberIdWithPaging(PageVO pageVO, String member_id) {
+		return contactDAO.listByMemberIdWithPaging(pageVO, member_id);
 	}
 	
 	public List<ContactVO> list() {
 		return contactDAO.list();
 	}
 	
-	public List<ContactVO> listAll() {
-		return contactDAO.listAll();
+	public int count() {
+		return contactDAO.count();
 	}
-
-	
 }

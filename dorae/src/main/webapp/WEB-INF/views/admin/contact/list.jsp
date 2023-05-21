@@ -24,5 +24,20 @@
 		</li>
 	</c:forEach>
 	</ul>
+	
+	<!-- 하단 페이지 버튼 -->
+	<div>
+		<c:if test="${page.startPage != 1 }">
+			<a href="?page=${page.startPage - 1 }">&lt;</a>
+		</c:if>
+		
+		<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p">
+			<a href="?page=${p }">${p }</a>
+		</c:forEach>
+		
+		<c:if test="${page.endPage != page.lastPage}">
+			<a href="?page=${page.endPage+1 }">&gt;</a>
+		</c:if>
+	</div>
 </body>
 </html>

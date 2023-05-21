@@ -15,7 +15,10 @@
 	</select>
 	
 	<select id="selectList" resultType="faqVO" >
-		select * from faq;
+		select * from (
+		select ROW_NUMBER() over(order by id desc) as bbs_no, b.*
+		from bbs b) bbs2
+		where bbs2.bbs_no between ${start} and ${end}
 	</select>
 	
 	<select id="selectListWithPaging" resultType="faqVO" parameterType="hashmap">
