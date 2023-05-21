@@ -57,30 +57,12 @@ html {
 	-webkit-user-select: none;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
-ul {
-	/*list-style-type: none;*/
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	margin: 0;
-	padding: 0;
-	background-color: #FFFFFF;
-	text-align: center;
-}
-
-li {
-  display: inline-block;
-  position: relative;
-  text-align: center;
-}
-
 a {
 	text-decoration: none;
 	color: black;
 }
 
-li a {
+.header_li a {
   display: flex;
   align-items: center; /* 수직 가운데 정렬 */
   color: #000000;
@@ -90,11 +72,11 @@ li a {
   height: 100%; /* li의 높이만큼 a 요소의 높이 설정 */
 }
 
-li a span {
+.header_li a span {
   margin: 0 auto; /* 수평 가운데 정렬 */
 }
 
-li a:hover {
+.header_li a:hover {
 	/*color: #597812;*/
 	/*color: #FFD400;*/
 	/*color : #185bd9;*/
@@ -102,7 +84,7 @@ li a:hover {
 	font-weight: 800;
 }
 
-li a:visited {
+.header_li a:visited {
 	/*color: #597812;*/
 	/*color: #FFD400;*/
 	/*color : #185bd9;*/
@@ -166,7 +148,6 @@ body .bold {
 	background-color: #fff;
 	z-index: 999;
 }
-
 #result_temp {
 	position: fixed;
 	margin-top: 20px;
@@ -201,46 +182,23 @@ h1 {
 
 
 /* 지도추천 페이지에서 쓰이는 스타일*/
-.container {
-  position: relative;
-  display: flex;
+#map-container {
+	margin-top: 160px;
 }
 
 #map {
 	width: 100%;
-	height: 850px;
-	z-index: 1;
+	height: 750px;
 	position: relative;
 }
 
-.tab-container {
-  position: relative;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  width: 25%; /* 탭이 차지할 가로 공간 */
-  height: 95%; /* 탭의 높이 */
-  vertical-align: center;
-  background-color: rgba(255, 255, 255, 0.9); /* 탭의 배경색과 투명도 */
-}
-
-.banner {
+#banner {
 	z-index: 9999; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
 	position: absolute;
 }
 
-#address_input{
-  z-index: 3;
-  top: 0;
-  left: 0;
-  width: 500px;
-  height: 32px;
-  font-size: 15px;
-  border: 0;
-  border-radius: 15px;
-  outline: none;
-  padding-left: 10px;
-  background-color: rgb(233, 233, 233);
-  /* 필요한 위치와 스타일 속성들 */
+#side-bar {
+	z-index: 100; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
+	position: absolute;
 }
-}
+

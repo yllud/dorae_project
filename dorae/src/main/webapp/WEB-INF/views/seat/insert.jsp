@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+결제가 완료되었습니다
+
+사진, 예약번호, 상품, 장소, 일시, 좌석
+
+<a><button>예매내역 확인</button></a>
 
 </body>
 </html>

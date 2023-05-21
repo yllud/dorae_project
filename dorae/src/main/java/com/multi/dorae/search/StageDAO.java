@@ -28,12 +28,6 @@ public class StageDAO {
 		return vo;
 	}
 	
-	public List<StageVO> stageLatLng(){
-		System.out.println("stage 위도 경도 요청!");
-		List<StageVO> list = my.selectList("stage.searchLatLng");
-		System.out.println(list);
-		return list;
-	}
 	
 //	public List<String> listId() {
 //		List<String> list=my.selectList("place.idList");
