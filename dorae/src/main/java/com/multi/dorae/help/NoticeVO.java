@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class NoticeVO {
 	
-	private int notice_id;
+	private long notice_id;
 	private String admin_id;
 	private String title;
 	private String content;
 	private Date created_at;
 	private String tag;
 	
-	public int getNotice_id() {
+	public long getNotice_id() {
 		return notice_id;
 	}
-	public void setNotice_id(int notice_id) {
+	public void setNotice_id(long notice_id) {
 		this.notice_id = notice_id;
 	}
 	public String getAdmin_id() {

@@ -1,5 +1,6 @@
 package com.multi.dorae.help;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -30,5 +31,18 @@ public class NoticeDAO {
 	
 	public List<NoticeVO> list() {
 		return sql.selectList("notice.selectList");
+	}
+	
+	public List<NoticeVO> listWithPaging(PageVO pageVO) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("start", pageVO.getStart());
+		map.put("end", pageVO.getEnd());
+		
+		return sql.selectList("notice.selectListWithPaging", map);
+	}
+	
+	public int count() {
+		return sql.selectOne("notice.count");
 	}
 }

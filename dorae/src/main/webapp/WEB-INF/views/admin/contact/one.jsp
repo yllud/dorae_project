@@ -12,18 +12,18 @@
 	
 	<div>
 		<form action="updateAnswer" method="post">
-			<input value="${vo.contact_id}" name="contact_id" hidden="hidden">
-			<p>제목 : <span>${vo.title }</span></p>
-			<p>내용 : <span>${vo.content }</span></p>
+			<input value="${contact.contact_id}" name="contact_id" hidden="hidden">
+			<p>제목 : <span>${contact.title }</span></p>
+			<p>내용 : <span>${contact.content }</span></p>
 			<hr color="red">
-			<c:if test="${empty vo.answer }">
+			<c:if test="${empty contact.answer }">
 				<p>
 					답변 : <textarea rows="20" cols="30" name="answer"></textarea>
 				</p>
 				<button type="submit">답변 등록</button>
 			</c:if>
-			<c:if test="${not empty vo.answer }">
-				<p>답변 : <span>${vo.answer }</span></p>
+			<c:if test="${not empty contact.answer }">
+				<p>답변 : <span>${contact.answer }</span></p>
 			</c:if>
 		</form>
 	</div>

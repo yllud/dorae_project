@@ -31,7 +31,18 @@ public class FaqService {
 		return faqDAO.listByCategory(help_category_id);
 	}
 	
+	public List<FaqVO> listByCategoryWithPaging(String help_category_id, PageVO pageVO) {
+		if (help_category_id == null || help_category_id.trim().isEmpty()) {
+			help_category_id = "D01";
+		}
+		return faqDAO.listByCategoryWithPaging(help_category_id, pageVO);
+	}
+	
 	public List<FaqVO> listBySearch(String search) {
 		return faqDAO.listBySearch(search);
+	}
+	
+	public int count() {
+		return faqDAO.count();
 	}
 }

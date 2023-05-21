@@ -14,11 +14,11 @@
 		select * from faq where faq_id = #{faq_id}
 	</select>
 	
-	<select id="selectList" resultType="faqVO" >
+	<select id="selectListByHelpCategoryWithPaging" resultType="faqVO" parameterType="hashMap">
 		select * from (
-		select ROW_NUMBER() over(order by id desc) as bbs_no, b.*
-		from bbs b) bbs2
-		where bbs2.bbs_no between ${start} and ${end}
+			select ROW_NUMBER() over (order by faq_id desc) as faq, f.*
+			from faq f where help_category_id = #{help_category_id}) f2
+		where f2.faq between #{start} and #{end}
 	</select>
 	
 	<select id="selectListWithPaging" resultType="faqVO" parameterType="hashmap">
@@ -31,6 +31,10 @@
 	
 	<select id="selectListBySearch" parameterType="String" resultType="faqVO" >
 		select * from faq where title like concat('%',#{search},'%')
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from faq;
 	</select>
 	
 </mapper>

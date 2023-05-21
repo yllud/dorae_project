@@ -5,6 +5,12 @@ public class PageVO {
 	// 현재페이지, 시작페이지, 끝페이지, 게시글 총 갯수, 페이지당 글 갯수, 마지막페이지, SQL쿼리에 쓸 start, end, 하단에 보여지는 페이지 갯수
 	private int page, startPage, endPage, total, cntPerPage = 5, lastPage, start, end, cntPage = 5;
 
+	public void calc() {
+		calcLastPage();
+		calcStartEndPage();
+		calcStartEnd();
+	}
+	
 	// 제일 마지막 페이지 계산
 	public void calcLastPage() {
 		setLastPage((int) Math.ceil((double) total / (double) cntPerPage)); // 예) 1.1 은 2페이지가 되어야하므로 올림 처리

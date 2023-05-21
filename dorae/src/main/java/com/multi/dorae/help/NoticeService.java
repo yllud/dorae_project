@@ -30,4 +30,12 @@ public class NoticeService {
 	public List<NoticeVO> list() {
 		return noticeDAO.list();
 	}
+	
+	public List<NoticeVO> listWithPaging(PageVO pageVO) {
+		return noticeDAO.listWithPaging(pageVO);
+	}
+	
+	public int count() {
+		return noticeDAO.count();
+	}
 }

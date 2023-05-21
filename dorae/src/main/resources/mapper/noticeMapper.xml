@@ -14,6 +14,17 @@
 		select * from notice
 	</select>
 	
+	<select id="selectListWithPaging" resultType="noticeVO" parameterType="hashMap">
+		select * from (
+			select ROW_NUMBER() over (order by notice_id) as notice, n.*
+			from notice n order by n.notice_id) n2
+		where n2.notice between #{start} and #{end}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from notice
+	</select>
+	
 	<update id="update" parameterType="noticeVO">
 		update notice set title = #{title}, content = #{content}, tag = #{tag} where notice_id = #{notice_id}
 	</update>
