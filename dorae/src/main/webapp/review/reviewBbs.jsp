@@ -43,19 +43,57 @@
 			});
 		})
 
+		// 후기 작성 버튼 클릭 함수
+		$('#writeReview').click(function() {
+			
+			<%if (session.getAttribute("email") != null) {%>
+				window.location.href = "reviewInsert.jsp";
+			<%} else {%>
+				alert('로그인 후 이용 가능합니다');
+				location.href = 'http://localhost:8888/dorae/login/login.jsp';
+			<%}%>
+		});
+
+		// 임의로 세션값 설정->테스트용 -> 추후 삭제예정
+		$('#test').click(function() {
+	        $.ajax({
+	            url: "setSession",
+	            success: function(response) {
+	                alert("세션 값이 설정되었습니다.");
+	                location.reload(); // 페이지 새로고침
+	            },
+	            error: function(xhr, status, error) {
+	                alert('세션 설정 중 에러가 발생했습니다.');
+	            }
+	        });
+	    });
+		
+		// 임의로 세션값 설정->테스트용 -> 추후 삭제예정
+		$('#logout').click(function() {
+	        $.ajax({
+	            url: "clearSession",
+	            success: function(response) {
+	                alert("로그아웃되었습니다.");
+	                location.reload(); // 페이지 새로고침
+	            },
+	            error: function(xhr, status, error) {
+	                alert('로그아웃 중 에러가 발생했습니다.');
+	            }
+	        });
+	    });
+		
+		
 	});
-	// 후기 작성 페이지 여는 함수
-	function openMyReviewPage() {
-		window.location.href = "myReview.jsp";
-	}
 </script>
 </head>
 <body>
+	<button id="test">로그인(테스트)</button><button id="logout">로그아웃(테스트)</button><br>
 	<input type="text" id="tag">
 	<button id="tagSearch">태그 검색</button>
-	<button onclick="openMyReviewPage()">후기 작성</button>
 	<hr>
 	<div id="reviewList"></div>
+	<br>
+	<button id="writeReview">후기 작성</button>
 
 </body>
 </html>

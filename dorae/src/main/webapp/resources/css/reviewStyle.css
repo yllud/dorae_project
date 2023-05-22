@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+td {
+	background: white;
+	height: 30px;
+	padding: 5px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table, th, td {
+	border: none;
+}
+
+table img {
+	width: 300px;
+	height: 300px;
+	object-fit: cover;
+}
+
+.no-image {
+	width: 300px;
+	height: 300px;
+	border: 1px solid #ccc;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.review-detail {
+	cursor: pointer;
+}
+
+.review-detail:hover {
+	background-color: lightgray;
+}
