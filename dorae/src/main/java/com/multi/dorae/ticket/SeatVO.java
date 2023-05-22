@@ -7,7 +7,7 @@ public class SeatVO {
 	private String seat_date; //공연날짜
 	private String seat_time; //공연시간
 	private String seat_number; //좌석번호
-	private int seat_id; //티켓번호
+	private String seat_id; //티켓번호
 	
 	public String getSeat_member() {
 		return seat_member;
@@ -39,10 +39,10 @@ public class SeatVO {
 	public void setSeat_number(String seat_number) {
 		this.seat_number = seat_number;
 	}
-	public int getSeat_id() {
+	public String getSeat_id() {
 		return seat_id;
 	}
-	public void setSeat_id(int seat_id) {
+	public void setSeat_id(String seat_id) {
 		this.seat_id = seat_id;
 	}
 	@Override

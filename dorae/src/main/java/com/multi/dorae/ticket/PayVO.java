@@ -1,5 +1,6 @@
 package com.multi.dorae.ticket;
 
+
 public class PayVO {
 
 	private String imp_uid; //결제고유번호
@@ -12,7 +13,7 @@ public class PayVO {
 	private String buyer_email; //주문자 이메일
 	private String play_id; //공연ID
 	private String booking; //예매일
-	private int seat_id; //티켓번호
+	private String seat_id; //티켓번호
 	
 	public String getImp_uid() {
 		return imp_uid;
@@ -74,10 +75,10 @@ public class PayVO {
 	public void setBooking(String booking) {
 		this.booking = booking;
 	}
-	public int getSeat_id() {
+	public String getSeat_id() {
 		return seat_id;
 	}
-	public void setSeat_id(int seat_id) {
+	public void setSeat_id(String seat_id) {
 		this.seat_id = seat_id;
 	}
 	@Override
