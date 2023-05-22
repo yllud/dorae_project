@@ -16,6 +16,21 @@ table {
 th, td {
 	text-align: center;
 }
+#map {
+	width: 100%;
+	height: 750px;
+	position: relative;
+}
+
+#banner {
+	z-index: 9999; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
+	position: absolute;
+}
+
+#side-bar {
+	z-index: 100; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
+	position: absolute;
+}
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"
 	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
@@ -27,7 +42,7 @@ th, td {
 	src="${path}/resources/js/jquery-3.6.4.js"></script>
 <script>
 	$(function() {
-		$("#header").load("../header.jsp"); // 헤더 추가
+		//$("#header").load("../header.jsp"); // 헤더 추가
 		//$("#sidebar").load("sidemenu.jsp"); // 사이드바 추가
 		
 		var map; // 전역 변수로 선언
@@ -465,7 +480,7 @@ th, td {
 						var item = list1[i];
 						//console.log("delist1 출력! >> " + item);
 						table += '<tr><td><img src="' + item.poster + '"></td></tr>';
-						table += '<tr><td>' + item.play_name + '</td></tr>';
+						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + item.play_id + "'>" + item.play_name + '</a></td></tr>';
 						table += '<tr><td>' + item.play_start + " ~ " + item.play_end + '</td></tr>';
 						table += '<tr><td>' + item.stage_name + '</td></tr>';
 					}
@@ -480,7 +495,7 @@ th, td {
 					  	var lng = parseFloat(list2[i]?.longitude);
 					  	marker = new naver.maps.Marker({
 				      	position: new naver.maps.LatLng(lat, lng),
-				      	draggable: true,
+				      	draggable: false,
 				      	map: map
 			      		});
 				    	markers.push(marker);
@@ -489,39 +504,42 @@ th, td {
 			  	}//addMarkers
 				
 			  	function addMarkerClickListener(marker, index) {
-			  		naver.maps.Event.addListener(marker, 'click', function() {
-			  		    var markerPosition = marker.getPosition();
-			  		    
-			  		    var select1 = null;
-			  		    var select2 = null;
-			  		    for (var i = 0; i < delist2.length; i++) {
-			  		        var latitude = parseFloat(delist2[i]?.latitude);
-			  		        var longitude = parseFloat(delist2[i]?.longitude);
-			  		        
-			  		        if (latitude === markerPosition.lat() && longitude === markerPosition.lng()) {
-			  		            select1 = delist1[i];
-			  		            select2 = delist2[i];
-			  		            break;
-			  		        }
-			  		    }
-			  		    
-			  		    if (select2) {
-			  		        $('#infolist').empty();
-			  		        // 공연 정보를 표시하는 코드 작성
-			  		        
-			  		        var playinfo = select1;
-			  		        var stageinfo = select2;
-			  		        
-			  		        var table = '<table>';
-			  		        table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
-			  		        table += '<tr><td>' + playinfo.play_name + '</td></tr>';
-			  		        table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
-			  		        table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
-			  		        table += '</table>';
-			  		        
-			  		        $('#infolist').html(table);
-			  		    }
-			  		});
+			  	    naver.maps.Event.addListener(marker, 'click', function() {
+			  	        var markerPosition = marker.getPosition();
+			  	        
+			  	        var selectedPerformances = [];
+			  	        for (var i = 0; i < delist2.length; i++) {
+			  	            var latitude = parseFloat(delist2[i]?.latitude);
+			  	            var longitude = parseFloat(delist2[i]?.longitude);
+			  	            
+			  	            if (latitude === markerPosition.lat() && longitude === markerPosition.lng()) {
+			  	                selectedPerformances.push({
+			  	                    playinfo: delist1[i],
+			  	                    stageinfo: delist2[i]
+			  	                });
+			  	            }
+			  	        }
+			  	        
+			  	        if (selectedPerformances.length > 0) {
+			  	            $('#infolist').empty();
+			  	            // 공연 정보를 표시하는 코드 작성
+			  	            
+			  	            var table = '<table>';
+			  	            
+			  	            for (var j = 0; j < selectedPerformances.length; j++) {
+			  	                var playinfo = selectedPerformances[j].playinfo;
+			  	                var stageinfo = selectedPerformances[j].stageinfo;
+			  	                
+			  	                table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
+				  	            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "'>" + playinfo.play_name + '</a></td></tr>';
+			  	                table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
+			  	                table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
+			  	            }
+			  	            table += '</table>';
+			  	            
+			  	            $('#infolist').html(table);
+			  	        }
+			  	    });
 			  	}
 			  	        
 				var marker1 = {
@@ -530,37 +548,6 @@ th, td {
 				    origin: new naver.maps.Point(90, 0),
 				    anchor: new naver.maps.Point(12, 37)
 				}; //네이버 지도 기본 핀 이미지
-				// 마커 클릭 이벤트 리스너 등록
-				
-				/* marker1.addListener("click", function () {
-			    	// 클릭된 마커의 위치를 가져옴
-			    	var markerPosition = this.getPosition();
-				    // 클릭된 마커의 위치와 일치하는 공연 정보를 검색
-				    var selectedPerformance = null;
-			    	for (var i = 0; i < delist2.length; i++) {
-			      		if (parseFloat(delist2[i].latitude) === markerPosition.lat() && parseFloat(delist2[i].longitude) === markerPosition.lng()) {
-			        		playinfo : delist1[i];
-			        		stageinfo : delist2[i];
-			      		}//if
-			      		break;
-			    	}//for
-
-				    // 공연 정보가 있을 경우 infolist에 정보를 표시
-				    if (stageinfo) {
-				    	$('#infolist').empty();
-						// 테이블 생성
-						var table = '<table>';
-						
-						table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
-						table += '<tr><td>' + playinfo.play_name + '</td></tr>';
-						table += '<tr><td>' + playinfo.play_start + " ~ " + item.play_end + '</td></tr>';
-						table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
-					
-						table += '</table>';
-						// 테이블 추가
-						$('#infolist').html(table);
-				    }
-			    }); //click addListener  */
 			    
 				var marker2 = {
 				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-2.png);background-size:contain;"></div>',

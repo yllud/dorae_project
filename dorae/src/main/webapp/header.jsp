@@ -13,14 +13,21 @@
 	<div class="menu">
 		<nav class="clearfix">
 			<ul class="clearfix">
+				<!-- <li class="header_li"><a id="menu_search" href="">공연</a></li>
+				<li class="header_li"><a id="menu_review" href="">리뷰검색</a></li>
+				<li class="header_li"><a id="menu_help" href="">고객센터</a></li>
+				<li class="header_li"><a id="menu_mypage" href="">마이페이지</a></li> -->
+								
 				<li class="header_li"><a href="search/search.jsp">공연</a></li>
-				<li class="header_li"><a href="">태그검색</a></li>
-				<li class="header_li"><a href="">고객센터</a></li>
-				<li class="header_li"><a href="">마이페이지</a></li>
+				<li class="header_li"><a href="review/reviewBbs.jsp">리뷰검색</a></li>
+				<li class="header_li"><a href="../help/main.jsp">고객센터</a></li> 
+				<li class="header_li"><a  href="mypage/main.jsp">공연</a></li>
+				
 			</ul>
 			<a id="pull" href="#"></a>
 		</nav>
 	</div>
+	<div id="res"></div>
 
 
 </body>
