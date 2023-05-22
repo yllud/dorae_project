@@ -480,7 +480,7 @@ th, td {
 					  	var lng = parseFloat(list2[i]?.longitude);
 					  	marker = new naver.maps.Marker({
 				      	position: new naver.maps.LatLng(lat, lng),
-				      	draggable: true,
+				      	draggable: false,
 				      	map: map
 			      		});
 				    	markers.push(marker);
@@ -489,39 +489,42 @@ th, td {
 			  	}//addMarkers
 				
 			  	function addMarkerClickListener(marker, index) {
-			  		naver.maps.Event.addListener(marker, 'click', function() {
-			  		    var markerPosition = marker.getPosition();
-			  		    
-			  		    var select1 = null;
-			  		    var select2 = null;
-			  		    for (var i = 0; i < delist2.length; i++) {
-			  		        var latitude = parseFloat(delist2[i]?.latitude);
-			  		        var longitude = parseFloat(delist2[i]?.longitude);
-			  		        
-			  		        if (latitude === markerPosition.lat() && longitude === markerPosition.lng()) {
-			  		            select1 = delist1[i];
-			  		            select2 = delist2[i];
-			  		            break;
-			  		        }
-			  		    }
-			  		    
-			  		    if (select2) {
-			  		        $('#infolist').empty();
-			  		        // 공연 정보를 표시하는 코드 작성
-			  		        
-			  		        var playinfo = select1;
-			  		        var stageinfo = select2;
-			  		        
-			  		        var table = '<table>';
-			  		        table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
-			  		        table += '<tr><td>' + playinfo.play_name + '</td></tr>';
-			  		        table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
-			  		        table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
-			  		        table += '</table>';
-			  		        
-			  		        $('#infolist').html(table);
-			  		    }
-			  		});
+			  	    naver.maps.Event.addListener(marker, 'click', function() {
+			  	        var markerPosition = marker.getPosition();
+			  	        
+			  	        var selectedPerformances = [];
+			  	        for (var i = 0; i < delist2.length; i++) {
+			  	            var latitude = parseFloat(delist2[i]?.latitude);
+			  	            var longitude = parseFloat(delist2[i]?.longitude);
+			  	            
+			  	            if (latitude === markerPosition.lat() && longitude === markerPosition.lng()) {
+			  	                selectedPerformances.push({
+			  	                    playinfo: delist1[i],
+			  	                    stageinfo: delist2[i]
+			  	                });
+			  	            }
+			  	        }
+			  	        
+			  	        if (selectedPerformances.length > 0) {
+			  	            $('#infolist').empty();
+			  	            // 공연 정보를 표시하는 코드 작성
+			  	            
+			  	            var table = '<table>';
+			  	            
+			  	            for (var j = 0; j < selectedPerformances.length; j++) {
+			  	                var playinfo = selectedPerformances[j].playinfo;
+			  	                var stageinfo = selectedPerformances[j].stageinfo;
+			  	                
+			  	                table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
+			  	                table += '<tr><td>' + playinfo.play_name + '</td></tr>';
+			  	                table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
+			  	                table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
+			  	            }
+			  	            table += '</table>';
+			  	            
+			  	            $('#infolist').html(table);
+			  	        }
+			  	    });
 			  	}
 			  	        
 				var marker1 = {
