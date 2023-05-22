@@ -19,6 +19,11 @@
 
 </head>
 <body>
+<!-- 세션이 null이면 로그인 화면창이 뜨게하고 -->
+<% if(session.getAttribute("email") == null){out.println("<script type='text/javascript'>location.href = 'http://localhost:8887/dorae/login/login.jsp'</script>"); %> 
+<!-- 세션이 있으면(아이디 비번 정보가 남아있으면) 좌석선택 화면으로 뜨게하기 -->
+<%} else{ %>
+<%} %> 
  <input type="hidden" class="class" name="name" id="show_price" value="35000">
  
     <div class="container">
@@ -52,21 +57,19 @@
       
       <fieldset>
       <legend>주문자확인</legend>
-	  구매자이름: <input id="name" value="이아람"><br>
-	  전화번호: <input id="tel" value="010-4808-1750"><br>
-	  이메일: <input id="email" value="ahryee@hanmail.net"><br>
+	  구매자이름: <input id="name" value="${member.name}"><br>
+	  전화번호: <input id="tel" ><br>
+	  이메일: <input id="email" readonly ><br>
 	  </fieldset>
 	  <br>
 	<button id="clearBtn" class="clear" onclick='location.reload()'>다시선택</button>
     <button type="submit" id="next">다음단계</button>
     <button type="submit" id="payment">결제하기</button>
     </div>
-  
  <script type="text/javascript">
 $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태그의 로드만을 감지, 중복가능
 	d_day.innerText = localStorage.getItem("d_day"); 
 	d_time.innerText = localStorage.getItem("d_time"); //부
-	  
 	  const num_rows = 20; // 좌석의 행 수
 	  const num_cols = 20; // 좌석의 열 수
 
@@ -103,15 +106,16 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 	    	  updateSelectedCount(); // total과 count 업데이트
 	        }); //seat.addEventListener
 	        
-	        $('#next').click(function() { // 다음버튼 눌렀을 때 선택되어 있는 좌석 sold로 변경(선택x)
+	         /* $('#next').click(function() { // 다음버튼 눌렀을 때 선택되어 있는 좌석 sold로 변경(선택x)
 	        	if (seat.classList.contains('selected')) {
 	        		seat.classList.add('sold');
 	        		seat.classList.remove('selected');
 	        		clickSeats.pop(seatNum);
 	        		seat_num.innerText = clickSeats; 
 	        		updateSelectedCount();
-	        	}
-	        }) //next버튼
+	        	} //if 
+	        	
+	        }) //next버튼 */
 	        
 	      row.appendChild(seat);
 	      seat_arr.push(seat); //좌석 배열에 저장
@@ -148,6 +152,18 @@ function updateSelectedCount() {
   total.innerText = selectedSeatsCount * ticketPrice + selectedSeatsCount * 1000;
 }
 
+$('#next').click(function() {
+	alert("회원정보 확인해주세요")
+	$.ajax({
+		url: "memberOne",
+		data: {
+			email: '${email}'
+		},
+		success: function(x) {
+			$('#email').val('${email}')
+		}
+	})
+})
 </script>
   
 <script type="text/javascript" src="../resources/js/pay.js"></script>

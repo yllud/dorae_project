@@ -23,11 +23,10 @@ public class ReplyDAO {
 	@Autowired
 	SqlSessionTemplate my;
 
-	public ReplyVO one(int email) {
+	public ReplyVO one(String email) {
 		System.out.println("-----" + my);
 		ReplyVO bag = my.selectOne("reply.one", email);
 		return bag;
-
 	}
 
 	public int delete(int r_number) {
@@ -65,11 +64,14 @@ public class ReplyDAO {
 	    return result;
 	}
 	
-	 public List<ReplyVO> list() {
-	        System.out.println("------" + my);
-	        List<ReplyVO> list = my.selectList("reply.list");
-	        return list;
-	    }
+//	 public List<ReplyVO> list() {
+//	        System.out.println("------" + my);
+//	        List<ReplyVO> list = my.selectList("reply.list");
+//	        return list;
+//	    }
 	
+	 public List<ReplyVO> listByEmail(String email) {
+		    return my.selectList("reply.listByEmail", email);
+		}
 	
 }

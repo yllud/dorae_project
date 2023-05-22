@@ -7,7 +7,6 @@ public class PayVO {
 	private String merchant_uid; //주문번호
 	private String apply_num; //결제카드번호
 	private String paid_amount; //결제금액
-	private String pay_member; //회원아이디
 	private String buyer_name; //주문자 이름
 	private String buyer_tel; //주문자 전화번호
 	private String buyer_email; //주문자 이메일
@@ -39,12 +38,7 @@ public class PayVO {
 	public void setPaid_amount(String paid_amount) {
 		this.paid_amount = paid_amount;
 	}
-	public String getPay_member() {
-		return pay_member;
-	}
-	public void setPay_member(String pay_member) {
-		this.pay_member = pay_member;
-	}
+	
 	public String getBuyer_name() {
 		return buyer_name;
 	}
@@ -84,7 +78,7 @@ public class PayVO {
 	@Override
 	public String toString() {
 		return "PayVO [imp_uid=" + imp_uid + ", merchant_uid=" + merchant_uid + ", apply_num=" + apply_num
-				+ ", paid_amount=" + paid_amount + ", pay_member=" + pay_member + ", buyer_name=" + buyer_name
+				+ ", paid_amount=" + paid_amount + ", buyer_name=" + buyer_name
 				+ ", buyer_tel=" + buyer_tel + ", buyer_email=" + buyer_email + ", play_id=" + play_id + ", booking="
 				+ booking + ", seat_id=" + seat_id + "]";
 	}
