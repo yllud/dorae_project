@@ -38,7 +38,7 @@ th, td {
 			zoom : 7,
 			minZoom: 7,
 			mapTypeId: 'normal',
-			center : new naver.maps.LatLng(36.5566103, 127.9783882), // 대한민국 중심
+			center : new naver.maps.LatLng(36.0566103, 127.9783882), // 대한민국 중심
 			mapDataControl: false,
 			zoomControl : true,
 			zoomControlOptions : {
@@ -454,21 +454,41 @@ th, td {
 				var response = data;
 
 				// delist1과 delist2 추출
-				var delist1 = response.delist1;
-				var delist2 = response.delist2;
+				var delist1 = response.delist1; //play
+				var delist2 = response.delist2; //stage
+	
+				addItems(delist1);
+				addMarkers(delist2);
 				
-				addMarkers(delist2, map);
+				function addItems(list1) {
+					$('#infolist').empty();
+					// 테이블 생성
+					var table = '<table>';
+					for (var i = 0; i < list1.length; i++) {
+						var item = list1[i];
+						//console.log("delist1 출력! >> " + item);
+						table += '<tr><td><img src="' + item.poster + '"></td></tr>';
+						table += '<tr><td>' + item.play_name + '</td></tr>';
+						table += '<tr><td>' + item.play_start + " ~ " + item.play_end + '</td></tr>';
+						table += '<tr><td>' + item.stage_name + '</td></tr>';
+					}
+					table += '</table>';
+					// 테이블 추가
+					$('#infolist').html(table);
+				}
 				
-				function addMarkers(x, map) {
-					for (var i = 0; i < x.length; i++) {
-					  	var lat = parseFloat(x[i].latitude);
-					    var lng = parseFloat(x[i].longitude);
+				function addMarkers(list2) {					
+					for (var i = 0; i < list2.length; i++) {
+						//console.log("delist2 출력! >> " + delist2[i].latitude);
+						var lat = parseFloat(list2[i]?.latitude);
+					    var lng = parseFloat(list2[i]?.longitude);
 						marker = new naver.maps.Marker({
 							position : new naver.maps.LatLng(lat, lng),
 							draggable : true,
 							map : map
 						});
 						markers.push(marker);
+						
 						//addMarkerToList(markers[i]);
 					}//for
 					
@@ -521,52 +541,39 @@ th, td {
 					}); //markerClustering
 				}//addMarkers
 				
+				/* 
+				function showMarkerInfo(marker, delist) {
+					// 마커 클릭 시, 정보를 표시하기 위한 로직 작성
+				  	var table = '<table>';v
+				  var item = list1[i];
+					table += '<tr><td><img src="' + item.poster + '"></td></tr>';
+						table += '<tr><td>' + item.play_name + '</td></tr>';
+						table += '<tr><td>' + item.play_start + " ~ " + item.play_end + '</td></tr>';
+						table += '<tr><td>' + item.stage_name + '</td></tr>';
+					table += '</table>';
+					
+					
+				  var infoHtml = '<div>' +
+				    '<h2>' + delist.performanceName + '</h2>' +
+				    '<p>장소: ' + delist.venueName + '</p>' +
+				    // 추가 정보를 필요한 대로 표시
+				    '</div>';
+
+				  // 사이드바에 정보를 추가하는 로직
+				  var sidebar = document.getElementById('sidebar');
+				  sidebar.innerHTML = infoHtml;
+				} */
 				
-				/*
-				//마커 리스트
-				function addMarkerToList(marker) {
-				  // 마커 정보를 추출하여 목록에 추가
-				  var markerList = document.getElementById('marker-list');
-				  var listItem = document.createElement('li');
-				  listItem.textContent = marker.title; // 예시로 제목을 목록에 표시
-				  markerList.appendChild(listItem);
-				} //addMarkerToList
-				*/
+				// 마커 클릭 이벤트 리스너 등록
+			 	marker.addListener('click', function() {
+					showMarkerInfo(marker, delist);
+				});
+				
 			}, //success
 			error : function() {
 				alert('실패@@@');
 			}
 		});
-		
-		$.ajax({
-			url : "infoList",
-			contentType: "application/json; charset=UTF-8",
-			dataType: "json", // 데이터 형식을 JSON으로 지정
-			success : function(data) {
-				var response = data;
-
-				// delist1과 delist2 추출
-				var delist1 = response.delist1;
-				var delist2 = response.delist2;
-				
-				// 테이블 생성
-				var table = '<table>';
-				for (var i = 0; i < delist1.length; i++) {
-					var item = delist1[i];
-					table += '<tr><td><img src="' + item.poster + '"></td></tr>';
-					table += '<tr><td>' + item.play_name + '</td></tr>';
-					table += '<tr><td>' + item.play_start + " ~ " + item.play_end + '</td></tr>';
-					table += '<tr><td>' + item.stage_name + '</td></tr>';
-				}
-				table += '</table>';
-
-				// 테이블 추가
-				$('#infolist').html(table);
-			}, //success
-			error : function() {
-				alert('실패@@@');
-			}
-		}); //ajax
 		
 		$('#banner').load("mainImg.jsp");
 	})
