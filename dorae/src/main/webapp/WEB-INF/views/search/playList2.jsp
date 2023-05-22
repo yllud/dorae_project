@@ -62,7 +62,7 @@
 <div class="product-list">
 	<c:forEach items="${list}" var="bag">
 		<!-- el 속성만 받아올 수 있는 표현식 -->
-		<a href="playDetail?play_id=${bag.play_id}" class="product"> <img
+		<a href="playDetail?play_id=${bag.play_id}" class="product" target="_blank"> <img
 			src="${bag.poster}" width="200" height="200">
 			<div class="product-name">${bag.play_name}</div>
 			<div>${bag.genre_name}</div>

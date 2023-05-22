@@ -28,30 +28,25 @@
 			})
 		})//page 버튼
 	})
-
-	function businessDetail(play_id) {
-
-	}
 </script>
-<style type="text/css">
-td {
-	/* 	width: 300px; */
-	background: lime;
-}
-</style>
+
 </head>
 <body>
 
 	<mark id="email_id">${cri.email}</mark>
+	<!-- 	<mark id="email_id">session.getAttribute("email")</mark> -->
 	<!-- 		<h3>검색 결과</h3> -->
 	<div id="result2">
+	<form action="businessInsert" method="post" target="_blank">
+		<button>공연 추가</button>
+	</form>
 		<table>
 			<c:forEach items="${list}" var="vo">
 				<tr>
 					<td>${vo.rownum}</td>
 					<td>${vo.play_name}</td>
 					<!-- 					에이작스에 넣어주자 -> $("#pet-select").val() -->
-					<td><form action="businessUpdate" method="post">
+					<td><form action="businessUpdate" method="post" target="_blank">
 							<input type="hidden" name="play_id" value="${vo.play_id}">
 							<button>수정</button>
 						</form></td>
