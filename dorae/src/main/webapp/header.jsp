@@ -20,7 +20,7 @@
 								
 				<li class="header_li"><a href="search/search.jsp">공연</a></li>
 				<li class="header_li"><a href="review/reviewBbs.jsp">리뷰검색</a></li>
-				<li class="header_li"><a href="../help/main.jsp">고객센터</a></li> 
+				<li class="header_li"><a href="help/main">고객센터</a></li> 
 				<li class="header_li"><a  href="mypage/main.jsp">공연</a></li>
 				
 			</ul>
