@@ -45,7 +45,7 @@ ${email}
 	<br>
 	<hr color="orange">
 	<%}else{ %>
-	${nickname} 님이 로그인 하셨습니다
+	out.println("<script type='text/javascript'>alert('${nickname} 님이 로그인 하셨습니다');</script>");
 	<%} %>
 </body>
 </html>

@@ -10,8 +10,7 @@
 
 	<update id="update" parameterType="replyVO">
 		update m_review
-		set text =
-		#{text}
+		set text = #{text}
 		where r_number = #{r_number}
 	</update>
 	<delete id="delete" parameterType="int">
@@ -19,8 +18,14 @@
 		where r_number = #{r_number}
 	</delete>
 	
-	<select id="one" parameterType="int" resultType="replyVO">
+	<select id="list" parameterType="replyVO" resultType="replyVO">
 		select * from m_review
 		where email = #{email}	
 	</select>
+	
+	<select id="listByEmail" parameterType="String" resultType="replyVO">
+    SELECT * FROM m_review
+    WHERE email = #{email}
+	</select>
+
 </mapper>
