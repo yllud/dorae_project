@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.multi.dorae.admin.EmailSendService;
+import com.multi.dorae.login.KakaoVO;
 
 @Service
 public class ContactService {
@@ -15,7 +16,7 @@ public class ContactService {
 	@Autowired
 	EmailSendService emailSendService;
 
-	public boolean contactCreate(ContactVO vo) {
+	public boolean create(ContactVO vo) {
 		if (vo.getMember_id() == null || vo.getMember_id().trim().isEmpty()) {
 			return false;
 		}
@@ -30,28 +31,45 @@ public class ContactService {
 		return true;
 	}
 
-	public boolean answerUpdate(ContactVO vo) {
-		if (vo.getAdmin_id() == null || vo.getAdmin_id().trim().isEmpty()) {
-			return false;
-		}
+	public boolean updateAnswer(ContactVO vo) {
 		if (vo.getAnswer() == null || vo.getAnswer().trim().isEmpty()) {
 			return false;
 		}
 
-		contactDAO.answerUpdate(vo);
+		contactDAO.updateAnswer(vo);
 
 		emailSendService.send(vo);
 		
 		return true;
 	}
 
-	public ContactVO contactOne(long contact_id) {
-		return contactDAO.selectOne(contact_id);
+	public ContactVO one(long contact_id, KakaoVO kakaoVO) {
+		ContactVO contactVO = contactDAO.one(contact_id);
+		
+		if (!contactVO.getMember_id().equals(kakaoVO.getEmail())) { // 1:1 문의글의 작성자가 현재 세션의 사용자와 다르면
+			contactVO = null;
+		}
+		
+		return contactVO;
 	}
-
-	public List<ContactVO> contactList(String member) {
-		return contactDAO.selectList(member);
-	}
-
 	
+	public ContactVO one(long contact_id) {
+		return contactDAO.one(contact_id);
+	}
+
+	public List<ContactVO> listWithPaging(PageVO pageVO) {
+		return contactDAO.listWithPaging(pageVO);
+	}
+	
+	public List<ContactVO> listByMemberIdWithPaging(PageVO pageVO, String member_id) {
+		return contactDAO.listByMemberIdWithPaging(pageVO, member_id);
+	}
+	
+	public List<ContactVO> list() {
+		return contactDAO.list();
+	}
+	
+	public int count() {
+		return contactDAO.count();
+	}
 }

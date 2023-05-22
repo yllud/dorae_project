@@ -1,5 +1,7 @@
 package com.multi.dorae.admin;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +17,12 @@ public class AdminController {
 	
 	@Autowired
 	HelpCategoryService helpCategoryService;
+	@Autowired
+	AdminService adminService;
 	
 	@RequestMapping
 	public String adminMain() {
+		System.out.println("adminMain");
 		return "admin/admin";
 	}
 	
@@ -29,5 +34,41 @@ public class AdminController {
 		} else {
 			return "유형 이름 수정 실패";
 		}
+	}
+	
+	@RequestMapping(value = "join", method = RequestMethod.GET)
+	public void adminJoinPage() {
+
+	}
+	
+	@RequestMapping(value = "join", method = RequestMethod.POST, produces = "application/text;charset=UTF-8")
+	public String adminJoin(AdminVO adminVO, HttpSession session) {
+		if (adminService.join(adminVO)) { // 가입 성공하면 세션에 저장
+			session.setAttribute("admin", adminVO);
+		}
+		
+		return "redirect:../admin";
+	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public void adminLoginPage() {
+
+	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.POST, produces = "application/text;charset=UTF-8")
+	public String adminLogin(AdminVO adminVO, HttpSession session) {
+		if (adminService.login(adminVO)) { // 로그인이 성공했을 경우
+			session.setAttribute("admin", adminVO);
+			return "redirect:../admin";
+		} else {
+			return "redirect:login";
+		}
+	}
+	
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String adminLogout(HttpSession session) {
+		session.invalidate(); // 세션 만료시킴
+		
+		return "redirect:../admin";
 	}
 }

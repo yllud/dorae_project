@@ -2,31 +2,47 @@ package com.multi.dorae.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.dorae.help.NoticeService;
 import com.multi.dorae.help.NoticeVO;
+import com.multi.dorae.help.PageVO;
 
-@RequestMapping("admin")
+@RequestMapping("admin/notice")
 @Controller
 public class AdminNoticeController {
 
 	@Autowired
 	NoticeService noticeService;
 	
-	@ResponseBody
-	@RequestMapping(value = "noticeCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String noticeCreate(NoticeVO vo) {
-		noticeService.noticeCreate(vo);
-		return "공지사항 등록 성공";
+	@RequestMapping(value = "create", method = RequestMethod.GET)
+	public void noticeCreate() {
+		
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "noticeUpdate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
+	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
+	public void noticeCreate(NoticeVO vo) {
+		noticeService.insert(vo);
+	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String noticeUpdate(NoticeVO vo) {
-		noticeService.noticeUpdate(vo);
-		return "공지사항 수정 성공";
+		noticeService.update(vo);
+		return "redirect:one?notice_id=" + vo.getNotice_id();
+	}
+	
+	@RequestMapping("one")
+	public void noticeOne(long notice_id, Model model) {
+		model.addAttribute("notice", noticeService.one(notice_id));
+	}
+	
+	@RequestMapping("list")
+	public void noticeList(PageVO pageVO, Model model) {
+		pageVO.setTotal(noticeService.count());
+		pageVO.calc();
+		model.addAttribute("page", pageVO);
+		model.addAttribute("noticeList", noticeService.listWithPaging(pageVO));
 	}
 }

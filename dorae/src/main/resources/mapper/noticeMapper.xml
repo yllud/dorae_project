@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 	
-	<insert id="create" parameterType="noticeVO">
+	<insert id="insert" parameterType="noticeVO">
 		insert into notice values (#{notice_id}, #{admin_id}, #{title}, #{content}, now(), #{tag})
 	</insert>
 	
@@ -12,6 +12,17 @@
 	
 	<select id="selectList" resultType="noticeVO">
 		select * from notice
+	</select>
+	
+	<select id="selectListWithPaging" resultType="noticeVO" parameterType="hashMap">
+		select * from (
+			select ROW_NUMBER() over (order by notice_id) as notice, n.*
+			from notice n order by n.notice_id) n2
+		where n2.notice between #{start} and #{end}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from notice
 	</select>
 	
 	<update id="update" parameterType="noticeVO">
