@@ -2,7 +2,7 @@ package com.multi.dorae.ticket;
 
 public class SeatVO {
 
-	private String seat_member; //회원ID
+	private String seat_member; //회원e-mail
 	private String play_id; //공연ID
 	private String seat_date; //공연날짜
 	private String seat_time; //공연시간

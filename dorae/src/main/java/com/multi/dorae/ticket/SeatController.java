@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.multi.dorae.search.PlayDAO;
+import com.multi.dorae.login.NaverVO;
 import com.multi.dorae.search.PlayVO;
 
 @Controller
@@ -34,5 +35,14 @@ public class SeatController {
 		System.out.println("seat insert 요청성공");
 		dao.insert(bag);
 		model.addAttribute("bag", bag);
+	}
+	
+	// 다음버튼 눌렀을 때 회원정보 가져오기
+	@RequestMapping("seat/memberOne")
+	@ResponseBody
+	public void member(String email, Model model) {
+		System.out.println(email + "seat member 요청성공");
+		NaverVO member = dao.member(email);
+		model.addAttribute("member", member);
 	}
 }
