@@ -5,8 +5,9 @@ import java.sql.Timestamp;
 public class ReplyVO {
 	private long r_number;
 	private String text;
+	private String play_id;
 	private String booking;
-	private String date;
+	private String seat_date;
 	private String imp_uid;
 	private String email;
 	private Timestamp upload_date;
@@ -23,17 +24,23 @@ public class ReplyVO {
 	public void setText(String text) {
 		this.text = text;
 	}
+	public String getSeat_date() {
+		return seat_date;
+	}
+	public void setSeat_date(String seat_date) {
+		this.seat_date = seat_date;
+	}
+	public String getPlay_id() {
+		return play_id;
+	}
+	public void setPlay_id(String play_id) {
+		this.play_id = play_id;
+	}
 	public String getBooking() {
 		return booking;
 	}
 	public void setBooking(String booking) {
 		this.booking = booking;
-	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
 	}
 	public String getImp_uid() {
 		return imp_uid;
@@ -56,9 +63,9 @@ public class ReplyVO {
 	
 	@Override
 	public String toString() {
-		return "ReplyVO [r_number=" + r_number + ", text=" + text + ", booking=" + booking + ", date=" + date
-				+ ", imp_uid=" + imp_uid + ", email=" + email + ", upload_date=" + upload_date + "]";
+		return "ReplyVO [r_number=" + r_number + ", text=" + text + ", play_id=" + play_id + ", booking=" + booking
+				+ ", seat_date=" + seat_date + ", imp_uid=" + imp_uid + ", email=" + email + ", upload_date="
+				+ upload_date + "]";
 	}
-	
 	
 }

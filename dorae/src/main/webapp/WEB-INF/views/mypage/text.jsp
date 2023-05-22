@@ -7,25 +7,46 @@
 <title>마이페이지</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
-	$(function() {
-		//시작하자마자 보여줄 ajax
-		$.ajax({
-			url : "login/testPage.jsp",
-			success : function(x) {
-				$('#result').append(x)
-			}//success
-		})//ajax
+$(document).ready(
+		function() {
+			function openPopup() {
+				var popupWindow = window.open("replyPopup.jsp", "popupWindow",
+						"width=500,height=500");
+			}
 
-		$('#b1').click(function() {
-			$('#result').empty() //기존것 삭제됨
-			$.ajax({
-				url : "buy.jsp",
-				success : function(x) {
-					$('#result').append(x)
-				}//success
-			})//ajax
-		})//b1
-	})//$
+			// b1 버튼을 클릭할 때 Ajax 요청을 보내고 결과를 받아옴
+			$(document).on("click", "#b1", function() {
+				$.ajax({
+					url : "../mypage/ticketList.jsp", // 표시할 페이지의 URL
+					type : "GET",
+					dataType : "html",
+					success : function(data) {
+						// Ajax 요청이 성공하면 ticketInfo 영역에 결과를 표시
+						$("#ticketInfo").html(data);
+					},
+					error : function() {
+						// Ajax 요청이 실패하면 에러 처리
+						alert("예매내역을 가져오는 중에 오류가 발생했습니다.");
+					}
+				});
+			}); //b1
+			// b2 버튼을 클릭할 때 Ajax 요청을 보내고 결과를 받아옴
+			$(document).on("click", "#b2", function() {
+				$.ajax({
+					url: "../mypage/replyList.jsp", // 표시할 페이지의 URL
+					type: "GET",
+					dataType: "html",
+					success: function(data) {
+						// Ajax 요청이 성공하면 reviewList 영역에 결과를 표시
+						$("#replyList").html(data);
+					},
+					error: function() {
+						// Ajax 요청이 실패하면 에러 처리
+						alert("작성한 후기를 가져오는 중에 오류가 발생했습니다.");
+					}
+				});
+			}); //b2
+		});
 </script>
 </head>
 <body>
