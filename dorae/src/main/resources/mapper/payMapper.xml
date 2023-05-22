@@ -3,7 +3,7 @@
 <mapper namespace="pay">
 	
 	<insert id="insert" parameterType="payVO">
-		insert into pay values (#{imp_uid}, #{merchant_uid}, #{apply_num}, #{paid_amount}, #{pay_member}, #{buyer_name}, #{buyer_tel},
+		insert into pay values (#{imp_uid}, #{merchant_uid}, #{apply_num}, #{paid_amount}, #{buyer_name}, #{buyer_tel},
 								#{buyer_email}, #{play_id}, #{booking}, #{seat_id})
 	</insert>
 	
