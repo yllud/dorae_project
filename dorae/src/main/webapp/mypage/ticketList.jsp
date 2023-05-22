@@ -15,7 +15,6 @@
 <body>
 	<h2>예매내역</h2>
 	${nickname} 님
-	
 
 <hr color="blue">
 

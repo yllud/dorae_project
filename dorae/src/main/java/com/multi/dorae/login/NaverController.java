@@ -27,44 +27,37 @@ public class NaverController {
 
 	@RequestMapping("login/naverLogin")
 	public String login(NaverVO vo, Model model) {
-		System.out.println(vo + "===================");
-		//WHERE EMAIL = ${EMAIL} 이  있으면 SESSION설정하고 REDIRECT
-		
-		//NaverVO에 있는 정보를 다 불러오려고 vo2 만들음
-		NaverVO vo2 = dao.login(vo);
-		model.addAttribute("vo2", vo2);
-		if(vo2.getEmail() == null) { //email이 null이면 insert
-			int result =  dao.insert(vo);
-			System.out.println(result);
-			if (result != 0) {
-				
-				//로그인 성공하면 session 잡아주기
-				session.setAttribute("email", vo.getEmail());
-				session.setAttribute("nickname", vo.getNickname());
-			
-				
-				// 세션 유지 시간 설정 (옵션)
-			    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
-			    
-	            
-	            
-			    return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
-				
-			}else {
-				return "redirect:/login/login.jsp"; // 로그인 실패 시 로그인 페이지로 리다이렉트
-			}
-		}else {
-			session.setAttribute("email", vo.getEmail());
-			session.setAttribute("nickname", vo.getNickname());
-		
-			
-			// 세션 유지 시간 설정 (옵션)
-		    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
-		    
-		    return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
-			}
-	}
+	    System.out.println(vo + "===================");
 
+	    // NaverVO에 있는 정보를 다 불러오려고 vo2 만들음
+	    NaverVO vo2 = dao.login(vo);
+	    model.addAttribute("vo2", vo2);
+
+	    if (vo2 == null || vo2.getEmail() == null) { // vo2가 null이거나 email이 null인 경우 insert
+	        int result = dao.insert(vo);
+	        System.out.println(result);
+	        if (result != 0) {
+	            // 로그인 성공하면 session 잡아주기
+	            session.setAttribute("email", vo.getEmail());
+	            session.setAttribute("nickname", vo.getNickname());
+
+	            // 세션 유지 시간 설정 (옵션)
+	            session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
+
+	            return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
+	        } else {
+	            return "redirect:/login/login.jsp"; // 로그인 실패 시 로그인 페이지로 리다이렉트
+	        }
+	    } else {
+	        session.setAttribute("email", vo.getEmail());
+	        session.setAttribute("nickname", vo.getNickname());
+
+	        // 세션 유지 시간 설정 (옵션)
+	        session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
+
+	        return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
+	    }
+	}
 	
 	 @RequestMapping("login/logout")
 	    public String logout(Model model, HttpSession session) {
@@ -91,11 +84,7 @@ public class NaverController {
 //		}
 //	}
 
-	
-//	@RequestMapping("login/naverInsert")
-//	public void insert(NaverVO bag) {
-//		dao.insert(bag);
-//	}
+
 	@RequestMapping("login/uploadProfileImage")
 	public String uploadProfileImage(@RequestParam("profileImage") MultipartFile file, NaverVO vo, Model model) {
 	    if (!file.isEmpty()) {

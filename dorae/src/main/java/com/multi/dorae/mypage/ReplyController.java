@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,9 @@ import lombok.Data;
 
 @Controller //스프링에서 제어하는 역할로 등록! 
 public class ReplyController {
+	
+	@Autowired
+	HttpSession session;
 	
 	@Autowired
 	ReplyDAO dao;
@@ -61,20 +66,21 @@ public class ReplyController {
 	}
 	
 	@RequestMapping("mypage/one2")
-	public void one(int r_number, Model model) {
+	public void one(String email, Model model) {
 		System.out.println("one요청됨.");
-		System.out.println(r_number);
-		ReplyVO bag = dao.one(r_number);
+		System.out.println(email);
+		ReplyVO bag = dao.one(email);
 		model.addAttribute("bag", bag);
 	}
 	
-
 	@RequestMapping("mypage/replyList")
-    public String list(Model model) {
-        List<ReplyVO> list = dao.list();
-        model.addAttribute("list", list);
-        return "mypage/replyList";
-    }
+	public String replyList(Model model) {
+		System.out.println("replyList 요청됨");
+	    String email = (String) session.getAttribute("email");
+	    List<ReplyVO> list = dao.listByEmail(email);
+	    model.addAttribute("list", list);
+	    return "mypage/replyList";
+	}
 	
 //	@RequestMapping("list2")
 //	public void list(Model model) {
@@ -87,5 +93,3 @@ public class ReplyController {
 	
 	
 }
-	
-	
