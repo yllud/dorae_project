@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,17 @@ td {
 	color: white;
 }
 </style>
+<script type="text/javascript">
+$(function() {
+	//시작하자마자 보여줄 ajax
+	$.ajax({
+		url : "replyList",
+		success : function(x) {
+			$('#result').append(x)
+		}//success
+	})//ajax
+})//$
+</script>
 </head>
 <body>
 <h2>후기내역</h2>

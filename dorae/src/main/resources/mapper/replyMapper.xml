@@ -5,7 +5,7 @@
 
 	<insert id="create" parameterType="replyVO">
 		insert into m_review values (null,
-		#{text}, #{booking}, #{date}, #{imp_uid}, #{email}, #{upload_date})
+		#{text}, #{play_id}, #{booking}, #{seat_date}, #{imp_uid}, #{email}, #{upload_date})
 	</insert>
 
 	<update id="update" parameterType="replyVO">
