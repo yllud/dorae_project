@@ -16,4 +16,7 @@ public class PayDAO {
 		int result = my.insert("pay.insert", bag);
 		return result;
 	}
+	
+	
+	
 }

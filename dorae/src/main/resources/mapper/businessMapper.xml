@@ -17,4 +17,9 @@
 	<select id="count" resultType="Integer" parameterType="cri2">
 		select count(*) from business where business.email=#{email}
 	</select>
+	
+	<!-- 사업자 공연 추가 -->
+	<select id="insert" resultType="Integer" parameterType="businessVO">
+		insert into business (email, play_id) values	(#{email},#{play_id})
+	</select>
 </mapper>
