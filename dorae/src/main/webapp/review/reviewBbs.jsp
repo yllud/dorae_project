@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,105 +14,86 @@
 
 		$.ajax({
 			url : "all",
-			type : "GET",
-			dataType : "json",
-			success : function(data) {
-				// 데이터를 받아와서 후기 목록을 처리하고 업데이트합니다.
-				var reviewListDiv = $("#reviewList");
-				reviewListDiv.empty(); // 기존 내용을 지웁니다.
-
-				if (data && data.length > 0) {
-					for (var i = 0; i < data.length; i++) {
-						var review = data[i];
-						
-						// 각 후기를 분리하여 <div> 요소로 추가합니다.
-						var reviewDiv = $("<div></div>");
-						var titleElement = $("<h3></h3>").text("제목: " + review.title);
-						var contentElement = $("<p></p>").text("내용: " + review.content);
-						var tagElement = $("<p></p>").text("태그: " + review.tag);
-						
-						reviewDiv.append(titleElement); // 제목
-						reviewDiv.append(tagElement); // 태그
-						// 이미지가 있는 경우 처리
-						if (review.images && review.images.length > 0) {
-                        for (var j = 0; j < review.images.length; j++) {
-                            var imageUrl = "../resources/upload/" + review.images[j];
-                            var imageElement = $("<img>").attr("src", imageUrl).attr("alt", "후기 이미지").attr("width", "300").attr("height", "300");
-                            reviewDiv.append(imageElement);
-                        }
-                    }
-						
-						reviewDiv.append(contentElement); // 내용
-						reviewListDiv.append(reviewDiv);
-					}
-				} else {
-					reviewListDiv.html("후기가 없습니다.");
-				}
+			data : {
+				page : 1
+			},
+			success : function(result) {
+				$('#reviewList').html(result);
 			},
 			error : function(xhr, status, error) {
-				console.log("후기 데이터를 가져오는 중 오류가 발생했습니다: " + error);
+				alert('에러 발생');
 			}
 		});
-		
+
 		// 태그 검색
 		$('#tagSearch').click(function() {
 			var tag = $('#tag').val();
 			$.ajax({
 				url : "tagSearch",
-				type : "GET",
-				dataType : "json",
 				data : {
-					tag : tag
+					tag : tag,
+					page : 1
 				},
-				success : function(data) {
-					// 데이터를 받아와서 후기 목록을 처리하고 업데이트합니다.
-					var reviewListDiv = $("#reviewList");
-					reviewListDiv.empty(); // 기존 내용을 지웁니다.
-
-					if (data && data.length > 0) {
-						for (var i = 0; i < data.length; i++) {
-							var review = data[i];
-							
-							// 각 후기를 분리하여 <div> 요소로 추가합니다.
-							var reviewDiv = $("<div></div>");
-							var titleElement = $("<h3></h3>").text("제목: " + review.title);
-							var contentElement = $("<p></p>").text("내용: " + review.content);
-							var tagElement = $("<p></p>").text("태그: " + review.tag);
-							
-							reviewDiv.append(titleElement); // 제목
-							reviewDiv.append(tagElement); // 태그
-							// 이미지가 있는 경우 처리
-							if (review.images && review.images.length > 0) {
-	                        for (var j = 0; j < review.images.length; j++) {
-	                            var imageUrl = "../resources/upload/" + review.images[j];
-	                            var imageElement = $("<img>").attr("src", imageUrl).attr("alt", "후기 이미지").attr("width", "300").attr("height", "300");
-	                            reviewDiv.append(imageElement);
-	                        }
-	                    }
-							
-							reviewDiv.append(contentElement); // 내용
-							reviewListDiv.append(reviewDiv);
-						}
-					} else {
-						reviewListDiv.html("후기가 없습니다.");
-					}
+				success : function(result) {
+					$('#reviewList').html(result);
 				},
 				error : function(xhr, status, error) {
-					console.log("후기 데이터를 가져오는 중 오류가 발생했습니다: " + error);
+					alert('에러 발생');
 				}
 			});
 		})
 
+		// 후기 작성 버튼 클릭 함수
+		$('#writeReview').click(function() {
+			
+			<%if (session.getAttribute("email") != null) {%>
+				window.location.href = "reviewInsert.jsp";
+			<%} else {%>
+				alert('로그인 후 이용 가능합니다');
+				location.href = 'http://localhost:8888/dorae/login/login.jsp';
+			<%}%>
+		});
+
+		// 임의로 세션값 설정->테스트용 -> 추후 삭제예정
+		$('#test').click(function() {
+	        $.ajax({
+	            url: "setSession",
+	            success: function(response) {
+	                alert("세션 값이 설정되었습니다.");
+	                location.reload(); // 페이지 새로고침
+	            },
+	            error: function(xhr, status, error) {
+	                alert('세션 설정 중 에러가 발생했습니다.');
+	            }
+	        });
+	    });
+		
+		// 임의로 세션값 설정->테스트용 -> 추후 삭제예정
+		$('#logout').click(function() {
+	        $.ajax({
+	            url: "clearSession",
+	            success: function(response) {
+	                alert("로그아웃되었습니다.");
+	                location.reload(); // 페이지 새로고침
+	            },
+	            error: function(xhr, status, error) {
+	                alert('로그아웃 중 에러가 발생했습니다.');
+	            }
+	        });
+	    });
+		
+		
 	});
-	// 후기 작성 페이지 여는 함수
-	function openMyReviewPage() {
-		window.location.href = "myReview.jsp";
-	}
 </script>
 </head>
 <body>
-	<input type="text" id = "tag"><button id = "tagSearch">태그 검색</button>
-	<button onclick="openMyReviewPage()">후기 작성</button>
+	<button id="test">로그인(테스트)</button><button id="logout">로그아웃(테스트)</button><br>
+	<input type="text" id="tag">
+	<button id="tagSearch">태그 검색</button>
+	<hr>
 	<div id="reviewList"></div>
+	<br>
+	<button id="writeReview">후기 작성</button>
+
 </body>
 </html>

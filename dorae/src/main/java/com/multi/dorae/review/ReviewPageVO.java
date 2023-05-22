@@ -5,7 +5,8 @@ public class ReviewPageVO {
 	private int end;
 	private int page;
 
-	public void setStartEnd(int page) {
+//	리뷰게시판 페이지 계산
+	public void reviewStartEnd(int page) {
 		// page별로 start, end값만 구해주면 됨.
 		// 한 페이지에 4개씩 보여주기
 		start = 1 + (page - 1) * 4;
