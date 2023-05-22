@@ -113,10 +113,19 @@
 				<!-- <li class="header_li"><a id="menu_search" href="">공연</a></li>
 				<li class="header_li"><a id="menu_review" href="">리뷰검색</a></li>
 				<li class="header_li"><a id="menu_help" href="">고객센터</a></li>
-				<li class="header_li"><a id="menu_mypage" href="">마이페이지</a></li> -->
+				<li class="header_li"><a id="menu_mypage" href="">	마이페이지</a></li> -->
 								
 				<li class="header_li"><a href="search/search.jsp">공연</a></li>
-				<li class="header_li"><a href="review/reviewBbs.jsp">리뷰검색</a></li>
+				
+				<div class="dropdown">
+					<li class="header_li"><a href="review/reviewBbs.jsp">커뮤니티</a></li>
+						<div class="dropdown-content">
+							<a href="review/reviewBbs.jsp">다녀온 후기</a>
+							<a href="sns/sns.jsp">SNS추천</a>
+							<a href="review/reviewBbs.jsp">공지사항</a>
+						</div>
+				</div>
+					
 				<li class="header_li"><a href="help/main">고객센터</a></li> 
 				<li class="header_li"><a  href="mypage/main.jsp">마이페이지</a></li>
 				
@@ -125,7 +134,6 @@
 		</nav>
 	</div>
 	<div id="res"></div>
-
 
 </body>
 </html>

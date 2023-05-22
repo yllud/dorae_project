@@ -589,7 +589,6 @@ th, td {
 		$('#banner').load("mainImg.jsp");
 	})
 </script>
-<link rel="stylesheet" href="${path}/resources/css/style.css" />
 <link rel="stylesheet" href="../resources/css/sidemenu.css" />
 <meta charset="UTF-8">
 <title>지도 추천 페이지</title>
