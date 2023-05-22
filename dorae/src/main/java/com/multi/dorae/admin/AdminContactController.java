@@ -20,14 +20,14 @@ public class AdminContactController {
 	ContactService contactService;
 	
 	@RequestMapping(value = "updateAnswer", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String updateAnswer(ContactVO vo, HttpSession session) {
-		System.out.println("answerUpdate 호출됨");
-//		vo.setAdmin_id((AdminVO) session.getAttribute("admin"));
-		vo.setAdmin_id("admin");
-		if (contactService.updateAnswer(vo)) {
-			return "redirect:one?contact_id=" + vo.getContact_id();
+	public String updateAnswer(ContactVO contactVO, HttpSession session) {
+		AdminVO adminVO = (AdminVO) session.getAttribute("admin");
+		contactVO.setAdmin_id(adminVO.getId());
+		
+		if (contactService.updateAnswer(contactVO)) {
+			return "redirect:one?contact_id=" + contactVO.getContact_id();
 		} else {
-			return "redirect:one?contact_id=" + vo.getContact_id();
+			return "redirect:one?contact_id=" + contactVO.getContact_id();
 		}
 	}
 	

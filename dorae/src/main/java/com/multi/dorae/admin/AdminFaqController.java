@@ -38,7 +38,7 @@ public class AdminFaqController {
 	public void faqList(String help_category_id, PageVO pageVO, Model model) {
 		pageVO.setTotal(faqService.countByCategory(help_category_id));
 		pageVO.calc();
-		System.out.println(pageVO);
+
 		model.addAttribute("page", pageVO);
 		model.addAttribute("faqList", faqService.listByCategoryWithPaging(help_category_id, pageVO));
 		model.addAttribute("help_category_id", help_category_id);
