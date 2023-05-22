@@ -16,7 +16,7 @@
 		
 		$(".faqItemBtn").click(function() {
 			$.ajax({
-				url: "faqOne",
+				url: "one",
 				data: {
 					faq_id: $(this).val()
 				},

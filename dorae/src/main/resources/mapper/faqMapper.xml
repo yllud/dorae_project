@@ -37,4 +37,8 @@
 		select count(*) from faq;
 	</select>
 	
+	<select id="countByCategory" resultType="int" parameterType="String">
+		select count(*) from faq where help_category_id = #{help_category_id}
+	</select>
+	
 </mapper>

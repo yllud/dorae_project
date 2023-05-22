@@ -54,4 +54,8 @@ public class FaqDAO {
 	public int count() {
 		return sql.selectOne("faq.count");
 	}
+	
+	public int countByCategory(String help_category_id) {
+		return sql.selectOne("faq.countByCategory", help_category_id);
+	}
 }

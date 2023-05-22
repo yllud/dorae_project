@@ -45,4 +45,8 @@ public class FaqService {
 	public int count() {
 		return faqDAO.count();
 	}
+	
+	public int countByCategory(String help_category_id) {
+		return faqDAO.countByCategory(help_category_id);
+	}
 }
