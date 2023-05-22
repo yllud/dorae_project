@@ -7,13 +7,14 @@
 <html>
 <head>
 <style>
-table{
+table {
 	max-width: 350px;
 	margin: 0 auto;
 	padding: 10px;
 }
+
 th, td {
-  text-align: center;
+	text-align: center;
 }
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"
@@ -74,7 +75,7 @@ th, td {
 	    
 	    var infoWindow = new naver.maps.InfoWindow({
 	        anchorSkew: true
-	    });
+	    });//infoWindow
 
 	    map.setCursor('pointer');
 
@@ -114,13 +115,10 @@ th, td {
 				map.setZoom(14);
 	            infoWindow.open(map, latlng);
 	        });
-	    }
-	    function removeMarker(marker) {
-	        marker.setMap(null);
-	    }
+	    }//searchCoordinateToAddress
 
 	    function searchAddressToCoordinate(address) {
-	        naver.maps.Service.geocode({
+	    	naver.maps.Service.geocode({
 	            query: address
 	        }, function(status, response) {
 	            if (status === naver.maps.Service.Status.ERROR) {
@@ -153,7 +151,7 @@ th, td {
 	            map.setZoom(14);
 	            infoWindow.open(map, point);
 	        });
-	    }
+	    }//searchAddressToCoordinate
 
 	    function initGeocoder() {
 	        map.addListener('click', function(e) {
@@ -172,7 +170,8 @@ th, td {
 	            searchAddressToCoordinate($('#address').val());
 	        });
 	        //searchAddressToCoordinate('미사강변대로95');
-	    }
+	    }//initGeocoder
+	    
 	    function makeAddress(item) {
 	        if (!item) {
 	            return;
@@ -220,52 +219,50 @@ th, td {
 	            }
 	        }
 	        return [sido, sigugun, dongmyun, ri, rest].join(' ');
-	    }
+	    }//makeAddress
 	    
 	    function hasArea(area) {
 	        return !!(area && area.name && area.name !== '');
-	    }
+	    }//hasArea
 	    
 	    function hasData(data) {
 	        return !!(data && data !== '');
-	    }
+	    }//hasData
 
 	    function checkLastString (word, lastString) {
 	        return new RegExp(lastString + '$').test(word);
-	    }
+	    }//checkLastString
 
 	    function hasAddition (addition) {
 	        return !!(addition && addition.value);
-	    }
+	    }//hasAddition
 
 	    naver.maps.onJSContentLoaded = initGeocoder;
 		
 		//줌레벨이 바뀔때마다 호출
 		map.addListener('zoom_changed', function () {
    			checkZoomLevel();
-		 	});//zoom_changed
+		});//zoom_changed
 		
-		 	//dataLayer
+		//dataLayer
 		naver.maps.Event.once(map, 'init', function () {
 		    for (var i = 1; i < 18; i++) {
 		        var keyword = i +'';
 		        if (keyword.length === 1) {
 		            keyword = '0'+ keyword;
-		        }
+		        }//if
 		        $.ajax({
 		            url: urlPrefix + keyword + urlSuffix,
 		            success: function(idx) {
 		                return function(geojson) {
 		                    regionGeoJson[idx] = geojson;
-
 		                    loadCount++;
-
 		                    if (loadCount === 17 && map.getZoom() <= 7 ) {
 		                        startDataLayer();
-		                    }
-		                }
-		            }(i - 1)
-		        });
+		                    }//if
+		                }//return fun
+		            }(i - 1)//sucess
+		        });//ajax
 		    }
 		});//map-event once
 		
@@ -279,14 +276,14 @@ th, td {
                     console.log("주소 변환 오류");
                     return;
                 }
-
                 var coords = result.v2.addresses[0].x + ", " + result.v2.addresses[0].y;
 
                 var center = new naver.maps.LatLng(result.v2.addresses[0].y, result.v2.addresses[0].x);
                 map.setCenter(center);
                 map.setZoom(14);
-            });
-        }		
+            });//addressToCoord
+            
+        }//moveToAddress	
 		
 		function startDataLayer() {
 		    map.data.setStyle(function(feature) {
@@ -475,105 +472,132 @@ th, td {
 					table += '</table>';
 					// 테이블 추가
 					$('#infolist').html(table);
-				}
+				}//addItems
 				
-				function addMarkers(list2) {					
+				function addMarkers(list2) {
 					for (var i = 0; i < list2.length; i++) {
-						//console.log("delist2 출력! >> " + delist2[i].latitude);
 						var lat = parseFloat(list2[i]?.latitude);
-					    var lng = parseFloat(list2[i]?.longitude);
-						marker = new naver.maps.Marker({
-							position : new naver.maps.LatLng(lat, lng),
-							draggable : true,
-							map : map
-						});
-						markers.push(marker);
-						
-						//addMarkerToList(markers[i]);
-					}//for
-					
-					var marker1 = {
-						style : "circle",
-						radius : 5,
-						fillColor : "red",
-						fillOpacity : 1,
-						strokeColor : "black",
-						strokeStyle : "solid",
-						strokeWeight : 3
-					}, marker2 = {
-						style : "circle",
-						radius : 15,
-						fillColor : "blue",
-						fillOpacity : 1,
-						strokeColor : "black",
-						strokeStyle : "solid",
-						strokeWeight : 3
-					}, marker3 = {
-						content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-4.png);background-size:contain;"></div>',
-						size : N.Size(40, 40),
-						anchor : N.Point(20, 20)
-					}, //묶인 마커의 수
-					marker4 = {
-						url : 'http://static.naver.net/maps/img/icons/sp_pins_default_v3_over.png',
-						size : new naver.maps.Size(24, 37),
-						origin : new naver.maps.Point(90, 0),
-						anchor : new naver.maps.Point(12, 37)
-					}, //네이버 지도 기본 핀 이미지
-					marker5 = {
-						content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-5.png);background-size:contain;"></div>',
-						size : N.Size(40, 40),
-						anchor : N.Point(20, 20)
-					};
-					var markerClustering = new MarkerClustering({
-						minClusterSize : 2,
-						maxZoom : 13,
-						map : map,
-						markers : markers,
-						disableClickZoom : false,
-						gridSize : 120,
-						icons : [ marker1, marker2, marker3,
-								marker4, marker5 ],
-						indexGenerator : [ 10, 20, 30, 61, 100 ],
-						stylingFunction : function(clusterMarker, count) {
-							$(clusterMarker.getElement()).find(
-									'div:first-child').text(count);
-						}
-					}); //markerClustering
-				}//addMarkers
+					  	var lng = parseFloat(list2[i]?.longitude);
+					  	marker = new naver.maps.Marker({
+				      	position: new naver.maps.LatLng(lat, lng),
+				      	draggable: true,
+				      	map: map
+			      		});
+				    	markers.push(marker);
+				        addMarkerClickListener(marker, i);
+			  		}//for
+			  	}//addMarkers
 				
-				/* 
-				function showMarkerInfo(marker, delist) {
-					// 마커 클릭 시, 정보를 표시하기 위한 로직 작성
-				  	var table = '<table>';v
-				  var item = list1[i];
-					table += '<tr><td><img src="' + item.poster + '"></td></tr>';
-						table += '<tr><td>' + item.play_name + '</td></tr>';
-						table += '<tr><td>' + item.play_start + " ~ " + item.play_end + '</td></tr>';
-						table += '<tr><td>' + item.stage_name + '</td></tr>';
-					table += '</table>';
-					
-					
-				  var infoHtml = '<div>' +
-				    '<h2>' + delist.performanceName + '</h2>' +
-				    '<p>장소: ' + delist.venueName + '</p>' +
-				    // 추가 정보를 필요한 대로 표시
-				    '</div>';
-
-				  // 사이드바에 정보를 추가하는 로직
-				  var sidebar = document.getElementById('sidebar');
-				  sidebar.innerHTML = infoHtml;
-				} */
-				
+			  	function addMarkerClickListener(marker, index) {
+			  		naver.maps.Event.addListener(marker, 'click', function() {
+			  		    var markerPosition = marker.getPosition();
+			  		    
+			  		    var select1 = null;
+			  		    var select2 = null;
+			  		    for (var i = 0; i < delist2.length; i++) {
+			  		        var latitude = parseFloat(delist2[i]?.latitude);
+			  		        var longitude = parseFloat(delist2[i]?.longitude);
+			  		        
+			  		        if (latitude === markerPosition.lat() && longitude === markerPosition.lng()) {
+			  		            select1 = delist1[i];
+			  		            select2 = delist2[i];
+			  		            break;
+			  		        }
+			  		    }
+			  		    
+			  		    if (select2) {
+			  		        $('#infolist').empty();
+			  		        // 공연 정보를 표시하는 코드 작성
+			  		        
+			  		        var playinfo = select1;
+			  		        var stageinfo = select2;
+			  		        
+			  		        var table = '<table>';
+			  		        table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
+			  		        table += '<tr><td>' + playinfo.play_name + '</td></tr>';
+			  		        table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
+			  		        table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
+			  		        table += '</table>';
+			  		        
+			  		        $('#infolist').html(table);
+			  		    }
+			  		});
+			  	}
+			  	        
+				var marker1 = {
+					url: 'http://static.naver.net/maps/img/icons/sp_pins_default_v3_over.png',
+				    size: new naver.maps.Size(24, 37),
+				    origin: new naver.maps.Point(90, 0),
+				    anchor: new naver.maps.Point(12, 37)
+				}; //네이버 지도 기본 핀 이미지
 				// 마커 클릭 이벤트 리스너 등록
-			 	marker.addListener('click', function() {
-					showMarkerInfo(marker, delist);
-				});
 				
+				/* marker1.addListener("click", function () {
+			    	// 클릭된 마커의 위치를 가져옴
+			    	var markerPosition = this.getPosition();
+				    // 클릭된 마커의 위치와 일치하는 공연 정보를 검색
+				    var selectedPerformance = null;
+			    	for (var i = 0; i < delist2.length; i++) {
+			      		if (parseFloat(delist2[i].latitude) === markerPosition.lat() && parseFloat(delist2[i].longitude) === markerPosition.lng()) {
+			        		playinfo : delist1[i];
+			        		stageinfo : delist2[i];
+			      		}//if
+			      		break;
+			    	}//for
+
+				    // 공연 정보가 있을 경우 infolist에 정보를 표시
+				    if (stageinfo) {
+				    	$('#infolist').empty();
+						// 테이블 생성
+						var table = '<table>';
+						
+						table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
+						table += '<tr><td>' + playinfo.play_name + '</td></tr>';
+						table += '<tr><td>' + playinfo.play_start + " ~ " + item.play_end + '</td></tr>';
+						table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
+					
+						table += '</table>';
+						// 테이블 추가
+						$('#infolist').html(table);
+				    }
+			    }); //click addListener  */
+			    
+				var marker2 = {
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-2.png);background-size:contain;"></div>',
+				    size: N.Size(40, 40),
+				    anchor: N.Point(20, 20)
+				}; //묶인 마커의 수
+				var marker3 = {
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-3.png);background-size:contain;"></div>',
+				    size: N.Size(40, 40),
+				    anchor: N.Point(20, 20)
+				};
+				var marker4 = {
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-4.png);background-size:contain;"></div>',
+				    size: N.Size(40, 40),
+				    anchor: N.Point(20, 20)
+				};
+
+				var markerClustering = new MarkerClustering({
+				    minClusterSize: 2,
+				    maxZoom: 13,
+				    map: map,
+				    markers: markers,
+				    disableClickZoom: false,
+				    gridSize: 120,
+				    icons: [marker1, marker2, marker3, marker4],
+				    indexGenerator: [1, 10, 50, 100],
+				    stylingFunction: function (clusterMarker, count) {
+				    	if (count > 1) {
+				        	$(clusterMarker.getElement()).find('div:first-child').text(count);
+				      	}
+				    }
+				}); //markerClustering	
 			}, //success
 			error : function() {
 				alert('실패@@@');
 			}
-		});
+		});//ajax
 		
 		$('#banner').load("mainImg.jsp");
 	})
@@ -587,19 +611,22 @@ th, td {
 	<header id="header" class="fixed-top"></header>
 	<div id="map-container">
 		<div id="map">
-			<div id="banner"><input type="text"></div>
+			<div id="banner">
+				<input type="text">
+			</div>
 			<div id="side-bar" class="left-side-bar">
 				<div class="status-ico">
 					<span>▶</span> <span>▼</span>
 				</div>
-				
+
 				<input id="address_input" type="text" placeholder="도로명주소를 검색해주세요">
 				<div id="infolist"></div>
-			</div>			
-    	</div>
-    	<input id="address" type="text" placeholder="주소를 입력해주세요"><button id="submit">주소검색</button>
-	        <div id="result">테스트테스트</div>
+			</div>
+		</div>
+		<input id="address" type="text" placeholder="주소를 입력해주세요">
+		<button id="submit">주소검색</button>
+		<div id="result">테스트테스트</div>
 	</div>
-	
+
 </body>
 </html>
