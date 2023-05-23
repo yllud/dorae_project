@@ -18,7 +18,7 @@
 				state : "공연중"
 			},
 
-			success : function(x, genre) {
+			success : function(x) {
 				$('#result').html(x)
 			},//success
 			error : function() {

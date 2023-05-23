@@ -12,7 +12,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/themes/material_blue.min.css">
 
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js" ></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
 <script
@@ -20,6 +20,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/minMaxTimePlugin.min.js"></script>
 <script type="text/javascript">
+
 	$(function() {
 
 		$("#play_start").flatpickr({
@@ -41,20 +42,13 @@
 				console.log(value);
 
 			} //onChange
-			
-			
+
 		}); //selector flatpickr
-	
+
 		$("#play_end").flatpickr({
 			dateFormat : 'Y-m-d', // 선택한 날짜 표시되는 형식 = 년-월-일(요일) 
 			altInput : true, // 새로운 입력형식 여부
 			altFormat : 'Y-m-d',
-// 			enable: [{ from: "$('#play_start').val()", to: "today"}],  // 특정날짜만 가능
-// 			minDate : "today", // 최소 선택 날짜(이전날짜 선택 불가능)
-// 			minDate: new Date().valueOf($('#play_start').val()), // 최대 선택 가능 날짜    
-// 			minDate: $('#play_start').val(), // 최대 선택 가능 날짜    
-// 		    maxDate: new Date().fp_incr(30), // 최대 선택 가능 날짜    
-			// 			inline : true, // 항상 열려있도록
 			clickOpens : true,
 			locale : 'ko', // 한국어
 			disableMobile : true, // 모바일 지원   
@@ -69,40 +63,52 @@
 
 		$('#b0').click(function() {
 			//기존의 것 삭제됨.
+			var form = $('#poster')[0].files[0];
+			var formData = new FormData();
+
+			formData.append('file', form);
+			formData.append('email', $('#email_id').text());
+			formData.append('play_name', $('#play_name').val());
+			formData.append('genre_name', $('#genre_name').val());
+			formData.append('stage_name', $('#stage_name').text());
+			formData.append('stage_id', $('#stage_id').val());
+			formData.append('play_time', $('#play_time').val());
+			formData.append('play_start', $('#play_start').val());
+			formData.append('play_end', $('#play_end').val());
+			formData.append('runtime', $('#runtime').val());
+			formData.append('play_age', $('#play_age').val());
+			formData.append('casting', $('#casting').val());
+			formData.append('crew', $('#crew').val());
+			formData.append('enterprise', $('#enterprise').val());
+			formData.append('price', $('#price').val());
+			formData.append('poster', $('#poster').val());
+			formData.append('content', $('#content').val());
+			formData.append('openrun', $('#openrun').val());
 
 			$.ajax({
 				type : "post",
 				url : "businessInsert2",
-
-				data : {
-					email : $('#email_id').text(),
-					play_name : $('#play_name').val(),
-					genre_name : $('#genre_name').val(),
-					stage_name : $('#stage_name').val(),
-					play_time : $('#play_time').val(),
-					play_start : $('#play_start').val(),
-					play_end : $('#play_end').val(),
-					runtime : $('#runtime').val(),
-					play_age : $('#play_age').val(),
-					casting : $('#casting').val(),
-					crew : $('#crew').val(),
-					enterprise : $('#enterprise').val(),
-					price : $('#price').val(),
-					poster : $('#poster').val(),
-					content : $('#content').val(),
-					openrun : $('#openrun').val()
-				},
+				enctype: 'multipart/form-data',
+			    processData: false,
+			    contentType: false,
+			    cache: false,
+				data: formData,
 				success : function(x) {
 					alert('공연 추가 성공')
 					window.close()
 				},//success
 				error : function() {
-					alert('공연 추가 실패')
+					alert('필수 항목을 입력해주세요')
 				}//error
 			})//ajax
 		})//b0
 
+		
 	})//$
+	
+	function openPopup() {
+	    window.open("businessInsertStage", "_blank", "width=600,height=600");
+	}
 </script>
 <style type="text/css">
 .date {
@@ -122,8 +128,11 @@
 	<input id="play_name" value="도래도래">
 	<br> 장르 :
 	<input id="genre_name" value="연극">
-	<br> 장소 :
-	<input id="stage_name" value="도래극장">
+	<br> 공연장 : <mark id="stage_name"></mark>
+	<br><button type="button" onclick="openPopup()">공연장 찾기</button>
+	<input id="stage_id" value="">
+		
+	<input id="stage_name" type="hidden" value="">
 	<!-- 달력 -->
 	<br> 시작 날짜:
 	<input id="play_start" class="date">~
@@ -142,8 +151,9 @@
 	<input id="enterprise" value="도래도래">
 	<br> 가격 :
 	<input id="price" value="전석 10,000원">
-	<br> 포스터 이미지 :
-	<input id="poster">
+	<br> 포스터 이미지
+	<input id="poster" type="file" name="file">
+	<br>
 	<br> 내용 :
 	<br>
 	<textarea id="content" cols="40" rows="8">내요옹</textarea>

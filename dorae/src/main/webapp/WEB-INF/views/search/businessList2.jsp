@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="result">
 	<table>
 		<tr>
 			<td>번호</td>
@@ -16,9 +17,10 @@
 		<c:forEach items="${list2}" var="vo">
 			<tr>
 				<td>${vo.rownum }</td>
-				<td><a href="javascript:businessDetail('${vo.play_id}')">${vo.play_name}</a></td>
+				<td><a href="#" class="detail" data-play-id="${vo.play_id}">${vo.play_name}</a></td>
 			</tr>
 		</c:forEach>
 	</table>
+	</div>
 </body>
 </html>

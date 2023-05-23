@@ -1,6 +1,9 @@
 package com.multi.dorae.search;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,10 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 //import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.io.File;
 import java.sql.Date;
 
 @Controller
@@ -22,6 +29,9 @@ public class BusinessController {
 
 	@Autowired
 	PlayDAO dao2;
+
+	@Autowired
+	StageDAO dao3;
 
 	@RequestMapping(value = "search/business", method = RequestMethod.POST)
 	public void businessPage(String email, Model model) {
@@ -66,13 +76,106 @@ public class BusinessController {
 	}
 
 	@PostMapping("search/businessInsert")
-//	@RequestMapping(value = "search/businessInsert")
 	public void businessInsert() {
 		System.out.println("(Controller) business insert 요청");
 	}
 
+	@RequestMapping("search/businessInsertStage")
+	public void businessInsertStage() {
+		System.out.println("(Controller) business insert stage 요청");
+	}
+
+	@RequestMapping("search/businessInsertStage2")
+	public void businessInsertStage2(String title, Model model) {
+		System.out.println("(Controller) business insert stage2 요청");
+		List<StageVO> list = dao3.list(title);
+		model.addAttribute("list", list);
+
+	}
+
+	@PostMapping("search/businessInsert2")
+	public void businessInsert2(HttpServletRequest request, MultipartFile file, String email, PlayVO vo, Model model)
+			throws Exception {
+
+		System.out.println("(Controller) business insert2 요청");
+		System.out.println(vo.getPlay_name());
+
+		String play_id = "z" + CurrentDate() + CurrentTime() + email.split("@")[0];
+
+		vo.setPlay_id(play_id);
+
+		System.out.println("공연 기간" + vo.getPlay_start() + "~" + vo.getPlay_end());
+
+		// 공연 기간에 따라 공연 상태 설정
+		Date today = CurrentDate();
+		vo.setState(playState(vo.getPlay_start(), vo.getPlay_end(), today));
+		System.out.println("공연 상태 넣기 후>> " + vo);
+
+		// 파일 있으면 업로드
+		if (file != null) {
+			String savedName0 = file.getOriginalFilename();
+			String savedName = play_id + savedName0;
+
+			System.out.println(savedName);
+			String uploadPath = request.getSession().getServletContext().getRealPath("resources/img");
+			File target = new File(uploadPath + "/" + savedName);
+			file.transferTo(target);
+			System.out.println("img넣기 전>> " + vo);
+			vo.setPoster("../resources/img/" + savedName);
+			System.out.println("img넣은 후>> " + vo);
+		}
+		// 공연 db에 추가
+		dao2.insert(vo);
+
+		// 사업자 db 추가
+		BusinessVO vo2 = new BusinessVO();
+		vo2.setPlay_id(play_id);
+		vo2.setEmail(email);
+		dao.insert(vo2);
+
+	}
+	
+	@RequestMapping(value = "search/businessDetail", method = RequestMethod.POST)
+	public void businessDetail(String play_id, Model model) {
+		System.out.println("(Controller) business update 요청");
+		System.out.println(play_id);
+		PlayVO vo = dao2.playDetail(play_id);
+
+		model.addAttribute("vo", vo);
+	}
+
+	@RequestMapping(value = "search/businessUpdate", method = RequestMethod.POST)
+	public void businessUpdate(String play_id, Model model) {
+		System.out.println("(Controller) business update 요청");
+		System.out.println(play_id);
+		PlayVO vo = dao2.playDetail(play_id);
+
+		model.addAttribute("vo", vo);
+	}
+	
+	
+	
+
+	// 현재 시간
+	public String CurrentTime() {
+
+		// 현재 시간
+		LocalTime now = LocalTime.now();
+
+		// 현재시간 출력
+//		        System.out.println(now);  // 06:20:57.008731300
+
+		// 포맷 정의하기
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("-HHmmss");
+
+		// 포맷 적용하기
+		String formatedNow = now.format(formatter);
+
+		return formatedNow;
+	}
+
 	// 오늘 날짜
-	public Date CurrentDateTime() {
+	public Date CurrentDate() {
 
 		// 현재 날짜 구하기
 		LocalDate now = LocalDate.now();
@@ -85,8 +188,6 @@ public class BusinessController {
 
 		Date today = Date.valueOf(formatedNow);
 
-		// 결과 출력
-		System.out.println(formatedNow);
 		return today;
 	}
 
@@ -101,39 +202,5 @@ public class BusinessController {
 		} else {
 			return "공연예정";
 		}
-	}
-
-	@PostMapping("search/businessInsert2")
-//	@RequestMapping(value = "search/businessInsert2")
-	public void businessInsert2(String email, PlayVO vo, Model model) {
-		System.out.println("(Controller) business insert2 요청");
-		System.out.println(vo.getPlay_name());
-
-		String play_id = "PF9548462";
-		vo.setPlay_id(play_id);
-		vo.setStage_id("FC000020");
-
-		//공연 기간에 따라 공연 상태 설정
-		Date today = CurrentDateTime();
-		vo.setState(playState(vo.getPlay_start(), vo.getPlay_end(), today));
-		dao2.insert(vo);
-
-		BusinessVO vo2 = new BusinessVO();
-		vo2.setPlay_id(play_id);
-		vo2.setEmail(email);
-		dao.insert(vo2);
-
-//		String referer = request.getHeader("Referer");
-//	    return "redirect:"+ referer;
-//	    return "redirect:/search/businessInsert";
-	}
-
-	@RequestMapping(value = "search/businessUpdate", method = RequestMethod.POST)
-	public void businessUpdate(String play_id, Model model) {
-		System.out.println("(Controller) business update 요청");
-		System.out.println(play_id);
-		PlayVO vo = dao2.playDetail(play_id);
-
-		model.addAttribute("vo", vo);
 	}
 }
