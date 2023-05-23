@@ -71,7 +71,8 @@ public class ReplyDAO {
 //	    }
 	
 	 public List<ReplyVO> listByEmail(String email) {
-		    return my.selectList("reply.listByEmail", email);
+		 List<ReplyVO> list = my.selectList("reply.listByEmail", email);
+		    return list;
 		}
 	
 }
