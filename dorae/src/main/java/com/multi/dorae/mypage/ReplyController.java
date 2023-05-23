@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.Data;
 
@@ -74,22 +75,24 @@ public class ReplyController {
 	}
 	
 	@RequestMapping("mypage/replyList")
-	public String replyList(Model model) {
+	public void replyList(Model model) {
 		System.out.println("replyList 요청됨");
 	    String email = (String) session.getAttribute("email");
 	    List<ReplyVO> list = dao.listByEmail(email);
+	    System.out.println(list.size());
+	    //views아래 list를 전달 
 	    model.addAttribute("list", list);
-	    return "mypage/replyList";
+	    //그 다음에 무조건 views/mypage/replyList로 감.
+	    //다른 곳으로 가고 싶을 때에는 return 사용!
 	}
 	
-//	@RequestMapping("list2")
-//	public void list(Model model) {
-//		ArrayList<BbsVO> list = dao.list();
-//		System.out.println(list.size()); //사이즈를 찍어보세요.
-//		model.addAttribute("list", list);
+//	@RequestMapping("mypage/replyList")
+//	@ResponseBody
+//	public List<ReplyVO> replyList() {
+//		System.out.println("replyList 요청됨");
+//		String email = (String) session.getAttribute("email");
+//		List<ReplyVO> list = dao.listByEmail(email);
+//		return list;
 //	}
-	
-	//https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EC%9E%90%EB%8F%99%EC%B0%A8
-	
 	
 }
