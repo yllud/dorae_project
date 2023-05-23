@@ -38,6 +38,7 @@
 				type: "GET",
 				dataType: "html",
 				success: function(response) {
+					$("#map").empty();
 					$("#res").empty();
 					$("#res").html(response);
 				},
@@ -119,11 +120,11 @@
 				
 				<div class="dropdown">
 					<li class="header_li"><a href="review/reviewBbs.jsp">커뮤니티</a></li>
-						<div class="dropdown-content">
-							<a href="review/reviewBbs.jsp">다녀온 후기</a>
-							<a href="sns/sns.jsp">SNS추천</a>
-							<a href="review/reviewBbs.jsp">공지사항</a>
-						</div>
+					<div class="dropdown-content">
+						<a href="review/reviewBbs.jsp">다녀온 후기</a>
+						<a href="sns/sns.jsp">SNS추천</a>
+						<a href="review/reviewBbs.jsp">공지사항</a>
+					</div>
 				</div>
 					
 				<li class="header_li"><a href="help/main">고객센터</a></li> 
@@ -134,6 +135,5 @@
 		</nav>
 	</div>
 	<div id="res"></div>
-
 </body>
 </html>

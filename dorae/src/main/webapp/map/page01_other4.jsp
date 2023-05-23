@@ -1,4 +1,4 @@
-<!-- page01_other2.jsp파일 -->
+<!-- page01_other4.jsp파일 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ taglib prefix="c"
 	uri="http://java.sun.com/jsp/jstl/core"%>
@@ -32,27 +32,155 @@ th, td {
 	position: absolute;
 }
 </style>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"
-	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-	crossorigin="anonymous"></script>
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder"></script>
 <script type="text/javascript" src="../resources/js/MarkerClustering.js"></script>
 <script type="text/javascript"
 	src="${path}/resources/js/jquery-3.6.4.js"></script>
 <script>
-	$(function() {
-		//$("#header").load("../header.jsp"); // 헤더 추가
-		//$("#sidebar").load("sidemenu.jsp"); // 사이드바 추가
+	$(document).ready(function() {
 		
 		var map; // 전역 변수로 선언
 		var markers = []; // 전역 변수로 선언
 		var temp_marker; 
 		
+		var delist1 = []; //play
+		var delist2 = []; //stage
+		
+		$.ajax({
+			url : "infoList",
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json", // 데이터 형식을 JSON으로 지정
+			success : function(data) {
+				var response = data;
+
+				// delist1과 delist2 추출
+				delist1 = response.delist1; //play
+				delist2 = response.delist2; //stage
+	
+				addItems(delist1);
+				addMarkers(delist2);
+				
+				function addItems(list1) {
+					$('#infolist').empty();
+					// 테이블 생성
+					var table = '<table>';
+					for (var i = 0; i < list1.length; i++) {
+						var item = list1[i];
+						//console.log("delist1 출력! >> " + item);
+						table += '<tr><td><img src="' + item.poster + '"></td></tr>';
+						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + item.play_id + "'>" + item.play_name + '</a></td></tr>';
+						table += '<tr><td>' + item.play_start + " ~ " + item.play_end + '</td></tr>';
+						table += '<tr><td>' + item.stage_name + '</td></tr>';
+					}
+					table += '</table>';
+					// 테이블 추가
+					$('#infolist').html(table);
+				}//addItems
+				
+				function addMarkers(list2) {
+					for (var i = 0; i < list2.length; i++) {
+						var lat = parseFloat(list2[i]?.latitude);
+					  	var lng = parseFloat(list2[i]?.longitude);
+					  	marker = new naver.maps.Marker({
+				      	position: new naver.maps.LatLng(lat, lng),
+				      	draggable: false,
+				      	map: map
+			      		});
+				    	markers.push(marker);
+				        addMarkerClickListener(marker, i);
+			  		}//for
+			  	}//addMarkers
+				
+			  	function addMarkerClickListener(marker, index) {
+			  	    naver.maps.Event.addListener(marker, 'click', function() {
+			  	        var markerPosition = marker.getPosition();
+			  	        
+			  	        var selectedPerformances = [];
+			  	        for (var i = 0; i < delist2.length; i++) {
+			  	            var latitude = parseFloat(delist2[i]?.latitude);
+			  	            var longitude = parseFloat(delist2[i]?.longitude);
+			  	            
+			  	            if (latitude === markerPosition.lat() && longitude === markerPosition.lng()) {
+			  	                selectedPerformances.push({
+			  	                    playinfo: delist1[i],
+			  	                    stageinfo: delist2[i]
+			  	                });
+			  	            }
+			  	        }
+			  	        
+			  	        if (selectedPerformances.length > 0) {
+			  	            $('#infolist').empty();
+			  	            // 공연 정보를 표시하는 코드 작성
+			  	            
+			  	            var table = '<table>';
+			  	            
+			  	            for (var j = 0; j < selectedPerformances.length; j++) {
+			  	                var playinfo = selectedPerformances[j].playinfo;
+			  	                var stageinfo = selectedPerformances[j].stageinfo;
+			  	                
+			  	                table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
+				  	            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "'>" + playinfo.play_name + '</a></td></tr>';
+			  	                table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
+			  	                table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
+			  	            }
+			  	            table += '</table>';
+			  	            
+			  	            $('#infolist').html(table);
+			  	        }
+			  	    });
+			  	}
+			  	        
+				var marker1 = {
+					url: 'http://static.naver.net/maps/img/icons/sp_pins_default_v3_over.png',
+				    size: new naver.maps.Size(24, 37),
+				    origin: new naver.maps.Point(90, 0),
+				    anchor: new naver.maps.Point(12, 37)
+				}; //네이버 지도 기본 핀 이미지
+			    
+				var marker2 = {
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-2.png);background-size:contain;"></div>',
+				    size: N.Size(40, 40),
+				    anchor: N.Point(20, 20)
+				}; //묶인 마커의 수
+				var marker3 = {
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-3.png);background-size:contain;"></div>',
+				    size: N.Size(40, 40),
+				    anchor: N.Point(20, 20)
+				};
+				var marker4 = {
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-4.png);background-size:contain;"></div>',
+				    size: N.Size(40, 40),
+				    anchor: N.Point(20, 20)
+				};
+
+				var markerClustering = new MarkerClustering({
+				    minClusterSize: 2,
+				    maxZoom: 13,
+				    map: map,
+				    markers: markers,
+				    disableClickZoom: false,
+				    gridSize: 120,
+				    icons: [marker1, marker2, marker3, marker4],
+				    indexGenerator: [1, 10, 50, 100],
+				    stylingFunction: function (clusterMarker, count) {
+				    	if (count > 1) {
+				        	$(clusterMarker.getElement()).find('div:first-child').text(count);
+				      	}
+				    }
+				}); //markerClustering
+			}, //success
+			error : function() {
+				alert('실패@@@');
+			}
+		});//ajax
+	
+		
 		// 네이버 지도 API를 로드합니다.
 		map = new naver.maps.Map('map', {
 			zoom : 7,
 			minZoom: 7,
+			maxZoom: 14,
 			mapTypeId: 'normal',
 			center : new naver.maps.LatLng(36.0566103, 127.9783882), // 대한민국 중심
 			mapDataControl: false,
@@ -331,11 +459,8 @@ th, td {
 		
 		    map.data.addListener('click', function(e) {
 		        var feature = e.feature;
-		        console.log(feature);
-		        console.log(feature.getProperty('area1'));
 		       	var area = feature.getProperty('area1');
-		        //var location = new naver.maps.LatLng(e.coord.lat(), e.coord.lng())
-		        //map.setCenter(location);
+		       	
 				if(area === "강원도"){
 					map.setCenter(gangwon);
 		        	map.setZoom(9);
@@ -388,12 +513,45 @@ th, td {
 		        	map.setCenter(sejong);
 		        	map.setZoom(11);
 		        }
-				/*
-		        if (feature.getProperty('focus') !== true) {
-		            feature.setProperty('focus', true);
-		        } else {
-		            feature.setProperty('focus', false);
-		        } //지역레이터 클릭 시 초록색으로 fill*/
+				/* var area_string = [];
+    			var area_name = ""; */
+				var filteredList = []; //선택된 지역의 공연리스트
+
+				 for (var i = 0; i < delist2.length; i++) {
+			        var stageInfo = delist2[i];
+			        
+					var area_string = stageInfo && stageInfo.address ? stageInfo.address.split(" ") : [];
+        			var area_name = area_string[0] || "";
+			        
+			        if(area_name === area){
+			        	console.log("area값이 같다!!!" + area_name + ", " + stageInfo.stage_name);
+			        	filteredList.push({
+			                playinfo: delist1[i],
+			                stageinfo: stageInfo
+			            });
+			        }
+			    }
+				
+			    if (filteredList.length > 0) {
+			    	var table = "<h3 style='text-align:center'><" + area + " 검색결과 " + filteredList.length + "개></h3><table>";
+			        for (var j = 0; j < filteredList.length; j++) {
+			            var play = filteredList[j].playinfo;
+			            var stage = filteredList[j].stageinfo;
+
+			            table += '<tr><td><img src="' + play.poster + '"></td></tr>';
+			            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + play.play_id + "'>" + play.play_name + '</a></td></tr>';
+			            table += '<tr><td>' + play.play_start + ' ~ ' + play.play_end + '</td></tr>';
+			            table += '<tr><td>' + play.stage_name + '</td></tr>';
+			        }
+
+			        table += '</table>';
+			        $('#infolist').html(table);
+			    } else {
+			    	$('#infolist').empty();
+			    	table = "<h3 style='text-align:center;'><" + area + " 검색결과></h3>" + "<br><br><br><br><br><br><br><br><br><br><h4 style='text-align:center; color:gray;'>검색결과 없음</h4>";
+			    	$('#infolist').html(table);
+			    }	        
+				
 		    });//click addListener
 		
 		    map.data.addListener('mouseover', function(e) {
@@ -421,8 +579,8 @@ th, td {
 		
 		function checkZoomLevel() {
 		    var currentZoom = map.getZoom();
+	        console.log("현재 줌레벨 : " + map.getZoom());
 		    if (currentZoom < 10) {
-		        console.log("줌 레벨이 9 미만입니다.");
 		        map.data.setStyle(function(feature) {
 		            var styleOptions = {
 		                visible: true,
@@ -457,134 +615,6 @@ th, td {
 				
 		var tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
 		tooltip.appendTo(map.getPanes().floatPane);
-		
-		$.ajax({
-			url : "infoList",
-			contentType: "application/json; charset=UTF-8",
-			dataType: "json", // 데이터 형식을 JSON으로 지정
-			success : function(data) {
-				var response = data;
-
-				// delist1과 delist2 추출
-				var delist1 = response.delist1; //play
-				var delist2 = response.delist2; //stage
-	
-				addItems(delist1);
-				addMarkers(delist2);
-				
-				function addItems(list1) {
-					$('#infolist').empty();
-					// 테이블 생성
-					var table = '<table>';
-					for (var i = 0; i < list1.length; i++) {
-						var item = list1[i];
-						//console.log("delist1 출력! >> " + item);
-						table += '<tr><td><img src="' + item.poster + '"></td></tr>';
-						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + item.play_id + "'>" + item.play_name + '</a></td></tr>';
-						table += '<tr><td>' + item.play_start + " ~ " + item.play_end + '</td></tr>';
-						table += '<tr><td>' + item.stage_name + '</td></tr>';
-					}
-					table += '</table>';
-					// 테이블 추가
-					$('#infolist').html(table);
-				}//addItems
-				
-				function addMarkers(list2) {
-					for (var i = 0; i < list2.length; i++) {
-						var lat = parseFloat(list2[i]?.latitude);
-					  	var lng = parseFloat(list2[i]?.longitude);
-					  	marker = new naver.maps.Marker({
-				      	position: new naver.maps.LatLng(lat, lng),
-				      	draggable: false,
-				      	map: map
-			      		});
-				    	markers.push(marker);
-				        addMarkerClickListener(marker, i);
-			  		}//for
-			  	}//addMarkers
-				
-			  	function addMarkerClickListener(marker, index) {
-			  	    naver.maps.Event.addListener(marker, 'click', function() {
-			  	        var markerPosition = marker.getPosition();
-			  	        
-			  	        var selectedPerformances = [];
-			  	        for (var i = 0; i < delist2.length; i++) {
-			  	            var latitude = parseFloat(delist2[i]?.latitude);
-			  	            var longitude = parseFloat(delist2[i]?.longitude);
-			  	            
-			  	            if (latitude === markerPosition.lat() && longitude === markerPosition.lng()) {
-			  	                selectedPerformances.push({
-			  	                    playinfo: delist1[i],
-			  	                    stageinfo: delist2[i]
-			  	                });
-			  	            }
-			  	        }
-			  	        
-			  	        if (selectedPerformances.length > 0) {
-			  	            $('#infolist').empty();
-			  	            // 공연 정보를 표시하는 코드 작성
-			  	            
-			  	            var table = '<table>';
-			  	            
-			  	            for (var j = 0; j < selectedPerformances.length; j++) {
-			  	                var playinfo = selectedPerformances[j].playinfo;
-			  	                var stageinfo = selectedPerformances[j].stageinfo;
-			  	                
-			  	                table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
-				  	            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "'>" + playinfo.play_name + '</a></td></tr>';
-			  	                table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
-			  	                table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
-			  	            }
-			  	            table += '</table>';
-			  	            
-			  	            $('#infolist').html(table);
-			  	        }
-			  	    });
-			  	}
-			  	        
-				var marker1 = {
-					url: 'http://static.naver.net/maps/img/icons/sp_pins_default_v3_over.png',
-				    size: new naver.maps.Size(24, 37),
-				    origin: new naver.maps.Point(90, 0),
-				    anchor: new naver.maps.Point(12, 37)
-				}; //네이버 지도 기본 핀 이미지
-			    
-				var marker2 = {
-				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-2.png);background-size:contain;"></div>',
-				    size: N.Size(40, 40),
-				    anchor: N.Point(20, 20)
-				}; //묶인 마커의 수
-				var marker3 = {
-				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-3.png);background-size:contain;"></div>',
-				    size: N.Size(40, 40),
-				    anchor: N.Point(20, 20)
-				};
-				var marker4 = {
-				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-4.png);background-size:contain;"></div>',
-				    size: N.Size(40, 40),
-				    anchor: N.Point(20, 20)
-				};
-
-				var markerClustering = new MarkerClustering({
-				    minClusterSize: 2,
-				    maxZoom: 13,
-				    map: map,
-				    markers: markers,
-				    disableClickZoom: false,
-				    gridSize: 120,
-				    icons: [marker1, marker2, marker3, marker4],
-				    indexGenerator: [1, 10, 50, 100],
-				    stylingFunction: function (clusterMarker, count) {
-				    	if (count > 1) {
-				        	$(clusterMarker.getElement()).find('div:first-child').text(count);
-				      	}
-				    }
-				}); //markerClustering	
-			}, //success
-			error : function() {
-				alert('실패@@@');
-			}
-		});//ajax
 		
 		$('#banner').load("mainImg.jsp");
 	})
