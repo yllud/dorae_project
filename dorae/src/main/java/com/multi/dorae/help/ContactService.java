@@ -18,11 +18,11 @@ public class ContactService {
 	EmailSendService emailSendService;
 
 	public boolean create(ContactVO contactVO, String member_id) {
-		if (!StringUtils.hasText(contactVO.getTitle())) {
+		if (contactVO.getTitle() == null || contactVO.getTitle().trim().isEmpty()) {
 			System.out.println("1:1 문의 제목이 없음");
 			return false;
 		}
-		if (!StringUtils.hasText(contactVO.getContent())) {
+		if (contactVO.getContent() == null || contactVO.getContent().trim().isEmpty()) {
 			System.out.println("1:1 문의 내용이 없음");
 			return false;
 		}
