@@ -25,6 +25,7 @@
   <span>후기내용</span><input type="text" name="content" value="${review.content}"><br>
   <button type="submit">후기 수정</button>
 </form>
+<br>
 <form action="imgUpdate" method="post" enctype="multipart/form-data" onsubmit="showSuccessMessage2()">
   <span>사진수정</span>
   <input type="hidden" name="email" value="${review.email}">

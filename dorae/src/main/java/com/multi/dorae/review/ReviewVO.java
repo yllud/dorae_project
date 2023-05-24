@@ -9,6 +9,7 @@ public class ReviewVO {
 	private List<String> images;
 	private String content;
 	private String tag;
+	
 	public int getId() {
 		return id;
 	}
