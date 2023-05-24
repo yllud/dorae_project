@@ -55,4 +55,8 @@ public class NoticeDAO {
 	public int count() {
 		return sql.selectOne("notice.count");
 	}
+	
+	public int countByTag(String tag) {
+		return sql.selectOne("notice.countByTag", tag);
+	}
 }

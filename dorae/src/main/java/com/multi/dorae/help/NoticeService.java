@@ -60,6 +60,9 @@ public class NoticeService {
 	public int count() {
 		return noticeDAO.count();
 	}
+	public int countByTag(String tag) {
+		return noticeDAO.countByTag(tag);
+	}
 	
 	private boolean isValid(NoticeVO noticeVO) {
 //		org.springframework.util.StringUtils
