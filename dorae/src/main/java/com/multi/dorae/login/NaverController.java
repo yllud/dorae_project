@@ -40,6 +40,7 @@ public class NaverController {
 	            // 로그인 성공하면 session 잡아주기
 	            session.setAttribute("email", vo.getEmail());
 	            session.setAttribute("nickname", vo.getNickname());
+	            session.setAttribute("nickname", vo.getUser_type());
 
 	            // 세션 유지 시간 설정 (옵션)
 	            session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
@@ -51,6 +52,7 @@ public class NaverController {
 	    } else {
 	        session.setAttribute("email", vo.getEmail());
 	        session.setAttribute("nickname", vo.getNickname());
+	        session.setAttribute("nickname", vo.getUser_type());
 
 	        // 세션 유지 시간 설정 (옵션)
 	        session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)

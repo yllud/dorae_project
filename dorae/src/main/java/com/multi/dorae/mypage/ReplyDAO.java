@@ -40,13 +40,6 @@ public class ReplyDAO {
 		int result = my.update("reply.update", bag);
 		return result;
 	}
-
-//	// public void add2() {
-//	public int insert(BbsVO bag) {
-//		System.out.println("----" + my);
-//		int result = my.insert("reply.create", bag);
-//		return result;
-//	}
 	
 	public int insert(ReplyVO bag) {
 		System.out.println("----" + my);
