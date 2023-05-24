@@ -12,6 +12,8 @@ body {
 </style>
 </head>
 <body>
-게시물삭제 처리 요청이 완료되었습니다.
+<%
+out.println("<script type='text/javascript'>alert('수정 완료');window.close();</script>");
+%>
 </body>
 </html>
