@@ -56,12 +56,11 @@
 		</div>
 		<div class="b-example-divider b-example-vr"></div>
 		
-		<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-		    	<h1 class="h2">1:1 문의 목록</h1>
-		    </div>
-		    
+		<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">		    
 		    <div id="contents"><!-- 목록 들어가는 곳 -->
+		    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2">관리자 페이지입니다.</h1>
+			</div>
 			</div>
 		</div>
 	</div>
@@ -80,7 +79,8 @@
 		function goToPage(element) {
 			asyncLoad(element.getAttribute("value"));
 			console.log(element.getAttribute("value"));
-			history.pushState({"url": element.getAttribute("value")}, null, element.getAttribute("value"));
+			//history.pushState({"url": element.getAttribute("value")}, null, element.getAttribute("value"));
+			history.pushState({"url": element.getAttribute("value")}, null, location.pathname);
 		}
 		
 		function asyncLoad(url) {

@@ -14,7 +14,7 @@ public class ContactDAO {
 	SqlSessionTemplate sql;
 
 	public int insert(ContactVO vo) {
-		return sql.insert("contact.create", vo);
+		return sql.insert("contact.insert", vo);
 	}
 	
 	public int delete(long contact_id) {
@@ -45,7 +45,6 @@ public class ContactDAO {
 		
 		map.put("start", pageVO.getStart());
 		map.put("end", pageVO.getEnd());
-		map.put("cntPerPage", pageVO.getCntPerPage());
 		map.put("member_id", member_id);
 		
 		return sql.selectList("contact.selectListByMemberIdWithPaging", map);
