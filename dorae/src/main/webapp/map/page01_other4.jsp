@@ -31,21 +31,6 @@ th, td {
 	z-index: 100; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
 	position: absolute;
 }
-
-#address{
-  z-index: 3;
-  width: 300px;
-  height: 28px;
-  font-size: 15px;
-  border: 0;
-  border-radius: 20px;
-  outline: none;
-  padding: 10px;
-  background-color: rgb(244, 244, 244);
-  /* 필요한 위치와 스타일 속성들 */
-  margin: 0 auto;
-  display: block; 
-}
 </style>
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder"></script>
@@ -79,7 +64,7 @@ th, td {
 				function addItems(list1) {
 					$('#infolist').empty();
 					// 테이블 생성
-					var table = "<h3 style='text-align:center;'><전체검색결과></h3><table>";
+					var table = '<table>';
 					for (var i = 0; i < list1.length; i++) {
 						var item = list1[i];
 						//console.log("delist1 출력! >> " + item);
@@ -87,7 +72,6 @@ th, td {
 						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + item.play_id + "'>" + item.play_name + '</a></td></tr>';
 						table += '<tr><td>' + item.play_start + " ~ " + item.play_end + '</td></tr>';
 						table += '<tr><td>' + item.stage_name + '</td></tr>';
-						table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
 					}
 					table += '</table>';
 					// 테이블 추가
@@ -139,7 +123,6 @@ th, td {
 				  	            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "'>" + playinfo.play_name + '</a></td></tr>';
 			  	                table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
 			  	                table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
-			  	              	table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
 			  	            }
 			  	            table += '</table>';
 			  	            
@@ -274,8 +257,6 @@ th, td {
 				map.setCenter(latlng);
 				map.setZoom(14);
 	            infoWindow.open(map, latlng);
-	            
-	            
 	        });
 	    }//searchCoordinateToAddress
 
@@ -284,10 +265,10 @@ th, td {
 	            query: address
 	        }, function(status, response) {
 	            if (status === naver.maps.Service.Status.ERROR) {
-	                return alert('API오류가 발생했습니다');
+	                return alert('Something Wrong!');
 	            }
 	            if (response.v2.meta.totalCount === 0) {
-	                return alert('주소를 다시 입력해주세요');
+	                return alert('totalCount' + response.v2.meta.totalCount);
 	            }
 	            var htmlAddresses = [],
 	                item = response.v2.addresses[0],
@@ -311,35 +292,7 @@ th, td {
 	            
 	            map.setCenter(point);
 	            map.setZoom(14);
-	            
-	            console.log("주소 입력받음!!");
-	            
-	            //infoWindow.open(map, point);
-	            
-	            var infolist = [];
-	            var directionsService = new naver.maps.DirectionsService();
-
-	            for (var i = 0; i < delist2.length; i++) {
-	                var delatlng = new naver.maps.LatLng(delist2[i].latitude, delist2[i].longitude);
-	                naver.maps.Service.route({
-	                    start: point,
-	                    end: delatlng,
-	                    options: {
-	                        useTmap: false,
-	                        vehicle: naver.maps.DirectionsService.VehicleType.WALKING,
-	                    }
-	                }, function(status, response) {
-	                    if (status === naver.maps.DirectionsService.Status.OK) {
-	                        var distance = response.result.summary.distance;
-	                        if (distance < 2000) { // 거리 비교 조건 (예: 2km 이내)
-	                            infolist.push(delist2[i]);
-	                        }
-	                    }
-	                });
-	            }
-
-	            console.log("infolist:", infolist);
-	            
+	            infoWindow.open(map, point);
 	        });
 	    }//searchAddressToCoordinate
 
@@ -354,7 +307,12 @@ th, td {
 	                searchAddressToCoordinate($('#address').val());
 	            }
 	        });
-	        //searchAddressToCoordinate
+	        $('#submit').on('click', function(e) {
+	            e.preventDefault();
+
+	            searchAddressToCoordinate($('#address').val());
+	        });
+	        //searchAddressToCoordinate('미사강변대로95');
 	    }//initGeocoder
 	    
 	    function makeAddress(item) {
@@ -584,7 +542,6 @@ th, td {
 			            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + play.play_id + "'>" + play.play_name + '</a></td></tr>';
 			            table += '<tr><td>' + play.play_start + ' ~ ' + play.play_end + '</td></tr>';
 			            table += '<tr><td>' + play.stage_name + '</td></tr>';
-			            table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
 			        }
 
 			        table += '</table>';
@@ -677,10 +634,14 @@ th, td {
 				<div class="status-ico">
 					<span>▶</span> <span>▼</span>
 				</div>
-				<input id="address" type="text" placeholder="주소를 입력해주세요">
+
+				<input id="address_input" type="text" placeholder="도로명주소를 검색해주세요">
 				<div id="infolist"></div>
 			</div>
 		</div>
+		<input id="address" type="text" placeholder="주소를 입력해주세요">
+		<button id="submit">주소검색</button>
+		<div id="result">테스트테스트</div>
 	</div>
 
 </body>

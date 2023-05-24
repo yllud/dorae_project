@@ -1,4 +1,4 @@
-package com.multi.dorae.map;
+package com.multi.dorae.book;
 
 public class BookVO {
 	int book_no;
