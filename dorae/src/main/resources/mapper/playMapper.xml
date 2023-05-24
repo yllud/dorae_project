@@ -3,7 +3,8 @@
 <mapper namespace="play">
 
 	<insert id="create" parameterType="playVO">
-		insert into play values
+		insert into play (play_id, stage_id, play_name,play_start,play_end,stage_name,casting,crew,runtime,play_age,
+		enterprise,price,poster,content,genre_name,state,openrun,image,play_time) values
 		(#{play_id}, #{stage_id},#{play_name},#{play_start}, #{play_end},
 		#{stage_name},#{casting},#{crew}, #{runtime},
 		#{play_age},#{enterprise},#{price},#{poster},
@@ -34,7 +35,8 @@
 		(select ROW_NUMBER() over(order by play_id desc) as
 		rownum, p.*
 		from play p
-		where play_name LIKE CONCAT('%', #{title}, '%')
+		where delete_date is null
+		and play_name LIKE CONCAT('%', #{title}, '%')
 		and state=#{state}
 		<if test='genre!="전체(장르)"'>
 			and genre_name=#{genre}
@@ -45,13 +47,36 @@
 
 	<!-- 공연 리스트 개수(페이지 버튼 생성에 필요) -->
 	<select id="count" resultType="Integer" parameterType="cri">
-		select count(*) from play where play_name LIKE CONCAT('%', #{title},
-		'%')
+		select count(*) from play where delete_date is null
+		and play_name LIKE CONCAT('%', #{title},'%')
 		and state=#{state}
 		<if test='genre!="전체(장르)"'>
 			and genre_name=#{genre}
 		</if>
 	</select>
+	
+	<!-- 공연 수정(사업자) -->
+	<update id="updateAll" parameterType="playVO">
+		update play set play_name=#{play_name},genre_name=#{genre_name},stage_name=#{stage_name},stage_id=#{stage_id},
+		play_start=#{play_start},play_end=#{play_end},play_time=#{play_time},runtime=#{runtime},
+		play_age=#{play_age},casting=#{casting},crew=#{crew},enterprise=#{enterprise},
+		price=#{price},poster=#{poster},content=#{content},openrun=#{openrun},
+		state=#{state}
+		where play_id=#{play_id}
+	</update>
+	
+	
+	<!-- 공연 삭제(사업자) -->
+	<update id="deleteOne" parameterType="playVO">
+		update play set delete_date=#{delete_date}
+		where play_id=#{play_id} 
+	</update>
+	
+	<delete id="deleteComplete" parameterType="String">
+		delete from play where play_id=#{play_id}
+	</delete>
+	
+	
 
 
 	<select id="searchStageId" parameterType="String"

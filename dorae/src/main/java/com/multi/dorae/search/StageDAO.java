@@ -28,6 +28,16 @@ public class StageDAO {
 		return vo;
 	}
 	
+	// 공연 페이지 리스트로 불러오기
+	public List<StageVO> list(String title) {
+		System.out.println("(DAO) List");
+		List<StageVO> list = my.selectList("stage.list", title);
+		for (StageVO bag : list) {
+			System.out.println(bag.getStage_name());
+		}
+		return list;
+	}
+	
 	
 //	public List<String> listId() {
 //		List<String> list=my.selectList("place.idList");
