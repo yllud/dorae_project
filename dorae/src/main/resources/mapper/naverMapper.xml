@@ -27,6 +27,7 @@
 		age = #{age},
 		birthday = #{birthday},
 		profile_image = #{profile_image},
+		user_type = #{user_type}
 		where email = #{email}
 	</update>
 
