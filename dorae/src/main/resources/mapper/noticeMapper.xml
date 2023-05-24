@@ -17,15 +17,15 @@
 	
 	<select id="selectListWithPaging" resultType="noticeVO" parameterType="hashMap">
 		select * from (
-			select ROW_NUMBER() over (order by notice_id desc) as notice, n.*
-			from notice n order by n.notice_id) n2
+			select ROW_NUMBER() over (order by notice_id) as notice, n.*
+			from notice n order by n.notice_id desc) n2
 		where n2.notice between #{start} and #{end}
 	</select>
 	
 	<select id="selectListByTagWithPaging" resultType="noticeVO" parameterType="hashMap">
 		select * from (
-			select ROW_NUMBER() over (order by notice_id desc) as notice, n.*
-			from notice n where n.tag = #{tag} order by n.notice_id) n2
+			select ROW_NUMBER() over (order by notice_id) as notice, n.*
+			from notice n where n.tag = #{tag} order by n.notice_id desc) n2
 		where n2.notice between #{start} and #{end}
 	</select>
 	
