@@ -9,6 +9,7 @@
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$("#header").load("../header/header.jsp");
 		$.ajax({
 			url : "playList",
 			data : {
@@ -52,9 +53,9 @@
 
 </head>
 <body>
-	<%-- <%	if(session.getAttribute("email") != null){%> --%>
-	<!-- 세션에 이메일 이 있으면 버튼을 보여주자!(사업자 페이지) -->
-	<%-- <%}else{out.println("<script type='text/javascript'>alert('로그인 실패');location.href = 'http://localhost:8888/dorae/login/login.jsp'</script>");} %> --%>
+	<header id="header" class="fixed-top"></header>
+
+	<!-- 세션에 user_type이 business면 버튼을 보여주자!(사업자 페이지) -->
 	<input value="<%=session.getAttribute("user_type")%>">
 	<input value="<%=session.getAttribute("email")%>">
 	<%
