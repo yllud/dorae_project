@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 	
-	<insert id="insert" parameterType="noticeVO">
+	<!-- keyProperty 는 DB의 필드명을 써야함 -->
+	<insert id="insert" parameterType="noticeVO" useGeneratedKeys="true" keyProperty="notice_id">
 		insert into notice values (#{notice_id}, #{admin_id}, #{title}, #{content}, now(), #{tag})
 	</insert>
 	

@@ -26,7 +26,7 @@ public class EmailSendService {
 	// @Value("${secretKey}")
 	String secretKey = "DE6AAA53DEBADD68474D90821B631CB444D1E692";
 
-	public void send(ContactVO vo) {
+	public void send(ContactVO contactVO) {
 		try {
 			EmailSendRequest esr = new EmailSendRequest(); // 이메일 요청 객체(템플릿용)
 			esr.setTemplateSid(9347); // 이메일 템플릿 번호

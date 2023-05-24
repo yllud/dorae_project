@@ -8,7 +8,7 @@
 <title>관리자 페이지</title>
 </head>
 <body>
-	관리자 페이지
+	공지사항 목록 페이지
 	
 	<ul>
 	<c:forEach items="${noticeList }" var="item">

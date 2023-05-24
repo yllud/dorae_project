@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="contact">
 	
-	<insert id="insert" parameterType="contactVO">
+	<insert id="insert" parameterType="contactVO" useGeneratedKeys="true" keyProperty="contact_id">
 		insert into contact values (#{contact_id}, #{member_id}, #{title}, #{content}, now(), #{admin_id}, #{answer})
 	</insert>
 	
