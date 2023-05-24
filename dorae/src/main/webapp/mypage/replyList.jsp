@@ -26,13 +26,14 @@ td {
 	color: white;
 }
 </style>
+<script type="text/javascript" src="resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 $(function() {
 	//시작하자마자 보여줄 ajax
 	$.ajax({
-		url : "replyList",
+		url : "../mypage/replyList", //views 아래에 있는 replyList.jsp
 		success : function(x) {
-			$('#result').append(x)
+			$('#result').html(x) //결과값 이름을 result로 한 것
 		}//success
 	})//ajax
 })//$
@@ -41,27 +42,8 @@ $(function() {
 <body>
 <h2>후기내역</h2>
 	${nickname} 님
-	<table>
-        <tr>
-            <th>r_number</th>
-            <th>text</th>
-            <th>booking</th>
-            <th>date</th>
-            <th>imp_uid</th>
-            <th>email</th>
-            <th>upload_date</th>
-        </tr>
-        <c:forEach items="${list}" var="reply">
-            <tr>
-                <td>${reply.r_number}</td>
-                <td>${reply.text}</td>
-                <td>${reply.booking}</td>
-                <td>${reply.date}</td>
-                <td>${reply.imp_uid}</td>
-                <td>${reply.email}</td>
-                <td>${reply.upload_date}</td>
-            </tr>
-        </c:forEach>
-    </table>
+	<div id="result">
+	<!-- ajax의 $('#result').html(x)에서 result(결과)가 표시될 위치 -->
+    </div>
 </body>
 </html>
