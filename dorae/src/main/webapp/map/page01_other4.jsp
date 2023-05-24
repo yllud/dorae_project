@@ -7,6 +7,9 @@
 <html>
 <head>
 <style>
+body{
+	overflow-y: scroll;
+}
 table {
 	max-width: 350px;
 	margin: 0 auto;
@@ -46,15 +49,19 @@ th, td {
   margin: 0 auto;
   display: block; 
 }
+#map-container{
+	margin-top: 168px;
+}
 </style>
 <script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder"></script>
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder,services.directions"></script>
+
 <script type="text/javascript" src="../resources/js/MarkerClustering.js"></script>
 <script type="text/javascript"
 	src="${path}/resources/js/jquery-3.6.4.js"></script>
 <script>
 	$(document).ready(function() {
-		
+		$("#header").load("../header.jsp");
 		var map; // 전역 변수로 선언
 		var markers = []; // 전역 변수로 선언
 		var temp_marker; 
@@ -129,7 +136,7 @@ th, td {
 			  	            $('#infolist').empty();
 			  	            // 공연 정보를 표시하는 코드 작성
 			  	            
-			  	            var table = '<table>';
+			  	            var table = "<table>";
 			  	            
 			  	            for (var j = 0; j < selectedPerformances.length; j++) {
 			  	                var playinfo = selectedPerformances[j].playinfo;
@@ -250,7 +257,7 @@ th, td {
 	            ].join(',')
 	        }, function(status, response) {
 	            if (status === naver.maps.Service.Status.ERROR) {
-	                return alert('Something Wrong!');
+	                return alert('네이버 MAP 서비스 오류!');
 	            }
 	            var items = response.v2.results,
 	                address = '',
@@ -261,12 +268,12 @@ th, td {
 	                address = makeAddress(item) || '';
 	                addrType = item.name === 'roadaddr' ? '[도로명 주소]' : '[지번 주소]';
 
-	                htmlAddresses.push((i+1) +'. '+ addrType +' '+ address);
+	                htmlAddresses.push(addrType +' '+ address);
 	            }
 	            //추후 주석처리예정
 	            infoWindow.setContent([
 	                '<div style="padding:10px;min-width:200px;line-height:150%;">',
-	                '<h4 style="margin-top:5px;">검색 좌표</h4>',
+	                '<h4 style="margin-top:5px;">클릭된 좌표</h4>',
 	                htmlAddresses.join('<br />'),
 	                '</div>'
 	            ].join('\n'));
@@ -275,12 +282,11 @@ th, td {
 				map.setZoom(14);
 	            infoWindow.open(map, latlng);
 	            
-	            
-	        });
+	        });	     
 	    }//searchCoordinateToAddress
-
+	    
 	    function searchAddressToCoordinate(address) {
-	    	naver.maps.Service.geocode({
+	        naver.maps.Service.geocode({
 	            query: address
 	        }, function(status, response) {
 	            if (status === naver.maps.Service.Status.ERROR) {
@@ -289,9 +295,11 @@ th, td {
 	            if (response.v2.meta.totalCount === 0) {
 	                return alert('주소를 다시 입력해주세요');
 	            }
-	            var htmlAddresses = [],
-	                item = response.v2.addresses[0],
-	                point = new naver.maps.Point(item.x, item.y);
+
+	            var item = response.v2.addresses[0];
+	            var point = new naver.maps.Point(item.x, item.y);
+	            var htmlAddresses = [];
+
 	            if (item.roadAddress) {
 	                htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
 	            }
@@ -301,47 +309,51 @@ th, td {
 	            if (item.englishAddress) {
 	                htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
 	            }
-	            //추후 주석처리예정
+
+	            // 주소와 좌표를 출력하는 HTML 생성
 	            infoWindow.setContent([
 	                '<div style="padding:10px;min-width:200px;line-height:150%;">',
-	                '<h4 style="margin-top:5px;">검색 주소 : '+ address +'</h4>',
+	                '<h4 style="margin-top:5px;">검색 주소 : ' + address + '</h4>',
 	                htmlAddresses.join('<br />'),
 	                '</div>'
 	            ].join('\n'));
-	            
+
 	            map.setCenter(point);
 	            map.setZoom(14);
-	            
+
 	            console.log("주소 입력받음!!");
-	            
-	            //infoWindow.open(map, point);
-	            
-	            var infolist = [];
-	            var directionsService = new naver.maps.DirectionsService();
-
-	            for (var i = 0; i < delist2.length; i++) {
-	                var delatlng = new naver.maps.LatLng(delist2[i].latitude, delist2[i].longitude);
-	                naver.maps.Service.route({
-	                    start: point,
-	                    end: delatlng,
-	                    options: {
-	                        useTmap: false,
-	                        vehicle: naver.maps.DirectionsService.VehicleType.WALKING,
-	                    }
-	                }, function(status, response) {
-	                    if (status === naver.maps.DirectionsService.Status.OK) {
-	                        var distance = response.result.summary.distance;
-	                        if (distance < 2000) { // 거리 비교 조건 (예: 2km 이내)
-	                            infolist.push(delist2[i]);
-	                        }
-	                    }
-	                });
-	            }
-
 	            console.log("infolist:", infolist);
-	            
+
+	         	// 거리 계산을 위한 함수 호출
+	            calculateDistance(point);
 	        });
-	    }//searchAddressToCoordinate
+	    }
+	 	// 거리 계산 함수
+	    function calculateDistance(startPoint) {
+	        var infolist = [];
+	        var directionsService = new naver.maps.DirectionsService();
+
+	        for (var i = 0; i < delist2.length; i++) {
+	            var delatlng = new naver.maps.LatLng(delist2[i].latitude, delist2[i].longitude);
+	            var request = {
+	                start: startPoint,
+	                end: delatlng,
+	                options: {
+	                    useTmap: false,
+	                    vehicle: naver.maps.Directions.Service.VehicleType.WALKING,
+	                }
+	            };
+	            directionsService.route(request, function(response, status) {
+	                if (status === naver.maps.Directions.Service.Status.OK) {
+	                    var distance = response.routes[0].summary.distance;
+	                    if (distance < 2000) { // 거리 비교 조건 (예: 2km 이내)
+	                        infolist.push(delist2[i]);
+	                    }
+	                }
+	            });
+	        }
+	        console.log("infolist:", infolist);
+	    }
 
 	    function initGeocoder() {
 	        map.addListener('click', function(e) {
@@ -566,7 +578,7 @@ th, td {
         			var area_name = area_string[0] || "";
 			        
 			        if(area_name === area){
-			        	console.log("area값이 같다!!!" + area_name + ", " + stageInfo.stage_name);
+			        	//console.log("area값이 같다!!!" + area_name + ", " + stageInfo.stage_name);
 			        	filteredList.push({
 			                playinfo: delist1[i],
 			                stageinfo: stageInfo
@@ -658,11 +670,12 @@ th, td {
 				
 		var tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
 		tooltip.appendTo(map.getPanes().floatPane);
-		
+		$("#header").load("header.jsp");
 		$('#banner').load("mainImg.jsp");
 	})
 </script>
 <link rel="stylesheet" href="../resources/css/sidemenu.css" />
+<link rel="stylesheet" href="../resources/css/style.css" />
 <meta charset="UTF-8">
 <title>지도 추천 페이지</title>
 </head>
@@ -681,6 +694,8 @@ th, td {
 				<div id="infolist"></div>
 			</div>
 		</div>
+	</div>
+	<div id="result">
 	</div>
 
 </body>
