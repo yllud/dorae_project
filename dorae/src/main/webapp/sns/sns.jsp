@@ -126,7 +126,6 @@
 <body>
 	<header id="header" class="fixed-top"></header>
 	<div id="sns">
-	<h1>SNS 후기 검색 결과</h1>
 	<button id="saveData">db에 데이터 저장</button>
 	<hr color="red">
 	<div id="recommend"></div>
