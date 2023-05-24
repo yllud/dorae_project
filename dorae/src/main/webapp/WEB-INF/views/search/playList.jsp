@@ -62,10 +62,12 @@
 					// 각 div 처리 예시
 					var div1 = $x.filter('.product-list2'); // 클래스가 'product-list2'인 div 선택
 					var div2 = $x.filter('.footer2'); // 클래스가 'footer2'인 div 선택
-					var div3 = $x.filter('.ranking'); // 클래스가 'class2'인 div 선택
+					var div3 = $x.filter('.ranking'); // 클래스가 'ranking'인 div 선택
+					
 					$('#result2').empty()
 					$('#result3').empty()
 					$('#result3').empty()
+					
 					$('#result2').append(div1)
 					$('#result3').append(div2)
 					$('#result4').html(div3)

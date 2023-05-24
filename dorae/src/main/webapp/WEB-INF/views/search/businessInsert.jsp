@@ -12,7 +12,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/themes/material_blue.min.css">
 
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js" ></script>
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
 <script
@@ -20,7 +20,6 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/minMaxTimePlugin.min.js"></script>
 <script type="text/javascript">
-
 	$(function() {
 
 		$("#play_start").flatpickr({
@@ -67,7 +66,7 @@
 			var formData = new FormData();
 
 			formData.append('file', form);
-			formData.append('email', $('#email_id').text());
+			formData.append('email', $('#email_id').val());
 			formData.append('play_name', $('#play_name').val());
 			formData.append('genre_name', $('#genre_name').val());
 			formData.append('stage_name', $('#stage_name').text());
@@ -88,11 +87,11 @@
 			$.ajax({
 				type : "post",
 				url : "businessInsert2",
-				enctype: 'multipart/form-data',
-			    processData: false,
-			    contentType: false,
-			    cache: false,
-				data: formData,
+				enctype : 'multipart/form-data',
+				processData : false,
+				contentType : false,
+				cache : false,
+				data : formData,
 				success : function(x) {
 					alert('공연 추가 성공')
 					window.close()
@@ -103,11 +102,10 @@
 			})//ajax
 		})//b0
 
-		
 	})//$
-	
+
 	function openPopup() {
-	    window.open("businessInsertStage", "_blank", "width=600,height=600");
+		window.open("businessInsertStage", "_blank", "width=600,height=600");
 	}
 </script>
 <style type="text/css">
@@ -119,8 +117,9 @@
 </style>
 </head>
 <body>
-	<mark id="email_id">ahn@naver.com</mark>
-	<!-- 	<mark id="email_id">session.getAttribute("email")</mark> -->
+
+	<input id="email_id" type="hidden"
+		value="<%=session.getAttribute("email")%>">
 	<h3>공연 추가</h3>
 
 	<!-- el 속성만 받아올 수 있는 표현식 -->
@@ -128,8 +127,10 @@
 	<input id="play_name" value="도래도래">
 	<br> 장르 :
 	<input id="genre_name" value="연극">
-	<br> 공연장 : <mark id="stage_name"></mark>
-	<br><button type="button" onclick="openPopup()">공연장 찾기</button>
+	<br> 공연장 :
+	<mark id="stage_name"></mark>
+	<br>
+	<button type="button" onclick="openPopup()">공연장 찾기</button>
 	<input id="stage_id" type="hidden" value="">
 	<!-- 달력 -->
 	<br> 공연 기간:
