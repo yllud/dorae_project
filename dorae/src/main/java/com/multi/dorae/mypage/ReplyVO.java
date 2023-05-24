@@ -8,9 +8,10 @@ public class ReplyVO {
 	private String play_id;
 	private String booking;
 	private String seat_date;
-	private String imp_uid;
+	private String seat_id;
 	private String email;
 	private Timestamp upload_date;
+	private String nickname;
 	
 	public long getR_number() {
 		return r_number;
@@ -42,11 +43,11 @@ public class ReplyVO {
 	public void setBooking(String booking) {
 		this.booking = booking;
 	}
-	public String getImp_uid() {
-		return imp_uid;
+	public String getSeat_id() {
+		return seat_id;
 	}
-	public void setImp_uid(String imp_uid) {
-		this.imp_uid = imp_uid;
+	public void setSeat_id(String seat_id) {
+		this.seat_id = seat_id;
 	}
 	public String getEmail() {
 		return email;
@@ -60,12 +61,17 @@ public class ReplyVO {
 	public void setUpload_date(Timestamp upload_date) {
 		this.upload_date = upload_date;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	
 	@Override
 	public String toString() {
 		return "ReplyVO [r_number=" + r_number + ", text=" + text + ", play_id=" + play_id + ", booking=" + booking
-				+ ", seat_date=" + seat_date + ", imp_uid=" + imp_uid + ", email=" + email + ", upload_date="
-				+ upload_date + "]";
+				+ ", seat_date=" + seat_date + ", seat_id=" + seat_id + ", email=" + email + ", upload_date="
+				+ upload_date + ", nickname=" + nickname + "]";
 	}
-	
 }

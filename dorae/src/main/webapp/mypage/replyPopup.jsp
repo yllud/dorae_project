@@ -44,12 +44,12 @@ textarea {
 <body>
 	<span class="close" onclick="window.close()">&times;</span>
 	<h2>후기 작성</h2>
-	<form action="insert2" method="get">
+	<form action="replyInsert" method="get">
 	<div class="input-area">
 		<textarea placeholder="내용 입력 (최대 300글자)" id="inputText" name="text"
 			maxlength="300"></textarea>
-			email : <input name="email" value="${email}"><br>
-			작성자 : ${nickname}<br>
+			<input type="hidden" name="email" value="${email}"><br>
+			작성자 : ${nickname} <input type="hidden" name="nickname" value="${nickname}"><br>
 	</div>
 	<div class="button-area">
 		<button onclick="confirmPopup()">확인</button>

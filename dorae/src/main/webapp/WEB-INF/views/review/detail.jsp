@@ -1,74 +1,83 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" type="text/css" href="../resources/css/reviewStyle.css">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" type="text/css"
+	href="../resources/css/reviewStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <style>
-    .imageContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
-    }
+.imageContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
 
-    .imageContainer img {
-        max-width: 100%;
-        max-height: 400px;
-        object-fit: contain;
-        margin: 0 5px;
-    }
+.imageContainer img {
+	max-width: 100%;
+	max-height: 400px;
+	object-fit: contain;
+	margin: 0 5px;
+}
 
-    .imageContainer button {
-        margin: 0 5px;
-        padding: 5px;
-    }
+.imageContainer button {
+	margin: 0 5px;
+	padding: 5px;
+}
+
+div.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 </style>
 <!--출력화면내용  -->
-<table>
-    <tr>
-        <td>작성자:</td>
-        <td>${review.email}</td>
-    </tr>
-    <tr>
-        <td>제목:</td>
-        <td>${review.title}</td>
-    </tr>
-    <tr>
-        <td>내용:</td>
-        <td>${review.content}</td>
-    </tr>
-    <tr>
-        <td>태그:</td>
-        <td>${review.tag}</td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <c:choose>
-                <c:when test="${not empty review.images}">
-                    <div class="imageContainer">
-                        <button id="prevButton" disabled>&lt;</button>
-                        <c:forEach var="image" items="${review.images}">
-                            <img src="../resources/upload/${image}" alt="후기 이미지" />
-                        </c:forEach>
-                        <button id="nextButton" ${review.images.size() > 1 ? '' : 'disabled'}>&gt;</button>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="no-image">후기 이미지가 없습니다.</div>
-                </c:otherwise>
-            </c:choose>
-        </td>
-    </tr>
-</table>
+<div class="centered">
+	<table>
+		<tr>
+			<td>작성자:</td>
+			<td>${review.email}</td>
+		</tr>
+		<tr>
+			<td>제목:</td>
+			<td>${review.title}</td>
+		</tr>
+		<tr>
+			<td>내용:</td>
+			<td>${review.content}</td>
+		</tr>
+		<tr>
+			<td>태그:</td>
+			<td>${review.tag}</td>
+		</tr>
+		<tr>
+			<td colspan="2"><c:choose>
+					<c:when test="${not empty review.images}">
+						<div class="imageContainer">
+							<button id="prevButton" disabled>&lt;</button>
+							<c:forEach var="image" items="${review.images}">
+								<img src="../resources/upload/${image}" alt="후기 이미지" />
+							</c:forEach>
+							<button id="nextButton"
+								${review.images.size() > 1 ? '' : 'disabled'}>&gt;</button>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="no-image">후기 이미지가 없습니다.</div>
+					</c:otherwise>
+				</c:choose></td>
+		</tr>
+	</table>
 
-<!--본인 게시글만 수정, 삭제 가능 -->
-<c:if test="${sessionScope.email eq review.email}">
-<a href="update?id=${review.id}">
-	<button>후기 수정</button>
-</a>
-<button onclick="confirmDelete(${review.id})">후기 삭제</button>
-</c:if>
-
+	<!--본인 게시글만 수정, 삭제 가능 -->
+	<c:if test="${sessionScope.email eq review.email}">
+		<a href="update?id=${review.id}">
+			<button>후기 수정</button>
+		</a>
+		<button onclick="confirmDelete(${review.id})">후기 삭제</button>
+	</c:if>
+</div>
 <!--이미지 뷰 넘어가는 설정 코드 -->
 <script>
     const images = document.querySelectorAll(".imageContainer img");
@@ -123,7 +132,8 @@
                 },
                 success: function() {
                     alert("후기가 삭제되었습니다.");
-                    window.location.href = "../review/reviewBbs.jsp";
+                    window.opener.location.reload(); // 부모 창 새로고침
+                    window.close(); // 팝업 창 닫기
                 },
                 error: function() {
                     alert("삭제 중에 오류가 발생했습니다.");
