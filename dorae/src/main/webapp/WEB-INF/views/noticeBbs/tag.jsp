@@ -25,9 +25,11 @@
 		
 		// 페이징 버튼 클릭함수
 		$('.pages').click(function() {
+			var tag = '<%=request.getParameter("tag")%>';
 			$.ajax({
-				url : "all",
+				url : "tag",
 				data : {
+					tag : tag,
 					page : $(this).text()
 				},
 				success : function(result) {
