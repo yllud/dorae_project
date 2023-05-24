@@ -11,7 +11,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 	$(function() {
-
+		$("#header").load("../header/header.jsp");
 		$.ajax({
 			url : "all",
 			data : {
@@ -85,8 +85,15 @@
 		window.open("tag.jsp", "_blank", "width=500,height=500");
 	}
 </script>
+<style>
+#reviewBbs{
+	margin-top: 169px;
+}
+</style>
 </head>
 <body>
+<header id="header" class="fixed-top"></header>
+<div id="reviewBbs">
 	<button id="test">로그인(테스트)</button>
 	<button id="logout">로그아웃(테스트)</button>
 	<br>
@@ -97,6 +104,6 @@
 	<div id="reviewList"></div>
 	<br>
 	<button id="writeReview">후기 작성</button>
-
+</div>
 </body>
 </html>
