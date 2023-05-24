@@ -42,6 +42,16 @@ public class NoticeDAO {
 		return sql.selectList("notice.selectListWithPaging", map);
 	}
 	
+	public List<NoticeVO> listByTagWithPaging(String tag, PageVO pageVO) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("tag", tag);
+		map.put("start", pageVO.getStart());
+		map.put("end", pageVO.getEnd());
+		
+		return sql.selectList("notice.selectListByTagWithPaging", map);
+	}
+	
 	public int count() {
 		return sql.selectOne("notice.count");
 	}

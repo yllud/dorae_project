@@ -49,8 +49,12 @@ public class NoticeService {
 		return noticeDAO.one(notice_id);
 	}
 	
-	public List<NoticeVO> listWithPaging(PageVO pageVO) {
+	public List<NoticeVO> listWithPaging(PageVO pageVO) { // 공지사항 전체
 		return noticeDAO.listWithPaging(pageVO);
+	}
+	
+	public List<NoticeVO> listByTagWithPaging(String tag, PageVO pageVO) { // 태그별 공지사항
+		return noticeDAO.listByTagWithPaging(tag, pageVO);
 	}
 	
 	public int count() {

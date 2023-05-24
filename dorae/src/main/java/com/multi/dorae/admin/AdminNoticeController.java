@@ -1,10 +1,13 @@
 package com.multi.dorae.admin;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.multi.dorae.help.NoticeService;
@@ -54,5 +57,14 @@ public class AdminNoticeController {
 		pageVO.calc();
 		model.addAttribute("page", pageVO);
 		model.addAttribute("noticeList", noticeService.listWithPaging(pageVO));
+	}
+	
+	@ResponseBody
+	@RequestMapping("listByTag")
+	public List<NoticeVO> noticeByTag(String tag, PageVO pageVO) {
+		pageVO.calc();
+		System.out.println("태그 " + tag);
+		System.out.println(pageVO);
+		return noticeService.listByTagWithPaging(tag, pageVO);
 	}
 }

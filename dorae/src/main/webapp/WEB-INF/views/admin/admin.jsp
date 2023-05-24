@@ -61,7 +61,7 @@
 		    	<h1 class="h2">1:1 문의 목록</h1>
 		    </div>
 		    
-		    <div id="contents">
+		    <div id="contents"><!-- 목록 들어가는 곳 -->
 			</div>
 		</div>
 	</div>
@@ -99,9 +99,6 @@
 			}
 		}
 		
-		window.onbeforeunload = function(event) {
-			return true;
-		} 
 	</script>
 </body>
 </html>
