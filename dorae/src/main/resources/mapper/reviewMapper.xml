@@ -79,4 +79,54 @@
 	<select id="tagCount" resultType="Integer" parameterType="String">
 		select count(*) from review where review_tag = #{tag}
 	</select>
+	
+	<!--태그 공연명 연동 -->
+	<select id= "tag" resultType="playVO" parameterType="reviewPageVO">
+		SELECT play_name, genre_name
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY play_start DESC) AS play_no,
+		play_name, genre_name
+		FROM play
+		) play2
+		WHERE play2.play_no BETWEEN #{start} AND #{end};
+	</select>
+	
+	<!--전체 공연 수 계산 -->
+	<select id="playCount" resultType="Integer">
+		select count(*) from play
+	</select>
+	
+	<!--공연 태그 검색  -->
+	<select id="playSearch" resultType="playVO" parameterType="java.util.Map">
+		SELECT play_name, genre_name
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY play_start DESC) AS play_no,
+		play_name, genre_name
+		FROM play
+		WHERE play_name LIKE CONCAT('%', #{query}, '%')
+		) play2
+		WHERE play2.play_no BETWEEN #{start} AND #{end};
+	</select>
+	
+	<!--공연 태그  장르로 검색  -->
+	<select id="genreSearch" resultType="playVO" parameterType="java.util.Map">
+		SELECT play_name, genre_name
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY play_start DESC) AS play_no,
+		play_name, genre_name
+		FROM play
+		WHERE genre_name = #{genre}
+		) play2
+		WHERE play2.play_no BETWEEN #{start} AND #{end};
+	</select>
+	
+	<!--전체 공연 수 계산 -->
+	<select id="playSearchCount" resultType="Integer" parameterType = "String">
+		select count(*) from play where play_name LIKE CONCAT('%', #{query}, '%')
+	</select>
+	
+	<!--전체 공연 수 계산 -->
+	<select id="genreCount" resultType="Integer" parameterType = "String">
+		select count(*) from play where genre_name = #{genre}
+	</select>
 </mapper>

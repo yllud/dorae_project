@@ -10,7 +10,7 @@
 		// 상세페이지 클릭함수
 		$('.review-detail').click(function() {
 			var id = $(this).data('id'); // 클릭한 요소의 data-id 속성에서 id 추출
-			window.open('detail?id=' + id, '_blank'); // 상세 페이지를 새 창에서 열기
+			window.open('detail?id=' + id, '_blank', "width=550,height=550"); // 상세 페이지를 새 창에서 열기
 		});
 		
 		// 페이징 버튼 클릭함수
@@ -28,8 +28,69 @@
 				}
 			});
 		});
+		
+// 페이지 버튼 페이징 처리
+		
+		// 버튼 페이징 변수 선언
+		var pages = <%= request.getAttribute("pages") %>;
+        var buttonsPerPage = 10;
+        var currentPage = 1;
+        var currentButtonPage = <%= request.getAttribute("currentButtonPage") %>;
+
+		function updateButtons() {
+			var start = (currentButtonPage - 1) * buttonsPerPage + 1;
+			var end = Math.min(start + buttonsPerPage - 1, pages);
+
+			$('.pages').each(function(index) {
+				var buttonText = start + index;
+				if (buttonText <= end) {
+					$(this).text(buttonText).show();
+				} else {
+					$(this).hide();
+				}
+			});
+			
+			// 이전 버튼 숨기기
+            if (currentButtonPage === 1) {
+                $('#previous').hide();
+            } else {
+                $('#previous').show();
+            }
+
+            // 다음 버튼 숨기기
+            var totalPages = Math.ceil(pages / buttonsPerPage);
+            if (currentButtonPage === totalPages) {
+                $('#next').hide();
+            } else {
+                $('#next').show();
+            }
+		}
+		
+		// 이전버튼
+		$('#previous').click(function() {
+			if (currentButtonPage > 1) {
+				currentButtonPage--;
+				updateButtons();
+			}
+		});
+		
+		// 다음버튼
+		$('#next').click(function() {
+			var totalPages = Math.ceil(pages / buttonsPerPage);
+			if (currentButtonPage < totalPages) {
+				currentButtonPage++;
+				updateButtons();
+			}
+		});
+		
+		updateButtons();
 	});
 </script>
+<%
+    int pages = (int) request.getAttribute("pages");
+    int buttonsPerPage = 10;
+    int currentPage = 1;
+%>
 <link rel="stylesheet" type="text/css" href="../resources/css/reviewStyle.css">
 </head>
 <body>
@@ -85,13 +146,16 @@
 	</div>
 	<hr color="red">
 	<!--페이지버튼 -->
-	<%
-	int pages = (int) request.getAttribute("pages");
-	for (int p = 1; p <= pages; p++) {
-	%>
-	<button class="pages"><%=p%></button>
-	<%
-		}
-	%>
+	<table>
+	<tr>
+	<td><button id="previous">이전</button></td>
+	<td><div id="button-container">
+	<% for (int p = 1; p <= buttonsPerPage; p++) { %>
+        <button class="pages" style="display: none;"></button>
+    <% } %>
+	</div></td>
+	<td><button id="next">다음</button></td>
+	</tr>
+	</table>
 </body>
 </html>
