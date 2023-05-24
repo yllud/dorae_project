@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 
 @Controller
@@ -134,10 +135,10 @@ public class BusinessController {
 		dao.insert(vo2);
 
 	}
-	
+
 	@RequestMapping(value = "search/businessDetail", method = RequestMethod.POST)
 	public void businessDetail(String play_id, Model model) {
-		System.out.println("(Controller) business update 요청");
+		System.out.println("(Controller) business Detail 요청");
 		System.out.println(play_id);
 		PlayVO vo = dao2.playDetail(play_id);
 
@@ -152,9 +153,50 @@ public class BusinessController {
 
 		model.addAttribute("vo", vo);
 	}
+
+	@RequestMapping(value = "search/businessUpdate2", method = RequestMethod.POST)
+	public void businessUpdate2(HttpServletRequest request, MultipartFile file, PlayVO vo) throws Exception {
+		System.out.println("(Controller) business update2 요청");
+		System.out.println(vo);
+
+		System.out.println("공연 기간" + vo.getPlay_start() + "~" + vo.getPlay_end());
+
+		// 공연 기간에 따라 공연 상태 설정
+		Date today = CurrentDate();
+		vo.setState(playState(vo.getPlay_start(), vo.getPlay_end(), today));
+		System.out.println("공연 상태 넣기 후>> " + vo);
+
+		// 파일 있으면 업로드
+		if (file != null) {
+			String savedName0 = file.getOriginalFilename();
+			String savedName = vo.getPlay_id() + savedName0;
+
+			System.out.println(savedName);
+			String uploadPath = request.getSession().getServletContext().getRealPath("resources/img");
+			File target = new File(uploadPath + "/" + savedName);
+			file.transferTo(target);
+			System.out.println("img넣기 전>> " + vo);
+			vo.setPoster("../resources/img/" + savedName);
+			System.out.println("img넣은 후>> " + vo);
+		}
+		// 공연 db에 추가
+
+		dao2.updateAll(vo);
+
+	}
 	
-	
-	
+	@RequestMapping(value = "search/businessDelete", method = RequestMethod.POST)
+	public void businessDelete(String play_id, Model model) {
+		System.out.println("(Controller) business delete 요청");
+		System.out.println(play_id);
+		PlayVO vo=new PlayVO();
+		vo.setPlay_id(play_id);
+		
+		vo.setDelete_date(CurrentDate());
+		System.out.println(vo);
+		dao2.delete(vo);
+
+	}
 
 	// 현재 시간
 	public String CurrentTime() {

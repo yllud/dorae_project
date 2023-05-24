@@ -48,6 +48,22 @@ public class PlayDAO {
 		return cnt;
 	}
 
+	// 공연 수정
+	public int updateAll(PlayVO vo) {
+		System.out.println("(DAO) updateAll");
+		int result = my.update("play.updateAll", vo);
+		System.out.println(result);
+		return result;
+	}
+
+	// 공연 삭제
+	public int delete(PlayVO vo) {
+		System.out.println("(DAO) delete");
+		int result = my.update("play.deleteOne", vo);
+		System.out.println(result);
+		return result;
+	}
+
 	// 공연 id로 공연 한개 검색
 	public PlayVO playDetail(String play_id) {
 		System.out.println("(Dao) playDetail");

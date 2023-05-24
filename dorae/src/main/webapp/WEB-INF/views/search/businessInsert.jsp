@@ -130,11 +130,9 @@
 	<input id="genre_name" value="연극">
 	<br> 공연장 : <mark id="stage_name"></mark>
 	<br><button type="button" onclick="openPopup()">공연장 찾기</button>
-	<input id="stage_id" value="">
-		
-	<input id="stage_name" type="hidden" value="">
+	<input id="stage_id" type="hidden" value="">
 	<!-- 달력 -->
-	<br> 시작 날짜:
+	<br> 공연 기간:
 	<input id="play_start" class="date">~
 	<input id="play_end" class="date">
 	<br> 요일별 공연 시간 :

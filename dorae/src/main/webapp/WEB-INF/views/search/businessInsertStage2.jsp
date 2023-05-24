@@ -23,6 +23,12 @@
 			$('#stage_name', window.opener.document).text(stageName);
 			// 		    window.close();
 		})//stageSelect
+		
+		$('#complete').click(function() {
+			//기존의 것 삭제됨.
+
+			window.close();
+		})//complete
 
 	})//$
 
