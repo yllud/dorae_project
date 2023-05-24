@@ -8,7 +8,7 @@
 <title>관리자 페이지</title>
 </head>
 <body>
-	관리자 페이지
+	공지사항 페이지
 	
 	<div>
 		<p>번호 : <span>${notice.notice_id }</span></p>

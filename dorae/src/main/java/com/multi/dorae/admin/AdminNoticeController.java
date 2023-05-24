@@ -1,10 +1,14 @@
 package com.multi.dorae.admin;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.multi.dorae.help.NoticeService;
 import com.multi.dorae.help.NoticeVO;
@@ -23,14 +27,23 @@ public class AdminNoticeController {
 	}
 	
 	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public void noticeCreate(NoticeVO vo) {
-		noticeService.insert(vo);
+	public String noticeCreate(NoticeVO noticeVO, @SessionAttribute("admin") AdminVO adminVO) {
+		if (noticeService.insert(noticeVO, adminVO)) { // 공지사항 생성에 성공하면
+			return "redirect:one?notice_id=" + noticeVO.getNotice_id();
+		} else {
+			return "redirect:list";
+		}
+		
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String noticeUpdate(NoticeVO vo) {
-		noticeService.update(vo);
-		return "redirect:one?notice_id=" + vo.getNotice_id();
+	public String noticeUpdate(NoticeVO noticeVO) {
+		if (noticeService.update(noticeVO)) { // 공지사항 수정에 성공하면
+			return "redirect:one?notice_id=" + noticeVO.getNotice_id();
+		} else {
+			return "redirect:one?notice_id=" + noticeVO.getNotice_id();
+		}
+		
 	}
 	
 	@RequestMapping("one")
@@ -44,5 +57,14 @@ public class AdminNoticeController {
 		pageVO.calc();
 		model.addAttribute("page", pageVO);
 		model.addAttribute("noticeList", noticeService.listWithPaging(pageVO));
+	}
+	
+	@ResponseBody
+	@RequestMapping("listByTag")
+	public List<NoticeVO> noticeByTag(String tag, PageVO pageVO) {
+		pageVO.calc();
+		System.out.println("태그 " + tag);
+		System.out.println(pageVO);
+		return noticeService.listByTagWithPaging(tag, pageVO);
 	}
 }

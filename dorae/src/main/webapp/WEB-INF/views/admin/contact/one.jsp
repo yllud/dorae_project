@@ -8,7 +8,7 @@
 <title>관리자 페이지</title>
 </head>
 <body>
-	관리자 페이지
+	1:1 문의 페이지
 	
 	<div>
 		<form action="updateAnswer" method="post">

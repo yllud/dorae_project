@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.multi.dorae.login.KakaoVO;
 
@@ -43,18 +44,6 @@ public class HelpController {
 		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
 	}
 	
-	@ResponseBody
-	@RequestMapping("faq/one")
-	public FaqVO faqOne(int faq_id) {
-		return faqService.one(faq_id);
-	}
-	
-	@ResponseBody
-	@RequestMapping("faq/list")
-	public List<FaqVO> faqList() {
-		return faqService.list();
-	}
-	
 	@RequestMapping("faq/category")
 	public void faqListByHelpCategory(String help_category_id, Model model) {
 		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
@@ -72,12 +61,6 @@ public class HelpController {
 	public NoticeVO noticeOne(long notice_id) {
 		System.out.println("notice_id >> " + notice_id);
 		return noticeService.one(notice_id);
-	}
-	
-	@ResponseBody
-	@RequestMapping("notice/list")
-	public List<NoticeVO> noticeList() {
-		return noticeService.list();
 	}
 	
 	@RequestMapping("contact")
@@ -112,10 +95,8 @@ public class HelpController {
 	}
 	
 	@RequestMapping(value = "contact/create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String contactCreate(ContactVO vo, HttpSession session) {
-		System.out.println(session.getAttribute("kakaoE"));
-		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");
-		vo.setMember_id(kvo.getEmail());
+	public String contactCreate(ContactVO vo, @SessionAttribute String email) {
+		vo.setMember_id(email);
 		
 		contactService.create(vo);
 		return "redirect:/help/contact";

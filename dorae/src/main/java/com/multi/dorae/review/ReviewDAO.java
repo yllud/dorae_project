@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.multi.dorae.search.PlayVO;
+
 @Component
 public class ReviewDAO {
 	@Autowired
@@ -60,5 +62,42 @@ public class ReviewDAO {
 	// 사진 수정
 	public void imgUpdate(ReviewVO vo) {
 		my.update("review.imgUpdate", vo);
+	}
+	
+	// 태그 공연 장소 연동
+	public List<PlayVO> tag(ReviewPageVO vo) {
+		return my.selectList("review.tag", vo);
+	}
+	
+	// 태그 공연 장소 수 카운트
+	public int playCount() {
+		return my.selectOne("review.playCount");
+	}
+	
+	// 태그 공연 검색 결과
+	public List<PlayVO> playSearch(ReviewPageVO vo, String query) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("query", query);
+	    params.put("start", vo.getStart());
+	    params.put("end", vo.getEnd());
+		return my.selectList("review.playSearch", params);
+	}
+	
+	// 태그 공연 검색 수
+	public int playSearchCount(String query) {
+		return my.selectOne("review.playSearchCount", query);
+	}
+	
+	// 장르로 공연 검색 결과
+	public List<PlayVO> genreSearch(ReviewPageVO vo, String genre) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("genre", genre);
+		params.put("start", vo.getStart());
+	    params.put("end", vo.getEnd());
+		return my.selectList("review.genreSearch", params);
+	}
+	
+	public int genreCount(String genre) {
+		return my.selectOne("review.genreCount", genre);
 	}
 }

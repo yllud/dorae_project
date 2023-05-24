@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class PlayVO {
 	String play_id,stage_id,play_name;
-	Date play_start,play_end;
+	Date play_start,play_end,delete_date;
 	String stage_name,casting,crew,runtime,play_age,enterprise,price,poster,content,genre_name,state,openrun,image,play_time;
 	// 페이징을 위한 rownum 변수 추가
 	int rownum;
@@ -125,20 +125,29 @@ public class PlayVO {
 	}
 	
 	
+	public Date getDelete_date() {
+		return delete_date;
+	}
+	public void setDelete_date(Date delete_date) {
+		this.delete_date = delete_date;
+	}
 	public int getRownum() {
 		return rownum;
 	}
 	public void setRownum(int rownum) {
 		this.rownum = rownum;
 	}
+	
 	@Override
 	public String toString() {
 		return "PlayVO [play_id=" + play_id + ", stage_id=" + stage_id + ", play_name=" + play_name + ", play_start="
-				+ play_start + ", play_end=" + play_end + ", stage_name=" + stage_name + ", casting=" + casting
-				+ ", crew=" + crew + ", runtime=" + runtime + ", play_age=" + play_age + ", enterprise=" + enterprise
-				+ ", price=" + price + ", poster=" + poster + ", content=" + content + ", genre_name=" + genre_name
-				+ ", state=" + state + ", openrun=" + openrun + ", image=" + image + ", play_time=" + play_time + "]";
+				+ play_start + ", play_end=" + play_end + ", delete_date=" + delete_date + ", stage_name=" + stage_name
+				+ ", casting=" + casting + ", crew=" + crew + ", runtime=" + runtime + ", play_age=" + play_age
+				+ ", enterprise=" + enterprise + ", price=" + price + ", poster=" + poster + ", content=" + content
+				+ ", genre_name=" + genre_name + ", state=" + state + ", openrun=" + openrun + ", image=" + image
+				+ ", play_time=" + play_time + ", rownum=" + rownum + "]";
 	}
+	
 
 
 	

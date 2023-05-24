@@ -17,6 +17,11 @@ public class AdminFaqController {
 	@Autowired
 	FaqService faqService;
 	
+	@RequestMapping(value = "create", method = RequestMethod.GET)
+	public void faqCreatePage() {
+		
+	}
+	
 	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String faqCreate(FaqVO vo) {
 		faqService.create(vo);

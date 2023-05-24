@@ -17,15 +17,6 @@ public class BlogDAO {
 	@Autowired
 	MongoTemplate mongo;
 
-	@Autowired
-	SqlSessionTemplate my;
-
-	// 추천 검색어 리스트 뽑아오기
-	public List<String> recommend() {
-		List<String> recommendKeyword = my.selectList("blog.recommend");
-		return recommendKeyword;
-	}
-
 	// 검색 결과를 db에 넣기
 	public void insert(ArrayList<BlogVO> resultList) {
 		mongo.insert(resultList, "blog");

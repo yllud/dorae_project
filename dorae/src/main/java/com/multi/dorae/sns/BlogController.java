@@ -17,14 +17,6 @@ public class BlogController {
 	@Autowired
 	BlogDAO dao;
 
-//	추천검색어 추출
-	@RequestMapping("sns/recommend")
-	@ResponseBody
-	public List<String> recommend() {
-		List<String> list = dao.recommend();
-		return list;
-	}
-
 //	키워드로 검색한 블로그 데이터를 몽고db 저장
 	@RequestMapping("sns/saveBlog")
 	public void saveBlog(String query, int rank) {

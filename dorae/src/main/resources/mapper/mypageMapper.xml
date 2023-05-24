@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mypageList">
+
+	<select id="ticketJoin" resultType="ticketVO" parameterType="ticketVO">
+		SELECT s.email, s.play_id, s.seat_id, s.seat_date, s.seat_time,
+		p.paid_amount, p.booking,
+		pl.play_name, pl.stage_name, pl.image
+		FROM seat s
+		JOIN pay p ON s.seat_id = p.seat_id
+		JOIN play pl ON s.play_id = pl.play_id
+		WHERE s.email = #{email}
+	</select>
+
+</mapper>

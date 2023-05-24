@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.multi.dorae.search.PlayVO;
+
 @Controller
 public class ReviewController {
 
@@ -75,6 +77,12 @@ public class ReviewController {
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
 		model.addAttribute("pages", pages);
+
+		// 버튼 페이징
+		int currentPage = vo.getPage(); // 현재 페이지 값
+		int buttonsPerPage = 10;
+		int currentButtonPage = (int) Math.ceil((double) currentPage / buttonsPerPage); // currentButtonPage 계산
+		model.addAttribute("currentButtonPage", currentButtonPage);
 	}
 
 //	태그로 후기 검색
@@ -97,6 +105,12 @@ public class ReviewController {
 		model.addAttribute("count", count);
 		model.addAttribute("pages", pages);
 		model.addAttribute("tag", tag);
+
+		// 버튼 페이징
+		int currentPage = vo.getPage(); // 현재 페이지 값
+		int buttonsPerPage = 10;
+		int currentButtonPage = (int) Math.ceil((double) currentPage / buttonsPerPage); // currentButtonPage 계산
+		model.addAttribute("currentButtonPage", currentButtonPage);
 	}
 
 	// 상세페이지
@@ -112,14 +126,14 @@ public class ReviewController {
 		ReviewVO review = dao.one(id);
 		model.addAttribute("review", review);
 	}
-	
+
 	// 후기 수정
 	@RequestMapping("review/update2")
 	public String update2(ReviewVO vo) {
 		dao.update(vo);
 		return "redirect:/review/reviewBbs.jsp";
 	}
-	
+
 	// 사진 수정
 	@RequestMapping("review/imgUpdate")
 	public String imgUpdate(ReviewVO reviewVO, HttpServletRequest request, MultipartFile[] files, Model model)
@@ -153,12 +167,86 @@ public class ReviewController {
 		dao.imgUpdate(reviewVO);
 		return "redirect:/review/reviewBbs.jsp";
 	}
-	
+
 	// 후기 삭제
 	@RequestMapping("review/delete")
 	public String delete(int id) {
 		dao.delete(id);
 		return "redirect:/review/reviewBbs.jsp";
+	}
+
+	// 태그 공연명 연동
+	@RequestMapping("review/tag")
+	public void tag(ReviewPageVO vo, Model model) {
+		vo.tagStartEnd(vo.getPage());
+
+		int count = dao.playCount();
+		int pages = 0;
+		if (count % 10 == 0) {
+			pages = count / 10;
+		} else {
+			pages = count / 10 + 1;
+		}
+
+		List<PlayVO> tag = dao.tag(vo);
+		model.addAttribute("tag", tag);
+		model.addAttribute("pages", pages);
+
+		// 버튼 페이징
+		int currentPage = vo.getPage(); // 현재 페이지 값
+		int buttonsPerPage = 10;
+		int currentButtonPage = (int) Math.ceil((double) currentPage / buttonsPerPage); // currentButtonPage 계산
+		model.addAttribute("currentButtonPage", currentButtonPage);
+	}
+
+	// 태그 공연명 연동 검색
+	@RequestMapping("review/playSearch")
+	public void playSearch(ReviewPageVO vo, String query, Model model) {
+		vo.tagStartEnd(vo.getPage());
+
+		int count = dao.playSearchCount(query);
+		int pages = 0;
+		if (count % 10 == 0) {
+			pages = count / 10;
+		} else {
+			pages = count / 10 + 1;
+		}
+
+		List<PlayVO> tag = dao.playSearch(vo, query);
+		System.out.println("---------검색 결과 : " + tag);
+		model.addAttribute("tag", tag);
+		model.addAttribute("pages", pages);
+
+		// 버튼 페이징
+		int currentPage = vo.getPage(); // 현재 페이지 값
+		int buttonsPerPage = 10;
+		int currentButtonPage = (int) Math.ceil((double) currentPage / buttonsPerPage); // currentButtonPage 계산
+		model.addAttribute("currentButtonPage", currentButtonPage);
+	}
+
+	// 장르로 공연명 검색
+	@RequestMapping("review/genreSearch")
+	public void genreSearch(ReviewPageVO vo, String genre, Model model) {
+		vo.tagStartEnd(vo.getPage());
+
+		int count = dao.genreCount(genre);
+		int pages = 0;
+		if (count % 10 == 0) {
+			pages = count / 10;
+		} else {
+			pages = count / 10 + 1;
+		}
+
+		List<PlayVO> tag = dao.genreSearch(vo, genre);
+		System.out.println("---------검색 결과 : " + tag);
+		model.addAttribute("tag", tag);
+		model.addAttribute("pages", pages);
+
+		// 버튼 페이징
+		int currentPage = vo.getPage(); // 현재 페이지 값
+		int buttonsPerPage = 10;
+		int currentButtonPage = (int) Math.ceil((double) currentPage / buttonsPerPage); // currentButtonPage 계산
+		model.addAttribute("currentButtonPage", currentButtonPage);
 	}
 
 	// 임시로 세션값 설정-> 테스트용

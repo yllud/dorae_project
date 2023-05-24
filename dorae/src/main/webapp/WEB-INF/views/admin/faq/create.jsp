@@ -8,7 +8,7 @@
 <title>관리자 페이지</title>
 </head>
 <body>
-	관리자 페이지
+	FAQ 등록 페이지
 	
 	<div>
 		<form action="create" method="post">

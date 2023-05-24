@@ -8,7 +8,7 @@
 <title>관리자 페이지</title>
 </head>
 <body>
-	관리자 페이지
+	FAQ 페이지
 	
 	<div>
 		<p>제목 : <span>${faq.title }</span></p>

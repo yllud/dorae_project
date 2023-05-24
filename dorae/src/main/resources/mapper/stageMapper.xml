@@ -19,6 +19,12 @@
 	</select>
 	
 	
+	<select id="list" resultType="stageVO" parameterType="String">
+		select * from stage
+		where stage_name LIKE CONCAT('%', #{title}, '%')
+	</select>
+	
+	
 	<!-- <update id="update" parameterType="playVO"> -->
 	<!-- update member set play_name = #{play_name} where play_id = #{play_id} -->
 	<!-- </update> -->

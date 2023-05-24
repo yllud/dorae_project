@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.multi.dorae.admin.EmailSendService;
 import com.multi.dorae.login.KakaoVO;
@@ -16,29 +17,29 @@ public class ContactService {
 	@Autowired
 	EmailSendService emailSendService;
 
-	public boolean create(ContactVO vo) {
-		if (vo.getMember_id() == null || vo.getMember_id().trim().isEmpty()) {
-			return false;
-		}
-		if (vo.getTitle() == null || vo.getTitle().trim().isEmpty()) {
-			return false;
-		}
-		if (vo.getContent() == null || vo.getContent().trim().isEmpty()) {
+	public boolean create(ContactVO contactVO) {
+		if (!isValid(contactVO)) {
 			return false;
 		}
 
-		contactDAO.insert(vo);
+		if (contactDAO.insert(contactVO) != 1) {
+			System.out.println("1:1 문의 생성에 실패함");
+			return false;
+		}
+		
 		return true;
 	}
 
-	public boolean updateAnswer(ContactVO vo) {
-		if (vo.getAnswer() == null || vo.getAnswer().trim().isEmpty()) {
+	public boolean updateAnswer(ContactVO contactVO) {
+		if (!isValid(contactVO)) {
 			return false;
 		}
 
-		contactDAO.updateAnswer(vo);
+		if (contactDAO.updateAnswer(contactVO) != 1) {
+			System.out.println("1:1 문의 답변 등록에 실패함");
+		}
 
-		emailSendService.send(vo);
+		emailSendService.send(contactVO);
 		
 		return true;
 	}
@@ -71,5 +72,21 @@ public class ContactService {
 	
 	public int count() {
 		return contactDAO.count();
+	}
+	
+	private boolean isValid(ContactVO contactVO) {
+		if (!StringUtils.hasText(contactVO.getTitle())) {
+			System.out.println("1:1 문의 제목이 없음");
+			return false;
+		}
+		if (!StringUtils.hasText(contactVO.getContent())) {
+			System.out.println("1:1 문의 내용이 없음");
+			return false;
+		}
+		if (!StringUtils.hasText(contactVO.getMember_id())) {
+			System.out.println("1:1 문의 멤버가 없음");
+			return false;
+		}
+		return true;
 	}
 }
