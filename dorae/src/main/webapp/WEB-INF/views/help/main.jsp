@@ -12,7 +12,7 @@
 <script defer type="text/javascript" src="/dorae/resources/js/chatBot.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#header").load("/dorae/header.jsp");
+		$("#header").load("/dorae/header/header.jsp");
 	})
 </script>
 <style type="text/css">
@@ -126,7 +126,7 @@
 		
 		<!-- 1:1 문의 -->
 		<div id="other">
-			<a href="contact">
+			<a href="contact/list?page=1">
 				<button class="btn-large">1:1문의</button>
 			</a>
 		</div>

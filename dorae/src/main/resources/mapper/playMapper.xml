@@ -33,13 +33,17 @@
 	<select id="page" resultType="playVO" parameterType="cri">
 		select * from
 		(select ROW_NUMBER() over(order by play_id desc) as
-		rownum, p.*
-		from play p
-		where delete_date is null
-		and play_name LIKE CONCAT('%', #{title}, '%')
-		and state=#{state}
+		rownum, p.play_id,p.play_name,p.state,p.genre_name,p.poster,s.stage_name,s.address 
+		from play p inner join stage s
+		on s.stage_id=p.stage_id
+		where p.delete_date is null
+		and p.play_name LIKE CONCAT('%', #{title}, '%')
+		and p.state=#{state}
 		<if test='genre!="전체(장르)"'>
-			and genre_name=#{genre}
+			and p.genre_name=#{genre}
+		</if>
+		<if test='district!="전체(지역)"'>
+			and s.address LIKE CONCAT(#{district}, '%')
 		</if>
 		) play2
 		where play2.rownum between #{start} and #{end}
@@ -47,11 +51,16 @@
 
 	<!-- 공연 리스트 개수(페이지 버튼 생성에 필요) -->
 	<select id="count" resultType="Integer" parameterType="cri">
-		select count(*) from play where delete_date is null
-		and play_name LIKE CONCAT('%', #{title},'%')
-		and state=#{state}
+		select count(*) from play p inner join stage s
+		on s.stage_id=p.stage_id
+		where p.delete_date is null
+		and p.play_name LIKE CONCAT('%', #{title},'%')
+		and p.state=#{state}
 		<if test='genre!="전체(장르)"'>
-			and genre_name=#{genre}
+			and p.genre_name=#{genre}
+		</if>
+		<if test='district!="전체(지역)"'>
+			and s.address LIKE CONCAT(#{district}, '%')
 		</if>
 	</select>
 	
@@ -75,6 +84,12 @@
 	<delete id="deleteComplete" parameterType="String">
 		delete from play where play_id=#{play_id}
 	</delete>
+	
+	<!-- user_type 변경 요청 -->
+<!-- 	<update id="changeUserType" parameterType="String"> -->
+<!-- 		update member set user_type='business' -->
+<!-- 		where email=#{email} -->
+<!-- 	</update> -->
 	
 	
 

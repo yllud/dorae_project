@@ -6,52 +6,124 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../resources/css/search.css">
 <title>Insert title here</title>
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#header").load("../header/header.jsp");
+	})//$
+</script>
 <style type="text/css">
-/* body { */
-/* 	background: yellow; */
-/* } */
-td {
-	width: 100px;
+body {
+	display: flex;
+	/* 	width: 1000px; */
+	/* 	height: 100px; */
 }
 
-/* .top{ */
-/* 	background: black; */
-/* 	color:white; */
+.container {
+	display: flex;
+	width: 1200px;
+	height: 500px;
+/* 	background: #a2d5f2 */
+}
+
+/* .poster { */
+/* 	flex: 1; */
 /* } */
-/* .down{ */
-/* 	background: lime; */
+
+/* .detail { */
+/* 	flex: 10; */
+/* 	margin-left: auto; */
 /* } */
+.left-items {
+	width: 400px;
+	height: 400px;
+	/* 	text-align: center; */
+	margin-top: 10px;
+	margin-left: 0px;
+/* 	background: #ffc93c; */
+}
+
+.left-text {
+	width: 800px;
+	height: 380px;
+	/* 	text-align: center; */
+	margin-top: 20px;
+	margin-left: 10px;
+/* 	background: #ffc93c; */
+	font-size: x-large;
+}
+
+.left-text-style {
+	
+	overflow: hidden;
+	text-overflow: ellipsis;
+ 	white-space: nowrap;
+}
+.right-items {
+	margin-left: auto;
+	/*  	margin-top: 500px; */
+	/* 	margin-right: 50px; */
+	margin-left: 50px;
+	width: 300px;
+	height: 450px;
+	/* 	text-align: center; */
+/* 	background: #ffc93c; */
+}
 </style>
 </head>
 <body>
-	<h3>공연 상세</h3>
-	<!-- el 속성만 받아올 수 있는 표현식 -->
-	<img src="${vo.poster}" width="300" height="300">
-	<br> 제목 : ${vo.play_name}
-	<br> 장르: ${vo.genre_name}
-	<br> 출연진: ${vo.casting}
-	<br> 기간: ${vo.play_start} ~ ${vo.play_end}
-	<br> 공연 상태: ${vo.state}
-	<br> 공연장: ${vo.stage_name}
-	<br>
-	<a href="../seat/one?play_id=${vo.play_id}"><button>예매하기</button></a>
+	<header id="header" class="fixed-top"></header>
+	<div class="body">
 
-	<hr color="red">
-	<h3>공연장 정보</h3>
-	${vo2.stage_name}
-	<br> 좌석: ${vo2.seat_cnt}석
-	<br> 전화번호: ${vo2.tel}
-	<br> 싸이트:
-	<a href=${vo2.website}>${vo2.website}</a>
-	<br> 주소: ${vo2.address}
+		<h3>공연 상세</h3>
+<hr color="red">
+		<div class="container">
+		
+			<div class="left-items">
+				<img src="${vo.poster}" width="400" height="400">
+			</div>
+			<div class="left-text">
+				<div>제목 : ${vo.play_name}</div>
+				<div>장르: ${vo.genre_name}</div>
+				<div>출연진: ${vo.casting}</div>
+				<div>공연장: ${vo.stage_name}</div>
+				<div>런타임: ${vo.runtime}</div>
+				<div>가격: ${vo.price}</div>
+				<div>기간: ${vo.play_start} ~ ${vo.play_end}</div>
+				<div class="left-text-style">공연 시간: ${vo.play_time}</div>
+				<div>${vo.state}</div>
+				<div>관람 연령: ${vo.play_age}</div>
+				<%-- 				<div>공연장: ${vo.stage_name}</div> --%>
+				<div>
+					<a href="../seat/one?play_id=${vo.play_id}"><button>예매하기</button></a>
+				</div>
+			</div>
 
-	<!-- 공연장 위치 -->
-	<div id="map" style="width: 350px; height: 350px;"></div>
+			<!--  </div> -->
+			<!-- 			<hr color="red"> -->
 
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6c86d97abbc1c8a6096906791ce94735"></script>
-	<script>
+		</div>
+		<div class="container">
+		<div class="right-items">
+		리뷰목록
+		</div>
+		<div class="right-items">
+			<!-- 				<h3>공연장 정보</h3> -->
+			<!-- 공연장 위치 -->
+			<div id="map" style="width: 300px; height: 300px;"></div>
+			${vo2.stage_name} <br> 좌석: ${vo2.seat_cnt}석 <br> 전화번호:
+			${vo2.tel} <br> 싸이트: <a href=${vo2.website}>${vo2.website}</a> <br>
+			주소: ${vo2.address}
+		</div>
+		</div>
+
+	</div>
+
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6c86d97abbc1c8a6096906791ce94735"></script>
+		<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
 			center : new kakao.maps.LatLng(${vo2.latitude}, ${vo2.longitude}), // 지도의 중심좌표
@@ -76,8 +148,7 @@ td {
 		// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 		// marker.setMap(null);
 	</script>
-	
-	<hr color="red">
-	리뮤 목록~
+
+		
 </body>
 </html>

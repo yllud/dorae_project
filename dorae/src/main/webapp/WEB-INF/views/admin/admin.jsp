@@ -32,7 +32,7 @@
 			</a>
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
-				<li><button value="/dorae/admin/contact/list?page=1" class="nav-link active" aria-current="page" onclick="setActive(this)"> 1:1 문의 목록 </button></li>
+				<li><button value="/dorae/admin/contact/list?page=1" class="nav-link text-white" aria-current="page" onclick="setActive(this)"> 1:1 문의 목록 </button></li>
 				<li><button value="/dorae/admin/faq/list?help_category_id=D01&page=1" class="nav-link text-white" onclick="setActive(this)">FAQ 목록 </button></li>
 				<li><button value="/dorae/admin/faq/create" class="nav-link text-white" onclick="setActive(this)">FAQ 등록 </button></li>
 				<li><button value="/dorae/admin/notice/list?page=1" class="nav-link text-white" onclick="setActive(this)">공지사항 목록 </button></li>
@@ -56,20 +56,22 @@
 		</div>
 		<div class="b-example-divider b-example-vr"></div>
 		
-		<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-		    	<h1 class="h2">1:1 문의 목록</h1>
-		    </div>
-		    
+		<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">		    
 		    <div id="contents"><!-- 목록 들어가는 곳 -->
+		    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2">관리자 페이지입니다.</h1>
+			</div>
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
 		function setActive(element) {
 			let temp = document.getElementsByClassName("active")[0];
-			temp.classList.remove("active");
-			temp.classList.add("text-white");
+			
+			if (temp != null) {
+				temp.classList.remove("active");
+				temp.classList.add("text-white");				
+			}
 			
 			element.classList.remove("text-white");
 			element.classList.add("active");
@@ -80,7 +82,8 @@
 		function goToPage(element) {
 			asyncLoad(element.getAttribute("value"));
 			console.log(element.getAttribute("value"));
-			history.pushState({"url": element.getAttribute("value")}, null, element.getAttribute("value"));
+			//history.pushState({"url": element.getAttribute("value")}, null, element.getAttribute("value"));
+			history.pushState({"url": element.getAttribute("value")}, null, location.pathname);
 		}
 		
 		function asyncLoad(url) {

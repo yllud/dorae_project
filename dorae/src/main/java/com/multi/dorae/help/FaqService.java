@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class FaqService {
@@ -43,6 +42,10 @@ public class FaqService {
 	}
 	
 	public List<FaqVO> listByCategory(String help_category_id) {
+		if (help_category_id == null || help_category_id.trim().isEmpty()) {
+			help_category_id = "D01";
+		}
+		
 		return faqDAO.listByCategory(help_category_id);
 	}
 	
@@ -50,10 +53,15 @@ public class FaqService {
 		if (help_category_id == null || help_category_id.trim().isEmpty()) {
 			help_category_id = "D01";
 		}
+		
 		return faqDAO.listByCategoryWithPaging(help_category_id, pageVO);
 	}
 	
 	public List<FaqVO> listBySearch(String search) {
+		if (search == null || search.trim().isEmpty()) {
+			return null;
+		}
+		
 		return faqDAO.listBySearch(search);
 	}
 	
@@ -62,15 +70,19 @@ public class FaqService {
 	}
 	
 	public int countByCategory(String help_category_id) {
+		if (help_category_id == null || help_category_id.trim().isEmpty()) {
+			help_category_id = "D01";
+		}
+		
 		return faqDAO.countByCategory(help_category_id);
 	}
 	
 	private boolean isValid(FaqVO faqVO) {
-		if (!StringUtils.hasText(faqVO.getTitle())) {
+		if (faqVO.getTitle() == null || faqVO.getTitle().trim().isEmpty()) {
 			System.out.println("FAQ 제목이 없음");
 			return false;
 		}
-		if (!StringUtils.hasText(faqVO.getContent())) {
+		if (faqVO.getContent() == null || faqVO.getContent().trim().isEmpty()) {
 			System.out.println("FAQ 내용이 없음");
 			return false;
 		}

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h2">1:1 문의 목록</h1>
+</div>
 <div class="table-responsive">
 	<table class="table table-striped table-hover aling-middle">
 		<thead>
@@ -16,7 +20,7 @@
 				<tr>
 					<td>${item.contact_id }</td>
 					<td><button class="btn btn-link" value="/dorae/admin/contact/one?contact_id=${item.contact_id }" onclick="goToPage(this)">${item.title }</button></td>
-					<td>${item.created_at }</td>
+					<td><fmt:formatDate value="${item.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 					<c:if test="${empty item.admin_id }">
 						<td>미완료</td>
 					</c:if>

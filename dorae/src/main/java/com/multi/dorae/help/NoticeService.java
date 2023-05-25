@@ -41,8 +41,12 @@ public class NoticeService {
 		return true;
 	}
 	
-	public int delete(long notice_id) {
-		return noticeDAO.delete(notice_id);
+	public boolean delete(long notice_id) {
+		if (noticeDAO.delete(notice_id) != 1) {
+			System.out.println("공지사항 삭제에 실패함");
+			return false;
+		}
+		return true;
 	}
 	
 	public NoticeVO one(long notice_id) {

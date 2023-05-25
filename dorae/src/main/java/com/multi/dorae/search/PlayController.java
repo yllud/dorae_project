@@ -19,7 +19,9 @@ public class PlayController {
 	
 	@Autowired
 	RankDAO dao3;
+	
 
+	
 	@RequestMapping("search/playList")
 	public void playList(Criteria cri, Model model) {
 
@@ -38,6 +40,7 @@ public class PlayController {
 		model.addAttribute("cri", cri);
 		model.addAttribute("page_cnt", page_cnt);
 	}
+
 
 	@RequestMapping("search/playList2")
 	public void playList2(Criteria cri, Model model) {
