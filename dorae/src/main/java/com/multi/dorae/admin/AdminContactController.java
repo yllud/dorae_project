@@ -1,12 +1,11 @@
 package com.multi.dorae.admin;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.multi.dorae.help.ContactService;
 import com.multi.dorae.help.ContactVO;
@@ -20,11 +19,8 @@ public class AdminContactController {
 	ContactService contactService;
 	
 	@RequestMapping(value = "updateAnswer", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String updateAnswer(ContactVO contactVO, HttpSession session) {
-		AdminVO adminVO = (AdminVO) session.getAttribute("admin");
-		contactVO.setAdmin_id(adminVO.getId());
-		
-		if (contactService.updateAnswer(contactVO)) {
+	public String updateAnswer(ContactVO contactVO, @SessionAttribute("admin") AdminVO adminVO) {
+		if (contactService.updateAnswer(contactVO, adminVO)) {
 			return "redirect:one?contact_id=" + contactVO.getContact_id();
 		} else {
 			return "redirect:one?contact_id=" + contactVO.getContact_id();
