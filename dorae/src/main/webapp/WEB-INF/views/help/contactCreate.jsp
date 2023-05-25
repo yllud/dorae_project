@@ -40,7 +40,7 @@
 	
 	<div id="helpBody">
 		<div>
-			<form action="create" method="post">
+			<form action="contactCreate" method="post">
 				<p>제목 : <input id="contactTitle"  name="title" /></p>
 				<p>내용 : <textarea id="contactContent" name="content"></textarea></p>
 				<button type="submit" id="contactCreateBtn">1:1 문의 등록</button>			

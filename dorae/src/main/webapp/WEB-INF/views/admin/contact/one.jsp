@@ -5,26 +5,28 @@
 	<h1 class="h2">1:1 문의 답변 페이지</h1>
 </div>
 <div class="mb-3 row">
-	<label for="staticTitle" class="col-sm-2 col-form-label">제목</label>
+	<label for="contactTitle" class="col-sm-2 col-form-label">제목</label>
 	<div class="col-sm-10">
-	  <input type="text" readonly class="form-control-plaintext" id="staticTitle" value="${contact.title}">
+	  <input type="text" readonly class="form-control-plaintext" id="contactTitle" value="${contact.title}">
 	</div>
 </div>
 <div class="mb-3 row">
-	<label for="staticContent" class="col-sm-2 col-form-label">내용</label>
+	<label for="contactContent" class="col-sm-2 col-form-label">내용</label>
 	<div class="col-sm-10">
-	  <input type="text" readonly class="form-control-plaintext" id="staticContent" value="${contact.content}">
+	  <input type="text" readonly class="form-control-plaintext" id="contactContent" value="${contact.content}">
 	</div>
 </div>
 
-<div class="mb-3">
-	<label for="answerTextarea" class="form-label">답변 내용</label>
-	<c:if test="${not empty contact.answer }">
-		<textarea class="form-control" id="answerTextarea" rows="5" readonly>${contact.answer }</textarea>
-	</c:if>
-	<c:if test="${empty contact.answer }">
-		<textarea class="form-control" id="answerTextarea" rows="5"></textarea>
-	</c:if>
+<div class="mb-3 row">
+	<label for="contactAnswer" class="col-sm-2 col-form-label">답변 내용</label>
+	<div class="col-sm-10">
+		<c:if test="${not empty contact.answer }">
+			<textarea class="form-control" id="contactAnswer" rows="5" readonly>${contact.answer }</textarea>
+		</c:if>
+		<c:if test="${empty contact.answer }">
+			<textarea class="form-control" id="contactAnswer" rows="5"></textarea>
+		</c:if>
+	</div>
 </div>
 
 <c:if test="${empty contact.answer }">
@@ -37,7 +39,7 @@
 			type: "POST",
 			data: {
 				contact_id: element.value,
-				answer: $("#answerTextarea").val()
+				answer: $("#contactAnswer").val()
 			},
 			success: function(res) {
 				asyncLoad(history.state.url);
@@ -48,20 +50,3 @@
 </c:if>
 
 <button class="btn btn-light mb-3" onclick="javascript:history.back()">목록으로</button>
-<%-- <div>
-	<form action="updateAnswer" method="post">
-		<input value="${contact.contact_id}" name="contact_id" hidden="hidden">
-		<p>제목 : <span>${contact.title }</span></p>
-		<p>내용 : <span>${contact.content }</span></p>
-		<hr color="red">
-		<c:if test="${empty contact.answer }">
-			<p>
-				답변 : <textarea rows="20" cols="30" name="answer"></textarea>
-			</p>
-			<button type="submit">답변 등록</button>
-		</c:if>
-		<c:if test="${not empty contact.answer }">
-			<p>답변 : <span>${contact.answer }</span></p>
-		</c:if>
-	</form>
-</div> --%>

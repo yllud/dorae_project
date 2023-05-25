@@ -1,22 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>관리자 페이지</title>
-</head>
-<body>
-	공지사항 페이지
-	
-	<div>
-		<p>번호 : <span>${notice.notice_id }</span></p>
-		<p>제목 : <span>${notice.title }</span></p>
-		<p>내용 : <span>${notice.content }</span></p>
-		<p>작성일 : <span>${notice.created_at }</span></p>
-		<p>태그 : <span>${notice.tag }</span></p>
-		<hr color="red">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h2">공지사항 페이지</h1>
+</div>
+<div class="mb-3 row">
+  <label for="noticeTitle" class="col-sm-2 col-form-label">제목</label>
+  <div class="col-sm-10">
+    <input type="text" readonly class="form-control" id="noticeTitle" value="${notice.title }">
+  </div>
+</div>
+
+<div class="mb-3 row">
+	<label for="noticeContent" class="col-sm-2 col-form-label">내용</label>
+	<div class="col-sm-10">
+    	<textarea class="form-control" id="noticeContent" rows="5" readonly>${notice.content }</textarea>
 	</div>
-</body>
-</html>
+</div>
+
+<div class="mb-3 row">
+  <label for="noticeTag" class="col-sm-2 col-form-label">태그</label>
+  <div class="col-sm-10">
+    <input type="text" readonly class="form-control" id="noticeTag" value="${notice.tag }" />
+  </div>
+</div>
+
+<button class="btn btn-primary mb-3" value="${notice.notice_id }" onclick="submitContent(this)">내용 수정</button>
+<button class="btn btn-light mb-3" onclick="javascript:history.back()">목록으로</button>
+
+<script type="text/javascript">
+	function submitContent(element) {
+		$.ajax({
+			url: "/dorae/admin/notice/updateContent",
+			type: "POST",
+			data: {
+				notice_id: element.value,
+				content: $("#noticeContent").val(),
+				tag: $("#noticeTag").val()
+			},
+			success: function(res) {
+				asyncLoad(history.state.url);
+			}
+		})
+	}
+</script>

@@ -16,7 +16,7 @@
 		
 		$(".faqItemBtn").click(function() {
 			$.ajax({
-				url: "one",
+				url: "faqOne",
 				data: {
 					faq_id: $(this).val()
 				},
@@ -134,7 +134,7 @@
 			<!-- FAQ 유형별 버튼 -->
 			<div id="faqBtnList">
 				<c:forEach items="${helpCategory}" var="item">
-				<a href="category?help_category_id=${item.help_category_id }">
+				<a href="faqCategory?help_category_id=${item.help_category_id }">
 					<button class="btn-small">${item.name }</button>
 				</a>
 				</c:forEach>

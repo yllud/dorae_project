@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 문의 - 고객센터</title>
+<title>고객센터</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /> <!-- 구글 폰트/아이콘 -->
 <link rel="stylesheet" href="/dorae/resources/css/chatBot.css" />
 <script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
@@ -24,6 +24,40 @@
 		top: 200px;
 	}
 	
+	#faqTitle {
+		display: inline-block;
+		border-right: 1px solid;
+		padding-right: 10px;
+	}
+
+	#search {
+		text-align: center;
+	}
+	
+	#searchInput {
+		width: 500px;
+		font-size: 20px;
+		margin-left: 7px;
+	}
+	
+	#searchBtn {
+		font-size: 20px;
+	}
+	
+	#search {
+		text-align: center;
+	}
+	
+	#searchInput {
+		width: 500px;
+		font-size: 20px;
+		margin-left: 7px;
+	}
+	
+	#searchBtn {
+		font-size: 20px;
+	}
+	
 	.btn-large {
 		font-size: 26px;
 		margin: 10px;
@@ -34,28 +68,36 @@
 		margin: 4px;
 	}
 	
-	.contactItem:first-child {
+	#searchList {
+		padding: 0 40px;
+	}
+	
+	.searchItem:first-child {
 		border-top: 1px solid grey;
 	}
 	
-	.contactItem {
+	.searchItem {
 		list-style: none;
 		border-bottom: 1px solid grey;
-		width: 100%;
 		text-align: left;
+		width: 100%;
 	}
 	
-	.contactItem a {
-		padding: 0;
-	}
-	
-	.contactItemBtn {
+	.searchItemBtn {
 		padding: 12px;
-		font-size: 24px;
+		font-size: 20px;
 		border: 0;
 		background-color: transparent;
 		cursor: pointer;
 		text-align: left;
+	}
+	
+	.searchItemBtn h4 {
+		margin-top: 0;
+	}
+	
+	.searchItemBtn p {
+		margin-bottom: 0;
 	}
 </style>
 </head>
@@ -63,27 +105,28 @@
 	<header id="header" class="fixed-top"></header>
 	
 	<div id="helpBody">
-		<c:if test="${empty contactList }">
-		<!-- 배열이 비어있으면 -->
-		<p>문의 내역이 없습니다.</p>
-		</c:if>
-		<c:if test="${not empty contactList }">
-		<!-- 배열이 비어있지 않으면 -->
-		<c:forEach items="${contactList }" var="item">
-		<li class="contactItem">
-			<a href="one?contact_id=${item.contact_id }">
-				<button class="contactItemBtn" value="${item.contact_id }">${item.title }</button>
-			</a>
-		</li>
-		</c:forEach>
-		</c:if>
+		<!-- FAQ 검색 -->
+		<form action="faqSearch">
+			<h2 id="faqTitle">FAQ 검색</h2>
+			<input type="text" id="searchInput" name="search" value="${search }"/>
+			<button type="submit" id="searchBtn">검색</button>
+		</form>
 		
-		<!-- 1:1 문의 -->
-		<div id="other">
-			<a href="create">
-				<button class="btn-large">문의 작성</button>
-			</a>
+		<div id="helpContent">
+			<div id="searchItemList">
+				<ul id="searchList">
+					<c:forEach items="${faqList }" var="item">
+						<li class="searchItem">
+							<button class="searchItemBtn">
+								<h4>${item.title }</h4>
+								<p>${item.content }</p>
+							</button>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
 		</div>
+		
 	</div>
 	
 	<!-- 챗봇 -->
