@@ -54,8 +54,8 @@ th, td {
 <link rel="stylesheet" href="../resources/css/sidemenu.css" />
 <body>
 	<div class="left-side-bar">
-		<div class="status-ico">
-			<span>▶</span> <span>▼</span>
+		<!-- <div class="status-ico">
+			<span>▶</span> <span>▼</span> -->
 		</div>
 		
 		<input id="address_input" type="text" placeholder="도로명주소를 검색해주세요">

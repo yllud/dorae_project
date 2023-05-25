@@ -72,4 +72,12 @@ public class NaverDAO {
         return result;
     }
 	
+	// 공연 수정
+		public int updateUserType(String email) {
+			System.out.println("(DAO) update user type");
+			int result = mn.update("play.updateUserType", email);
+			System.out.println(result);
+			return result;
+		}
+	
 }
