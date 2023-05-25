@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,8 +33,6 @@ select {
 $(function() {
 	$("#selector").flatpickr({
 	    dateFormat: 'Y-m-d(l)',         // 선택한 날짜 표시되는 형식 = 년-월-일(요일) 
-	    //altInput: true,					// 새로운 입력형식 여부
-	    //altFormat: 'Y-m-d(D)',              
 	    enable: [{ from: "${vo.play_start}", to: "${vo.play_end}"}],  // 특정날짜만 가능
 	    minDate: "today",         		 // 최소 선택 날짜(이전날짜 선택 불가능)
 	    maxDate: new Date().fp_incr(30), // 최대 선택 가능 날짜    
@@ -94,33 +91,33 @@ $(function() {
 	    	const selectedTimes = scheduleMap.get(dateStr.substring(11,14)); //클릭한 날에서 요일만 추출
 	    	
 	    	$('.time').empty() //날짜 바뀔 때 마다 시간 선택 옵션 리셋
-	    	if (selectedTimes == undefined){ //공연 없는 날
+	    	if (selectedTimes === undefined){ //공연 없는 날
 				$('.time').append('<option selected disabled=disabled>' + "공연이 없습니다" +'</option>'); // 공연없는 날은 시간선택 비활성화
 				$("#b").attr("disabled", true); // 공연 없기 때문에 다음버튼 비활성화
-			}
-	    	for (var i = 0; i < selectedTimes.length; i++) { //공연 있는 날
-	    		if (selectedTimes) {
+			}else if(selectedTimes !== undefined){
+	    		for (var i = 0; i < selectedTimes.length; i++) { //공연 있는 날
+	    		  if (selectedTimes) {
 	    			$('.time').append('<option value=' + selectedTimes[i] + '>' + selectedTimes[i] +'</option>');
 		    		$("#b").attr("disabled", false); // 시간 선택했을 때 다음버튼 활성화
-				} //if
-			} //for
+				   } //if
+			   } //for
+	    	}// else if
 	    	 var value =$('.time').val(); //선택한 시간
 		    } //onChange
 	  }); //selector flatpickr
 	  
 	$('#b').click(function() {
-			$.ajax({
+		 $.ajax({
 				url: "seats",
 				data: {
-					play_id: '${vo.play_id}'
+					play_id: '${vo.play_id}',
 				},
 				success: function(x) {
-					window.open('http://localhost:8887/dorae/seat/seats?play_id=${vo.play_id}', '좌석선택', 'width=1200, height=900, location=no, status=no, scrollbars=yes');
+					window.open('http://localhost:8888/dorae/seat/seats?play_id=${vo.play_id}', '좌석선택', 'width=1200, height=900, location=no, status=no, scrollbars=yes');
 					localStorage.setItem("d_day", $('#selector').val()); 
 					localStorage.setItem("d_time", $('.time').val()); //부모 창에서 로컬 스토리지에 정보 저장
-					
 				} //success
-			}) //ajax
+			}) //ajax - seats 
 	}) //b
 }) //$
 </script>
@@ -148,7 +145,7 @@ $(function() {
 	</select>
 
 <!-- 날짜, 시간 선택해야 버튼 활성화 -->
-<button class="btn btn-dark" disabled="disabled" id="b" name="play_id" value="${vo.play_id}">좌석선택</button>
+<button disabled="disabled" id="b" name="play_id" value="${vo.play_id}">좌석선택</button>
 
 </div>
 </body>
