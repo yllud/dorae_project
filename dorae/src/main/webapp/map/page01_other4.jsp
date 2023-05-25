@@ -52,6 +52,9 @@ th, td {
 #map-container{
 	margin-top: 168px;
 }
+#sns_tr{
+	text-align: right;
+}
 </style>
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder,services.directions"></script>
@@ -61,13 +64,19 @@ th, td {
 	src="${path}/resources/js/jquery-3.6.4.js"></script>
 <script>
 	$(document).ready(function() {
-		$("#header").load("../header.jsp");
+		$("#header").load("../header/header.jsp");
 		var map; // 전역 변수로 선언
 		var markers = []; // 전역 변수로 선언
 		var temp_marker; 
 		
 		var delist1 = []; //play
 		var delist2 = []; //stage
+		
+		function snsPopup(playName, stageName, share_lat, share_lng) {
+			//var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName);
+			var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName)  + "&latitude=" + encodeURIComponent(share_lat)  + "&longitude=" + encodeURIComponent(share_lng);
+		    window.open(url, "_blank", "width=500,height=500");
+		}
 		
 		$.ajax({
 			url : "infoList",
@@ -77,31 +86,63 @@ th, td {
 				var response = data;
 
 				// delist1과 delist2 추출
-				delist1 = response.delist1; //play
-				delist2 = response.delist2; //stage
-	
-				addItems(delist1);
+				delist1 = response.delist1; //play 불러와짐 확인완료.
+				delist2 = response.delist2; //stage 불러와짐 확인완료.
+
+				console.log("delist1 길이 : " + delist1.length);
+				console.log("delist2 길이 : " + delist2.length);
+				
+				console.log(delist2[0].stage_name);
+				addItems(delist1, delist2);
 				addMarkers(delist2);
 				
-				function addItems(list1) {
+				function addItems(list1, list2) {
 					$('#infolist').empty();
+					
 					// 테이블 생성
 					var table = "<h3 style='text-align:center;'><전체검색결과></h3><table>";
 					for (var i = 0; i < list1.length; i++) {
-						var item = list1[i];
-						//console.log("delist1 출력! >> " + item);
-						table += '<tr><td><img src="' + item.poster + '"></td></tr>';
-						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + item.play_id + "'>" + item.play_name + '</a></td></tr>';
-						table += '<tr><td>' + item.play_start + " ~ " + item.play_end + '</td></tr>';
-						table += '<tr><td>' + item.stage_name + '</td></tr>';
+						var item1 = list1[i];
+						table += '<tr><td><img src="' + item1.poster + '"></td></tr>';
+						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + item1.play_id + "'>" + item1.play_name + '</a></td></tr>';
+						table += '<tr><td>' + item1.play_start + " ~ " + item1.play_end + '</td></tr>';
+						for(var j=0; j<list2.length; j++){
+							if(list2[j].stage_id == item1.stage_id){
+								table += '<tr><td>' + list2[j].stage_name + '</td></tr>';
+								break;
+							}
+						}
+						table += "<tr style='text-align:right'><td class='shareIcon'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
 						table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
-					}
+						
+					}//for
 					table += '</table>';
+					
 					// 테이블 추가
 					$('#infolist').html(table);
+					
+					$('.shareIcon').click(function () {
+					    var playName = $(this).parent().prevAll().eq(2).text(); // 공연 제목 가져오기
+					    var stageName = $(this).parent().prev().text(); // 공연장 이름 가져오기 => stage db의 이름을 갖고 와야함.
+					    var share_lat; //위도
+					    var share_lng; //경도
+					    
+					    for (var k = 0; k < list2.length; k++) {
+					    	if (list2[k].stage_name === stageName) {
+					            share_lat = list2[k].latitude;
+					            share_lng = list2[k].longitude;
+					            console.log(share_lat + ", " + share_lng);
+					            break;
+					        }else{
+					        	console.log("공연장 정보가 없습니다");
+					        }
+					    }
+					    snsPopup(playName, stageName, share_lat, share_lng);
+					});
 				}//addItems
 				
 				function addMarkers(list2) {
+					//console.log("addMarkers delist2 호출!!!!! >> " + list2[0].latitude);
 					for (var i = 0; i < list2.length; i++) {
 						var lat = parseFloat(list2[i]?.latitude);
 					  	var lng = parseFloat(list2[i]?.longitude);
@@ -146,11 +187,19 @@ th, td {
 				  	            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "'>" + playinfo.play_name + '</a></td></tr>';
 			  	                table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
 			  	                table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
-			  	              	table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
+			  	              table += "<tr style='text-align:right'><td class='shareIcon'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
+			  	              table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
+			  	              
 			  	            }
 			  	            table += '</table>';
 			  	            
 			  	            $('#infolist').html(table);
+			  	          	$('.shareIcon').click(function () {
+					        	 var playName = $(this).parent().prevAll().eq(2).text(); // 공연 제목 가져오기
+					             var stageName = $(this).parent().prev().text(); // 공연장 이름 가져오기
+					             
+					             snsPopup(playName, stageName);
+						    });
 			  	        }
 			  	    });
 			  	}
@@ -324,35 +373,7 @@ th, td {
 	            console.log("주소 입력받음!!");
 	            console.log("infolist:", infolist);
 
-	         	// 거리 계산을 위한 함수 호출
-	            calculateDistance(point);
 	        });
-	    }
-	 	// 거리 계산 함수
-	    function calculateDistance(startPoint) {
-	        var infolist = [];
-	        var directionsService = new naver.maps.DirectionsService();
-
-	        for (var i = 0; i < delist2.length; i++) {
-	            var delatlng = new naver.maps.LatLng(delist2[i].latitude, delist2[i].longitude);
-	            var request = {
-	                start: startPoint,
-	                end: delatlng,
-	                options: {
-	                    useTmap: false,
-	                    vehicle: naver.maps.Directions.Service.VehicleType.WALKING,
-	                }
-	            };
-	            directionsService.route(request, function(response, status) {
-	                if (status === naver.maps.Directions.Service.Status.OK) {
-	                    var distance = response.routes[0].summary.distance;
-	                    if (distance < 2000) { // 거리 비교 조건 (예: 2km 이내)
-	                        infolist.push(delist2[i]);
-	                    }
-	                }
-	            });
-	        }
-	        console.log("infolist:", infolist);
 	    }
 
 	    function initGeocoder() {
@@ -567,8 +588,7 @@ th, td {
 		        	map.setCenter(sejong);
 		        	map.setZoom(11);
 		        }
-				/* var area_string = [];
-    			var area_name = ""; */
+				
 				var filteredList = []; //선택된 지역의 공연리스트
 
 				 for (var i = 0; i < delist2.length; i++) {
@@ -596,11 +616,18 @@ th, td {
 			            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + play.play_id + "'>" + play.play_name + '</a></td></tr>';
 			            table += '<tr><td>' + play.play_start + ' ~ ' + play.play_end + '</td></tr>';
 			            table += '<tr><td>' + play.stage_name + '</td></tr>';
-			            table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
+			            table += "<tr style='text-align:right'><td class='shareIcon'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
+			            table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   			         	
 			        }
 
 			        table += '</table>';
 			        $('#infolist').html(table);
+			        $('.shareIcon').click(function () {
+			        	 var playName = $(this).parent().prevAll().eq(2).text(); // 공연 제목 가져오기
+			             var stageName = $(this).parent().prev().text(); // 공연장 이름 가져오기
+			             
+			             snsPopup(playName, stageName);
+				    });
 			    } else {
 			    	$('#infolist').empty();
 			    	table = "<h3 style='text-align:center;'><" + area + " 검색결과></h3>" + "<br><br><br><br><br><br><br><br><br><br><h4 style='text-align:center; color:gray;'>검색결과 없음</h4>";
