@@ -1,5 +1,8 @@
 package com.multi.dorae.ticket;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,13 +19,11 @@ public class SeatDAO {
 	  // 공연 id로 공연 한개 검색(예매페이지)
 		public PlayVO one(String play_id) {
 			PlayVO vo = my.selectOne("play.one", play_id);
-			System.out.println(vo);
 			return vo;
 		}
 		
 		public PlayVO one2(String play_id) {
 			PlayVO vo = my.selectOne("play.one", play_id);
-			System.out.println(vo);
 			return vo;
 		}
 		
@@ -39,4 +40,13 @@ public class SeatDAO {
 			System.out.println(member);
 			return member;
 		}
+		
+		// 좌석선택 누르면 select
+		public List<String> list(Map<String, Object> params) {
+		    List<String> list = my.selectList("seat.select", params);
+		    System.out.println(list);
+		    return list;
+		}
+		
+		
 }
