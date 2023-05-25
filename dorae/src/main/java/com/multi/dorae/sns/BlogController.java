@@ -35,6 +35,12 @@ public class BlogController {
 		model.addAttribute("list", list);
 	}
 	
+	// 블로그 컬렉션 drop
+	@RequestMapping("sns/blogDrop")
+	public void drop() {
+		dao.drop();
+	}
+	
 	// api검색 테스트용
 	@RequestMapping("sns/blogSearch")
 	@ResponseBody
