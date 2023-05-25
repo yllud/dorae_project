@@ -51,10 +51,10 @@ a {
     background-color: black;
 }
 #infolist {
-    max-height: 650px;
+    max-height: 750px;
     width: 400px;
     overflow-y: scroll;
-    background-color: #f1f1f1;
+    background-color: #f0f0f0;
 }
 
 /* 아래의 모든 코드는 영역::코드로 사용 */
@@ -71,8 +71,4 @@ a {
 
 #infolist::-webkit-scrollbar-track {
     background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
-}
-
-img{
-	width: 200px;
 }

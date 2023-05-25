@@ -6,56 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body{
-	overflow-y: scroll;
-}
-table {
-	width: 350px;
-	margin: 0 auto;
-	padding: 10px;
-	align-content: center;
-}
-th, td {
-	text-align: center;
-}
-#map {
-	width: 100%;
-	height: 750px;
-	position: relative;
-}
-
-#banner {
-	z-index: 9999; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
-	position: absolute;
-}
-#side-bar {
-	z-index: 100; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
-	position: absolute;
-}
-#map-container{
-	margin-top: 168px;
-}
-#address{
-  z-index: 3;
-  width: 300px;
-  height: 28px;
-  font-size: 15px;
-  border: 0;
-  border-radius: 20px;
-  outline: none;
-  padding: 10px;
-  background-color: rgb(244, 244, 244);
-  /* 필요한 위치와 스타일 속성들 */
-  /* margin: 0 auto; */
-  display: block; 
-}
-#sns_tr{
-	text-align: right;
-}
-</style>
 <script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder,services.directions"></script>
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder"></script>
 
 <script type="text/javascript" src="../resources/js/MarkerClustering.js"></script>
 <script type="text/javascript"
@@ -63,6 +15,8 @@ th, td {
 <script>
 	$(document).ready(function() {
 		$("#header").load("../header/header.jsp");
+		$('#banner').load("mainImg.jsp");
+		
 		var map; // 전역 변수로 선언
 		var markers = []; // 전역 변수로 선언
 		var temp_marker; 
@@ -70,9 +24,10 @@ th, td {
 		var delist1 = []; //play
 		var delist2 = []; //stage
 		
-		function snsPopup(playName, stageName, share_lat, share_lng) {
-			//var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName);
-			var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName)  + "&latitude=" + encodeURIComponent(share_lat)  + "&longitude=" + encodeURIComponent(share_lng);
+		function snsPopup(playName, stageName) {
+			console.log("값넘겨주기!!! >>> " + playName + ", " + stageName);
+			var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName);
+			//var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName)  + "&latitude=" + encodeURIComponent(share_lat)  + "&longitude=" + encodeURIComponent(share_lng);
 		    window.open(url, "_blank", "width=500,height=500");
 		}
 		
@@ -98,10 +53,10 @@ th, td {
 					$('#infolist').empty();
 					
 					// 테이블 생성
-					var table = "<h3 style='text-align:center;'><전체검색결과></h3><table>";
+					var table = "<br><h3 style='text-align:center;'><전체지역> 검색결과 " + delist1.length + "개</h3>";
 					for (var i = 0; i < list1.length; i++) {
-						table += '<tr><td><img src="' + list1[i].poster + '"></td></tr>';
-						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + list1[i].play_id + "'>" + list1[i].play_name + '</a></td></tr>';
+						table += '<table id="infotable"><tr><td><img id="poster" src="' + list1[i].poster + '"></td></tr>';
+						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + list1[i].play_id + "'><b>" + list1[i].play_name + '</b></a></td></tr>';
 						table += '<tr><td>' + list1[i].play_start + " ~ " + list1[i].play_end + '</td></tr>';
 						for(var j=0; j<list2.length; j++){
 							if(list1[i].stage_id == list2[j].stage_id){
@@ -109,19 +64,30 @@ th, td {
 								break;
 							}
 						}
-						table += "<tr><td class='shareIcon' style='text-align:right'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
-						table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
+						table += "<tr><td style='text-align:right'>"
+									+ "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:40px; padding-top:15px;' alt='북마크'>"
+										+ "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:40px; padding-top:10px;' alt='sns공유'></td></tr>";
+						table += '</table>';
 						
 					}//for
-					table += '</table>';
+					table += '<br><br><br>';
 					
 					// 테이블 추가
 					$('#infolist').html(table);
 					
 					$('.shareIcon').click(function () {
-					    var playName = $(this).parent().prevAll().eq(2).text(); // 공연 제목 가져오기
-					    var stageName = $(this).parent().prev().text(); // 공연장 이름 가져오기 => stage db의 이름을 갖고 와야함.
-					    var share_lat; //위도
+					    var row = $(this).closest('table'); // 현재 클릭된 아이콘이 속한 테이블(table)을 선택합니다.
+					    var playName = row.find('b').text(); // 테이블 내부의 링크(b 태그)에서 공연 제목을 가져옵니다.
+					    var stageName = row.find('tr:nth-last-child(2) td').text(); // 테이블 내부에서 마지막에서 두 번째 행의 td 요소에서 공연장 이름을 가져옵니다.
+
+					    snsPopup(playName, stageName);
+					});
+					
+					/* $('.shareIcon').click(function () {
+						var row = $(this).closest('tr'); // 현재 클릭된 아이콘이 속한 행(row)을 선택합니다.
+					    var playName = row.find('b').prev().text(); // 행 내부의 링크(b 태그)에서 공연 제목을 가져옵니다.
+					    var stageName = row.find('td:last').prev().text(); // 행 내부에서 마지막 이전의 td 요소에서 공연장 이름을 가져옵니다.
+						var share_lat; //위도
 					    var share_lng; //경도
 					    
 					    for (var k = 0; k < list2.length; k++) {
@@ -135,7 +101,21 @@ th, td {
 					        }
 					    }
 					    snsPopup(playName, stageName, share_lat, share_lng);
+					    snsPopup(playName, stageName);
 					});
+					*/
+					
+					$('.bookIcon').click(function() {
+					    var bookmarkImg = $(this);
+
+					    // 이미지 소스 변경
+					    if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
+					        bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
+					    } else {
+					        bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
+					    }
+					});
+					
 				}//addItems
 				
 				function addMarkers(list1, list2) {
@@ -176,7 +156,7 @@ th, td {
 						}
 
 						var infowindow = new naver.maps.InfoWindow({
-					        content: "<div style='padding:10px;'>" + stgname + "</div>"
+					        content: "<div style='padding-top:10px;'>" + stgname + "</div>"
 					    });
 						infowindow.close();
 					    console.log("마커 좌표 : " + markerPosition.lat() + ", " + markerPosition.lng());
@@ -201,27 +181,39 @@ th, td {
 					    if (selectedPerformances.length > 0) {
 					    	$('#infolist').empty();
 					    	
-					      	var table = "<table>";
-					      	table = "<h3 style='text-align:center;'>" + stgname + "</h3>" + table;
-		            		
+					    	var table = "<br><h3 style='text-align:center;'>" + stgname + "</h3>";
 					      	for (var i = 0; i < selectedPerformances.length; i++) {
 					        	var playinfo = selectedPerformances[i].playinfo;
-				        		table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
-						        table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "'>" + playinfo.play_name + '</a></td></tr>';
+				        		table += '<table id="infotable"><tr><td><img id="poster" src="' + playinfo.poster + '"></td></tr>';
+						        table += "<tr><td><b><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "'>" + playinfo.play_name + '<b></a></td></tr>';
 						        table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
 						        table += '<tr><td>' + stgname + '</td></tr>';
-					        	table += "<tr><td class='shareIcon' style='text-align:right'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
-					        	table += '<tr><td><br></td></tr><tr><td><br></td></tr>';
+						        table += "<tr><td style='text-align:right'>"
+											+ "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:40px; padding-top:10px;' alt='북마크'>"
+												+ "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:40px; padding-top:10px;' alt='sns공유'></td></tr>";
+					        	table += '</table>';
 				        	}
-					      	table += '</table>';
-					      
+					      	table += '<br><br><br>';
 					      	$('#infolist').html(table);
-					      	$('.shareIcon').click(function() {
-					        	var playName = $(this).parent().prevAll().eq(2).text();
-					        	var stageName = $(this).parent().prev().text();
-					        
-					        	snsPopup(playName, stageName);
-					      	});
+					      	
+					      	$('.shareIcon').click(function () {
+							    var row = $(this).closest('table'); // 현재 클릭된 아이콘이 속한 테이블(table)을 선택합니다.
+							    var playName = row.find('b').text(); // 테이블 내부의 링크(b 태그)에서 공연 제목을 가져옵니다.
+							    var stageName = row.find('tr:nth-last-child(2) td').text(); // 테이블 내부에서 마지막에서 두 번째 행의 td 요소에서 공연장 이름을 가져옵니다.
+
+							    snsPopup(playName, stageName);
+							});
+					      	
+					      	$('.bookIcon').click(function() {
+							    var bookmarkImg = $(this);
+
+							    // 이미지 소스 변경
+							    if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
+							        bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
+							    } else {
+							        bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
+							    }
+							});
 				    	}//if
 				    	
 					    //infowindow.setContent("<div style='padding:10px;'>" + stageName + "</div>");
@@ -280,7 +272,7 @@ th, td {
 			minZoom: 7,
 			maxZoom: 17,
 			mapTypeId: 'normal',
-			center : new naver.maps.LatLng(36.0566103, 127.9783882), // 대한민국 중심
+			center : new naver.maps.LatLng(36.0566103, 125.9783882), // 대한민국 중심
 			mapDataControl: false,
 			zoomControl : true,
 			zoomControlOptions : {
@@ -634,35 +626,51 @@ th, td {
 			    }
 				
 			    if (filteredList.length > 0) {
-			    	var table = "<table>";
+			    	var table = "<table id='infotable'>";
 			    	var count = 0;
-			        for (var i = 0; i < filteredList.length; i++) {
+			    	var table = "";
+			    	for (var i = 0; i < filteredList.length; i++) {
 			            var stageinfo = filteredList[i].stageinfo;
-						
 			            for(var j=0; j<delist1.length; j++){
 			            	if(stageinfo.stage_id == delist1[j].stage_id){
-			            		table += '<tr><td><img src="' + delist1[j].poster + '"></td></tr>';
-					            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + delist1[j].play_id + "'>" + delist1[j].play_name + '</a></td></tr>';
+			            		table += '<table id="infotable"><tr><td><img id="poster" src="' + delist1[j].poster + '"></td></tr>';
+					            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + delist1[j].play_id + "'><b>" + delist1[j].play_name + '</b></a></td></tr>';
 					            table += '<tr><td>' + delist1[j].play_start + ' ~ ' + delist1[j].play_end + '</td></tr>';
 					            table += '<tr><td>' + stageinfo.stage_name + '</td></tr>';
-					            table += "<tr><td class='shareIcon' style='text-align:right'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
-					            table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   		
+					            table += "<tr><td style='text-align:right'>"
+									+ "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:40px; padding-top:10px;' alt='북마크'>"
+										+ "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:40px; padding-top:10px;' alt='sns공유'></td></tr>";
+					            table += '</table>'; // 공연 간의 여백을 위한 줄바꿈 추가   		
 				            	count++; //공연 수 카운트
 			            	}
 			            }         	
 			        }
-			        table = "<h3 style='text-align:center'><" + area + " 검색결과 " + count + "개></h3>" + table;
-			        table += '</table>';
-			        $('#infolist').html(table);
-			        $('.shareIcon').click(function () {
-			        	 var playName = $(this).parent().prevAll().eq(2).text(); // 공연 제목 가져오기
-			             var stageName = $(this).parent().prev().text(); // 공연장 이름 가져오기
-			             
-			             snsPopup(playName, stageName);
-				    });
+			    	table = "<br><h3 style='text-align:center'><" + area + "> 검색결과 " + count + "개</h3>" + table;
+			    	table += '<br><br><br>';
+			    	
+			    	$('#infolist').html(table);
+			        
+			    	$('.shareIcon').click(function () {
+					    var row = $(this).closest('table'); // 현재 클릭된 아이콘이 속한 테이블(table)을 선택합니다.
+					    var playName = row.find('b').text(); // 테이블 내부의 링크(b 태그)에서 공연 제목을 가져옵니다.
+					    var stageName = row.find('tr:nth-last-child(2) td').text(); // 테이블 내부에서 마지막에서 두 번째 행의 td 요소에서 공연장 이름을 가져옵니다.
+
+					    snsPopup(playName, stageName);
+					});
+			        
+			        $('.bookIcon').click(function() {
+					    var bookmarkImg = $(this);
+
+					    // 이미지 소스 변경
+					    if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
+					        bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
+					    } else {
+					        bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
+					    }
+					});
 			    } else {
 			    	$('#infolist').empty();
-			    	table = "<h3 style='text-align:center;'><" + area + " 검색결과></h3>" + "<br><br><br><br><br><br><br><br><br><br><h4 style='text-align:center; color:gray;'>검색결과 없음</h4>";
+			    	table = "<br><h3 style='text-align:center;'><" + area + " 검색결과></h3>" + "<br><br><br><br><br><br><br><br><br><br><h4 style='text-align:center; color:gray;'>검색결과 없음</h4>";
 			    	$('#infolist').html(table);
 			    }	        
 				
@@ -729,12 +737,10 @@ th, td {
 				
 		var tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
 		tooltip.appendTo(map.getPanes().floatPane);
-		$("#header").load("header.jsp");
-		$('#banner').load("mainImg.jsp");
 	})
 </script>
 <link rel="stylesheet" href="../resources/css/sidemenu.css" />
-<link rel="stylesheet" href="../resources/css/style.css" />
+<link rel="stylesheet" href="../resources/css/page01.css" />
 <meta charset="UTF-8">
 <title>지도 추천 페이지</title>
 </head>
@@ -746,9 +752,11 @@ th, td {
 				<input type="text">
 			</div>
 			<div id="side-bar" class="left-side-bar">
-				<table style="height:50px;">
+				<table id="inputtable" style="height:50px;">
 					<tr style="text-align:center;">
-						<td><img src='../resources/img/icon-map.png' style='width:40px; margin:5px; heigth:80px;'></td>
+						<td>
+							<img src='../resources/img/icon-map.png' style='width:40px; margin:5px; heigth:80px;'>
+						</td>
 						<td><input id="address" type="text" placeholder="주소를 입력해주세요"></td>
 					</tr>
 				</table>
