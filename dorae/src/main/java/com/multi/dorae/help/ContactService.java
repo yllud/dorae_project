@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import com.multi.dorae.admin.AdminVO;
 import com.multi.dorae.admin.EmailSendService;
-import com.multi.dorae.login.KakaoVO;
 
 @Service
 public class ContactService {
@@ -16,38 +17,48 @@ public class ContactService {
 	@Autowired
 	EmailSendService emailSendService;
 
-	public boolean create(ContactVO vo) {
-		if (vo.getMember_id() == null || vo.getMember_id().trim().isEmpty()) {
+	public boolean create(ContactVO contactVO, String member_id) {
+		if (contactVO.getTitle() == null || contactVO.getTitle().trim().isEmpty()) {
+			System.out.println("1:1 문의 제목이 없음");
 			return false;
 		}
-		if (vo.getTitle() == null || vo.getTitle().trim().isEmpty()) {
-			return false;
-		}
-		if (vo.getContent() == null || vo.getContent().trim().isEmpty()) {
-			return false;
-		}
-
-		contactDAO.insert(vo);
-		return true;
-	}
-
-	public boolean updateAnswer(ContactVO vo) {
-		if (vo.getAnswer() == null || vo.getAnswer().trim().isEmpty()) {
+		if (contactVO.getContent() == null || contactVO.getContent().trim().isEmpty()) {
+			System.out.println("1:1 문의 내용이 없음");
 			return false;
 		}
 
-		contactDAO.updateAnswer(vo);
+		contactVO.setMember_id(member_id);
 
-		emailSendService.send(vo);
+		if (contactDAO.insert(contactVO) != 1) {
+			System.out.println("1:1 문의 생성에 실패함");
+			return false;
+		}
 		
 		return true;
 	}
 
-	public ContactVO one(long contact_id, KakaoVO kakaoVO) {
+	public boolean updateAnswer(ContactVO contactVO, AdminVO adminVO) {
+		if (!StringUtils.hasText(adminVO.getId())) {
+			System.out.println("관리자 아이디가 없음");
+			return false;
+		}
+		
+		contactVO.setAdmin_id(adminVO.getId());
+		
+		if (contactDAO.updateAnswer(contactVO) != 1) {
+			System.out.println("1:1 문의 답변 등록에 실패함");
+		}
+
+		emailSendService.send(contactVO);
+		
+		return true;
+	}
+
+	public ContactVO one(long contact_id, String member_id) {
 		ContactVO contactVO = contactDAO.one(contact_id);
 		
-		if (!contactVO.getMember_id().equals(kakaoVO.getEmail())) { // 1:1 문의글의 작성자가 현재 세션의 사용자와 다르면
-			contactVO = null;
+		if (!contactVO.getMember_id().equals(member_id)) { // 1:1 문의글의 작성자가 현재 세션의 사용자와 다르면
+			return null;
 		}
 		
 		return contactVO;
@@ -63,10 +74,6 @@ public class ContactService {
 	
 	public List<ContactVO> listByMemberIdWithPaging(PageVO pageVO, String member_id) {
 		return contactDAO.listByMemberIdWithPaging(pageVO, member_id);
-	}
-	
-	public List<ContactVO> list() {
-		return contactDAO.list();
 	}
 	
 	public int count() {

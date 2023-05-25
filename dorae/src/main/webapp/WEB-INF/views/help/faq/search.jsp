@@ -12,7 +12,7 @@
 <script defer type="text/javascript" src="/dorae/resources/js/chatBot.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#header").load("/dorae/header.jsp");
+		$("#header").load("/dorae/header/header.jsp");
 	})
 </script>
 <style type="text/css">

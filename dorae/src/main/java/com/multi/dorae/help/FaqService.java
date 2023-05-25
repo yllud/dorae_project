@@ -11,23 +11,41 @@ public class FaqService {
 	@Autowired
 	FaqDAO faqDAO;
 	
-	public int create(FaqVO vo) {
-		return faqDAO.insert(vo);
+	public boolean create(FaqVO faqVO) {
+		if (!isValid(faqVO)) {
+			return false;
+		}
+		
+		if (faqDAO.insert(faqVO) != 1) {
+			System.out.println("FAQ 생성에 실패함");
+			return false;
+		}
+		
+		return true;
 	}
 	
-	public int updateAnswer(FaqVO vo) {
-		return faqDAO.updateAnswer(vo);
+	public boolean updateAnswer(FaqVO faqVO) {
+		if (!isValid(faqVO)) {
+			return false;
+		}
+		
+		if (faqDAO.updateAnswer(faqVO) != 1) {
+			System.out.println("FAQ 수정에 실패함");
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public FaqVO one(int faq_id) {
 		return faqDAO.one(faq_id);
 	}
 	
-	public List<FaqVO> list() {
-		return faqDAO.list();
-	}
-	
 	public List<FaqVO> listByCategory(String help_category_id) {
+		if (help_category_id == null || help_category_id.trim().isEmpty()) {
+			help_category_id = "D01";
+		}
+		
 		return faqDAO.listByCategory(help_category_id);
 	}
 	
@@ -35,10 +53,15 @@ public class FaqService {
 		if (help_category_id == null || help_category_id.trim().isEmpty()) {
 			help_category_id = "D01";
 		}
+		
 		return faqDAO.listByCategoryWithPaging(help_category_id, pageVO);
 	}
 	
 	public List<FaqVO> listBySearch(String search) {
+		if (search == null || search.trim().isEmpty()) {
+			return null;
+		}
+		
 		return faqDAO.listBySearch(search);
 	}
 	
@@ -47,6 +70,22 @@ public class FaqService {
 	}
 	
 	public int countByCategory(String help_category_id) {
+		if (help_category_id == null || help_category_id.trim().isEmpty()) {
+			help_category_id = "D01";
+		}
+		
 		return faqDAO.countByCategory(help_category_id);
+	}
+	
+	private boolean isValid(FaqVO faqVO) {
+		if (faqVO.getTitle() == null || faqVO.getTitle().trim().isEmpty()) {
+			System.out.println("FAQ 제목이 없음");
+			return false;
+		}
+		if (faqVO.getContent() == null || faqVO.getContent().trim().isEmpty()) {
+			System.out.println("FAQ 내용이 없음");
+			return false;
+		}
+		return true;
 	}
 }

@@ -12,6 +12,7 @@ public class NaverVO {
 	private String birthday;
 	private String profile_image;
 	private Date joinDate;
+	private String user_type;
 	
 	
 	public String getId() {
@@ -68,12 +69,19 @@ public class NaverVO {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
-	@Override
-	public String toString() {
-		return "NaverVO [id=" + id + ", nickname=" + nickname + ", name=" + name + ", email="
-				+ email + ", gender=" + gender + ", age=" + age + ", birthday=" + birthday + ", profile_image="
-				+ profile_image + ", joinDate=" + joinDate + "]";
+	
+	public String getUser_type() {
+		return user_type;
+	}
+	public void setUser_type(String user_type) {
+		this.user_type = user_type;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "NaverVO [id=" + id + ", nickname=" + nickname + ", name=" + name + ", email=" + email + ", gender="
+				+ gender + ", age=" + age + ", birthday=" + birthday + ", profile_image=" + profile_image
+				+ ", joinDate=" + joinDate + ", user_type=" + user_type + "]";
+	}
+		
 }

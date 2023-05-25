@@ -18,7 +18,7 @@
 				state : "공연중"
 			},
 
-			success : function(x, genre) {
+			success : function(x) {
 				$('#result').html(x)
 			},//success
 			error : function() {
@@ -52,12 +52,22 @@
 
 </head>
 <body>
-<%-- <%	if(session.getAttribute("email") != null){%> --%>
-<!-- 세션에 이메일 이 있으면 버튼을 보여주자!(사업자 페이지) -->
-<%-- <%}else{out.println("<script type='text/javascript'>alert('로그인 실패');location.href = 'http://localhost:8888/dorae/login/login.jsp'</script>");} %> --%>
+	<%-- <%	if(session.getAttribute("email") != null){%> --%>
+	<!-- 세션에 이메일 이 있으면 버튼을 보여주자!(사업자 페이지) -->
+	<%-- <%}else{out.println("<script type='text/javascript'>alert('로그인 실패');location.href = 'http://localhost:8888/dorae/login/login.jsp'</script>");} %> --%>
+
+	<%
+		if (session.getAttribute("email") != null) {
+	%>
 	<form action="../search/business" method="post">
-		<button>사업자 페이지로 </button>
+		<button>사업자 페이지로</button>
 	</form>
+
+	<%
+		}
+	%>
+
+
 	<div class="filter">
 		<h3>공연검색 화면</h3>
 		<hr color="red">

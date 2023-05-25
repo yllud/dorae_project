@@ -10,8 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.multi.dorae.login.KakaoVO;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 @RequestMapping("help")
@@ -19,8 +18,6 @@ public class HelpController {
 
 	@Autowired
 	FaqService faqService;
-	@Autowired
-	NoticeService noticeService;
 	@Autowired
 	ContactService contactService;
 	@Autowired
@@ -45,14 +42,8 @@ public class HelpController {
 	
 	@ResponseBody
 	@RequestMapping("faq/one")
-	public FaqVO faqOne(int faq_id) {
+	public FaqVO faqById(int faq_id) {
 		return faqService.one(faq_id);
-	}
-	
-	@ResponseBody
-	@RequestMapping("faq/list")
-	public List<FaqVO> faqList() {
-		return faqService.list();
 	}
 	
 	@RequestMapping("faq/category")
@@ -67,43 +58,22 @@ public class HelpController {
 		model.addAttribute("search", search);
 	}
 	
-	@ResponseBody
-	@RequestMapping("notice/one")
-	public NoticeVO noticeOne(long notice_id) {
-		System.out.println("notice_id >> " + notice_id);
-		return noticeService.one(notice_id);
-	}
-	
-	@ResponseBody
-	@RequestMapping("notice/list")
-	public List<NoticeVO> noticeList() {
-		return noticeService.list();
-	}
-	
-	@RequestMapping("contact")
-	public void contact(PageVO pageVO, Model model, HttpSession session) {
-		System.out.println(session.getAttribute("email"));
-		System.out.println(session.getAttribute("kakaoE"));
-		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");
-		model.addAttribute("contactList", contactService.listByMemberIdWithPaging(pageVO, kvo.getEmail()));
+	@RequestMapping("contact/list")
+	public void contact(PageVO pageVO, Model model, @SessionAttribute String email) {
+		pageVO.calc();
+		model.addAttribute("contactList", contactService.listByMemberIdWithPaging(pageVO, email));
 	}
 	
 	@RequestMapping("contact/one")
-	public String contactOne(long contact_id, HttpSession session, Model model) {
-		ContactVO contactVO = contactService.one(contact_id, (KakaoVO) session.getAttribute("kakaoE"));
+	public String contactOne(long contact_id, @SessionAttribute String email, Model model) {
+		ContactVO contactVO = contactService.one(contact_id, email);
 		
 		if (contactVO == null) {
 			return "redirect:/help/main";
 		} else {
 			model.addAttribute("vo", contactVO);
-			return "one";
+			return "help/contact/one";
 		}
-	}
-	
-	@ResponseBody
-	@RequestMapping("contact/list")
-	public List<ContactVO> contactList(PageVO pageVO, HttpSession session) {
-		return contactService.listByMemberIdWithPaging(pageVO, ((KakaoVO) session.getAttribute("kakaoE")).getEmail());
 	}
 	
 	@RequestMapping(value = "contact/create", method = RequestMethod.GET)
@@ -112,12 +82,8 @@ public class HelpController {
 	}
 	
 	@RequestMapping(value = "contact/create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String contactCreate(ContactVO vo, HttpSession session) {
-		System.out.println(session.getAttribute("kakaoE"));
-		KakaoVO kvo = (KakaoVO) session.getAttribute("kakaoE");
-		vo.setMember_id(kvo.getEmail());
-		
-		contactService.create(vo);
-		return "redirect:/help/contact";
+	public String contactCreate(ContactVO contactVO, @SessionAttribute String email) {
+		contactService.create(contactVO, email);
+		return "redirect:/help/contact/list?page=1";
 	}
 }

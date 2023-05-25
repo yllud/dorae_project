@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="contact">
 	
-	<insert id="insert" parameterType="contactVO">
+	<insert id="insert" parameterType="contactVO" useGeneratedKeys="true" keyProperty="contact_id">
 		insert into contact values (#{contact_id}, #{member_id}, #{title}, #{content}, now(), #{admin_id}, #{answer})
 	</insert>
 	
@@ -17,14 +17,14 @@
 	<select id="selectListWithPaging" resultType="contactVO" parameterType="hashMap">
 		select * from (
 			select ROW_NUMBER() over (order by contact_id desc) as contact, c.*
-			from contact c order by c.contact_id desc) c2
+			from contact c) c2
 		where c2.contact between #{start} and #{end}
 	</select>
 	
 	<select id="selectListByMemberIdWithPaging" resultType="contactVO" parameterType="hashMap">
 		select * from (
 			select ROW_NUMBER() over (order by contact_id desc) as contact, c.*
-			from contact c where member_id = #{member_id} order by c.contact_id desc) c2
+			from contact c where member_id = #{member_id}) c2
 		where c2.contact between #{start} and #{end}
 	</select>
 	

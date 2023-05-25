@@ -17,7 +17,7 @@ public class TwitterController {
 	@Autowired
 	TwitterDAO dao;
 
-	// 추천검색어 트위터 검색 후 db 저장
+	// 키워드로 검색한 트위터 데이터를 몽고db 저장
 	@RequestMapping("sns/saveTwitter")
 	public void saveTweets(String query, int rank) throws TwitterException {
 		List<TwitterVO> tweets = TwitterAPI.searchTweets(query);
@@ -28,15 +28,12 @@ public class TwitterController {
 		dao.insert(tweets);
 	}
 
-
-	
-//	키워드로 검색한 블로그 data 가져오기
+//	키워드로 검색한 트위터 data 가져오기
 	@RequestMapping("sns/twitterList")
 	public void list2(int rank, Model model) {
 		List<TwitterVO> list = dao.list(rank);
 		model.addAttribute("list", list);
 	}
-
 
 	// api 검색 테스트용
 	@RequestMapping("sns/twitterSearch")

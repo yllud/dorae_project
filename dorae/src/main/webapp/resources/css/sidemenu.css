@@ -16,15 +16,16 @@ a {
     position: absolute;
     top: 0;
     left: 100%;
-    background-color: #dfdfdf;
+    background-color: #ffffff;
 }
 
 .left-side-bar {
-    background-color: #dfdfdf;
+/*  background-color: #dfdfdf; */
+    background-color: #ffffff;
     width: 400px;
     height: 750px;
     position: fixed;
-    left: -295px;
+    left: -320px;
     transition: left .3s;
 }
 
@@ -88,13 +89,32 @@ a {
   margin: 0 auto;
   display: block; 
 }
+
 #infolist {
-	margin-top: 11px;
-	max-height: 650px;
-	width: 400px;
-	overflow-y: auto;
+    margin-top: 11px;
+    max-height: 650px;
+    width: 400px;
+    overflow-y: scroll;
+    background-color: #f1f1f1;
 }
+
+/* 아래의 모든 코드는 영역::코드로 사용 */
+#infolist::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+
+#infolist::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #217af4; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+#infolist::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+
+
 img{
-	width: 60%;
-	height: 60%;
+	width: 200px;
 }
