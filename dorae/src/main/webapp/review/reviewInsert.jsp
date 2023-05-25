@@ -50,7 +50,7 @@ table td {
 <body>
 
 	<form action="insert" method="post" enctype="multipart/form-data"
-		onsubmit="showSuccessMessage()">
+		onsubmit="return showSuccessMessage()">
 		<table>
 		<tr>
 		<td><span>행사명</span></td>

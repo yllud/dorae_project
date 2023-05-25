@@ -36,5 +36,10 @@
 		SET profile_image = #{profile_image}
 		WHERE email = #{email}
 	</update>
-
+	
+	<update id="changeUserType" parameterType="String">
+		update member set user_type='business'
+		where email=#{email}
+	</update>
+	
 </mapper>
