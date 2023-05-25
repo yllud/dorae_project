@@ -22,7 +22,7 @@
 					<td>${vo.rownum}</td>
 					<td><form action="businessDetail" method="post" target="_blank">
 							<input type="hidden" name="play_id" value="${vo.play_id}">
-							<a href="#" target=”_blank“ onclick="submitForm(event, this);">${vo.play_name}</a>
+							<a href="#" onclick="submitForm(event, this);">${vo.play_name}</a>
 						</form></td>
 
 				</tr>
