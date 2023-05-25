@@ -32,7 +32,7 @@
 			</a>
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
-				<li><button value="/dorae/admin/contact/list?page=1" class="nav-link active" aria-current="page" onclick="setActive(this)"> 1:1 문의 목록 </button></li>
+				<li><button value="/dorae/admin/contact/list?page=1" class="nav-link text-white" aria-current="page" onclick="setActive(this)"> 1:1 문의 목록 </button></li>
 				<li><button value="/dorae/admin/faq/list?help_category_id=D01&page=1" class="nav-link text-white" onclick="setActive(this)">FAQ 목록 </button></li>
 				<li><button value="/dorae/admin/faq/create" class="nav-link text-white" onclick="setActive(this)">FAQ 등록 </button></li>
 				<li><button value="/dorae/admin/notice/list?page=1" class="nav-link text-white" onclick="setActive(this)">공지사항 목록 </button></li>
@@ -67,8 +67,11 @@
 	<script type="text/javascript">
 		function setActive(element) {
 			let temp = document.getElementsByClassName("active")[0];
-			temp.classList.remove("active");
-			temp.classList.add("text-white");
+			
+			if (temp != null) {
+				temp.classList.remove("active");
+				temp.classList.add("text-white");				
+			}
 			
 			element.classList.remove("text-white");
 			element.classList.add("active");

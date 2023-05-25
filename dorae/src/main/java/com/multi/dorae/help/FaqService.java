@@ -70,6 +70,10 @@ public class FaqService {
 	}
 	
 	public int countByCategory(String help_category_id) {
+		if (help_category_id == null || help_category_id.trim().isEmpty()) {
+			help_category_id = "D01";
+		}
+		
 		return faqDAO.countByCategory(help_category_id);
 	}
 	
