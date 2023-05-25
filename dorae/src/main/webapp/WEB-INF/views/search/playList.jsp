@@ -29,9 +29,9 @@
 					var div1 = $x.filter('.product-list2'); // 클래스가 'class1'인 div 선택
 					var div2 = $x.filter('.footer2'); // 클래스가 'class2'인 div 선택
 					$('#result2').empty()
-// 					$('#result3').empty()
+					// 					$('#result3').empty()
 					$('#result2').append(div1)
-// 					$('#result3').append(div2)
+					// 					$('#result3').append(div2)
 				},
 				error : function() {
 					alert('실패.@@@')
@@ -63,11 +63,11 @@
 					var div1 = $x.filter('.product-list2'); // 클래스가 'product-list2'인 div 선택
 					var div2 = $x.filter('.footer2'); // 클래스가 'footer2'인 div 선택
 					var div3 = $x.filter('.ranking'); // 클래스가 'ranking'인 div 선택
-					
+
 					$('#result2').empty()
 					$('#result3').empty()
 					$('#result3').empty()
-					
+
 					$('#result2').append(div1)
 					$('#result3').append(div2)
 					$('#result4').html(div3)
@@ -131,26 +131,17 @@
 	})
 </script>
 <style type="text/css">
-/* body { */
-/* 	background: yellow; */
-/* } */
 td {
 	/* 	width: 300px; */
 	background: lime;
 }
 
-/* .top{ */
-/* 	background: black; */
-/* 	color:white; */
-/* } */
-/* .down{ */
-/* 	background: lime; */
-/* } */
 </style>
 </head>
 <body>
 
 	<div class="filter">
+	<div>
 		<select id="genre" name="type">
 			<option value="전체(장르)">전체(장르)</option>
 			<option value="뮤지컬">뮤지컬</option>
@@ -168,12 +159,14 @@ td {
 			<option value="공연완료">공연완료</option>
 		</select>
 		<button id="b1">적용</button>
-		<br>
-		<hr color="red">
+		</div>
+		<div>
 		<mark id="title_id">${cri.title}</mark>
 		<mark id="genre_id">${cri.genre}</mark>
 		<mark id="state_id">${cri.state}</mark>
-		<br> <br>
+		<hr color="red">
+		</div>
+		<br>
 	</div>
 	<div class="products">
 		<!-- 		<h3>검색 결과</h3> -->
@@ -181,13 +174,12 @@ td {
 		<div class="product-list" id="result2">
 			<c:forEach items="${list}" var="bag">
 				<!-- el 속성만 받아올 수 있는 표현식 -->
-				<a href="playDetail?play_id=${bag.play_id}" class="product"
-					target="_blank"> <img src="${bag.poster}" width="200"
-					height="200">
+				<a href="playDetail?play_id=${bag.play_id}" class="product">
+					<img src="${bag.poster}" width="200" height="200">
 					<div class="product-name">${bag.play_name}</div>
-					<div>${bag.genre_name}</div>
-					<div>${bag.state}</div>
-					<div>${bag.play_start}~${bag.play_end}</div>
+					<div class="product-name2">${bag.genre_name}</div>
+					<div class="product-name2">${bag.state}</div>
+<%-- 					<div>${bag.play_start}~${bag.play_end}</div> --%>
 				</a>
 			</c:forEach>
 

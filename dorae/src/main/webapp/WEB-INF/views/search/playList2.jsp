@@ -87,7 +87,8 @@
 	String g = (String) request.getAttribute("genre_name");
 	if (!g.equals("전체(장르)")) {
 %>
-<div class="ranking" style="position: absolute; right: 60px; top: 200px;">
+<div class="ranking"
+	style="position: absolute; right: 60px; top: 200px;">
 	<table>
 		<tr>
 			<td class="rank-left">순위</td>
@@ -116,13 +117,12 @@
 <div class="product-list2">
 	<c:forEach items="${list}" var="bag">
 		<!-- el 속성만 받아올 수 있는 표현식 -->
-		<a href="playDetail?play_id=${bag.play_id}" class="product"
-			target="_blank"> <img src="${bag.poster}" width="200"
-			height="200">
+		<a href="playDetail?play_id=${bag.play_id}" class="product">
+			<img src="${bag.poster}" width="200" height="200">
 			<div class="product-name">${bag.play_name}</div>
-			<div>${bag.genre_name}</div>
-			<div>${bag.state}</div>
-			<div>${bag.play_start}~${bag.play_end}</div>
+			<div class="product-name2">${bag.genre_name}</div>
+			<div class="product-name">${bag.state}</div>
+<%-- 			<div>${bag.play_start}~${bag.play_end}</div> --%>
 		</a>
 	</c:forEach>
 

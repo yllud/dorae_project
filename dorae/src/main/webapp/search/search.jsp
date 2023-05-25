@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../resources/css/shopcss.css">
+<link rel="stylesheet" href="../resources/css/search.css">
 <title>Insert title here</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
@@ -51,38 +51,47 @@
 	})//$
 </script>
 
+<style type="text/css">
+body {
+	display: flex;
+	/* 	width: 1000px; */
+	/* 	height: 100px; */
+}
+</style>
+
 </head>
 <body>
+
 	<header id="header" class="fixed-top"></header>
+	<div class="body">
+		<!-- 세션에 user_type이 business면 버튼을 보여주자!(사업자 페이지) -->
+		<input value="<%=session.getAttribute("user_type")%>" type="hidden">
+		<input value="<%=session.getAttribute("email")%>" type="hidden">
+		<%
+			String userType = (String) session.getAttribute("user_type");
 
-	<!-- 세션에 user_type이 business면 버튼을 보여주자!(사업자 페이지) -->
-	<input value="<%=session.getAttribute("user_type")%>">
-	<input value="<%=session.getAttribute("email")%>">
-	<%
-		String userType = (String) session.getAttribute("user_type");
+			if (userType != null && userType.equals("business")) {
+		%>
+		<form action="../search/business" method="post">
+			<button>사업자 페이지로</button>
+		</form>
 
-		if (userType != null && userType.equals("business")) {
-	%>
-	<form action="../search/business" method="post">
-		<button>사업자 페이지로</button>
-	</form>
+		<%
+			}
+		%>
 
-	<%
-		}
-	%>
+		<h3 style="margin-left: 75px">공연검색</h3>
+		<div class="filter">
 
+			<hr color="red">
+			공연제목: <input id="title">
+			<button id="b0">검색</button>
+<!-- 			<hr color="red"> -->
+		</div>
 
-	<div class="filter">
-		<h3>공연검색 화면</h3>
-		<hr color="red">
-		공연제목: <input id="title">
-		<button id="b0">검색</button>
-		<hr color="red">
+		<div id="result"></div>
+		<!-- 	<div id="result" style="background: yellow"></div> -->
 	</div>
-
-	<div id="result"></div>
-	<!-- 	<div id="result" style="background: yellow"></div> -->
-
 
 </body>
 </html>
