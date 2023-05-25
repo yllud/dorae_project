@@ -85,6 +85,12 @@
 		delete from play where play_id=#{play_id}
 	</delete>
 	
+	<!-- user_type 변경 요청 -->
+<!-- 	<update id="changeUserType" parameterType="String"> -->
+<!-- 		update member set user_type='business' -->
+<!-- 		where email=#{email} -->
+<!-- 	</update> -->
+	
 	
 
 
