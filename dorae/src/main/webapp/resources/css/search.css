@@ -102,13 +102,11 @@
 }
 
 .product-name2 {
-	/* 	width:300px; */
-	/* 	margin-top: 20px; */
-	/* 	margin-bottom: 4px; */
-	/* 	overflow: hidden; */
-	/* 	text-overflow: ellipsis; */
-	/* 	white-space: nowrap; */
+/* 	width:250px; */
 	margin-bottom: 4px;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	text-align: center;
 }
 

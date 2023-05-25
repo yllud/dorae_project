@@ -16,7 +16,8 @@
 				page : 1,
 				title : $('#title').val(),
 				genre : "전체(장르)",
-				state : "공연중"
+				state : "공연중",
+				district: "전체(지역)"
 			},
 
 			success : function(x) {
@@ -37,7 +38,8 @@
 					page : 1,
 					title : $('#title').val(),
 					genre : "전체(장르)",
-					state : "공연중"
+					state : "공연중",
+					district : "전체(지역)"
 				},
 				success : function(x) {
 					$('#result').html(x)

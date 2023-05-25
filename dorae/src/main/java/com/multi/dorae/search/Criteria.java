@@ -12,6 +12,15 @@ public class Criteria {
 	private String title;
 	private String genre;
 	private String state;
+	private String district;
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
 
 	int amount = 12; // 한 페이지당 공연 수
 
@@ -77,7 +86,9 @@ public class Criteria {
 	@Override
 	public String toString() {
 		return "Criteria [start=" + start + ", end=" + end + ", page=" + page + ", title=" + title + ", genre=" + genre
-				+ ", state=" + state + ", amount=" + amount + "]";
+				+ ", state=" + state + ", district=" + district + ", amount=" + amount + "]";
 	}
+
+
 
 }
