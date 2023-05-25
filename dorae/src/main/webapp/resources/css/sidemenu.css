@@ -20,17 +20,10 @@ a {
 }
 
 .left-side-bar {
-/*  background-color: #dfdfdf; */
-    background-color: #ffffff;
+	background-color: #dfdfdf;
     width: 400px;
     height: 750px;
     position: fixed;
-    /* transition: left .3s; */
-}
-
-.left-side-bar > .status-ico {
-    text-align: right;
-    padding: 10px;
 }
 
 .left-side-bar > ul li {
@@ -49,10 +42,6 @@ a {
     white-space: nowrap;
 }
 
-/* .left-side-bar:hover {
-    left: 0;
-} */
-
 .left-side-bar ul > li:hover ul {
     display: block;
 }
@@ -61,36 +50,7 @@ a {
     color: white;
     background-color: black;
 }
-
-/* .left-side-bar > .status-ico > span:last-child {
-    display: none;
-}
-
-.left-side-bar:hover > .status-ico > span:last-child {
-    display: block;
-}
-
-.left-side-bar:hover > .status-ico > span:first-child {
-    display: none;
-} */
-
-#address_input{
-  z-index: 3;
-  width: 300px;
-  height: 28px;
-  font-size: 15px;
-  border: 0;
-  border-radius: 20px;
-  outline: none;
-  padding: 10px;
-  background-color: rgb(244, 244, 244);
-  /* 필요한 위치와 스타일 속성들 */
-  margin: 0 auto;
-  display: block; 
-}
-
 #infolist {
-    margin-top: 11px;
     max-height: 650px;
     width: 400px;
     overflow-y: scroll;
@@ -112,7 +72,6 @@ a {
 #infolist::-webkit-scrollbar-track {
     background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
 }
-
 
 img{
 	width: 200px;
