@@ -12,13 +12,17 @@
 </style>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
+
+var thisUrl = document.URL;
+
 <%
 	String playName = request.getParameter("playName"); // 공연 이름 값 가져오기
 	String stageName = request.getParameter("stageName"); // 공연장 이름 값 가져오기
 	String share_lat = request.getParameter("share_lat"); // 공연장 위도 값 가져오기
 	String share_lng = request.getParameter("share_lng"); // 공연장 경도 값 가져오기
-	out.println("Received value: " + share_lat + ", " + share_lng); // 받은 값 출력
+	//out.println("Received value: " + share_lat + ", " + share_lng); // 받은 값 출력
 %>
+	
 function shareTwitter() {
     var sendText = "도래도래 공연 <" + "<%= playName %>" + ">"; // 전달할 텍스트
     sendText += "네이버 지도: https://map.naver.com/?x=" + <%= share_lat %> + "&y=" + <%= share_lng %>; // 네이버 지도 URL
@@ -49,10 +53,10 @@ function shareKakao() {
 	    content: {
 	    	title: "도래도래", // 보여질 제목
 	      	description: "도래도래 사이트입니다", // 보여질 설명
-	      	imageUrl: "devpad.tistory.com/", // 콘텐츠 URL
+	      	imageUrl: "https://www.naver.com/", // 콘텐츠 URL
 	      	link: {
-	      		mobileWebUrl: "https://www.naver.com/",
-	         	webUrl: "https://www.naver.com/"
+	      		mobileWebUrl: thisUrl,
+	         	webUrl: thisUrl
 	      	}
 	  	}
   	});
@@ -63,9 +67,9 @@ function shareKakao() {
 <title>sns 공유하기</title>
 </head>
 <body>
-<a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();" />트위터
-<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();" />페이스북
-<a id="btnNaver" class="link-icon naver" href="javascript:shareNaver();" />네이버
-<a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();" />카카오
+<a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
+<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>
+<a id="btnNaver" class="link-icon naver" href="javascript:shareNaver();">네이버</a>
+<a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();">카카오</a>
 </body>
 </html>
