@@ -97,13 +97,11 @@ th, td {
 				addMarkers(delist2);
 				
 				function addItems(list1, list2) {
-					//console.log("addItem delist2 호출!!!!! >> " + delist2[0].stage_name);
 					$('#infolist').empty();
+					
 					// 테이블 생성
 					var table = "<h3 style='text-align:center;'><전체검색결과></h3><table>";
 					for (var i = 0; i < list1.length; i++) {
-						//console.log("addItem delist2 호출@@@@! >> " + delist22[0].stage_name);
-						//console.log("addItem list2 호출@@@@! >> " + i + "번째 >>>>>>" + list22[i].stage_name);
 						var item1 = list1[i];
 						table += '<tr><td><img src="' + item1.poster + '"></td></tr>';
 						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + item1.play_id + "'>" + item1.play_name + '</a></td></tr>';
@@ -116,7 +114,7 @@ th, td {
 						}
 						table += "<tr style='text-align:right'><td class='shareIcon'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
 						table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
-						/* 북마크, sns공유 아이콘 들어가야함 */
+						
 					}//for
 					table += '</table>';
 					
@@ -191,10 +189,7 @@ th, td {
 			  	                table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
 			  	              table += "<tr style='text-align:right'><td class='shareIcon'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
 			  	              table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
-			  	              	
-			  	              /* 북마크, sns공유 아이콘 들어가야함 */
 			  	              
-			  	              	
 			  	            }
 			  	            table += '</table>';
 			  	            
@@ -593,8 +588,7 @@ th, td {
 		        	map.setCenter(sejong);
 		        	map.setZoom(11);
 		        }
-				/* var area_string = [];
-    			var area_name = ""; */
+				
 				var filteredList = []; //선택된 지역의 공연리스트
 
 				 for (var i = 0; i < delist2.length; i++) {
@@ -623,10 +617,7 @@ th, td {
 			            table += '<tr><td>' + play.play_start + ' ~ ' + play.play_end + '</td></tr>';
 			            table += '<tr><td>' + play.stage_name + '</td></tr>';
 			            table += "<tr style='text-align:right'><td class='shareIcon'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
-			            table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
-			            
-			            /* 북마크, sns공유 아이콘 들어가야함 */
-			         	
+			            table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   			         	
 			        }
 
 			        table += '</table>';
