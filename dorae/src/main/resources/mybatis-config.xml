@@ -45,6 +45,7 @@
 		<typeAlias type="com.multi.dorae.ticket.PayVO" alias="payVO"></typeAlias>
 		<typeAlias type="com.multi.dorae.ticket.SeatVO"
 			alias="seatVO"></typeAlias>
+		
 
 		<!-- 허성만 -->
 		<typeAlias type="com.multi.dorae.help.ContactVO"

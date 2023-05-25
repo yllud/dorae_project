@@ -2,11 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="seat">
 	
-	<insert id="insert" parameterType="seatVO">
+	<insert id="insert"  parameterType="seatVO">
+		<selectKey resultType="String" keyProperty="seat_id" order="BEFORE">
+			SELECT CONCAT(DATE_FORMAT(NOW(), '%y%m%d'), LPAD(IFNULL(MAX(SUBSTR(seat_id, -3)), 0) + 1, 3, '0'))
+			FROM seat
+			WHERE seat_id LIKE CONCAT(DATE_FORMAT(NOW(), '%y%m%d'), '%');
+		</selectKey>
 		insert into seat values (#{seat_member}, #{play_id}, #{seat_date}, #{seat_time}, #{seat_number}, #{seat_id})
 	</insert>
 	
-	
+	<!-- 공연ID, 날짜, 시간 전부 같은 좌석넘버 가져오기  -->
+	<select id="select" resultType="String" parameterType="java.util.Map">
+		select seat_number from seat where play_id = #{play_id} and seat_date = #{seat_date} and seat_time = #{seat_time}
+	</select>
 </mapper>
 
 

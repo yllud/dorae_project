@@ -1,5 +1,6 @@
 
-	$('#payment').click(function() {
+$('#payment').one('click', function() { 
+	
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp60843063'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		IMP.request_pay({//******* API : 함수를 불러서 처리해 달라고 할 때 사용하는 함수의 집합
@@ -17,15 +18,15 @@
 			      $.ajax({
 			    	  url: "insert", // 티켓정보(seatDB)
 			    	  data: { 
-			    		  seat_member: rsp.buyer_email, //회원e-mail
+			    		  seat_member: $('#email').val(), //회원e-mail
 			    		  play_id: $('#play_id').val(), //공연ID
 			    		  seat_date: $('#d_day').text(), //공연날짜
 			    		  seat_time: $('#d_time').text(), //공연시간
-			    		  seat_number: $('#seat_num').text(), //좌석번호
-			    		  seat_id: "20230518001"//티켓번호(pk)
+			    		  seat_number: $('#seat_num').text() //좌석번호
+			    	   // seat_id: 티켓번호(pk) 자동생성
 			    	  },
-			    	  success: function(){
-					$.ajax({
+			    	  success: function() {
+			    	$.ajax({
 			    	  	url: "../pay/insert", // 결제정보(payDB)
 			    	  	data: {      
 			    		 	imp_uid: rsp.imp_uid, //결제고유번호
@@ -37,20 +38,23 @@
 			    			buyer_email: rsp.buyer_email, //주문자 이메일
 			    			play_id: $('#play_id').val(), //공연ID
 			    			booking: $('#booking').text(),//예매일
-			    		 	seat_id: "20230518001"//티켓번호
+			    		 	//seat_id: 티켓번호 자동생성
 			    	 	 	},
 			    	 	 success: function() {
-					    var msg = '결제가 완료되었습니다.';
-						alert(msg);
-						location.href = "http://localhost:8887/dorae/seat/insert";
-							} //success - insert2
-			      		}) //ajax - insert2
-			    	  } //success -insert
-			      })//ajax - insert
-			     
-			    } else {
+			    	 	 	
+						  } //success - pay insert
+			      		}); //ajax - pay insert
+			    	  } //success -seat insert
+		     	   });//ajax - seat insert 
+		     	var msg = '결제가 완료되었습니다.';
+				alert(msg);
+				parent.location.href='../test.jsp';
+			   } else {
 			      var msg = '결제에 실패하였습니다.';
 			      alert(msg);
-			    } //else
-			  });
-	})//click
+			      location.reload();
+			   } //else
+		  });
+	}); //click
+	
+
