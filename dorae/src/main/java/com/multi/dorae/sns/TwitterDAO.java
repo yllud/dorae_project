@@ -18,7 +18,7 @@ public class TwitterDAO {
 	public void insert(List<TwitterVO> tweets) {
 		mongo.insert(tweets, "twitter");
 	}
-
+	
 	// 추천 검색어에 해당하는 db결과값 반환
 	public List<TwitterVO> list(int rank) { // 검색어에 해당하는 rank값
 		Query query = new Query();
@@ -28,4 +28,15 @@ public class TwitterDAO {
 
 		return mongo.find(query, TwitterVO.class, "twitter");
 	}
+	
+	// "twitter" 컬렉션 드랍
+    public void drop() {
+    	mongo.dropCollection("twitter");
+    	System.out.println("----------------삭제가 완료되었습니다.");
+    }
+    
+    // "twitter" 컬렉션이 있는지 확인하는 것
+    public boolean check() {
+        return mongo.collectionExists("twitter");
+    }
 }

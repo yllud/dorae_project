@@ -129,4 +129,6 @@
 	<select id="genreCount" resultType="Integer" parameterType = "String">
 		select count(*) from play where genre_name = #{genre}
 	</select>
+	
+	
 </mapper>
