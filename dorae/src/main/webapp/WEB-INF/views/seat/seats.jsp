@@ -55,16 +55,16 @@
       총결제 <span id="total">0</span>원<br><br>
       </fieldset>
       
-      <fieldset>
+      <fieldset id="check" style="display:none;">
       <legend>주문자확인</legend>
 	  구매자이름: <input id="name" readonly><br>
 	  이메일: <input id="email" readonly><br>
-	  전화번호: <input id="tel" ><br>
+	  전화번호: <input id="tel" placeholder="전화번호 입력해주세요" value="" oninput="phone(this)" maxlength="13"><br>
 	  </fieldset>
 	  <br>
-	<button id="clearBtn" class="clear" onclick='location.reload()'>다시선택</button>
-    <button type="submit" id="next">다음단계</button>
-    <button type="submit" style="display:none;" id="payment">결제하기</button>
+	<button id="clearBtn" class="clear" >다시선택</button>
+    <button id="next">다음단계</button>
+    <button id="payment" style="display:none;" disabled="disabled">결제하기</button>
     </div>
  <script type="text/javascript">
 $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태그의 로드만을 감지, 중복가능
@@ -154,22 +154,45 @@ function updateSelectedCount() {
   $('#price').text(selectedSeatsCount * ticketPrice);
   $('#fee').text(selectedSeatsCount * 1000);
   $('#total').text(selectedSeatsCount * ticketPrice + selectedSeatsCount * 1000);
-}
+};
 
-$('#next').click(function() {
-	alert("전화번호를 입력해주세요")
+$('#next').click(function() { 
+	alert("주문정보 확인해주세요")
 	$.ajax({
-		url: "memberOne",
+		url: "memberOne", 
 		data: {
-			email: '${email}'
+			email: '${email}' //email가지고 이름 불러오기
 		},
 		success: function(x) {
-			$('#name').val(x)
+			$('#name').val(x) 
 			$('#email').val('${email}')
-			$('#payment').show();
+			$('#check').show(); //정보확인칸 띄우기
+			$('#next').hide(); //다음버튼 숨기기
 		} //success
 	}) //ajax
-}) // next.click
+}); //next.click
+
+$('#tel').on('input', function() { //전화번호 입력해야 결제버튼 생성
+	if($('#tel').val() != "") {
+		$('#payment').show(); //결제버튼 띄우기
+		$('#payment').attr("disabled", false); //클릭가능
+	} else {
+		$('#payment').attr("disabled", true); //클릭불가능
+	}
+}); //tel.input
+
+function phone(target) { //전화번호 정규식 표현
+    target.value = target.value
+        .replace(/[^0-9]/g, '') //숫자를 제외한 모든 문자 제거(= 숫자 외에는 입력 불가) g = 전역검색
+        .replace(/(^01.{1}|[0-9]{2,3})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3"); //$1-$2-$3패턴으로 재구성 
+}
+
+$('#clearBtn').click(function() {
+	if(confirm('선택하신 모든 정보가 사라집니다')){
+		location.reload();
+	} else {
+	}
+}); // 다시선택
 
 </script>
   
