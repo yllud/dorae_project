@@ -197,12 +197,14 @@ public class ApiParsing {
 
 		// api url에 붙여줄 stage_id 리스트를 play 테이블에서 불러온다(공연에 있는 공연장만 불러옴, 전부 x)
 		List<String> stageList = new ArrayList<String>();
+		System.out.println("stage 요청1");
 		try {
 			stageList = dao.listStageId();
 
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
+		System.out.println("stage 요청2");
 
 		// stage 아이디 List에 잘 들어갔는지 확인
 		if (stageList != null) {

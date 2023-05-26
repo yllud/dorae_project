@@ -33,7 +33,7 @@ public class BlogDAO {
 	// "blog" 컬렉션 드랍
     public void drop() {
     	mongo.dropCollection("blog");
-    	System.out.println("----------------삭제가 완료되었습니다.");
+    	System.out.println("----------------blog삭제가 완료되었습니다.");
     }
     
     // "blog" 컬렉션이 있는지 확인하는 것

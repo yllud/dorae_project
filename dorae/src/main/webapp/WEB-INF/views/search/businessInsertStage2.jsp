@@ -45,7 +45,7 @@
 	<table>
 		<c:forEach items="${list}" var="vo">
 			<tr>
-				<td>${vo.stage_id}</td>
+<%-- 				<td>${vo.stage_id}</td> --%>
 				<td><a href="#" data-stage-id="${vo.stage_id}"
 					class="stageSelect">${vo.stage_name}</a></td>
 				<td>${vo.address}</td>

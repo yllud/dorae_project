@@ -59,7 +59,7 @@
       <legend>주문자확인</legend>
 	  구매자이름: <input id="name" readonly><br>
 	  이메일: <input id="email" readonly><br>
-	  전화번호: <input id="tel" placeholder="전화번호 입력해주세요" value="" oninput="phone(this)" maxlength="13"><br>
+	  전화번호: <input id="tel" placeholder="숫자만 입력해주세요" value="" oninput="phone(this)" maxlength="13"><br>
 	  </fieldset>
 	  <br>
 	<button id="clearBtn" class="clear" >다시선택</button>
@@ -173,7 +173,7 @@ $('#next').click(function() {
 }); //next.click
 
 $('#tel').on('input', function() { //전화번호 입력해야 결제버튼 생성
-	if($('#tel').val() != "") {
+	if($('#tel').val().length >= 11 && $('#tel').val().length <= 13) { //13자리일때
 		$('#payment').show(); //결제버튼 띄우기
 		$('#payment').attr("disabled", false); //클릭가능
 	} else {

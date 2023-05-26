@@ -3,8 +3,11 @@ package com.multi.dorae.mypage;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,6 @@ public class ReplyController {
 	@Autowired
 	ReplyDAO dao;
 	//컨트롤 하는 기능(CRUD)
-	//회원가입, 수정, 탈퇴, 정보검색
 	
 	//클래스 내에서 기능처리 담당
 	//멤버변수 + 멤버메서드(기능처리 담당)
@@ -74,16 +76,55 @@ public class ReplyController {
 		model.addAttribute("bag", bag);
 	}
 	
+	//페이징 하기 전 list 불러오는 코드
+//	@RequestMapping("mypage/replyList")
+//	public void replyList(Model model) {
+//		System.out.println("replyList 요청됨");
+//	    String email = (String) session.getAttribute("email");
+//	    List<ReplyVO> list = dao.listByEmail(email);
+//	    System.out.println(list.size());
+//	    //views아래 list를 전달 
+//	    model.addAttribute("list", list);
+//	    //그 다음에 무조건 views/mypage/replyList로 감.
+//	    //다른 곳으로 가고 싶을 때에는 return 사용!
+//	}
+	
+	// 후기내역 페이징
 	@RequestMapping("mypage/replyList")
-	public void replyList(Model model) {
-		System.out.println("replyList 요청됨");
+	public void replyList(MypagePageVO vo, Model model) {
+	    vo.mypageStartEnd(vo.getPage());
 	    String email = (String) session.getAttribute("email");
-	    List<ReplyVO> list = dao.listByEmail(email);
-	    System.out.println(list.size());
-	    //views아래 list를 전달 
+	    
+	    int count = dao.count();
+	    int pages = count / 10 + 1;
+	    
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("email", email);
+	    map.put("start", vo.getStart());
+	    map.put("end", vo.getEnd());
+	    
+	    List<ReplyVO> list = dao.listPaging(map);
+
 	    model.addAttribute("list", list);
-	    //그 다음에 무조건 views/mypage/replyList로 감.
-	    //다른 곳으로 가고 싶을 때에는 return 사용!
+	    model.addAttribute("count", count);
+	    model.addAttribute("pages", pages);
+	}
+	
+	// 페이징 - 두번째 페이지 이상일 경우 사용
+	@RequestMapping("mypage/replyList2")
+	public void replyList2(MypagePageVO vo, Model model) {
+	    vo.mypageStartEnd(vo.getPage());
+	    String email = (String) session.getAttribute("email");
+	   
+	    
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("email", email);
+	    map.put("start", vo.getStart());
+	    map.put("end", vo.getEnd());
+	    List<ReplyVO> list = dao.listPaging(map);
+
+	    // list만 가져와서 보여주는거라 count,pages 필요X
+	    model.addAttribute("list", list);
 	}
 	
 }

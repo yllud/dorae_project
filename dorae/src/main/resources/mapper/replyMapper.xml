@@ -5,7 +5,7 @@
 
 	<insert id="create" parameterType="replyVO">
 		insert into m_review values (null,
-		#{text}, #{play_id}, #{booking}, #{seat_date}, #{seat_id}, #{email}, #{upload_date}, #{nickname})
+		#{text}, #{play_id}, #{play_name}, #{seat_date}, #{seat_time}, #{seat_id}, #{email}, #{upload_date}, #{nickname})
 	</insert>
 
 	<update id="update" parameterType="replyVO">
@@ -27,5 +27,17 @@
     SELECT * FROM m_review
     WHERE email = #{email}
 	</select>
-
+	
+	<select id="listPaging" parameterType="map" resultType="replyVO">
+        SELECT * FROM (
+            SELECT ROW_NUMBER() OVER (ORDER BY r_number DESC) AS rnum, r.*
+            FROM m_review r
+            WHERE r.email = #{email}
+        ) paging
+        WHERE rnum BETWEEN #{start} AND #{end}
+    </select>
+    
+    <select id="count" resultType="Integer">
+   		select count(*) from m_review 
+    </select>
 </mapper>
