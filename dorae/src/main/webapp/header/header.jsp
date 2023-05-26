@@ -17,16 +17,13 @@
 <title>Insert title here</title>
  <script>
     // JavaScript 코드
-    window.addEventListener('DOMContentLoaded', function () {
+    $(window).on('load', function() {
         var menuItems = document.querySelectorAll('.menu-item');
-
         menuItems.forEach(function (menuItem) {
             var submenu = menuItem.querySelector('.submenu');
-
             menuItem.addEventListener('mouseover', function () {
                 submenu.style.display = 'block';
             });
-
             menuItem.addEventListener('mouseout', function () {
                 submenu.style.display = 'none';
             });
@@ -51,7 +48,7 @@
 						<a href="../noticeBbs/noticeBbs.jsp">공지사항</a>
 					</div>
 				</div>
-				<li class="header_li"><a href="../help/main">고객센터</a></li> 
+				<li class="header_li"><a href="../help/main">고객센터</a></li>
 				
 				
 			</ul>
@@ -59,6 +56,5 @@
 		</nav>
 	</div>
 	<div id="res"></div>
-
 </body>
 </html>
