@@ -99,7 +99,7 @@
   }
   
   #noticeBbs{
-	margin-top: 169px;
+	margin-top: 175px;
 }
 </style>
 </head>
