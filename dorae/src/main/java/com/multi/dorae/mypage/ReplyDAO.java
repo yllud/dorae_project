@@ -9,8 +9,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,15 +59,18 @@ public class ReplyDAO {
 	    return result;
 	}
 	
-//	 public List<ReplyVO> list() {
-//	        System.out.println("------" + my);
-//	        List<ReplyVO> list = my.selectList("reply.list");
-//	        return list;
-//	    }
-	
+	// 로그인 한 email에 해당하는 후기의 전체 list
 	 public List<ReplyVO> listByEmail(String email) {
 		 List<ReplyVO> list = my.selectList("reply.listByEmail", email);
 		    return list;
 		}
 	
+	 // 페이징 처리
+	 public List<ReplyVO> listPaging(Map<String, Object> map) {
+		    return my.selectList("reply.listPaging", map);
+		}
+	 // 페이징에 필요한 카운트 수
+	 public int count() {
+		 return my.selectOne("reply.count");
+	 }
 }

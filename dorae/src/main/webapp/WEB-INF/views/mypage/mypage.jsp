@@ -65,8 +65,8 @@ $(document).ready(function() {
 %>
 
 	<h2>도래도래</h2>
-	${nickname} 님
-
+	${nickname} 님<br>
+	
 		<button>로그아웃</button>
 	
 	<a href="http://localhost:8888/dorae/login/login.jsp">
@@ -74,8 +74,7 @@ $(document).ready(function() {
 	</a>
 	<hr color="orange">
 
-	메뉴1 메뉴2 메뉴3 메뉴4 메뉴5
-	<br>
+	메뉴1 메뉴2 메뉴3 메뉴4 메뉴5 
 	<hr color="orange">
 	
 	<div class="left">
@@ -105,10 +104,11 @@ $(document).ready(function() {
     <br>
     <button class="btn-ajax" data-url="../mypage/replyList.jsp" data-target="#replyList">작성한 후기</button>
     <br>
-    <button class="btn-ajax" data-url="../mypage/commList.jsp" data-target="#commList">내 커뮤니티</button>
+    <button class="btn-ajax" data-url="../mypage/reviewList.jsp" data-target="#reviewList">내 커뮤니티</button>
     <br>
-    <button class="btn-ajax" data-url="../mypage/qnaList.jsp" data-target="#qnaList">문의내역</button>
+    <button class="btn-ajax" data-url="../help/contact/list" data-target="#qnaList">문의내역</button>
     <hr color="pink">
+    <button>사업자 등록</button>
   </div>
   <div class="right" id="contentContainer">
     <!-- 예매내역을 표시할 영역 -->
@@ -116,7 +116,7 @@ $(document).ready(function() {
     <!-- 후기내역을 표시할 영역 -->
     <div id="replyList"></div>
     <!-- 작성글을 표시할 영역 -->
-    <div id="commList"></div>
+    <div id="reviewList"></div>
     <!-- 문의내역을 표시할 영역 -->
     <div id="qnaList"></div>
   </div>
