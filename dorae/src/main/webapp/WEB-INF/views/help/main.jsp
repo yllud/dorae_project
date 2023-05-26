@@ -106,7 +106,7 @@
 	
 	<div id="helpBody">
 		<!-- FAQ 검색 -->
-		<form action="faq/search">
+		<form action="faqSearch">
 			<h2 id="faqTitle">FAQ 검색</h2>
 			<input type="text" id="searchInput" name="search"/>
 			<button type="submit" id="searchBtn">검색</button>
@@ -116,7 +116,7 @@
 			<!-- FAQ 유형별 버튼 -->
 			<div id="faqBtnList">
 				<c:forEach items="${helpCategory}" var="item">
-				<a href="faq/category?help_category_id=${item.help_category_id }">
+				<a href="faqCategory?help_category_id=${item.help_category_id }">
 					<button class="btn-large">${item.name }</button>
 				</a>
 				</c:forEach>
@@ -126,7 +126,7 @@
 		
 		<!-- 1:1 문의 -->
 		<div id="other">
-			<a href="contact/list?page=1">
+			<a href="contactList?page=1">
 				<button class="btn-large">1:1문의</button>
 			</a>
 		</div>

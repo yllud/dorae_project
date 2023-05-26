@@ -11,11 +11,11 @@ body{
 	overflow-y: scroll;
 }
 table {
-	max-width: 350px;
+	width: 350px;
 	margin: 0 auto;
 	padding: 10px;
+	align-content: center;
 }
-
 th, td {
 	text-align: center;
 }
@@ -29,12 +29,13 @@ th, td {
 	z-index: 9999; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
 	position: absolute;
 }
-
 #side-bar {
 	z-index: 100; /* 다른 요소들보다 위에 나타나도록 z-index 설정 */
 	position: absolute;
 }
-
+#map-container{
+	margin-top: 168px;
+}
 #address{
   z-index: 3;
   width: 300px;
@@ -46,11 +47,11 @@ th, td {
   padding: 10px;
   background-color: rgb(244, 244, 244);
   /* 필요한 위치와 스타일 속성들 */
-  margin: 0 auto;
+  /* margin: 0 auto; */
   display: block; 
 }
-#map-container{
-	margin-top: 168px;
+#sns_tr{
+	text-align: right;
 }
 </style>
 <script type="text/javascript"
@@ -61,13 +62,19 @@ th, td {
 	src="${path}/resources/js/jquery-3.6.4.js"></script>
 <script>
 	$(document).ready(function() {
-		$("#header").load("../header.jsp");
+		$("#header").load("../header/header.jsp");
 		var map; // 전역 변수로 선언
 		var markers = []; // 전역 변수로 선언
 		var temp_marker; 
 		
 		var delist1 = []; //play
 		var delist2 = []; //stage
+		
+		function snsPopup(playName, stageName, share_lat, share_lng) {
+			//var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName);
+			var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName)  + "&latitude=" + encodeURIComponent(share_lat)  + "&longitude=" + encodeURIComponent(share_lng);
+		    window.open(url, "_blank", "width=500,height=500");
+		}
 		
 		$.ajax({
 			url : "infoList",
@@ -77,83 +84,150 @@ th, td {
 				var response = data;
 
 				// delist1과 delist2 추출
-				delist1 = response.delist1; //play
-				delist2 = response.delist2; //stage
-	
-				addItems(delist1);
-				addMarkers(delist2);
+				delist1 = response.delist1; //play 불러와짐 확인완료.
+				delist2 = response.delist2; //stage 불러와짐 확인완료.
+
+				console.log("delist1 길이 : " + delist1.length);
+				console.log("delist2 길이 : " + delist2.length);
 				
-				function addItems(list1) {
+				console.log(delist2[0].stage_name);
+				addItems(delist1, delist2);
+				addMarkers(delist1, delist2);
+				
+				function addItems(list1, list2) {
 					$('#infolist').empty();
+					
 					// 테이블 생성
 					var table = "<h3 style='text-align:center;'><전체검색결과></h3><table>";
 					for (var i = 0; i < list1.length; i++) {
-						var item = list1[i];
-						//console.log("delist1 출력! >> " + item);
-						table += '<tr><td><img src="' + item.poster + '"></td></tr>';
-						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + item.play_id + "'>" + item.play_name + '</a></td></tr>';
-						table += '<tr><td>' + item.play_start + " ~ " + item.play_end + '</td></tr>';
-						table += '<tr><td>' + item.stage_name + '</td></tr>';
+						table += '<tr><td><img src="' + list1[i].poster + '"></td></tr>';
+						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + list1[i].play_id + "'>" + list1[i].play_name + '</a></td></tr>';
+						table += '<tr><td>' + list1[i].play_start + " ~ " + list1[i].play_end + '</td></tr>';
+						for(var j=0; j<list2.length; j++){
+							if(list1[i].stage_id == list2[j].stage_id){
+								table += '<tr><td>' + list2[j].stage_name + '</td></tr>';
+								break;
+							}
+						}
+						table += "<tr><td class='shareIcon' style='text-align:right'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
 						table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
-					}
+						
+					}//for
 					table += '</table>';
+					
 					// 테이블 추가
 					$('#infolist').html(table);
+					
+					$('.shareIcon').click(function () {
+					    var playName = $(this).parent().prevAll().eq(2).text(); // 공연 제목 가져오기
+					    var stageName = $(this).parent().prev().text(); // 공연장 이름 가져오기 => stage db의 이름을 갖고 와야함.
+					    var share_lat; //위도
+					    var share_lng; //경도
+					    
+					    for (var k = 0; k < list2.length; k++) {
+					    	if (list2[k].stage_name == stageName) {
+					            share_lat = list2[k].latitude;
+					            share_lng = list2[k].longitude;
+					            console.log(share_lat + ", " + share_lng);
+					            break;
+					        }else{
+					        	console.log("공연장 정보가 없습니다");
+					        }
+					    }
+					    snsPopup(playName, stageName, share_lat, share_lng);
+					});
 				}//addItems
 				
-				function addMarkers(list2) {
-					for (var i = 0; i < list2.length; i++) {
-						var lat = parseFloat(list2[i]?.latitude);
-					  	var lng = parseFloat(list2[i]?.longitude);
-					  	marker = new naver.maps.Marker({
-				      	position: new naver.maps.LatLng(lat, lng),
-				      	draggable: false,
-				      	map: map
-			      		});
-				    	markers.push(marker);
-				        addMarkerClickListener(marker, i);
-			  		}//for
-			  	}//addMarkers
+				function addMarkers(list1, list2) {
+					//console.log("addMarkers delist2 호출!!!!! >> " + list2[0].latitude);
+					for (var i = 0; i < list1.length; i++) {
+						var playItem = list1[i];
+					    var stageItem = list2.find(function(stage) {
+					    	return stage.stage_id == playItem.stage_id;
+					    });
+					    if (stageItem) {
+					        var lat = parseFloat(stageItem.latitude);
+					        var lng = parseFloat(stageItem.longitude);
+					        var existingMarker = markers.find(function(marker) {
+					        	return marker.getPosition().lat() == lat && marker.getPosition().lng() == lng;
+					        });
+
+					        if (!existingMarker) {
+					          	var marker = new naver.maps.Marker({
+						            position: new naver.maps.LatLng(lat, lng),
+						            draggable: false,
+						            map: map
+					          	});
+					          	markers.push(marker);
+					          	addMarkerClickListener(marker, i);
+				          	}
+				        }
+				    }
+				}
 				
-			  	function addMarkerClickListener(marker, index) {
-			  	    naver.maps.Event.addListener(marker, 'click', function() {
-			  	        var markerPosition = marker.getPosition();
-			  	        
-			  	        var selectedPerformances = [];
-			  	        for (var i = 0; i < delist2.length; i++) {
-			  	            var latitude = parseFloat(delist2[i]?.latitude);
-			  	            var longitude = parseFloat(delist2[i]?.longitude);
-			  	            
-			  	            if (latitude === markerPosition.lat() && longitude === markerPosition.lng()) {
-			  	                selectedPerformances.push({
-			  	                    playinfo: delist1[i],
-			  	                    stageinfo: delist2[i]
-			  	                });
-			  	            }
-			  	        }
-			  	        
-			  	        if (selectedPerformances.length > 0) {
-			  	            $('#infolist').empty();
-			  	            // 공연 정보를 표시하는 코드 작성
-			  	            
-			  	            var table = "<table>";
-			  	            
-			  	            for (var j = 0; j < selectedPerformances.length; j++) {
-			  	                var playinfo = selectedPerformances[j].playinfo;
-			  	                var stageinfo = selectedPerformances[j].stageinfo;
-			  	                
-			  	                table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
-				  	            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "'>" + playinfo.play_name + '</a></td></tr>';
-			  	                table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
-			  	                table += '<tr><td>' + playinfo.stage_name + '</td></tr>';
-			  	              	table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
-			  	            }
-			  	            table += '</table>';
-			  	            
-			  	            $('#infolist').html(table);
-			  	        }
-			  	    });
-			  	}
+				function addMarkerClickListener(marker, index) {
+					naver.maps.Event.addListener(marker, 'click', function() {
+						var markerPosition = marker.getPosition();
+						var stgname;
+						for (var i = 0; i < delist2.length; i++) {
+							if(delist2[i].latitude == markerPosition.lat() && delist2[i].longitude == markerPosition.lng()) {
+								stgname = delist2[i].stage_name;
+							}
+						}
+
+						var infowindow = new naver.maps.InfoWindow({
+					        content: "<div style='padding:10px;'>" + stgname + "</div>"
+					    });
+						infowindow.close();
+					    console.log("마커 좌표 : " + markerPosition.lat() + ", " + markerPosition.lng());
+					    
+					    var selectedPerformances = [];
+					    for (var i = 0; i < delist2.length; i++) {
+					    	var latitude = parseFloat(delist2[i].latitude);
+					      	var longitude = parseFloat(delist2[i].longitude);
+					      	
+					      	if (latitude == markerPosition.lat() && longitude == markerPosition.lng()) {
+					        	var stageId = delist2[i].stage_id;
+					        	for (var j = 0; j < delist1.length; j++) {
+					          		if (stageId == delist1[j].stage_id) {
+					            		selectedPerformances.push({
+					              			playinfo: delist1[j]
+					            		});
+					          		}
+					        	}
+				        	}
+					    }
+					    
+					    if (selectedPerformances.length > 0) {
+					    	$('#infolist').empty();
+					    	
+					      	var table = "<table>";
+					      	table = "<h3 style='text-align:center;'>" + stgname + "</h3>" + table;
+		            		
+					      	for (var i = 0; i < selectedPerformances.length; i++) {
+					        	var playinfo = selectedPerformances[i].playinfo;
+				        		table += '<tr><td><img src="' + playinfo.poster + '"></td></tr>';
+						        table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "'>" + playinfo.play_name + '</a></td></tr>';
+						        table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
+						        table += '<tr><td>' + stgname + '</td></tr>';
+					        	table += "<tr><td class='shareIcon' style='text-align:right'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
+					        	table += '<tr><td><br></td></tr><tr><td><br></td></tr>';
+				        	}
+					      	table += '</table>';
+					      
+					      	$('#infolist').html(table);
+					      	$('.shareIcon').click(function() {
+					        	var playName = $(this).parent().prevAll().eq(2).text();
+					        	var stageName = $(this).parent().prev().text();
+					        
+					        	snsPopup(playName, stageName);
+					      	});
+				    	}//if
+				    	
+					    //infowindow.setContent("<div style='padding:10px;'>" + stageName + "</div>");
+				        infowindow.open(map, marker);
+				  	});
+				}//addMarkerClickListener
 			  	        
 				var marker1 = {
 					url: 'http://static.naver.net/maps/img/icons/sp_pins_default_v3_over.png',
@@ -204,7 +278,7 @@ th, td {
 		map = new naver.maps.Map('map', {
 			zoom : 7,
 			minZoom: 7,
-			maxZoom: 14,
+			maxZoom: 17,
 			mapTypeId: 'normal',
 			center : new naver.maps.LatLng(36.0566103, 127.9783882), // 대한민국 중심
 			mapDataControl: false,
@@ -247,7 +321,7 @@ th, td {
 	    map.setCursor('pointer');
 
 	    function searchCoordinateToAddress(latlng) {
-	        infoWindow.close();
+	        infoWindow.close(); //열려있는 infoWindow가 있다면 닫기
 
 	        naver.maps.Service.reverseGeocode({
 	            coords: latlng,
@@ -256,7 +330,7 @@ th, td {
 	                naver.maps.Service.OrderType.ROAD_ADDR
 	            ].join(',')
 	        }, function(status, response) {
-	            if (status === naver.maps.Service.Status.ERROR) {
+	            if (status == naver.maps.Service.Status.ERROR) {
 	                return alert('네이버 MAP 서비스 오류!');
 	            }
 	            var items = response.v2.results,
@@ -266,7 +340,7 @@ th, td {
 	            for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
 	                item = items[i];
 	                address = makeAddress(item) || '';
-	                addrType = item.name === 'roadaddr' ? '[도로명 주소]' : '[지번 주소]';
+	                addrType = item.name == 'roadaddr' ? '[도로명 주소]' : '[지번 주소]';
 
 	                htmlAddresses.push(addrType +' '+ address);
 	            }
@@ -282,6 +356,10 @@ th, td {
 				map.setZoom(14);
 	            infoWindow.open(map, latlng);
 	            
+	         	// 클릭 시 infoWindow를 닫도록 설정
+	            naver.maps.Event.addListener(infoWindow, 'click', function() {
+	                infoWindow.close();
+	            });
 	        });	     
 	    }//searchCoordinateToAddress
 	    
@@ -289,10 +367,10 @@ th, td {
 	        naver.maps.Service.geocode({
 	            query: address
 	        }, function(status, response) {
-	            if (status === naver.maps.Service.Status.ERROR) {
+	            if (status == naver.maps.Service.Status.ERROR) {
 	                return alert('API오류가 발생했습니다');
 	            }
-	            if (response.v2.meta.totalCount === 0) {
+	            if (response.v2.meta.totalCount == 0) {
 	                return alert('주소를 다시 입력해주세요');
 	            }
 
@@ -309,7 +387,7 @@ th, td {
 	            if (item.englishAddress) {
 	                htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
 	            }
-
+				infoWindow.close();
 	            // 주소와 좌표를 출력하는 HTML 생성
 	            infoWindow.setContent([
 	                '<div style="padding:10px;min-width:200px;line-height:150%;">',
@@ -320,39 +398,10 @@ th, td {
 
 	            map.setCenter(point);
 	            map.setZoom(14);
-
+	            infoWindow.open(map, point);
 	            console.log("주소 입력받음!!");
-	            console.log("infolist:", infolist);
-
-	         	// 거리 계산을 위한 함수 호출
-	            calculateDistance(point);
+	            //console.log("infolist:", infolist);
 	        });
-	    }
-	 	// 거리 계산 함수
-	    function calculateDistance(startPoint) {
-	        var infolist = [];
-	        var directionsService = new naver.maps.DirectionsService();
-
-	        for (var i = 0; i < delist2.length; i++) {
-	            var delatlng = new naver.maps.LatLng(delist2[i].latitude, delist2[i].longitude);
-	            var request = {
-	                start: startPoint,
-	                end: delatlng,
-	                options: {
-	                    useTmap: false,
-	                    vehicle: naver.maps.Directions.Service.VehicleType.WALKING,
-	                }
-	            };
-	            directionsService.route(request, function(response, status) {
-	                if (status === naver.maps.Directions.Service.Status.OK) {
-	                    var distance = response.routes[0].summary.distance;
-	                    if (distance < 2000) { // 거리 비교 조건 (예: 2km 이내)
-	                        infolist.push(delist2[i]);
-	                    }
-	                }
-	            });
-	        }
-	        console.log("infolist:", infolist);
 	    }
 
 	    function initGeocoder() {
@@ -362,7 +411,7 @@ th, td {
 	        $('#address').on('keydown', function(e) {
 	            var keyCode = e.which;
 
-	            if (keyCode === 13) { // Enter Key
+	            if (keyCode == 13) { // Enter Key
 	                searchAddressToCoordinate($('#address').val());
 	            }
 	        });
@@ -376,7 +425,7 @@ th, td {
 	        var name = item.name,
 	            region = item.region,
 	            land = item.land,
-	            isRoadAddress = name === 'roadaddr';
+	            isRoadAddress = name == 'roadaddr';
 
 	        var sido = '', sigugun = '', dongmyun = '', ri = '', rest = '';
 
@@ -394,7 +443,7 @@ th, td {
 	        }
 	        if (land) {
 	            if (hasData(land.number1)) {
-	                if (hasData(land.type) && land.type === '2') {
+	                if (hasData(land.type) && land.type == '2') {
 	                    rest += '산';
 	                }
 	                rest += land.number1;
@@ -403,7 +452,7 @@ th, td {
 	                    rest += ('-' + land.number2);
 	                }
 	            }
-	            if (isRoadAddress === true) {
+	            if (isRoadAddress == true) {
 	                if (checkLastString(dongmyun, '면')) {
 	                    ri = land.name;
 	                } else {
@@ -445,7 +494,7 @@ th, td {
 		naver.maps.Event.once(map, 'init', function () {
 		    for (var i = 1; i < 18; i++) {
 		        var keyword = i +'';
-		        if (keyword.length === 1) {
+		        if (keyword.length == 1) {
 		            keyword = '0'+ keyword;
 		        }//if
 		        $.ajax({
@@ -454,7 +503,7 @@ th, td {
 		                return function(geojson) {
 		                    regionGeoJson[idx] = geojson;
 		                    loadCount++;
-		                    if (loadCount === 17 && map.getZoom() <= 7 ) {
+		                    if (loadCount == 17 && map.getZoom() <= 7 ) {
 		                        startDataLayer();
 		                    }//if
 		                }//return fun
@@ -469,7 +518,7 @@ th, td {
             var geocoder = new naver.maps.Service.Geocoder();
 
             geocoder.addressToCoord(address, function(result, status) {
-                if (status === naver.maps.Service.Status.ERROR) {
+                if (status == naver.maps.Service.Status.ERROR) {
                     console.log("주소 변환 오류");
                     return;
                 }
@@ -515,60 +564,59 @@ th, td {
 		        var feature = e.feature;
 		       	var area = feature.getProperty('area1');
 		       	
-				if(area === "강원도"){
+				if(area == "강원도"){
 					map.setCenter(gangwon);
 		        	map.setZoom(9);
-				} else if(area === "경기도"){
+				} else if(area == "경기도"){
 		        	map.setCenter(geonggi);
 		        	map.setZoom(9);
-		        } else if(area === "경상남도"){
+		        } else if(area == "경상남도"){
 		        	map.setCenter(gyeongsang_nam);
 		        	map.setZoom(9);
-		        } else if(area === "경상북도"){
+		        } else if(area == "경상북도"){
 		        	map.setCenter(gyeongsang_buk);
 		        	map.setZoom(9);
-		        } else if(area === "광주광역시"){
+		        } else if(area == "광주광역시"){
 		        	map.setCenter(gwangju);
 		        	map.setZoom(12);
-		        } else if(area === "대구광역시"){
+		        } else if(area == "대구광역시"){
 		        	map.setCenter(daegu);
 		        	map.setZoom(11);
-		        } else if(area === "대전광역시"){
+		        } else if(area == "대전광역시"){
 		        	map.setCenter(daejeon);
 		        	map.setZoom(11);
-		        } else if(area === "부산광역시"){
+		        } else if(area == "부산광역시"){
 		        	map.setCenter(busan);
 		        	map.setZoom(11);
-		        } else if(area === "서울특별시"){
+		        } else if(area == "서울특별시"){
 		        	map.setCenter(seoul);
 		        	map.setZoom(11);
-		        } else if(area === "울산광역시"){
+		        } else if(area == "울산광역시"){
 		        	map.setCenter(ulsan);
 		        	map.setZoom(11);
-		        } else if(area === "인천광역시"){
+		        } else if(area == "인천광역시"){
 		        	map.setCenter(incheon);
 		        	map.setZoom(11);
-		        } else if(area === "전라남도"){
+		        } else if(area == "전라남도"){
 		        	map.setCenter(jeolla_nam);
 		        	map.setZoom(9);
-		        } else if(area === "전라북도"){
+		        } else if(area == "전라북도"){
 		        	map.setCenter(jeolla_buk);
 		        	map.setZoom(9);
-		        } else if(area === "제주특별자치도"){
+		        } else if(area == "제주특별자치도"){
 		        	map.setCenter(jeju);
 		        	map.setZoom(11);
-		        } else if(area === "충청남도"){
+		        } else if(area == "충청남도"){
 		        	map.setCenter(chung_nam);
 		        	map.setZoom(9);
-		        } else if(area === "충청북도"){
+		        } else if(area == "충청북도"){
 		        	map.setCenter(chung_buk);
 		        	map.setZoom(9);
-		        } else if(area === "세종특별자치시"){
+		        } else if(area == "세종특별자치시"){
 		        	map.setCenter(sejong);
 		        	map.setZoom(11);
 		        }
-				/* var area_string = [];
-    			var area_name = ""; */
+				
 				var filteredList = []; //선택된 지역의 공연리스트
 
 				 for (var i = 0; i < delist2.length; i++) {
@@ -577,30 +625,41 @@ th, td {
 					var area_string = stageInfo && stageInfo.address ? stageInfo.address.split(" ") : [];
         			var area_name = area_string[0] || "";
 			        
-			        if(area_name === area){
+			        if(area_name == area){
 			        	//console.log("area값이 같다!!!" + area_name + ", " + stageInfo.stage_name);
 			        	filteredList.push({
-			                playinfo: delist1[i],
-			                stageinfo: stageInfo
+			                stageinfo: delist2[i]
 			            });
 			        }
 			    }
 				
 			    if (filteredList.length > 0) {
-			    	var table = "<h3 style='text-align:center'><" + area + " 검색결과 " + filteredList.length + "개></h3><table>";
-			        for (var j = 0; j < filteredList.length; j++) {
-			            var play = filteredList[j].playinfo;
-			            var stage = filteredList[j].stageinfo;
-
-			            table += '<tr><td><img src="' + play.poster + '"></td></tr>';
-			            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + play.play_id + "'>" + play.play_name + '</a></td></tr>';
-			            table += '<tr><td>' + play.play_start + ' ~ ' + play.play_end + '</td></tr>';
-			            table += '<tr><td>' + play.stage_name + '</td></tr>';
-			            table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   
+			    	var table = "<table>";
+			    	var count = 0;
+			        for (var i = 0; i < filteredList.length; i++) {
+			            var stageinfo = filteredList[i].stageinfo;
+						
+			            for(var j=0; j<delist1.length; j++){
+			            	if(stageinfo.stage_id == delist1[j].stage_id){
+			            		table += '<tr><td><img src="' + delist1[j].poster + '"></td></tr>';
+					            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + delist1[j].play_id + "'>" + delist1[j].play_name + '</a></td></tr>';
+					            table += '<tr><td>' + delist1[j].play_start + ' ~ ' + delist1[j].play_end + '</td></tr>';
+					            table += '<tr><td>' + stageinfo.stage_name + '</td></tr>';
+					            table += "<tr><td class='shareIcon' style='text-align:right'><img src='../resources/img/icon-share.png' style='width:30px;' alt='sns공유'></td></tr>";
+					            table += '<tr><td><br></td></tr>'; // 공연 간의 여백을 위한 줄바꿈 추가   		
+				            	count++; //공연 수 카운트
+			            	}
+			            }         	
 			        }
-
+			        table = "<h3 style='text-align:center'><" + area + " 검색결과 " + count + "개></h3>" + table;
 			        table += '</table>';
 			        $('#infolist').html(table);
+			        $('.shareIcon').click(function () {
+			        	 var playName = $(this).parent().prevAll().eq(2).text(); // 공연 제목 가져오기
+			             var stageName = $(this).parent().prev().text(); // 공연장 이름 가져오기
+			             
+			             snsPopup(playName, stageName);
+				    });
 			    } else {
 			    	$('#infolist').empty();
 			    	table = "<h3 style='text-align:center;'><" + area + " 검색결과></h3>" + "<br><br><br><br><br><br><br><br><br><br><h4 style='text-align:center; color:gray;'>검색결과 없음</h4>";
@@ -687,10 +746,12 @@ th, td {
 				<input type="text">
 			</div>
 			<div id="side-bar" class="left-side-bar">
-				<div class="status-ico">
-					<span>▶</span> <span>▼</span>
-				</div>
-				<input id="address" type="text" placeholder="주소를 입력해주세요">
+				<table style="height:50px;">
+					<tr style="text-align:center;">
+						<td><img src='../resources/img/icon-map.png' style='width:40px; margin:5px; heigth:80px;'></td>
+						<td><input id="address" type="text" placeholder="주소를 입력해주세요"></td>
+					</tr>
+				</table>
 				<div id="infolist"></div>
 			</div>
 		</div>

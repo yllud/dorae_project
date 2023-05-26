@@ -12,7 +12,12 @@ public class FaqService {
 	FaqDAO faqDAO;
 	
 	public boolean create(FaqVO faqVO) {
-		if (!isValid(faqVO)) {
+		if (faqVO.getTitle() == null || faqVO.getTitle().trim().isEmpty()) {
+			System.out.println("FAQ 제목이 없음");
+			return false;
+		}
+		if (faqVO.getContent() == null || faqVO.getContent().trim().isEmpty()) {
+			System.out.println("FAQ 내용이 없음");
 			return false;
 		}
 		
@@ -24,8 +29,13 @@ public class FaqService {
 		return true;
 	}
 	
-	public boolean updateAnswer(FaqVO faqVO) {
-		if (!isValid(faqVO)) {
+	public boolean updateContent(FaqVO faqVO) {
+		if (faqVO.getTitle() == null || faqVO.getTitle().trim().isEmpty()) {
+			System.out.println("FAQ 제목이 없음");
+			return false;
+		}
+		if (faqVO.getContent() == null || faqVO.getContent().trim().isEmpty()) {
+			System.out.println("FAQ 내용이 없음");
 			return false;
 		}
 		
@@ -75,17 +85,5 @@ public class FaqService {
 		}
 		
 		return faqDAO.countByCategory(help_category_id);
-	}
-	
-	private boolean isValid(FaqVO faqVO) {
-		if (faqVO.getTitle() == null || faqVO.getTitle().trim().isEmpty()) {
-			System.out.println("FAQ 제목이 없음");
-			return false;
-		}
-		if (faqVO.getContent() == null || faqVO.getContent().trim().isEmpty()) {
-			System.out.println("FAQ 내용이 없음");
-			return false;
-		}
-		return true;
 	}
 }

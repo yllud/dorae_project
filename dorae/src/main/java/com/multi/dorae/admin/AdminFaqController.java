@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.multi.dorae.help.FaqService;
 import com.multi.dorae.help.FaqVO;
+import com.multi.dorae.help.HelpCategoryService;
 import com.multi.dorae.help.PageVO;
 
 @RequestMapping("admin/faq")
@@ -16,10 +17,12 @@ public class AdminFaqController {
 
 	@Autowired
 	FaqService faqService;
+	@Autowired
+	HelpCategoryService categoryService;
 	
 	@RequestMapping(value = "create", method = RequestMethod.GET)
-	public void faqCreatePage() {
-		
+	public void faqCreatePage(Model model) {
+		model.addAttribute("helpCategoryList", categoryService.listByParentId("None"));
 	}
 	
 	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
@@ -34,9 +37,9 @@ public class AdminFaqController {
 //		return "redirect:one?faq_id=" + vo.getFaq_id();
 //	}
 	
-	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
+	@RequestMapping(value = "contentTextarea", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String faqUpdate(FaqVO vo) {
-		faqService.updateAnswer(vo);
+		faqService.updateContent(vo);
 		return "redirect:one?faq_id=" + vo.getFaq_id();
 	}
 	

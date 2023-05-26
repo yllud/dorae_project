@@ -89,8 +89,15 @@
 		function asyncLoad(url) {
 			$.ajax({
 				url: url,
-				success: function(res) {
-					$("#contents").html(res);
+				success: function(data, statusText, jqXHR) {
+					$("#contents").html(data);
+					console.log(data);
+					console.log(statusText);
+					console.log(jqXHR);
+					console.log(jqXHR.getResponseHeader("Test-header"));
+					if (jqXHR.getResponseHeader("invalidated") != null) {
+						location.href = jqXHR.getResponseHeader("Test-header");
+					}
 				}
 			})			
 		}

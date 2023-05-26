@@ -50,12 +50,9 @@ body {
 .seat:not(.sold):hover { /* 선택가능한 좌석에 커서를 올렸을 때 좌석의 크기가 1.2배로 확대*/
   cursor: pointer;
   transform: scale(1.2);
+  
 }
 
-.showcase.seat:not(.sold):hover {
-  cursor: default;
-  transform: scale(1);
-}
 
 .stage { /* 무대표시*/
   background-color: #e4e4e4;
@@ -72,3 +69,4 @@ body {
 /* p.text span { p영역 텍스트 색깔
   color: #000000;
 } */
+

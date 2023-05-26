@@ -41,30 +41,30 @@ public class HelpController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("faq/one")
+	@RequestMapping("faqOne")
 	public FaqVO faqById(int faq_id) {
 		return faqService.one(faq_id);
 	}
 	
-	@RequestMapping("faq/category")
+	@RequestMapping("faqCategory")
 	public void faqListByHelpCategory(String help_category_id, Model model) {
 		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
 		model.addAttribute("faqList", faqService.listByCategory(help_category_id));
 	}
 	
-	@RequestMapping("faq/search")
+	@RequestMapping("faqSearch")
 	public void faqSearch(String search, Model model) {
 		model.addAttribute("faqList", faqService.listBySearch(search));
 		model.addAttribute("search", search);
 	}
 	
-	@RequestMapping("contact/list")
+	@RequestMapping("contactList")
 	public void contact(PageVO pageVO, Model model, @SessionAttribute String email) {
 		pageVO.calc();
 		model.addAttribute("contactList", contactService.listByMemberIdWithPaging(pageVO, email));
 	}
 	
-	@RequestMapping("contact/one")
+	@RequestMapping("contactOne")
 	public String contactOne(long contact_id, @SessionAttribute String email, Model model) {
 		ContactVO contactVO = contactService.one(contact_id, email);
 		
@@ -72,18 +72,18 @@ public class HelpController {
 			return "redirect:/help/main";
 		} else {
 			model.addAttribute("vo", contactVO);
-			return "help/contact/one";
+			return "help/contactOne";
 		}
 	}
 	
-	@RequestMapping(value = "contact/create", method = RequestMethod.GET)
+	@RequestMapping(value = "contactCreate", method = RequestMethod.GET)
 	public void contactCreatePage() {
 
 	}
 	
-	@RequestMapping(value = "contact/create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
+	@RequestMapping(value = "contactCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String contactCreate(ContactVO contactVO, @SessionAttribute String email) {
 		contactService.create(contactVO, email);
-		return "redirect:/help/contact/list?page=1";
+		return "redirect:/help/contactList?page=1";
 	}
 }
