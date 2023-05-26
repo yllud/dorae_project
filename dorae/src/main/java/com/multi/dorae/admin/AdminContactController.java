@@ -30,7 +30,6 @@ public class AdminContactController {
 	@RequestMapping("list")
 	public void contactList(PageVO pageVO, Model model) {
 		pageVO.setTotal(contactService.count());
-		pageVO.calc();
 		
 		System.out.println(pageVO);
 		model.addAttribute("page", pageVO);

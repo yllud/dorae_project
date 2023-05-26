@@ -60,7 +60,6 @@ public class HelpController {
 	
 	@RequestMapping("contactList")
 	public void contact(PageVO pageVO, Model model, @SessionAttribute String email) {
-		pageVO.calc();
 		model.addAttribute("contactList", contactService.listByMemberIdWithPaging(pageVO, email));
 	}
 	
