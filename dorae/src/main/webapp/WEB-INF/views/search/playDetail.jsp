@@ -25,24 +25,17 @@ body {
 	display: flex;
 	width: 1200px;
 	height: 500px;
-/* 	background: #a2d5f2 */
+/* 	background: #a2d5f2; */
+	margin-top:10px;
 }
 
-/* .poster { */
-/* 	flex: 1; */
-/* } */
-
-/* .detail { */
-/* 	flex: 10; */
-/* 	margin-left: auto; */
-/* } */
 .left-items {
 	width: 400px;
 	height: 400px;
 	/* 	text-align: center; */
 	margin-top: 10px;
 	margin-left: 0px;
-/* 	background: #ffc93c; */
+	/* 	background: #ffc93c; */
 }
 
 .left-text {
@@ -51,16 +44,34 @@ body {
 	/* 	text-align: center; */
 	margin-top: 20px;
 	margin-left: 10px;
-/* 	background: #ffc93c; */
+	/* 	background: #ffc93c; */
 	font-size: x-large;
 }
 
 .left-text-style {
-	
 	overflow: hidden;
 	text-overflow: ellipsis;
- 	white-space: nowrap;
+	white-space: nowrap;
 }
+
+.review-items {
+	margin-left: auto;
+	/*  	margin-top: 500px; */
+	/* 	margin-right: 50px; */
+	margin-left: 50px;
+	width: 300px;
+	height: 300px;
+	/* 	text-align: center; */
+/* 	background: #ffc93c; */
+}
+
+.review-scroll {
+	margin-left: auto;
+	height: 200px;
+	overflow: scroll;
+/* 	background: #ffc93c; */
+}
+
 .right-items {
 	margin-left: auto;
 	/*  	margin-top: 500px; */
@@ -78,9 +89,9 @@ body {
 	<div class="body">
 
 		<h3>공연 상세</h3>
-<hr color="red">
+		<hr color="red">
 		<div class="container">
-		
+
 			<div class="left-items">
 				<img src="${vo.poster}" width="400" height="400">
 			</div>
@@ -88,7 +99,7 @@ body {
 				<div>제목 : ${vo.play_name}</div>
 				<div>장르: ${vo.genre_name}</div>
 				<div>출연진: ${vo.casting}</div>
-				<div>공연장: ${vo.stage_name}</div>
+				<div>공연장: ${vo2.stage_name}</div>
 				<div>런타임: ${vo.runtime}</div>
 				<div>가격: ${vo.price}</div>
 				<div>기간: ${vo.play_start} ~ ${vo.play_end}</div>
@@ -106,24 +117,35 @@ body {
 
 		</div>
 		<div class="container">
-		<div class="right-items">
-		리뷰목록
-		</div>
-		<div class="right-items">
-			<!-- 				<h3>공연장 정보</h3> -->
-			<!-- 공연장 위치 -->
-			<div id="map" style="width: 300px; height: 300px;"></div>
-			${vo2.stage_name} <br> 좌석: ${vo2.seat_cnt}석 <br> 전화번호:
-			${vo2.tel} <br> 싸이트: <a href=${vo2.website}>${vo2.website}</a> <br>
-			주소: ${vo2.address}
-		</div>
+			<div class="review-items">
+				리뷰목록
+				<div class="review-scroll">
+					<table>
+						<c:forEach items="${listReview}" var="bag">
+							<tr>
+								<!-- el 속성만 받아올 수 있는 표현식 -->
+								<td><div class="product-name">${bag.nickname}</div></td>
+								<td><div class="product-name1">${bag.text}</div></td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+			</div>
+			<div class="right-items">
+				<!-- 				<h3>공연장 정보</h3> -->
+				<!-- 공연장 위치 -->
+				<div id="map" style="width: 300px; height: 300px;"></div>
+				${vo2.stage_name} <br> 좌석: ${vo2.seat_cnt}석 <br> 전화번호:
+				${vo2.tel} <br> 싸이트: <a href=${vo2.website}>${vo2.website}</a>
+				<br> 주소: ${vo2.address}
+			</div>
 		</div>
 
 	</div>
 
-		<script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6c86d97abbc1c8a6096906791ce94735"></script>
-		<script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6c86d97abbc1c8a6096906791ce94735"></script>
+	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
 			center : new kakao.maps.LatLng(${vo2.latitude}, ${vo2.longitude}), // 지도의 중심좌표
@@ -149,6 +171,6 @@ body {
 		// marker.setMap(null);
 	</script>
 
-		
+
 </body>
 </html>

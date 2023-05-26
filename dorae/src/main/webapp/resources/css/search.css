@@ -101,6 +101,16 @@
 	text-align: center;
 }
 
+.product-name1 {
+	/* 	width:300px; */
+	margin-top: 10px;
+	margin-bottom: 4px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: center;
+}
+
 .product-name2 {
 /* 	width:250px; */
 	margin-bottom: 4px;

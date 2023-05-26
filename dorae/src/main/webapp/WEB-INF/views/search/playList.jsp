@@ -201,7 +201,7 @@ td {
 				<a href="playDetail?play_id=${bag.play_id}" class="product"> <img
 					src="${bag.poster}" width="200" height="200">
 					<div class="product-name">${bag.play_name}</div>
-					<div class="product-name2">${bag.stage_name}</div>
+					<div class="product-name1">${bag.stage_name}</div>
 					<div class="product-name2">
 						<mark>${bag.genre_name}</mark>
 						<mark>${bag.state}</mark>
