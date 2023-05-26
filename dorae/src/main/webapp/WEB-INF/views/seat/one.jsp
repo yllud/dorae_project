@@ -1,34 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>예매페이지</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/themes/material_blue.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/themes/material_orange.min.css">
+<link rel="stylesheet" href="../resources/css/booking.css">
 
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/l10n/ko.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/minMaxTimePlugin.min.js"></script>
-<style type="text/css">
-body { 
-  background-color: #ffffff;
-  color: #000000;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 100vh;
-  font-family: 'Lato', sans-serif;
-  margin: 0;
-}  
-select {
-    font-size: 15px; /* 드롭다운 목록의 글꼴 크기 조정 */
-    padding: 10px; /* 드롭다운 목록의 내부 여백 조정 */
-  }
-</style>
+
 <script type="text/javascript">
 $(function() {
 	$("#selector").flatpickr({
@@ -102,9 +89,14 @@ $(function() {
 				   } //if
 			   } //for
 	    	}// else if
-	    	 var value =$('.time').val(); //선택한 시간
+	    	 $('#d_day').text($('#selector').val());
+	    	 $('#d_time').text($('.time').val());
 		    } //onChange
 	  }); //selector flatpickr
+	  
+	$('.time').click(function() {
+		$('#d_time').text($('.time').val());
+	}) //time
 	  
 	$('#b').click(function() {
 		 $.ajax({
@@ -113,40 +105,120 @@ $(function() {
 					play_id: '${vo.play_id}',
 				},
 				success: function(x) {
-					window.open('http://localhost:8888/dorae/seat/seats?play_id=${vo.play_id}', '좌석선택', 'width=1200, height=900, location=no, status=no, scrollbars=yes');
+					location.href ='http://localhost:8888/dorae/seat/seats?play_id=${vo.play_id}', '좌석선택', 'width=1200, height=900, location=no, status=no, scrollbars=yes';
 					localStorage.setItem("d_day", $('#selector').val()); 
 					localStorage.setItem("d_time", $('.time').val()); //부모 창에서 로컬 스토리지에 정보 저장
 				} //success
 			}) //ajax - seats 
 	}) //b
+	
+	
 }) //$
 </script>
 </head>
 <body>
-
-<img src="${vo.poster}" width="300" height="400"><br>	
-<fieldset>
-<legend><${vo.genre_name}> ${vo.play_name}</legend><br>
-장소 <span id="stage_name">${vo.stage_name}</span><br>
-기간<span id="play_start"> ${vo.play_start} ~ ${vo.play_end}</span><br>
-<hr>
-시간 <span id="play_time">${vo.play_time}</span><br>
-관람연령 <span id="play_age">${vo.play_age}</span><br>
-<hr>
-가격 <span id="price">${vo.price}</span><br>
-캐스트 <span id="casting">${vo.casting}</span><br>
-</fieldset>
-
-<!-- 달력 -->
-<div class="test">
-날짜선택 <div id="selector"></div><br>
-시간선택 <select class="time" style="width:200px;height:50px;">
+<!-- 세션이 null이면 로그인 화면창이 뜨게하고 -->
+<% if(session.getAttribute("email") == null){%>
+out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.jsp';</script>");  
+<!-- 세션이 있으면(아이디 비번 정보가 남아있으면) 좌석선택 화면으로 뜨게하기 -->
+<%} else{ %>
+<%} %> 
+<div class="main">
+ <div class="content">
+  <div class="left">
+   <div class="white_box">
+   <!-- 달력 -->
+    <div class="step1">
+	 <strong class="title">
+	  <span>날짜선택</span>
+	 </strong>
+     <div id="selector"></div>
+    </div> <!-- step1 -->
+    <!-- 시간 -->
+    <div class="step2">
+	 <strong class="title">
+	  <span>시간선택</span>
+	 </strong>
+	 <select class="time" style="width:200px; height:50px;">
 		<option selected disabled="disabled">관람일을 선택해주세요</option>
-	</select>
-
-<!-- 날짜, 시간 선택해야 버튼 활성화 -->
-<button disabled="disabled" id="b" name="play_id" value="${vo.play_id}">좌석선택</button>
-
-</div>
+	 </select>
+	</div> <!-- step2 -->
+   </div> <!-- white_box -->
+    <strong class="title_notice">주의사항</strong>
+    <ul class="notice">
+     <li>>> 1인당 최대 4매까지 구매 가능합니다.</li>
+     <li>>> 결제수단은 카카오페이를 이용한 카드결제만 가능합니다.</li>
+     <li>>> 다시선택 버튼은 선택하신 모든 정보가 초기화됩니다.</li>
+    </ul>
+   </div> <!-- left -->
+ 
+  <div class="right">
+   <div class="info">
+   <input type="hidden" id="play_id" value="${vo.play_id}">
+    <span class="poster">
+     <img src="${vo.poster}" width="150" height="150">
+    </span>
+   </div> <!-- info -->
+   <div class="info2">
+    <strong>
+     <span>예매정보</span>
+    </strong>
+    <table>
+     <caption>예매정보</caption>
+     <colgroup>
+      <col style="width:105px"><col>
+     </colgroup>
+     <tfoot>
+      <tr>
+       <th>총결제</th> 
+       <td>0</td> 
+      </tr>
+     </tfoot>
+     <tbody>
+      <tr>
+       <th>예매일</th>
+       <c:set var="today" value="<%=new java.util.Date() %>"/>
+       <td id="booking"><fmt:formatDate value="${today}" type="date" pattern="yyyy-MM-dd" /></td>
+      </tr>
+      <tr>
+       <th>공연명</th>
+       <td id="play_name"><${vo.genre_name}>${vo.play_name}</td>
+      </tr>
+      <tr>
+       <th>장소</th>
+       <td id="place">${vo.stage_name}</td>
+      </tr>
+      <tr>
+       <th>관람날짜</th>
+       <td id="d_day"></td>
+      </tr>
+      <tr>
+       <th>관람시간</th>
+       <td id="d_time"></td>
+      </tr>
+      <tr>
+       <th>좌석번호</th>
+       <td id="seat_num"></td>
+      </tr>
+      <tr>
+       <th>좌석수</th>
+       <td id="count">0</td>
+      </tr>
+      <tr>
+       <th>티켓가격</th>
+       <td id="price">0</td>
+      </tr>
+      <tr>
+       <th>예매수수료</th>
+       <td id="fee">0</td>
+      </tr>
+     </tbody>
+    </table>
+   </div> <!-- info2 -->
+	 <!-- 날짜, 시간 선택해야 버튼 활성화 -->
+   <button disabled="disabled" id="b" name="play_id" value="${vo.play_id}">좌석선택</button>
+  </div> <!-- right -->
+ </div>	<!-- content -->
+</div> <!-- main -->
 </body>
 </html>

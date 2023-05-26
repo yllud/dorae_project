@@ -19,18 +19,14 @@
 </style>
 </head>
 <body>
-<!-- 세션이 null이면 로그인 화면창이 뜨게하고 -->
-<% if(session.getAttribute("email") == null){out.println("<script type='text/javascript'>location.href = 'http://localhost:8888/dorae/login/login.jsp'</script>"); %> 
-<!-- 세션이 있으면(아이디 비번 정보가 남아있으면) 좌석선택 화면으로 뜨게하기 -->
-<%} else{ %>
-<%} %> 
+
  <input type="hidden" class="class" name="name" id="show_price" value="35000">
 
     <div class="container">
       <div class="stage"></div>		<!-- 무대 -->
       <div class="row"></div>  <!-- 좌석 -->
     </div>
-    
+   
 	<div>
       <fieldset>
       <legend>예매정보</legend>
@@ -66,6 +62,7 @@
     <button id="next">다음단계</button>
     <button id="payment" style="display:none;" disabled="disabled">결제하기</button>
     </div>
+ 
  <script type="text/javascript">
 $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태그의 로드만을 감지, 중복가능
 	$('#d_day').text(localStorage.getItem("d_day")); 
