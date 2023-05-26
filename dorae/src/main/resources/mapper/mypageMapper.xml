@@ -12,5 +12,11 @@
 		JOIN play pl ON s.play_id = pl.play_id
 		WHERE s.email = #{email}
 	</select>
-
+	
+	<select id="listByEmail" parameterType="String" resultType="reviewListVO">
+    SELECT
+		review_id, review_title, review_content, review_tag, review_img, email
+		FROM review
+		where email = #{email}
+	</select>
 </mapper>

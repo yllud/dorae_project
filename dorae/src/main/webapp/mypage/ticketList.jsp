@@ -15,7 +15,7 @@
 $(function() {
 	//시작하자마자 보여줄 ajax
 	$.ajax({
-		url : "../mypage/ticketList", //views 아래에 있는 replyList.jsp
+		url : "../mypage/ticketList?page=1", //views 아래에 있는 replyList.jsp
 		success : function(x) {
 			$('#result').html(x) //결과값 이름을 result로 한 것
 		}//success
