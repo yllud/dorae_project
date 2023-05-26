@@ -13,9 +13,16 @@
 <script type="text/javascript"
 	src="${path}/resources/js/jquery-3.6.4.js"></script>
 <script>
-	$(document).ready(function() {
+	$(window).on('load', function() {
+		$('#banner').click(function() {
+			$('#banner').animate({
+				opacity : 0
+			}, 1000, function() {
+				$(this).remove(); // 애니메이션이 끝난 후 요소를 삭제
+			});
+		});
+		
 		$("#header").load("../header/header.jsp");
-		$('#banner').load("mainImg.jsp");
 		
 		var map; // 전역 변수로 선언
 		var markers = []; // 전역 변수로 선언
@@ -288,23 +295,23 @@
 	    regionGeoJson = [],
 	    loadCount = 0;
 				
-	    var gangwon = new naver.maps.LatLng(37.880962, 128.3009629),
-		geonggi = new naver.maps.LatLng(37.767167, 127.190292),
-		gyeongsang_nam = new naver.maps.LatLng(35.509787, 128.364734),
-		gyeongsang_buk = new naver.maps.LatLng(36.528503, 128.664734),
+	    var gangwon = new naver.maps.LatLng(37.780962, 128.0009629),
+		geonggi = new naver.maps.LatLng(37.567167, 126.980292),
+		gyeongsang_nam = new naver.maps.LatLng(35.309787, 127.864734),
+		gyeongsang_buk = new naver.maps.LatLng(36.388503, 128.204734),
 		gwangju = new naver.maps.LatLng(35.126033, 126.831302),
 		daegu = new naver.maps.LatLng(35.798838, 128.583052),
 		daejeon = new naver.maps.LatLng(36.321655, 127.378953),
 		busan = new naver.maps.LatLng(35.1797865, 129.0750194),
-		seoul = new naver.maps.LatLng(37.587167, 126.890292),
+		seoul = new naver.maps.LatLng(37.517167, 126.790292),
 		ulsan = new naver.maps.LatLng(35.519301, 129.239078),
-		incheon = new naver.maps.LatLng(37.469221, 126.573234),
-		jeolla_nam  = new naver.maps.LatLng(37.0006890, 126.5930664),
-		jeolla_buk  = new naver.maps.LatLng(35.816705, 127.144185),
+		incheon = new naver.maps.LatLng(37.509221, 126.573234),
+		jeolla_nam  = new naver.maps.LatLng(34.9006890, 126.5530664),
+		jeolla_buk  = new naver.maps.LatLng(35.756705, 126.804185),
 		jeju = new naver.maps.LatLng(33.4090628, 126.534361),
-		chung_nam = new naver.maps.LatLng(36.657229, 126.779757),
-		chung_buk = new naver.maps.LatLng(36.528503, 127.929344),
-		sejong = new naver.maps.LatLng(36.48750, 127.28167);
+		chung_nam = new naver.maps.LatLng(36.557229, 126.379757),
+		chung_buk = new naver.maps.LatLng(36.548503, 127.529344),
+		sejong = new naver.maps.LatLng(36.48050, 127.28167);
 	    
 	    var infoWindow = new naver.maps.InfoWindow({
 	        anchorSkew: true
@@ -682,7 +689,9 @@
 		        tooltip.css({
 		            display: '',
 		            left: e.offset.x,
-		            top: e.offset.y
+		            top: e.offset.y,
+		            fontSize: '19px', // 원하는 글꼴 크기로 설정
+		           	fontWeight: 'bold' // 원하는 폰트 굵기로 설정
 		        }).text(regionName);
 		        map.data.overrideStyle(feature, {
 		            fillOpacity: 0.25,
@@ -745,12 +754,14 @@
 <title>지도 추천 페이지</title>
 </head>
 <body>
-	<header id="header" class="fixed-top"></header>
+	<header id="header"></header>
 	<div id="map-container">
-		<div id="map">
-			<div id="banner">
-				<input type="text">
+		<div id="banner">
+			<div id="imgBody">
+				<img src="../resources/img/temp-banner2.png" id="main-img"/>
 			</div>
+		</div>
+		<div id="map">
 			<div id="side-bar" class="left-side-bar">
 				<table id="inputtable" style="height:50px;">
 					<tr style="text-align:center;">
@@ -764,7 +775,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="result">
+	<div id="result"><br><br>내용 들어가는 곳<br><br><br><br><br><br><br><br><br><br>
 	</div>
 
 </body>
