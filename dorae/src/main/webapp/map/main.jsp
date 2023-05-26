@@ -386,7 +386,6 @@
 	            if (item.englishAddress) {
 	                htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
 	            }
-				infoWindow.close();
 	            // 주소와 좌표를 출력하는 HTML 생성
 	            infoWindow.setContent([
 	                '<div style="padding:10px;min-width:200px;line-height:150%;">',
@@ -402,17 +401,17 @@
 	            //console.log("infolist:", infolist);
 	        });
 	    }
+	    $('#address').on('keydown', function(e) {
+            var keyCode = e.which;
 
+            if (keyCode == 13) { // Enter Key
+                searchAddressToCoordinate($('#address').val());
+            }
+        });
+	    
 	    function initGeocoder() {
 	        map.addListener('click', function(e) {
 	            searchCoordinateToAddress(e.coord);
-	        });
-	        $('#address').on('keydown', function(e) {
-	            var keyCode = e.which;
-
-	            if (keyCode == 13) { // Enter Key
-	                searchAddressToCoordinate($('#address').val());
-	            }
 	        });
 	        //searchAddressToCoordinate
 	    }//initGeocoder
