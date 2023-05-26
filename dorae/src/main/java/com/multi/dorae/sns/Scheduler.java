@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import twitter4j.TwitterException;
 
-@Component("scheduler")
+@Component("snsScheduler")
 public class Scheduler {
 
 	@Autowired
