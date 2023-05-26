@@ -15,6 +15,7 @@ body{
   	overflow: hidden;
 }
 #inputtable {
+	width: 300px;
 	margin: 0 auto;
 	padding: 10px;
 }
@@ -40,7 +41,7 @@ th, td {
 	position: absolute;
 }
 #map-container{
-	margin-top: 168px;
+	margin-top: 175px;
 }
 #address{
   z-index: 3;
