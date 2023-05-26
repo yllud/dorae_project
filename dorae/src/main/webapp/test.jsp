@@ -18,6 +18,6 @@ $(function() {
 <body>
 예매 완료되었습니다.
 <span id="play_id"></span>
-<a><button>마이페이지</button></a>
+<a href="http://localhost:8888/dorae/mypage/ticketList.jsp"><button>예매내역확인</button></a>
 </body>
 </html>
