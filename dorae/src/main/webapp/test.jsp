@@ -4,9 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>예매완료</title>
+<script type="text/javascript" src="resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript">
+$(function() {
+	$.ajax({
+		
+	}) //ajax
+}) //$
+
+</script>
 </head>
 <body>
-
+예매 완료되었습니다.
+<span id="play_id"></span>
+<a><button>마이페이지</button></a>
 </body>
 </html>
