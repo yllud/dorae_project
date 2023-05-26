@@ -3,13 +3,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<<<<<<< HEAD
 	<c:set var="path" value="${pageContext.request.contextPath}"/>
+=======
+>>>>>>> 607632fd2ba540bcadf4a4f887235cf9e4bd97e3
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="${path}/resources/css/style.css"/>
 <meta charset="UTF-8">
 <title>마이페이지</title>
+<!-- 헤더 추가 -->
+<link rel="stylesheet" href="../resources/css/sns.css">
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
  <script>
     // JavaScript 코드
@@ -53,6 +58,14 @@
       }
     
 </style>
+
+<!-- 헤더 추가 -->
+<script type="text/javascript">
+	$(function() {
+		$("#header").load("../header/header.jsp");
+	});
+</script>
+
 <script>
 $(document).ready(function() {
     var $contentContainer = $("#contentContainer");
@@ -74,13 +87,14 @@ $(document).ready(function() {
         error: function() {
           alert("데이터를 불러오는 중에 오류가 발생했습니다.");
         }
-      });
-    });
-  });
+      });//ajax
+    });//on
+  });//ready
 
 </script>
 </head>
 <body>
+<<<<<<< HEAD
 <h1><a href="page01.jsp">도래도래</a></h1>
 	<div class="menu">
 		<nav class="clearfix">
@@ -108,6 +122,11 @@ $(document).ready(function() {
 			<a id="pull" href="#"></a>
 		</nav>
 	</div>
+=======
+<!-- 헤더 추가 -->
+<header id="header" class="fixed-top"></header>
+<div >
+>>>>>>> 607632fd2ba540bcadf4a4f887235cf9e4bd97e3
 <%
 	if(session.getAttribute("email") != null){
 %>
@@ -115,7 +134,7 @@ $(document).ready(function() {
 	<h2>도래도래</h2>
 	${nickname} 님<br>
 	
-		<button>로그아웃</button>
+		
 	
 	<a href="http://localhost:8888/dorae/login/login.jsp">
 		<button>회원가입</button>
@@ -148,11 +167,14 @@ $(document).ready(function() {
     <br>
     <button class="btn-ajax" data-url="../mypage/replyList.jsp" data-target="#replyList">작성한 후기</button>
     <br>
-    <button class="btn-ajax" data-url="../mypage/reviewList.jsp" data-target="#reviewList">내 커뮤니티</button>
+    <button class="btn-ajax" data-url="../mypage/reviewList.jsp" data-target="#reviewList">다녀온 후기</button>
     <br>
     <button class="btn-ajax" data-url="../help/contactList" data-target="#qnaList">문의내역</button>
     <hr color="pink">
     <button>사업자 등록</button>
+    <a href="../login/logout.jsp">
+ 			<button>로그아웃</button>
+		</a>
   </div>
   <div class="right" id="contentContainer">
     <!-- 예매내역을 표시할 영역 -->
@@ -163,7 +185,9 @@ $(document).ready(function() {
     <div id="reviewList"></div>
     <!-- 문의내역을 표시할 영역 -->
     <div id="qnaList"></div>
+    
   </div>
 <%}else{out.println("<script type='text/javascript'>alert('로그인 실패');location.href = 'http://localhost:8888/dorae/login/login.jsp'</script>");} %>
+</div>
 </body>
 </html>
