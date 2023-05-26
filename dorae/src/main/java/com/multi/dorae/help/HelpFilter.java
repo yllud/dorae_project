@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 //@WebFilter("/help/contact/*") // dorae/help/contact 아래 모든 경로
-@WebFilter({"/help/contactOne", "/help/contactList", "/help/contactCreate"})
+@WebFilter({"/help/contactOne", "/help/contactList", "/help/contactCreate", "/help/applyBusinessList"})
 public class HelpFilter implements Filter {
 
 	@Override

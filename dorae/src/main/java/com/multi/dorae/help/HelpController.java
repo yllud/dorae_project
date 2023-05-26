@@ -1,5 +1,6 @@
 package com.multi.dorae.help;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,8 @@ public class HelpController {
 	ContactService contactService;
 	@Autowired
 	HelpCategoryService helpCategoryService;
+	@Autowired
+	ApplyBusinessDAO applyDAO;
 	
 	@RequestMapping()
 	public String main() {
@@ -84,5 +87,24 @@ public class HelpController {
 	public String contactCreate(ContactVO contactVO, @SessionAttribute String email) {
 		contactService.create(contactVO, email);
 		return "redirect:/help/contactList?page=1";
+	}
+	
+	@RequestMapping(value = "applyBusinessList", method = RequestMethod.GET)
+	public void applyBusinessList(@SessionAttribute String email, Model model) {
+		model.addAttribute("applyList", applyDAO.listByMemberId(email));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "applyBusiness", method = RequestMethod.GET)
+	public HashMap<String, Boolean> applyBusiness(@SessionAttribute String email) {
+		HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		if (applyDAO.insert(email) == 1) {
+			map.put("success", true);
+		} else {
+			map.put("success", false);
+		}
+		
+		return map;
 	}
 }

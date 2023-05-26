@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고객센터</title>
+<title>사업자 신청 내역 - 고객센터</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /> <!-- 구글 폰트/아이콘 -->
 <link rel="stylesheet" href="/dorae/resources/css/chatBot.css" />
 <script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
@@ -24,40 +25,6 @@
 		top: 200px;
 	}
 	
-	#faqTitle {
-		display: inline-block;
-		border-right: 1px solid;
-		padding-right: 10px;
-	}
-
-	#search {
-		text-align: center;
-	}
-	
-	#searchInput {
-		width: 500px;
-		font-size: 20px;
-		margin-left: 7px;
-	}
-	
-	#searchBtn {
-		font-size: 20px;
-	}
-	
-	#search {
-		text-align: center;
-	}
-	
-	#searchInput {
-		width: 500px;
-		font-size: 20px;
-		margin-left: 7px;
-	}
-	
-	#searchBtn {
-		font-size: 20px;
-	}
-	
 	.btn-large {
 		font-size: 26px;
 		margin: 10px;
@@ -68,36 +35,28 @@
 		margin: 4px;
 	}
 	
-	#searchList {
-		padding: 0 40px;
-	}
-	
-	.searchItem:first-child {
+	.applyItem:first-child {
 		border-top: 1px solid grey;
 	}
 	
-	.searchItem {
+	.applyItem {
 		list-style: none;
 		border-bottom: 1px solid grey;
-		text-align: left;
 		width: 100%;
+		text-align: left;
 	}
 	
-	.searchItemBtn {
+	.applyItem a {
+		padding: 0;
+	}
+	
+	.applyItemBtn {
 		padding: 12px;
-		font-size: 20px;
+		font-size: 24px;
 		border: 0;
 		background-color: transparent;
 		cursor: pointer;
 		text-align: left;
-	}
-	
-	.searchItemBtn h4 {
-		margin-top: 0;
-	}
-	
-	.searchItemBtn p {
-		margin-bottom: 0;
 	}
 </style>
 </head>
@@ -105,33 +64,31 @@
 	<header id="header" class="fixed-top"></header>
 	
 	<div id="helpBody">
-		<!-- FAQ 검색 -->
-		<form action="faqSearch">
-			<h2 id="faqTitle">FAQ 검색</h2>
-			<input type="text" id="searchInput" name="search"/>
-			<button type="submit" id="searchBtn">검색</button>
-		</form>
-
-		<div id="helpContent">
-			<!-- FAQ 유형별 버튼 -->
-			<div id="faqBtnList">
-				<c:forEach items="${helpCategory}" var="item">
-				<a href="faqCategory?help_category_id=${item.help_category_id }">
-					<button class="btn-large">${item.name }</button>
-				</a>
-				</c:forEach>
-			</div>
-			<hr color="red">
-		</div>
+		<c:if test="${empty applyList }">
+		<!-- 배열이 비어있으면 -->
+		<p>신청 내역이 없습니다.</p>
+		</c:if>
+		<c:if test="${not empty applyList }">
+		<!-- 배열이 비어있지 않으면 -->
+		<c:forEach items="${applyList }" var="item">
+		<li class="applyItem">
+			<button class="applyItemBtn"><fmt:formatDate value="${item.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/></button>
+			<c:if test="${empty item.approval_at }">
+			<button class="applyItemBtn">확인 중</button>
+			</c:if>
+			<c:if test="${not empty item.approval_at and item.approval == true}">
+			<button class="applyItemBtn">승인됨</button>
+			</c:if>
+			<c:if test="${not empty item.approval_at and item.approval == false}">
+			<button class="applyItemBtn">거부됨</button>
+			</c:if>
+		</li>
+		</c:forEach>
+		</c:if>
 		
-		<!-- 1:1 문의, 사업자 신청 -->
+		<!-- 사업자 신청 -->
 		<div id="other">
-			<a href="contactList?page=1">
-				<button class="btn-large">1:1문의</button>
-			</a>
-			<a href="applyBusinessList">
-				<button class="btn-large">사업자 신청</button>
-			</a>
+			<button id="applyBusiness" class="btn-large">사업자 신청</button>
 		</div>
 	</div>
 	
@@ -158,5 +115,24 @@
 	<button id="chatOpenBtn" class="chatBtn chatCommon" onclick="chatToggle()">
 		<span class="material-symbols-outlined symbol">contact_support</span>
 	</button>
+	
+	<script type="text/javascript">
+		$("#applyBusiness").click(function() {
+			if (confirm("사업자 신청을 하시겠습니까?")) {
+				$.ajax({
+					url: "applyBusiness",
+					success: function(res) {
+						console.log(res);
+						if (res.success) {
+							alert("신청에 성공하였습니다.");
+							location.href = "applyBusinessList";
+						} else {
+							alert("신청에 실패하였습니다.\n잠시 후 다시 시도해주세요.");
+						}
+					}
+				})		
+			}
+		})
+	</script>
 </body>
 </html>
