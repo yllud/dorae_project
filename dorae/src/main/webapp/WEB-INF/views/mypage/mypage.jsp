@@ -106,7 +106,7 @@ $(document).ready(function() {
     <br>
     <button class="btn-ajax" data-url="../mypage/reviewList.jsp" data-target="#reviewList">내 커뮤니티</button>
     <br>
-    <button class="btn-ajax" data-url="../help/contact/list" data-target="#qnaList">문의내역</button>
+    <button class="btn-ajax" data-url="../help/contactList" data-target="#qnaList">문의내역</button>
     <hr color="pink">
     <button>사업자 등록</button>
   </div>
