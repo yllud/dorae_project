@@ -8,50 +8,55 @@
 
 <meta charset="UTF-8">
 <title>SNS 후기 검색 결과</title>
+<link rel="stylesheet" href="../resources/css/sns.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#header").load("../header/header.jsp");
-		// 추천 검색어로 검색해서 db 저장 기능 -> 현재는 버튼.
-		// 추후에 주기적으로 api 최신화로 변경 필요
-		$.ajax({
-			url : "recommend", // 추천 검색어 추출
-			type : "GET",
-			success : function(data) {
-				// 데이터 저장 기능 클릭 함수
-				$('#saveData').click(function() {
+		
+        // 추천 검색어로 검색해서 db 저장 기능 -> 현재는 버튼.
+        // 테스트용으로 남겨두고 추후에 삭제
+        $.ajax({
+            url : "recommend", // 추천 검색어 추출
+            type : "GET",
+            success : function(data) {
+                // 데이터 저장 기능 클릭 함수
+                $('#saveData').click(function() {
+                	 var modifiedData = []; // 수정된 데이터를 저장할 배열
+                	 for (var i = 0; i < data.length; i++) {
+                	        var query = data[i];
+                	        var modifiedQuery = query.replace(/\s*\[.*?\]|\s*\([^)]*\)$/g, "").trim(); // 검색어 수정
+                	        modifiedData.push(modifiedQuery);
+                	        
+                	        var rank = i + 1; // 랭크 값을 설정
+                	        $.ajax({
+                	          url: "saveBlog", // 블로그에 데이터 저장
+                	          type: "GET",
+                	          data: {
+                	            query: modifiedQuery,
+                	            rank: rank
+                	          }
+                	        });
 
-					for (var i = 0; i < data.length; i++) {
-						var query = data[i];
-						var rank = i + 1; // 랭크 값을 설정
-						$.ajax({
-							url : "saveBlog", // 블로그에 데이터 저장
-							type : "GET",
-							data : {
-								query : query,
-								rank : rank
-							}
-						});
+                	        $.ajax({
+                	          url: "saveTwitter", // 트위터에 데이터 저장
+                	          type: "GET",
+                	          data: {
+                	            query: modifiedQuery,
+                	            rank: rank
+                	          }
+                	        });
+                	      } // for
 
-						$.ajax({
-							url : "saveTwitter", // 트위터에 데이터 저장
-							type : "GET",
-							data : {
-								query : query,
-								rank : rank
-							}
-						});
-					} // for
-
-					alert('데이터 저장 성공');
-				})// click
-			},
-			error : function() {
-				alert('에러 발생');
-			}
-		});
-
+                    alert('데이터 저장 성공');
+                })// click
+            },
+            error : function() {
+                alert('에러 발생');
+            }
+        });
+        
 		// 추천 검색어 출력
 		$.ajax({
 			url : "recommend",
@@ -59,20 +64,16 @@
 			success : function(data) {
 				var recommendDiv = $("#recommend");
 				$.each(data, function(index, value) {
-					var blogBtn = $("<button>" + value + "(블로그)</button>");
-					blogBtn.click(function() {// 블로그 버튼
-						searchBlog(index + 1); // 랭크 값을 입력으로 전달
-					});
-					recommendDiv.append(blogBtn);
-					recommendDiv.append(" "); // 공백 추가
-				});
-				recommendDiv.append("<br>"); // 공백 추가
-				$.each(data, function(index, value) {
-					var twitterBtn = $("<button>" + value + "(트위터)</button>");
-					twitterBtn.click(function() { // 트위터 버튼
-						searchTwitter(index + 1); // 랭크 값을 입력으로 전달
-					});
-					recommendDiv.append(twitterBtn);
+					var btn = $("<button>" + value + "</button>");
+					btn.click(function() {
+						var searchType = $("input[name='searchType']:checked").val();
+						if (searchType === "blog") {
+							searchBlog(index + 1);
+						} else if (searchType === "twitter") {
+							searchTwitter(index + 1);
+						}
+					})
+					recommendDiv.append(btn);
 					recommendDiv.append(" "); // 공백 추가
 				});
 			},
@@ -126,9 +127,24 @@
 <body>
 	<header id="header" class="fixed-top"></header>
 	<div id="sns">
-	<button id="saveData">db에 데이터 저장</button>
+	    <button id="saveData">db에 데이터 저장</button>
 	<hr color="red">
+	
+	<table>
+	<tr>
+	<td>
+	<input type="radio" id="blogRadio" name="searchType" value="blog" checked>
+	<label for="blogRadio">블로그</label>
+	<input type="radio" id="twitterRadio" name="searchType" value="twitter">
+	<label for="twitterRadio">트위터</label>
+	</td>
+	<td>
 	<div id="recommend"></div>
+	</td>
+	</tr>
+	</table>
+	
+	
 	<hr color="red">
 	<div id="result"></div>
 	</div>

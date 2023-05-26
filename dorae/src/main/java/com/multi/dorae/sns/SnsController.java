@@ -12,8 +12,8 @@ public class SnsController {
 
 	@Autowired
 	SnsDAO dao;
-	
-//	추천검색어 추출
+
+	// 추천검색어 추출
 	@RequestMapping("sns/recommend")
 	@ResponseBody
 	public List<String> recommend() {
