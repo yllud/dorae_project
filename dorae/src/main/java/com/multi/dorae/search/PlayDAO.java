@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.multi.dorae.mypage.ReplyVO;
+
 @Component
 public class PlayDAO {
 
@@ -27,7 +29,11 @@ public class PlayDAO {
 
 	// 모든 공연의 stageid 불러오기 (api)
 	public List<String> listStageId() {
+		System.out.println("stage id 를 불러오자");
 		List<String> list = my.selectList("play.stageIdList");
+		for (String id : list) {
+			System.out.println(id);
+		}
 		return list;
 	}
 
@@ -48,6 +54,24 @@ public class PlayDAO {
 		return cnt;
 	}
 
+	// 공연 id로 공연 한개 검색
+	public PlayVO playDetail(String play_id) {
+		System.out.println("(Dao) playDetail");
+		System.out.println(play_id);
+		PlayVO vo = my.selectOne("play.one", play_id);
+		return vo;
+	}
+
+	// 공연 id로 리뷰 검색
+	public List<ReplyVO> ReviewList(String play_id) {		
+		System.out.println("(DAO) reveiw List");
+		List<ReplyVO> list = my.selectList("play.review", play_id);
+		for (ReplyVO bag : list) {
+			System.out.println(bag.getText());
+		}
+		return list;
+	}
+
 	// 공연 수정
 	public int updateAll(PlayVO vo) {
 		System.out.println("(DAO) updateAll");
@@ -56,20 +80,20 @@ public class PlayDAO {
 		return result;
 	}
 
+	// 공연 수정
+//	public int updateUserType(String email) {
+//		System.out.println("(DAO) update user type");
+//		int result = my.update("play.updateUserType", email);
+//		System.out.println(result);
+//		return result;
+//	}
+
 	// 공연 삭제
 	public int delete(PlayVO vo) {
 		System.out.println("(DAO) delete");
 		int result = my.update("play.deleteOne", vo);
 		System.out.println(result);
 		return result;
-	}
-
-	// 공연 id로 공연 한개 검색
-	public PlayVO playDetail(String play_id) {
-		System.out.println("(Dao) playDetail");
-		System.out.println(play_id);
-		PlayVO vo = my.selectOne("play.one", play_id);
-		return vo;
 	}
 
 	// 공연 id로 공연장 id 검색
