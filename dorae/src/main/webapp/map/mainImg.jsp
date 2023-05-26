@@ -8,7 +8,6 @@
 <head>
 <script type="text/javascript"
 	src="${path}/resources/js/jquery-3.6.4.js"></script>
-<link rel="stylesheet" href="${path}/resources/css/style.css" />
 <style>
 .main-img {
 	width: 100%;

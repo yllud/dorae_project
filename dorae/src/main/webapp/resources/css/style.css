@@ -97,7 +97,6 @@ a {
 body {
 	font-family: 'NanumSquare', sans-serif;
 	font-size: 18px;
-	margin: 0;
 }
 
 body .bold {
@@ -138,9 +137,7 @@ body .bold {
 	background-color: #fff;
 	z-index: 999;
 }
-h1{
-	margin-left: 20px;
-}
+
 
 /* header submenu style */
 
