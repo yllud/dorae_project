@@ -42,18 +42,22 @@ $('#payment').click(function() {
 			    	 	 success: function() {
 			    	 	 	
 						  }, //success - pay insert
+						  
 						  error: function() {
 							alert("결제에 실패하였습니다.");
 						  } //error - pay insert
 			      		}); //ajax - pay insert
+			      		
 			    	  }, //success -seat insert
+			    	  
 			    	  error: function() {
 						alert("결제에 실패하였습니다.");
 					  } //error - seat insert
 		     	   });//ajax - seat insert 
+		     	   
 		     	var msg = '결제가 완료되었습니다.';
 				alert(msg);
-				parent.location.href='../test.jsp';
+				location.href = "../test.jsp";
 			   } else {
 			      var msg = '결제에 실패하였습니다.';
 			      alert(msg);

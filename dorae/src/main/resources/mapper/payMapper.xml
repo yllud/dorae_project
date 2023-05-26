@@ -4,7 +4,7 @@
 	
 	<insert id="insert" parameterType="payVO">
 		<selectKey resultType="String" keyProperty="seat_id" order="BEFORE">
-			SELECT max(seat_id) from seat 
+			SELECT max(seat_id) from seat where seat_member = #{buyer_email}
 		</selectKey>
 		insert into pay values (#{imp_uid}, #{merchant_uid}, #{apply_num}, #{paid_amount}, #{buyer_name}, #{buyer_tel},
 								#{buyer_email}, #{play_id}, #{booking}, #{seat_id})

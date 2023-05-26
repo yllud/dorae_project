@@ -79,7 +79,7 @@ td {
 			formData.append('play_name', $('#play_name').val());
 			formData.append('play_id', $('#play_id').val());
 			formData.append('genre_name', $('#genre_name').val());
-			formData.append('stage_name', $('#stage_name').val());
+			formData.append('stage_name', $('#stage_name').text());
 			formData.append('stage_id', $('#stage_id').val());
 			formData.append('play_time', $('#play_time').val());
 			formData.append('play_start', $('#play_start').val());
@@ -153,7 +153,7 @@ td {
 	<br> 장르 :
 	<input id="genre_name" value="${vo.genre_name}">
 	<br> 공연장 :
-	<input id="stage_name" value="${vo.stage_name}" readonly>
+	<mark id="stage_name">${vo.stage_name}</mark>
 	<br>
 	<button type="button" onclick="openPopup()">공연장 변경</button>
 	<input id="stage_id" type="hidden" value="${vo.stage_id}">

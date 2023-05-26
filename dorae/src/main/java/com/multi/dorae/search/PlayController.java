@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.multi.dorae.mypage.ReplyVO;
+
 @Controller
 public class PlayController {
 
@@ -76,9 +78,28 @@ public class PlayController {
 		String stage_id = dao.stageId(play_id);
 
 		StageVO vo2 = dao2.stageDetail(stage_id);
+		List<ReplyVO> listReview= dao.ReviewList(play_id);
 
 		model.addAttribute("vo", vo);
 		model.addAttribute("vo2", vo2);
+		model.addAttribute("listReview", listReview);
 	}
+	
+	
+//	@RequestMapping("search/playDetail")
+//	public void playDetail(String play_id, Model model) {
+//		System.out.println("(Controller) playDetail 요청");
+//		System.out.println(play_id);
+//		PlayVO vo = dao.playDetail(play_id);
+//		String stage_id = dao.stageId(play_id);
+//
+//		StageVO vo2 = dao2.stageDetail(stage_id);
+//
+//		model.addAttribute("vo", vo);
+//		model.addAttribute("vo2", vo2);
+//	}
+	
+	
+	
 
 }

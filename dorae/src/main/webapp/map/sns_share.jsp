@@ -18,15 +18,17 @@ var thisUrl = document.URL;
 <%
 	String playName = request.getParameter("playName"); // 공연 이름 값 가져오기
 	String stageName = request.getParameter("stageName"); // 공연장 이름 값 가져오기
-	String share_lat = request.getParameter("share_lat"); // 공연장 위도 값 가져오기
-	String share_lng = request.getParameter("share_lng"); // 공연장 경도 값 가져오기
+	/* String share_lat = request.getParameter("latitude"); // 공연장 위도 값 가져오기
+	String share_lng = request.getParameter("longitude"); // 공연장 경도 값 가져오기 */
 	//out.println("Received value: " + share_lat + ", " + share_lng); // 받은 값 출력
+
 %>
 	
 function shareTwitter() {
     var sendText = "도래도래 공연 <" + "<%= playName %>" + ">"; // 전달할 텍스트
-    sendText += "네이버 지도: https://map.naver.com/?x=" + <%= share_lat %> + "&y=" + <%= share_lng %>; // 네이버 지도 URL
-    var sendUrl = "https://www.naver.com/"; // 전달할 URL
+    <%-- var sendUrl = "https://map.naver.com/?x=" + <%= share_lat %> + "&y=" + <%= share_lng %>;// 전달할 네이버 지도 URL--%>
+    var query = encodeURIComponent("<%= stageName %>"); // 검색할 공연장 이름 인코딩
+    var sendUrl = "https://map.naver.com/v5/search?query=" + query; // 네이버 지도 검색 결과 페이지 URL
     var encodedText = encodeURIComponent(sendText); // 텍스트 인코딩
     var encodedUrl = encodeURIComponent(sendUrl); // URL 인코딩
     window.open("https://twitter.com/intent/tweet?text=" + encodedText + "&url=" + encodedUrl);
@@ -55,8 +57,8 @@ function shareKakao() {
 	      	description: "도래도래 사이트입니다", // 보여질 설명
 	      	imageUrl: "https://www.naver.com/", // 콘텐츠 URL
 	      	link: {
-	      		mobileWebUrl: thisUrl,
-	         	webUrl: thisUrl
+	      		mobileWebUrl: "https://www.naver.com/",
+	         	webUrl: "https://www.naver.com/"
 	      	}
 	  	}
   	});

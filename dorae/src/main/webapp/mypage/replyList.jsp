@@ -31,7 +31,7 @@ td {
 $(function() {
 	//시작하자마자 보여줄 ajax
 	$.ajax({
-		url : "../mypage/replyList", //views 아래에 있는 replyList.jsp
+		url : "../mypage/replyList?page=1", //views 아래에 있는 replyList.jsp
 		success : function(x) {
 			$('#result').html(x) //결과값 이름을 result로 한 것
 		}//success
@@ -41,7 +41,6 @@ $(function() {
 </head>
 <body>
 <h2>후기내역</h2>
-	${nickname} 님
 	<div id="result">
 	<!-- ajax의 $('#result').html(x)에서 result(결과)가 표시될 위치 -->
     </div>
