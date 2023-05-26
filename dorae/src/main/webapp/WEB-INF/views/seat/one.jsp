@@ -146,9 +146,10 @@ out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.j
    </div> <!-- white_box -->
     <strong class="title_notice">주의사항</strong>
     <ul class="notice">
-     <li>>> 1인당 최대 4매까지 구매 가능합니다.</li>
-     <li>>> 결제수단은 카카오페이를 이용한 카드결제만 가능합니다.</li>
-     <li>>> 다시선택 버튼은 선택하신 모든 정보가 초기화됩니다.</li>
+     <li>> 1인당 최대 4매까지 구매 가능합니다.</li><br>
+     <li>> 결제수단은 카카오페이를 이용한 카드결제만 가능합니다.</li><br>
+     <li>> 다시선택 버튼은 선택하신 모든 정보가 초기화됩니다.</li><br>
+     <li>> 2매 이상 예매시 결제 부분취소가 불가능 합니다.</li><br>
     </ul>
    </div> <!-- left -->
  
@@ -156,17 +157,14 @@ out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.j
    <div class="info">
    <input type="hidden" id="play_id" value="${vo.play_id}">
     <span class="poster">
-     <img src="${vo.poster}" width="150" height="150">
+     <img src="${vo.poster}" width="150" height="180">
     </span>
    </div> <!-- info -->
    <div class="info2">
-    <strong>
-     <span>예매정보</span>
-    </strong>
     <table>
      <caption>예매정보</caption>
      <colgroup>
-      <col style="width:105px"><col>
+      <col style="width:70px"><col>
      </colgroup>
      <tfoot>
       <tr>
