@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller //스프링에서 제어하는 역할로 등록! 
 public class BookController {
@@ -17,22 +18,47 @@ public class BookController {
 //	ReplyDAO dao2;
 	
 	@RequestMapping("insert_book")
+	@ResponseBody
 	public String insert(BookVO bag) {
 		System.out.println("insert_book요청됨.");
-		System.out.println(bag);
-		System.out.println(service);
 		
-		service.insert(bag);
-		
-		return "book/insert_book";
+		int result = service.insert(bag);
+		if (result > 0) {
+	        return "success";
+	    } else {
+	        return "failure";
+	    }
 	}
+	
 	@RequestMapping("delete_book")
-	public String delete(String play_id) {
+	@ResponseBody
+	public String delete(BookVO bag) {
 		System.out.println("delete_book요청됨.");
-		System.out.println(play_id);
-		service.delete(play_id);
 		
-		return "book/delete_book";
+		int result = service.delete(bag);
+		if (result > 0) {
+	        return "success";
+	    } else {
+	        return "failure";
+	    }
+	}	
+	
+	@RequestMapping("select_count")
+	@ResponseBody
+	public List<BookVO> count(String play_id) {
+		System.out.println("delete_book요청됨.");
+		
+		List<BookVO> list = service.count(play_id);
+		return list;
+	}	
+	
+	@RequestMapping("select_my")
+	@ResponseBody
+	public List<BookVO> mybook(String email) {
+		System.out.println("delete_book요청됨.");
+		
+		List<BookVO> list = service.mybook(email);
+		return list;
 	}	
 	
 //	@RequestMapping("one_book")
@@ -43,13 +69,14 @@ public class BookController {
 //		model.addAttribute("bag", bag);
 //	}
 	
-	@RequestMapping("all_book")
-	public String all(String email, Model model) {
-		System.out.println("all요청됨.");
-		System.out.println(email);
-		List<BookVO> list = service.all(email);
-		model.addAttribute("list", list);
-		
-		return "book/all_book";
-	}
+//	@RequestMapping("all_book")
+//	public String all(String email, Model model) {
+//		System.out.println("all요청됨.");
+//		System.out.println(email);
+//		List<BookVO> list = service.all(email);
+//		model.addAttribute("list", list);
+//		
+//		return "book/all_book";
+//	}
+	
 }
