@@ -32,8 +32,8 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping(value = "hcNameUpdate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String hcNameUpdate(HelpCategoryVO vo) {
-		if (helpCategoryService.updateName(vo) == 1) {
+	public String hcNameUpdate(HelpCategoryVO categoryVO) {
+		if (helpCategoryService.updateName(categoryVO) == 1) {
 			return "유형 이름 수정 성공";
 		} else {
 			return "유형 이름 수정 실패";

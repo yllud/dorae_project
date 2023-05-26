@@ -26,9 +26,9 @@ public class AdminFaqController {
 	}
 	
 	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String faqCreate(FaqVO vo) {
-		faqService.create(vo);
-		return "redirect:one?faq_id=" + vo.getFaq_id();
+	public String faqCreate(FaqVO faqVO) {
+		faqService.create(faqVO);
+		return "redirect:one?faq_id=" + faqVO.getFaq_id();
 	}
 	
 //	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
@@ -37,21 +37,21 @@ public class AdminFaqController {
 //		return "redirect:one?faq_id=" + vo.getFaq_id();
 //	}
 	
-	@RequestMapping(value = "contentTextarea", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String faqUpdate(FaqVO vo) {
-		faqService.updateContent(vo);
-		return "redirect:one?faq_id=" + vo.getFaq_id();
+	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
+	public String faqUpdate(FaqVO faqVO) {
+		faqService.update(faqVO);
+		return "redirect:one?faq_id=" + faqVO.getFaq_id();
 	}
 	
 	@RequestMapping("one")
 	public void faqOne(int faq_id, Model model) {
+		model.addAttribute("helpCategoryList", categoryService.listByParentId("None"));
 		model.addAttribute("faq", faqService.one(faq_id));
 	}
 	
 	@RequestMapping("list")
 	public void faqList(String help_category_id, PageVO pageVO, Model model) {
 		pageVO.setTotal(faqService.countByCategory(help_category_id));
-		pageVO.calc();
 
 		model.addAttribute("page", pageVO);
 		model.addAttribute("faqList", faqService.listByCategoryWithPaging(help_category_id, pageVO));

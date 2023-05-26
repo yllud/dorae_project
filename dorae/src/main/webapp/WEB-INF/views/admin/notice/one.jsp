@@ -7,21 +7,21 @@
 <div class="mb-3 row">
   <label for="noticeTitle" class="col-sm-2 col-form-label">제목</label>
   <div class="col-sm-10">
-    <input type="text" readonly class="form-control" id="noticeTitle" value="${notice.title }">
+    <input type="text" class="form-control" id="noticeTitle" value="${notice.title }">
   </div>
 </div>
 
 <div class="mb-3 row">
 	<label for="noticeContent" class="col-sm-2 col-form-label">내용</label>
 	<div class="col-sm-10">
-    	<textarea class="form-control" id="noticeContent" rows="5" readonly>${notice.content }</textarea>
+    	<textarea class="form-control" id="noticeContent" rows="5">${notice.content }</textarea>
 	</div>
 </div>
 
 <div class="mb-3 row">
   <label for="noticeTag" class="col-sm-2 col-form-label">태그</label>
   <div class="col-sm-10">
-    <input type="text" readonly class="form-control" id="noticeTag" value="${notice.tag }" />
+    <input type="text" class="form-control" id="noticeTag" value="${notice.tag }" />
   </div>
 </div>
 
@@ -31,10 +31,11 @@
 <script type="text/javascript">
 	function submitContent(element) {
 		$.ajax({
-			url: "/dorae/admin/notice/updateContent",
+			url: "/dorae/admin/notice/update",
 			type: "POST",
 			data: {
 				notice_id: element.value,
+				title: $("#noticeTitle").val(),
 				content: $("#noticeContent").val(),
 				tag: $("#noticeTag").val()
 			},

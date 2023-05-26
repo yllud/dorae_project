@@ -31,8 +31,8 @@ public class ContactDAO {
 	
 	public List<ContactVO> listWithPaging(PageVO pageVO) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		pageVO.calcStartEnd();
+		pageVO.calc();
+
 		map.put("start", pageVO.getStart());
 		map.put("end", pageVO.getEnd());
 		map.put("cntPerPage", pageVO.getCntPerPage());
@@ -42,7 +42,8 @@ public class ContactDAO {
 	
 	public List<ContactVO> listByMemberIdWithPaging(PageVO pageVO, String member_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
+		pageVO.calc();
+
 		map.put("start", pageVO.getStart());
 		map.put("end", pageVO.getEnd());
 		map.put("member_id", member_id);

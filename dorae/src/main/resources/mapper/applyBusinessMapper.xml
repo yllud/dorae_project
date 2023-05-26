@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="apply">
+
+	<insert id="insert" parameterType="String" useGeneratedKeys="true" keyProperty="id">
+		insert into apply_business values (null, #{member_id}, now(), null, null)
+	</insert>
+
+	<select id="selectOne" parameterType="long" resultType="applyVO">
+		select * from apply_business where apply_id = #{apply_id}
+	</select>
+	
+	<select id="selectList" resultType="applyVO">
+		select * from apply_business
+	</select>
+	
+	<select id="selectListByMemberId" resultType="applyVO">
+		select * from apply_business where member_id = #{member_id}
+	</select>
+	
+	<update id="updateApproval">
+		update apply_business set approval = #{approval}, approval_at = now() where apply_id = #{apply_id}
+	</update>
+		
+</mapper>

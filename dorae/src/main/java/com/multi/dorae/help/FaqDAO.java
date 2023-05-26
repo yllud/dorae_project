@@ -17,8 +17,8 @@ public class FaqDAO {
 		return sql.insert("faq.insert", vo);
 	}
 	
-	public int updateAnswer(FaqVO vo) {
-		return sql.update("faq.updateAnswer", vo);
+	public int update(FaqVO vo) {
+		return sql.update("faq.update", vo);
 	}
 	
 	public FaqVO one(int faq_id) {
@@ -35,6 +35,7 @@ public class FaqDAO {
 	
 	public List<FaqVO> listByCategoryWithPaging(String help_category_id, PageVO pageVO) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		pageVO.calc();
 		
 		map.put("help_category_id", help_category_id);
 		map.put("start", pageVO.getStart());

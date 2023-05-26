@@ -87,7 +87,7 @@
 </script>
 <style>
 #reviewBbs{
-	margin-top: 169px;
+	margin-top: 175px;
 }
 </style>
 </head>
@@ -102,7 +102,6 @@
 	<button id="tagSearch">검색</button>
 	<hr>
 	<div id="reviewList"></div>
-	<br>
 	<button id="writeReview">후기 작성</button>
 </div>
 </body>

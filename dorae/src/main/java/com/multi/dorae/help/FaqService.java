@@ -29,7 +29,7 @@ public class FaqService {
 		return true;
 	}
 	
-	public boolean updateContent(FaqVO faqVO) {
+	public boolean update(FaqVO faqVO) {
 		if (faqVO.getTitle() == null || faqVO.getTitle().trim().isEmpty()) {
 			System.out.println("FAQ 제목이 없음");
 			return false;
@@ -39,7 +39,7 @@ public class FaqService {
 			return false;
 		}
 		
-		if (faqDAO.updateAnswer(faqVO) != 1) {
+		if (faqDAO.update(faqVO) != 1) {
 			System.out.println("FAQ 수정에 실패함");
 			return false;
 		}

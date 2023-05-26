@@ -7,21 +7,25 @@
 <div class="mb-3 row">
 	<label for="faqTitle" class="col-sm-2 col-form-label">제목</label>
 	<div class="col-sm-10">
-	  <input type="text" readonly class="form-control" id="faqTitle" value="${faq.title}">
+	  <input type="text" class="form-control" id="faqTitle" value="${faq.title}">
 	</div>
 </div>
 
 <div class="mb-3 row">
-	<label for="faqCategory" class="col-sm-2 col-form-label">유형</label>
-	<div class="col-sm-10">
-	  <input type="text" readonly class="form-control" id="faqCategory" value="${faq.help_category_id}">
-	</div>
+  <label for="faqCategory" class="col-sm-2 col-form-label">유형</label>
+  <div class="col-sm-10">
+	  <select class="form-select" id="faqCategory">
+	    <c:forEach items="${helpCategoryList }" var="item">
+	    <option value="${item.help_category_id }" <c:if test="${item.help_category_id eq faq.help_category_id }">selected</c:if> >${item.name }</option>
+	    </c:forEach>
+	  </select>
+  </div>
 </div>
 
 <div class="mb-3 row">
 	<label for="faqContent" class="col-sm-2 col-form-label">내용</label>
 	<div class="col-sm-10">
-		<textarea class="form-control" id="faqContent" rows="5" readonly>${faq.content }</textarea>
+		<textarea class="form-control" id="faqContent" rows="5">${faq.content }</textarea>
 	</div>
 </div>
 
@@ -31,11 +35,13 @@
 <script type="text/javascript">
 	function submitContent(element) {
 		$.ajax({
-			url: "/dorae/admin/faq/updateContent",
+			url: "/dorae/admin/faq/update",
 			type: "POST",
 			data: {
 				faq_id: element.value,
-				answer: $("#faqContent").val()
+				help_category_id: $("#faqCategory").val(),
+				title: $("#faqTitle").val(),
+				content: $("#faqContent").val()
 			},
 			success: function(res) {
 				asyncLoad(history.state.url);

@@ -91,12 +91,12 @@
 				url: url,
 				success: function(data, statusText, jqXHR) {
 					$("#contents").html(data);
-					console.log(data);
+					//console.log(data);
 					console.log(statusText);
 					console.log(jqXHR);
-					console.log(jqXHR.getResponseHeader("Test-header"));
+					console.log(jqXHR.getResponseHeader("invalidated"));
 					if (jqXHR.getResponseHeader("invalidated") != null) {
-						location.href = jqXHR.getResponseHeader("Test-header");
+						location.href = jqXHR.getResponseHeader("invalidated");
 					}
 				}
 			})			

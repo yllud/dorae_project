@@ -119,7 +119,7 @@
 </script>
 <style>
 #sns{
-	margin-top: 169px;
+	margin-top: 175px;
 }
 </style>
 
