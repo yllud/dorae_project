@@ -75,7 +75,7 @@ public class NaverDAO {
 	// 공연 수정
 		public int updateUserType(String email) {
 			System.out.println("(DAO) update user type");
-			int result = mn.update("play.updateUserType", email);
+			int result = mn.update("naverMember.changeUserType", email);
 			System.out.println(result);
 			return result;
 		}
