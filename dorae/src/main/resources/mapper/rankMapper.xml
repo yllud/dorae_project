@@ -11,6 +11,10 @@
 	<select id="playIdList" resultType="String">
 		select play_id from ranking
 	</select>
+	
+	<delete id="delete">
+		delete from ranking
+	</delete>
 
 	<!-- <select id="stageIdList" resultType="String"> -->
 	<!-- select stage_id from ranking -->

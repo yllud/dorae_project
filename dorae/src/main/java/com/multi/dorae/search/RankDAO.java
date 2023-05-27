@@ -27,6 +27,13 @@ public class RankDAO {
 		
 	}
 	
+	public int deleteRank(){
+		int result=my.delete("rank.delete");
+				
+		return result;
+		
+	}
+	
 //	public List<String> listId() {
 //		List<String> list=my.selectList("place.idList");
 //		return list;

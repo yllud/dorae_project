@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -41,7 +42,7 @@ public class ApiParsing {
 
 	@Autowired
 	RankDAO dao3;
-	
+
 	// xml에서 태그 값을 읽어오는 함수
 	private static String getTagValue(String tag, Element eElement) {
 		Node nValue = null;
@@ -68,8 +69,32 @@ public class ApiParsing {
 		// 공연 id 목록을 저장할 리스트 생성
 		List<String> idList = new ArrayList<String>();
 
+		// api 날짜 요청 변수 설정
+		Date currentDate = new Date(System.currentTimeMillis());
+
+		// 30일 후의 날짜 계산
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(currentDate);
+		calendar.add(Calendar.DAY_OF_MONTH, 60);
+		Date futureDate = new Date(calendar.getTimeInMillis());
+
+		// 날짜 포맷 지정
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+
+		// 오늘 날짜 출력
+		String formattedCurrentDate = dateFormat.format(currentDate);
+		System.out.println("오늘 날짜: " + formattedCurrentDate);
+
+		// 30일 후의 날짜 출력
+		String formattedFutureDate = dateFormat.format(futureDate);
+		System.out.println("30일 후 날짜: " + formattedFutureDate);
+
 		// 공연, 축제 api
 		String[] kind = { "pblprfr", "prfawad" };
+
+		// 공연, 축제 api
+		String[] play_state = { "01", "02" };
+
 		// 지역 코드
 		String[] listSi = { "11", "26", "27", "28", "29", "30", "31", "40", "41", "42", "43", "44", "45", "46", "47",
 				"48", "50" };
@@ -77,44 +102,50 @@ public class ApiParsing {
 		// 지역별로 몇개 추가됐는지 확인
 		int[] list_cnt = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-		for (int a = 0; a < 2; a++) {
-			for (int i = 0; i < listSi.length; i++) {
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				for (int k = 0; k < listSi.length; k++) {
 
-				// 20200601~20230601까지 공연중
-				// listSi[i]시or도
-				// 공연 데이터 중 500개까지 불러옴
-				String parsingUrl = "http://www.kopis.or.kr/openApi/restful/" + kind[a]
-						+ "?service=e2622608ee6c4fa2a38d5f75a26a7e50"
-						+ "&stdate=20200601&eddate=20230601&cpage=1&rows=500&prfstate=02&signgucode=" + listSi[i];
+					// 20200601~20230601까지 공연중
+					// listSi[i]시or도
+					// 공연 데이터 중 500개까지 불러옴
+					String parsingUrl = "http://www.kopis.or.kr/openApi/restful/" + kind[i]
+							+ "?service=e2622608ee6c4fa2a38d5f75a26a7e50" 
+//							+ "&stdate=20210527&eddate=20230627"
+							+ "&stdate=" + formattedCurrentDate + "&eddate=" + formattedFutureDate + "&cpage=1&rows=500"
+							+ "&prfstate="+play_state[j]
+							+ "&signgucode=" + listSi[k];
 
-				System.out.println(parsingUrl);
+					System.out.println(parsingUrl);
 
-				// 1. 빌더 팩토리 생성.
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+					// 1. 빌더 팩토리 생성.
+					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 
-				// 2. 빌더 팩토리로부터 빌더 생성
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+					// 2. 빌더 팩토리로부터 빌더 생성
+					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
-				// 3. 빌더를 통해 XML 문서를 파싱해서 Document 객체로 가져온다.
-				Document doc = dBuilder.parse(parsingUrl);
+					// 3. 빌더를 통해 XML 문서를 파싱해서 Document 객체로 가져온다.
+					Document doc = dBuilder.parse(parsingUrl);
 
-				// 문서 구조 안정화
-				doc.getDocumentElement().normalize();
+					// 문서 구조 안정화
+					doc.getDocumentElement().normalize();
 
-				// XML 데이터 중 <db> 태그의 내용을 가져온다.
-				NodeList nList = doc.getElementsByTagName("db");
-				System.out.println("length: " + nList.getLength());
-				list_cnt[i] += nList.getLength();
-				// api의 공연id 목록을 idList에 넣어줌
-				for (int k = 0; k < nList.getLength(); k++) {
-					Node nNode = nList.item(k);
-					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-						Element eElement = (Element) nNode;
-						idList.add(getTagValue("mt20id", eElement));
-						System.out.println(getTagValue("mt20id", eElement));
+					// XML 데이터 중 <db> 태그의 내용을 가져온다.
+					NodeList nList = doc.getElementsByTagName("db");
+					System.out.println("length: " + nList.getLength());
+					list_cnt[i] += nList.getLength();
+					// api의 공연id 목록을 idList에 넣어줌
+					for (int l = 0; l < nList.getLength(); l++) {
+						Node nNode = nList.item(l);
+						if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+							Element eElement = (Element) nNode;
+							idList.add(getTagValue("mt20id", eElement));
+							System.out.println(getTagValue("mt20id", eElement));
+						}
 					}
 				}
 			}
+
 		}
 		// idList.add("PF148232");
 
@@ -301,14 +332,28 @@ public class ApiParsing {
 		int[] list_cnt = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		for (int i = 0; i < listGenre.length; i++) {
-			//서울만
-			for (int j = 0; j < 1; j++) {
+			for (int j = 0; j < 1; j++) {	// 서울만
+				
+				// 오늘 날짜 생성
+		        Date currentDate = new Date(System.currentTimeMillis());
 
-				// 20200601~20230601까지 공연중
-				// listSi[i]시or도
-				// 공연 데이터 중 500개까지 불러옴
+		        // 어제 날짜 계산
+		        Calendar calendar = Calendar.getInstance();
+		        calendar.setTime(currentDate);
+		        calendar.add(Calendar.DAY_OF_MONTH, -1);
+		        Date yesterdayDate = new Date(calendar.getTimeInMillis()); 
+
+		        // 날짜 포맷 지정
+		        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+
+		        // 어제 날짜 출력
+		        String formattedYesterdayDate = dateFormat.format(yesterdayDate);
+		        System.out.println("어제 날짜: " + formattedYesterdayDate);
+				
 				String parsingUrl = "http://kopis.or.kr/openApi/restful/boxoffice?service=e2622608ee6c4fa2a38d5f75a26a7e50"
-						+ "&ststype=day&date=20230516&catecode=" + listGenre[i] + "&area=" + listSi[j];
+						+ "&ststype=day&date="+formattedYesterdayDate
+						+ "&catecode=" + listGenre[i] + 
+						"&area=" + listSi[j];
 
 				System.out.println(parsingUrl);
 
@@ -327,7 +372,7 @@ public class ApiParsing {
 				// XML 데이터 중 <boxof> 태그의 내용을 가져온다.
 				NodeList nList = doc.getElementsByTagName("boxof");
 				System.out.println("length: " + nList.getLength());
-				//list_cnt[j] += nList.getLength();
+				// list_cnt[j] += nList.getLength();
 
 				// rankVO 사용
 				RankVO bag = new RankVO();
@@ -345,7 +390,6 @@ public class ApiParsing {
 						bag.setRank_area(getTagValue("area", eElement));
 						bag.setRank_date(getTagValue("basedate", eElement));
 						bag.setRanking(getTagValue("rnum", eElement));
-						
 
 						if (playId != null) {
 							try {
@@ -373,17 +417,24 @@ public class ApiParsing {
 //			System.out.println("지역코드 " + listSi[i] + ": " + list_cnt[i]);
 //		}
 	}
-	
+
 	public void dbUpdate()
 			throws IOException, ParserConfigurationException, SAXException, ClassNotFoundException, SQLException {
 		// 공연 id 목록을 저장할 리스트 생성
-		List<PlayVO> list=dao.listPlayDate();
+		List<PlayVO> list = dao.listPlayDate();
 		Date today = CurrentDate();
-		for(PlayVO vo:list) {
+		for (PlayVO vo : list) {
 			vo.setState(playState(vo.getPlay_start(), vo.getPlay_end(), today));
 			System.out.println("공연 상태 넣기 후>> " + vo);
 			dao.updateState(vo);
 		}
+	}
+	
+	public void deleteRank()
+			throws IOException, ParserConfigurationException, SAXException, ClassNotFoundException, SQLException {
+		// 공연 id 목록을 저장할 리스트 생성
+		dao3.deleteRank();
+		
 	}
 
 	// 날짜가 yyyymmdd 형식으로 입력되었을 경우 Date로 변경
@@ -410,7 +461,7 @@ public class ApiParsing {
 
 		return d;
 	}
-	
+
 	public Date CurrentDate() {
 
 		// 현재 날짜 구하기
@@ -426,7 +477,7 @@ public class ApiParsing {
 
 		return today;
 	}
-	
+
 	public String playState(Date start, Date end, Date now) {
 
 		int s = start.compareTo(now);
