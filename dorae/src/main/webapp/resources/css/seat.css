@@ -1,26 +1,126 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans&display=swap');
+@charset "UTF-8";
 
-* { /*박스의 크기를 화면에 표시하는 방식을 변경하는 속성*/
-  box-sizing: border-box; /* 테두리를 포함한 크기 지정가능*/
+.header {
+    position: fixed;
+    z-index: 100;
+    width: 990px;
+    background: #fff;
+}
+.main {
+    position: relative;
+    width: 1000px;
+    height: 100%;
+}
+.content {
+    position: relative;
+    zoom: 1;
+}
+.left {
+    overflow-y: auto;
+    float: left;
+    position: relative;
+    width: 680px;
+    min-height: 630px;
+    max-height: 630px;
+    padding: 20px;
+    border-right: 1px solid #ecedf2;
+    background: #f8f9fa;
+}
+.white_box {
+	overflow: hidden;
+    border: 1px solid #ecedf2;
+    border-radius: 2px;
+    background: #fff;
+    min-height: 550px;
+    max-height: 550px;
+    padding: 20px;
+}
+.right {
+	font-size: 14px;
+    letter-spacing: -1px;
+    float: left;
+    position: relative;
+    width: 280px;
+    height: auto;
+    min-height: 670px;
+    max-height: 670px;
+    margin-left: -1px;
+    padding: 20px 30px 30px 29px;
+    border-left: 1px solid #ecedf2;
+    box-sizing: border-box;
+    background: #fff;
+}
+ 
+.right .info .poster {
+    float: left;
+}
+.info2 {
+    clear: both;
+    font-size: 17px;
 }
 
-body { 
-  background-color: #ffffff;
-  color: #000000;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 100vh;
-  font-family: 'Lato', sans-serif;
-  margin: 0;
-} 
+.info2 table {
+    width: 100%;
+    font-size: 14px;
+}
+caption {
+    visibility: hidden;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+colgroup {
+    display: table-column-group;
+}
+tfoot {
+    display: table-footer-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+.info2 tfoot th, .info2 tfoot td {
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #242428;
+}
+.info2 th {
+    position: relative;
+    padding: 5px 1px;
+    border-top: 1px solid #ecedf2;
+    font-weight: 400;
+    line-height: 18px;
+    vertical-align: top;
+    text-align: left;
+}
+.info2 tfoot td {
+    padding-top: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fa2828;
+}
+.info2 td {
+    position: relative;
+    padding: 5px 1px;
+    border-top: 1px solid #ecedfe;
+    line-height: 18px;
+    font-size: 16px;
+    text-align: right;
+}
 
 .container { 
   perspective: 1000px;
   margin-bottom: 30px; /* container 기준으로 아래 여백*/
 }
-
 .seat {
   background-color: #c0e0fe;
   height: 13px;
@@ -50,23 +150,18 @@ body {
 .seat:not(.sold):hover { /* 선택가능한 좌석에 커서를 올렸을 때 좌석의 크기가 1.2배로 확대*/
   cursor: pointer;
   transform: scale(1.2);
-  
 }
-
 
 .stage { /* 무대표시*/
   background-color: #e4e4e4;
   height: 50px;
-  width: 100%;
-  margin: 15px 0;
+  width: 500px;
+  margin: 15px auto;
   transform: rotateX(-45deg);
 }
-
 .row { /* row 가로 나열*/
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-/* p.text span { p영역 텍스트 색깔
-  color: #000000;
-} */
 
