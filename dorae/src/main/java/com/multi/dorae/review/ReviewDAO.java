@@ -100,4 +100,9 @@ public class ReviewDAO {
 	public int genreCount(String genre) {
 		return my.selectOne("review.genreCount", genre);
 	}
+	
+	// 삭제된 사진명 가져오기
+	public List<String> deletedImg() {
+		return my.selectList("review.deletedImg");
+	}
 }

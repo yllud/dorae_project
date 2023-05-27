@@ -22,20 +22,21 @@
 </script>
 </head>
 <body>
-<form action="update2" method="post" onsubmit="showSuccessMessage1()">
-<input type="hidden" name="id" value="${review.id}">
-  <span>행사명</span><button type="button" onclick="openPopup()">행사명 선택</button><input type="text" name="tag" value="${review.tag}" id="selectedEventName" readonly><br>
-  <span>제목</span><input type="text" name="title" value="${review.title}"><br>
-  <span>후기내용</span><input type="text" name="content" value="${review.content}"><br>
-  <button type="submit">후기 수정</button>
-</form>
-<br>
 <form action="imgUpdate" method="post" enctype="multipart/form-data" onsubmit="showSuccessMessage2()">
   <span>사진수정</span>
   <input type="hidden" name="email" value="${review.email}">
   <input type="hidden" name="id" value="${review.id}">
-  <input type="file" name="files" multiple><br>
+  <input type="file" name="files" multiple><br><br>
   <button type="submit">사진 수정</button>
 </form>
+<hr>
+<form action="update2" method="post" onsubmit="showSuccessMessage1()">
+<input type="hidden" name="id" value="${review.id}">
+  <span>행사명</span><button type="button" onclick="openPopup()">행사명 선택</button><input type="text" name="tag" value="${review.tag}" id="selectedEventName" readonly><br>
+  <span>제목</span><input type="text" name="title" value="${review.title}"><br>
+  <span>후기내용</span><input type="text" name="content" value="${review.content}"><br><br>
+  <button type="submit">후기 수정</button>
+</form>
+
 </body>
 </html>
