@@ -37,6 +37,7 @@
 				<li><button value="/dorae/admin/faq/create" class="nav-link text-white" onclick="setActive(this)">FAQ 등록 </button></li>
 				<li><button value="/dorae/admin/notice/list?page=1" class="nav-link text-white" onclick="setActive(this)">공지사항 목록 </button></li>
 				<li><button value="/dorae/admin/notice/create" class="nav-link text-white" onclick="setActive(this)">공지사항 등록 </button></li>
+				<li><button value="/dorae/admin/apply/list?page=1" class="nav-link text-white" onclick="setActive(this)">사업자 신청 목록 </button></li>
 			</ul>
 			<hr>
 			

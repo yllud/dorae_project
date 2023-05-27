@@ -20,7 +20,9 @@
 				<tr>
 					<td>${item.contact_id }</td>
 					<td><button class="btn btn-link" value="/dorae/admin/contact/one?contact_id=${item.contact_id }" onclick="goToPage(this)">${item.title }</button></td>
-					<td><fmt:formatDate value="${item.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+					<td><fmt:timeZone value="GMT">
+						<fmt:formatDate value="${item.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/>
+					</fmt:timeZone></td>
 					<c:if test="${empty item.admin_id }">
 						<td>미완료</td>
 					</c:if>

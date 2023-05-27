@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.multi.dorae.help.ApplyBusinessDAO;
 import com.multi.dorae.help.HelpCategoryService;
 import com.multi.dorae.help.HelpCategoryVO;
+import com.multi.dorae.help.PageVO;
 
 @RequestMapping("admin")
 @Controller
@@ -21,6 +23,8 @@ public class AdminController {
 	HelpCategoryService helpCategoryService;
 	@Autowired
 	AdminService adminService;
+	@Autowired
+	ApplyBusinessDAO applyDAO;
 	
 	@RequestMapping
 	public String adminMain(@SessionAttribute("admin") AdminVO adminVO, Model model) {
@@ -74,5 +78,11 @@ public class AdminController {
 		session.invalidate(); // 세션 만료시킴
 		
 		return "redirect:../admin";
+	}
+	
+	@RequestMapping("apply/list")
+	public void applyList(PageVO pageVO, Model model) {
+		model.addAttribute("applyList", applyDAO.listWithPaging(pageVO));
+		model.addAttribute("page", pageVO);
 	}
 }
