@@ -2,18 +2,18 @@ package com.multi.dorae.ticket;
 
 public class SeatVO {
 
-	private String seat_member; //회원e-mail
+	private String email; //회원e-mail
 	private String play_id; //공연ID
 	private String seat_date; //공연날짜
 	private String seat_time; //공연시간
 	private String seat_number; //좌석번호
 	private String seat_id; //티켓번호
 	
-	public String getSeat_member() {
-		return seat_member;
+	public String getEmail() {
+		return email;
 	}
-	public void setSeat_member(String seat_member) {
-		this.seat_member = seat_member;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPlay_id() {
 		return play_id;
@@ -47,7 +47,7 @@ public class SeatVO {
 	}
 	@Override
 	public String toString() {
-		return "SeatVO [seat_member=" + seat_member + ", play_id=" + play_id + ", seat_date=" + seat_date
+		return "SeatVO [email=" + email + ", play_id=" + play_id + ", seat_date=" + seat_date
 				+ ", seat_time=" + seat_time + ", seat_number=" + seat_number + ", seat_id=" + seat_id + "]";
 	}
 	

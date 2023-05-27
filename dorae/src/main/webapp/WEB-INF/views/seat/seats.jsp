@@ -58,7 +58,8 @@
 	  전화번호: <input id="tel" placeholder="숫자만 입력해주세요" value="" oninput="phone(this)" maxlength="13"><br>
 	  </fieldset>
 	  <br>
-	<button id="clearBtn" class="clear" >다시선택</button>
+	<button onclick="history.back()">이전단계</button>
+	<button id="clearBtn" class="clear" >새로고침</button>
     <button id="next">다음단계</button>
     <button id="payment" style="display:none;" disabled="disabled">결제하기</button>
     </div>
