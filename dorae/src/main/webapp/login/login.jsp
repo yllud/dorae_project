@@ -14,13 +14,10 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript">
-	
-</script>  
+
 </head>
 <body>
 
-${email}
 <% if(session.getAttribute("email") == null){ %>
 	<h3>로그인페이지 입니다.</h3>
 
@@ -45,8 +42,7 @@ ${email}
     </script>
 	<br>
 	<%}else{ %>
-	out.println("<script type='text/javascript'>alert('${nickname} 님이 로그인 하셨습니다');</script>");
+	out.println("<script type='text/javascript'>alert('${nickname} 님이 로그인 하셨습니다');location.href = 'http://localhost:8888/dorae/map/main.jsp'</script>");
 	<%} %>
-	</div>
 </body>
 </html>

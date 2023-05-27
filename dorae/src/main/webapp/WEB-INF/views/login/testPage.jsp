@@ -13,16 +13,16 @@
 </h1>
 <c:if test="${result != 0 }">
 <P> ${vo.nickname}!!! welcome </P>
-<a href="http://localhost:8888/dorae/mypage/mypage.jsp">
+<a href="http://localhost:8888/dorae/map/main.jsp">
 	<button style="background: pink;" >처음화면으로</button>
 	</a>
 </c:if>
 <%
 int r = (int)request.getAttribute("result");
 if(r == 0){
-	out.println("<script type='text/javascript'>alert('중복된 이메일인 경우(로그인 성공시 사용)');location.href = 'http://localhost:8888/dorae/mypage/mypage.jsp'</script>");
+	out.println("<script type='text/javascript'>alert('중복된 이메일인 경우(로그인 성공시 사용)');location.href = '../mypage/mypage'</script>");
 }
 %>
-<a href="http://localhost:8888/dorae/mypage/mypage.jsp">첫페이지로</a>
+<a href="http://localhost:8888/dorae/map/main.jsp">첫페이지로</a>
 </body>
 </html>

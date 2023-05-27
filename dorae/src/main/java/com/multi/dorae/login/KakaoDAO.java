@@ -1,6 +1,7 @@
 package com.multi.dorae.login;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,19 +24,19 @@ public class KakaoDAO {
 	public int insert(KakaoVO vo) {
 		
 		System.out.println(vo);
-		System.out.println(vo);
         int result = 0;
         try {
+        	if (vo.getJoinDate() == null) {
             // 가입 날짜 설정
             vo.setJoinDate(new Timestamp(System.currentTimeMillis()));
-
+        	}
             result = sql.insert("kakaoMember.kakaoInsert", vo);
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println(result);
         return result;
-		
+	}
 		//(아래코드)챗지피티한테 물어보기 전 원본
 //		System.out.println(vo);
 //		int result = 0;
@@ -48,7 +49,7 @@ public class KakaoDAO {
 //		System.out.println(result);
 //		return result;
 		
-	}
+	
 //	public void kakaoinsert(HashMap<String, Object> userInfo) {
 //		sql.insert("kakaoMember.kakaoInsert",userInfo);
 //	}
@@ -65,26 +66,7 @@ public class KakaoDAO {
 	public int delete(String email) {
 		int result = sql.delete(email);
 		return result;
-	}
-	
-	
-//	//새로 로그인 짠거
-//	public int login(KakaoVO bag) {
-//		int result = 0;
-//		try {
-//			result = sql.selectOne("kakaoMember.kakaoFind", bag);
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return result;
-//	}
-//	
-//	public void delete(String email) {
-//		int result = sql.delete("kakaoMember.kakaoDelete", email);
-//		System.out.println(result);
-//	}
-	
+	}	
 
 }
 

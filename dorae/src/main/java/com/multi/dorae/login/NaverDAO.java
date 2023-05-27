@@ -79,5 +79,15 @@ public class NaverDAO {
 			System.out.println(result);
 			return result;
 		}
-	
+		
+//	//로그인 횟수 카운트 (실패함 다시 수정) - Controller,VO,Mapper
+//	public int updateVisitCount(String email) {
+//	    int result = 0;
+//	    try {
+//	        result = mn.update("naverMember.updateVisitCount", email);
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	    return result;
+//	}
 }

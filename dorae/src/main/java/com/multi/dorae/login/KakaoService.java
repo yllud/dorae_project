@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -114,6 +116,14 @@ public class KakaoService {
 //			return result;
 //			// 정보가 이미 있기 때문에 result를 리턴함.
 //		}
-        
+			       
+	}
+	
+	public void setSessionAttributes(HttpSession session, KakaoVO vo) {
+	    session.setAttribute("email", vo.getEmail());
+	    session.setAttribute("nickname", vo.getNickname());
+	    session.setAttribute("user_type", vo.getUser_type());
+	    // 세션 유지 시간 설정 (옵션)
+	    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
 	}
 }

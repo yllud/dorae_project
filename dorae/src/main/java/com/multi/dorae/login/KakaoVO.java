@@ -11,6 +11,7 @@ public class KakaoVO {
 	private String nickname;
 	private String email;
 	private Timestamp joinDate; // 가입 날짜
+	private String user_type;
 	
 	public long getM_number() {
 		return m_number;
@@ -36,12 +37,18 @@ public class KakaoVO {
 	public void setJoinDate(Timestamp joinDate) {
 		this.joinDate = joinDate;
 	}
-	
+		
+	public String getUser_type() {
+		return user_type;
+	}
+	public void setUser_type(String user_type) {
+		this.user_type = user_type;
+	}
 	@Override
 	public String toString() {
 		return "KakaoVO [m_number=" + m_number + ", nickname=" + nickname + ", email=" + email + ", joinDate="
-				+ joinDate + "]";
-	} 
+				+ joinDate + ", user_type=" + user_type + "]";
+	}
 
 	}
 

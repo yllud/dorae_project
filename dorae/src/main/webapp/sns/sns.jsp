@@ -81,7 +81,23 @@
 				console.log("에러 발생");
 			}
 		});
-
+		
+		// 메뉴 첫 화면 - 블로그1번
+			$.ajax({
+				url : "blogList",
+				data : {
+					rank : 1
+				// 랭크 값을 입력값으로 전달
+				},
+				success : function(table) {
+					$('#result').html(table);
+				},
+				error : function(xhr, status, error) {
+					alert('에러 발생');
+				}
+			});
+		
+		
 		// 추천검색어로 블로그 후기 검색하는 함수
 		function searchBlog(rank) {
 			$.ajax({

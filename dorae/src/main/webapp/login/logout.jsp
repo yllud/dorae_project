@@ -12,7 +12,7 @@ session.invalidate();
 </head>
 <body>
 	<%
-	response.sendRedirect("../login/login.jsp");
+	response.sendRedirect("../map/main.jsp");
 		//out.println("<script type='text/javascript'>alert('로그아웃 되었습니다.');location.href = 'http://localhost:8888/dorae/login/login.jsp'</script>"); 
 	%>
 </body>

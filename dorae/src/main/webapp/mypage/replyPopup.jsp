@@ -50,7 +50,7 @@ textarea {
 		공연명 : <span id="playName"></span> <input type="hidden" name="play_name" id="playNameInput" value="${play_name}"><br>
 		관람일 : <span id="seatDate"></span> <input type="hidden" name="seat_date" id="seatDateInput" value="${seat_date}">
 		<span id="seatTime"></span> <input type="hidden" name="seat_time" id="seatTimeInput" value="${seat_time}"><br>
-		<span id="seatId"></span> <input type="hidden" name="seat_id" id="seatIdInput" value=""><br>
+		티켓번호 : <span id="seatId"></span> <input type="hidden" name="seat_id" id="seatIdInput" value=""><br>
 		<textarea placeholder="내용 입력 (최대 300글자)" id="inputText" name="text"
 			maxlength="300"></textarea>
 			작성자 : ${nickname} <input type="hidden" name="nickname" value="${nickname}"><br>

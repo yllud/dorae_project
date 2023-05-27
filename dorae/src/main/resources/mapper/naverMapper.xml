@@ -42,4 +42,9 @@
 		where email=#{email}
 	</update>
 	
+	<update id="updateVisitCount" parameterType="String">
+    UPDATE member
+    SET visit_count = visit_count + 1
+    WHERE email = #{email}
+	</update>
 </mapper>
