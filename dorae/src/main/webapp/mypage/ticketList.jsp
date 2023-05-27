@@ -32,8 +32,6 @@ $(function() {
     </div>
 <hr color="blue">
 
-<button onclick="openPopup()">후기작성</button>
-    
     <script>
         function openPopup() {
             var popupWindow = window.open("../mypage/replyPopup.jsp", "popupWindow", "width=500,height=500");

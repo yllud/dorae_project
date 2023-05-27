@@ -45,36 +45,9 @@ public class KakaoController {
 		
 		// 리턴값은 용도에 맞게 변경하세요~
 		model.addAttribute("result", (int) (list.get(1)));
-		return "login/testPage";
+		return "/login/testPage";
 	}
 	
-//	//내가 만든 로그인
-//	@RequestMapping("login/kakaoLogin")
-//	public String login(KakaoVO vo, Model model) {
-//		System.out.println(vo + "===================");
-//		
-//		int result2 = dao.login(vo); //WHERE EMAIL = ${EMAIL} 이  있으면 SESSION설정하고 REDIRECT
-//		if(result2 != 1) {
-//			int result =  dao.insert(vo);
-//			System.out.println(result);
-//			if (result != 0) {
-//				
-//				//로그인 성공하면 session 잡아주기
-//				session.setAttribute("email", vo.getEmail());
-//				// 세션 유지 시간 설정 (옵션)
-//			    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
-//			    return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
-//				
-//			}else {
-//				return "redirect:/login/login.jsp"; // 로그인 실패 시 로그인 페이지로 리다이렉트
-//			}
-//		}else {
-//			session.setAttribute("email", vo.getEmail());
-//			// 세션 유지 시간 설정 (옵션)
-//		    session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
-//		    return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
-//			}
-//	}
 
 	// 네이버랑 email 겹치면 지우려고 만든 것 (회원탈퇴시에도 적용할 예정)
 	@RequestMapping(value = "login/kakaoDelete", method = RequestMethod.GET)
@@ -83,17 +56,34 @@ public class KakaoController {
 		dao.delete(email);
 	}
 
-//	@RequestMapping("login")
-//	public String login(KakaoVO bag) {
-//		System.out.println(bag);
-//		int result = dao.login(bag);
-//		if (result == 1) {
-//			session.setAttribute("email", bag.getEmail());
-//			return "redirect:login/mypage.jsp";
-//		} else {
-//			return "redirect:login/login.jsp";
-//
-//		}
-//	}
+	// 세션 잡으려고 새로 추가한 것
+	@RequestMapping("login/kakaoLogin")
+	public String login(@RequestParam("code") String authorize_code, HttpSession session) {
+	    String access_Token = ms.getAccessToken(authorize_code);
+	    ArrayList userInfo = ms.getUserInfo(access_Token);
+
+	    // 로그인 정보를 세션에 설정
+	    KakaoVO vo = (KakaoVO) userInfo.get(0);
+	    ms.setSessionAttributes(session, vo);
+
+	    // 세션 설정 후 원하는 페이지로 리다이렉트
+	    return "redirect:mypage/mypage";
+	}
+	
+	@RequestMapping("login/logout2")
+	public String logout(Model model, HttpSession session) {
+	    // 세션에서 로그인 정보 제거
+	    session.removeAttribute("email");
+	    session.removeAttribute("nickname");
+	    session.removeAttribute("user_type");
+	    // 세션 무효화
+	    session.invalidate();
+
+	    // 로그아웃 후 처리할 코드
+	    model.addAttribute("message", "로그아웃되었습니다.");
+
+	    // 로그아웃 후 리다이렉트할 페이지 반환
+	    return "redirect:../login/login.jsp";
+	}
 	
 }

@@ -12,7 +12,7 @@ session.invalidate();
 </head>
 <body>
 	<%
-		out.println("<script type='text/javascript'>alert('로그아웃 되었습니다.');location.href = 'http://localhost:8888/dorae/login/login.jsp'</script>");
+		out.println("<script type='text/javascript'>alert('로그아웃 되었습니다.');location.href = 'http://localhost:8888/dorae/map/main.jsp'</script>");
 	%>
 </body>
 </html>
