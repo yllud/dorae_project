@@ -55,7 +55,7 @@
 					<div class="dropdown-content">
 						<a href="../review/reviewBbs.jsp">다녀온 후기</a>
 						<a href="../sns/sns.jsp">SNS추천</a>
-						<a href="../noticeBbs/noticeBbs.jsp">공지사항</a>
+						<a href="../noticeBbs/noticeBbs.jsp">이벤트</a>
 					</div>
 				</div>
 				<li class="header_li"><a href="../help/main">고객센터</a></li>
