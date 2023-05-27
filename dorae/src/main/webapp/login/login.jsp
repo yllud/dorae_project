@@ -16,39 +16,7 @@
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 	
-<<<<<<< HEAD
-</script>
- <script>
-    // JavaScript 코드
-    window.addEventListener('DOMContentLoaded', function () {
-        var menuItems = document.querySelectorAll('.menu-item');
-
-        menuItems.forEach(function (menuItem) {
-            var submenu = menuItem.querySelector('.submenu');
-
-            menuItem.addEventListener('mouseover', function () {
-                submenu.style.display = 'block';
-            });
-
-            menuItem.addEventListener('mouseout', function () {
-                submenu.style.display = 'none';
-            });
-        });
-    });
-</script>
-<style>
-    /* 화면 가운데 정렬 스타일 */
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-  </style>
-  
-=======
 </script>  
->>>>>>> 607632fd2ba540bcadf4a4f887235cf9e4bd97e3
 </head>
 <body>
 
