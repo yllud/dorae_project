@@ -157,7 +157,7 @@ out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.j
    <div class="info">
    <input type="hidden" id="play_id" value="${vo.play_id}">
     <span class="poster">
-     <img src="${vo.poster}" width="150" height="180">
+     <img src="${vo.poster}" width="150" height="180"><br>
     </span>
    </div> <!-- info -->
    <div class="info2">
