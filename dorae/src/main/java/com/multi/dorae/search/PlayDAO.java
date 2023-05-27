@@ -23,8 +23,21 @@ public class PlayDAO {
 
 	// 모든 공연의 play id 불러오기 (api)
 	public List<String> listPlayId() {
+		System.out.println("listPlayI");
 		List<String> list = my.selectList("play.playIdList");
 		return list;
+	}
+
+	// 공연중, 공연완료인 공연 id, 날짜, 시작날짜, 종료날짜 검색 (api)
+	public List<PlayVO> listPlayDate() {
+		List<PlayVO> list = my.selectList("listPlayDate");
+		return list;
+	}
+
+	// 공연중, 공연완료인 공연 id, 날짜, 시작날짜, 종료날짜 검색 (api)
+	public int updateState(PlayVO vo) {
+		int result=my.update("play.updateState", vo);
+		return result;
 	}
 
 	// 모든 공연의 stageid 불러오기 (api)
@@ -63,7 +76,7 @@ public class PlayDAO {
 	}
 
 	// 공연 id로 리뷰 검색
-	public List<ReplyVO> ReviewList(String play_id) {		
+	public List<ReplyVO> ReviewList(String play_id) {
 		System.out.println("(DAO) reveiw List");
 		List<ReplyVO> list = my.selectList("play.review", play_id);
 		for (ReplyVO bag : list) {

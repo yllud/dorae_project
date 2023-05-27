@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -371,6 +373,18 @@ public class ApiParsing {
 //			System.out.println("지역코드 " + listSi[i] + ": " + list_cnt[i]);
 //		}
 	}
+	
+	public void dbUpdate()
+			throws IOException, ParserConfigurationException, SAXException, ClassNotFoundException, SQLException {
+		// 공연 id 목록을 저장할 리스트 생성
+		List<PlayVO> list=dao.listPlayDate();
+		Date today = CurrentDate();
+		for(PlayVO vo:list) {
+			vo.setState(playState(vo.getPlay_start(), vo.getPlay_end(), today));
+			System.out.println("공연 상태 넣기 후>> " + vo);
+			dao.updateState(vo);
+		}
+	}
 
 	// 날짜가 yyyymmdd 형식으로 입력되었을 경우 Date로 변경
 	public static Date transformDate(String date) {
@@ -395,6 +409,35 @@ public class ApiParsing {
 		Date d = Date.valueOf(transDate);
 
 		return d;
+	}
+	
+	public Date CurrentDate() {
+
+		// 현재 날짜 구하기
+		LocalDate now = LocalDate.now();
+
+		// 포맷 정의
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		// 포맷 적용
+		String formatedNow = now.format(formatter);
+
+		Date today = Date.valueOf(formatedNow);
+
+		return today;
+	}
+	
+	public String playState(Date start, Date end, Date now) {
+
+		int s = start.compareTo(now);
+		int e = end.compareTo(now);
+		if (e < 0) {
+			return "공연완료";
+		} else if (s <= 0) {
+			return "공연중";
+		} else {
+			return "공연예정";
+		}
 	}
 
 //	public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException, SQLException, ClassNotFoundException
