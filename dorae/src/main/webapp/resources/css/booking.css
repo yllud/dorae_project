@@ -8,7 +8,7 @@
 }
 .main {
     position: relative;
-    width: 990px;
+    width: 1000px;
     height: 100%;
 }
 .content {
@@ -46,6 +46,7 @@ select {
   }
   
 .white_box .title {
+	font-size: 17px;
     display: block;
     margin-bottom: 15px;
     padding-bottom: 5px;
@@ -74,10 +75,14 @@ select {
 }
 
 .title_notice {
-    display: inline-block;
+	font-size: 16px;
     margin: 20px 0 7px;
     color: #62676c;
     line-height: 14px;
+    display: block;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #cfd0d7;
 }
 ul, ol {
     list-style: none;
@@ -88,7 +93,7 @@ li {
 }
 .left .notice li {
     padding-left: 8px;
-    font-size: 13px;
+    font-size: 14px;
     color: #878d95;
     letter-spacing: -1px;
     line-height: 20px;
@@ -97,7 +102,7 @@ li {
 .right {
     float: left;
     position: relative;
-    width: 269px;
+    width: 280px;
     height: auto;
     min-height: 700px;
     margin-left: -1px;
@@ -114,13 +119,10 @@ li {
     clear: both;
     font-size: 17px;
 }
-.info2 strong span {
-    font-size: 14px;
-    line-height: 19px;
-}
+
 .info2 table {
     width: 100%;
-    font-size: 13px;
+    font-size: 14px;
 }
 caption {
     visibility: hidden;
@@ -163,7 +165,7 @@ tr {
 }
 .info2 tfoot td {
     padding-top: 5px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     color: #fa2828;
 }
@@ -172,5 +174,6 @@ tr {
     padding: 5px 1px;
     border-top: 1px solid #ecedfe;
     line-height: 18px;
+    font-size: 16px;
     text-align: right;
 }
