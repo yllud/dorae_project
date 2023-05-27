@@ -12,10 +12,14 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.net.ssl.HttpsURLConnection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.multi.dorae.help.ContactDAO;
 import com.multi.dorae.help.ContactVO;
+import com.multi.dorae.login.NaverDAO;
+import com.multi.dorae.login.NaverVO;
 
 //@PropertySource("classpath:credentials.properties") // properties 경로
 @Service
@@ -25,12 +29,23 @@ public class EmailSendService {
 	String accessKey = "4F2BDC69826967D37B65";
 	// @Value("${secretKey}")
 	String secretKey = "DE6AAA53DEBADD68474D90821B631CB444D1E692";
-
+	@Autowired
+	NaverDAO naverDAO;
+	@Autowired
+	ContactDAO contactDAO;
+	
 	public void send(ContactVO contactVO) {
+		ContactVO one = contactDAO.one(contactVO.getContact_id());
+		
+		NaverVO temp = new NaverVO();
+		temp.setEmail(one.getMember_id());
+		
+		NaverVO naver = naverDAO.login(temp);
 		try {
 			EmailSendRequest esr = new EmailSendRequest(); // 이메일 요청 객체(템플릿용)
 			esr.setTemplateSid(9347); // 이메일 템플릿 번호
-			esr.addRecipient(new RecipientForRequest("tjdaks0804@naver.com", "허성만")); // 이메일 수신자 추가
+//			esr.addRecipient(new RecipientForRequest("tjdaks0804@naver.com", "허성만")); // 이메일 수신자 추가
+			esr.addRecipient(new RecipientForRequest(naver.getEmail(), naver.getName())); // 이메일 수신자 추가
 
 			ObjectMapper om = new ObjectMapper();
 			System.out.println(om.writeValueAsString(esr));
