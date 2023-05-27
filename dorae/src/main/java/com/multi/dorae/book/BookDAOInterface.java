@@ -6,8 +6,10 @@ public interface BookDAOInterface {
 
 	int insert(BookVO bag);
 
-	int delete(String play_id);
+	int delete(BookVO bag);
 
-	List<BookVO> all(String email);
+	List<BookVO> count(String play_id);
+
+	List<BookVO> mybook(String email);
 
 }

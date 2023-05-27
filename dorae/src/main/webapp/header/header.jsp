@@ -28,12 +28,22 @@
                 submenu.style.display = 'none';
             });
         });
+        
+        
+        
     });
 </script>
 </head>
 <body>
 	<div class="logo"><a href="../map/main.jsp"><b>도래도래</b></a></div>
-	<h4 style="margin:10px; margin-top:0; text-align: right"><a href="../login/login.jsp">로그인/회원가입</a></h4>
+	<h4 style="margin:10px; margin-top:0; text-align: right">
+	<!-- 마이페이지 클릭 시 경로 수정필요!! -->
+	<% if (session.getAttribute("email") != null) { %>
+    	<%=session.getAttribute("nickname") %>님 <a id="loginBtn" href="../mypage/main.jsp">마이페이지</a> | <a id="logout" href='http://localhost:8888/dorae/login/logout.jsp'>로그아웃</a>
+    <% } else { %>
+    	<a href='http://localhost:8888/dorae/login/login.jsp'>로그인/회원가입</a>
+    <% } %>
+	</h4>
 	<div class="menu">
 		<nav class="clearfix">
 			<ul class="clearfix">								

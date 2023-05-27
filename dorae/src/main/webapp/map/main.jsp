@@ -53,9 +53,70 @@
 				console.log("delist2 길이 : " + delist2.length);
 				
 				console.log(delist2[0].stage_name);
-				addItems(delist1, delist2);
-				addMarkers(delist1, delist2);
+				addItems(delist1, delist2); //시작하자마자 테이블 추가
+				addMarkers(delist1, delist2); //시작하자마자 마커 추가
 				
+				$('#infolist').on('click', '.bookIcon', function() {
+				    var userEmail = "<%= session.getAttribute("email")%>";
+				    if (userEmail != "null") {
+				    	console.log("userEmail != null if문 들어옴!!");
+				        var bookmarkImg = $(this);
+				        //var bookmarkCount = $(this).data('count');
+				        var playId = bookmarkImg.closest('table').find('a').data('play-id');
+				        
+				        // 이미지 소스 변경 추후 수정예정
+				        if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
+				            // 북마크 추가
+				            $.ajax({
+				                url: "${path}/insert_book",
+				                method: "POST",
+				                data: { 
+				                    play_id: playId,
+				                    email: userEmail
+				                },
+				                success: function(response) {
+				                    bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
+				                    alert("북마크 추가됨!");
+				                },
+				                error: function(xhr, status, error) {
+				                    console.log('북마크 추가 중 에러가 발생했습니다.');
+				                }
+				            });
+				        } else {
+				            // 북마크 삭제
+				            $.ajax({
+				                url: "${path}/delete_book",
+				                method: "POST",
+				                data: { 
+				                    play_id: playId,
+				                    email: userEmail
+				                },
+				                success: function(response) {
+				                    bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
+				                    alert("북마크 삭제됨!");
+				                },
+				                error: function(xhr, status, error) {
+				                    console.log('북마크 삭제 중 에러가 발생했습니다.');
+				                }
+				            });
+				        }
+				        console.log("bookIcon 클릭! >>> " + playId);
+				    } else {
+				    	//console.log("userEmail != null else문 들어옴!!");
+				        alert('로그인 후 이용 가능합니다');
+				    }
+				});
+				
+				//공유 아이콘 클릭 이벤트
+				$('#infolist').on('click', '.shareIcon', function() {
+				    var row = $(this).closest('table');
+				    var playName = row.find('b').text();
+				    var stageName = row.find('tr:nth-last-child(2) td').text();
+
+				    snsPopup(playName, stageName);
+				});
+				
+				//infolist 테이블 추가
 				function addItems(list1, list2) {
 					$('#infolist').empty();
 					
@@ -63,7 +124,7 @@
 					var table = "<br><h3 style='text-align:center;'><전체지역> 검색결과 " + delist1.length + "개</h3>";
 					for (var i = 0; i < list1.length; i++) {
 						table += '<table id="infotable"><tr><td><img id="poster" src="' + list1[i].poster + '"></td></tr>';
-						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + list1[i].play_id + "'><b>" + list1[i].play_name + '</b></a></td></tr>';
+						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + list1[i].play_id + "' data-play-id='" + list1[i].play_id + "'><b>" + list1[i].play_name + '</b></a></td></tr>';
 						table += '<tr><td>' + list1[i].play_start + " ~ " + list1[i].play_end + '</td></tr>';
 						for(var j=0; j<list2.length; j++){
 							if(list1[i].stage_id == list2[j].stage_id){
@@ -71,60 +132,70 @@
 								break;
 							}
 						}
-						table += "<tr><td style='text-align:right'>"
-									+ "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:40px; padding-top:15px;' alt='북마크'>"
-										+ "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:40px; padding-top:10px;' alt='sns공유'></td></tr>";
-						table += '</table>';
-						
-					}//for
-					table += '<br><br><br>';
-					
-					// 테이블 추가
-					$('#infolist').html(table);
-					
-					$('.shareIcon').click(function () {
-					    var row = $(this).closest('table'); // 현재 클릭된 아이콘이 속한 테이블(table)을 선택합니다.
-					    var playName = row.find('b').text(); // 테이블 내부의 링크(b 태그)에서 공연 제목을 가져옵니다.
-					    var stageName = row.find('tr:nth-last-child(2) td').text(); // 테이블 내부에서 마지막에서 두 번째 행의 td 요소에서 공연장 이름을 가져옵니다.
-
-					    snsPopup(playName, stageName);
-					});
-					
-					/* $('.shareIcon').click(function () {
-						var row = $(this).closest('tr'); // 현재 클릭된 아이콘이 속한 행(row)을 선택합니다.
-					    var playName = row.find('b').prev().text(); // 행 내부의 링크(b 태그)에서 공연 제목을 가져옵니다.
-					    var stageName = row.find('td:last').prev().text(); // 행 내부에서 마지막 이전의 td 요소에서 공연장 이름을 가져옵니다.
-						var share_lat; //위도
-					    var share_lng; //경도
-					    
-					    for (var k = 0; k < list2.length; k++) {
-					    	if (list2[k].stage_name == stageName) {
-					            share_lat = list2[k].latitude;
-					            share_lng = list2[k].longitude;
-					            console.log(share_lat + ", " + share_lng);
-					            break;
-					        }else{
-					        	console.log("공연장 정보가 없습니다");
-					        }
-					    }
-					    snsPopup(playName, stageName, share_lat, share_lng);
-					    snsPopup(playName, stageName);
-					});
-					*/
-					
-					$('.bookIcon').click(function() {
-					    var bookmarkImg = $(this);
-
-					    // 이미지 소스 변경
-					    if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
-					        bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
-					    } else {
-					        bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
-					    }
-					});
-					
+						table += "<tr><td style='text-align:right'>";
+					 	<% if (session.getAttribute("email") != null) { %>
+						//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
+							$.ajax({
+					            type: 'GET',
+					            url: '${path}/select_my',
+					            data: { email: '<%= session.getAttribute("email") %>' },
+					            dataType: 'json',
+					            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+					            success: function(response) {
+					                var hasBookmark = false;
+					                for (var k = 0; k < response.length; k++) {
+					                    if (list1[i].play_id == response[k].play_id) {
+					                        hasBookmark = true;
+					                        break;
+					                    }
+					                }
+					                if (hasBookmark) {
+					                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크' ";
+					                } else {
+					                    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크' ";
+					                }
+					            },
+					            error: function(xhr, status, error) {
+					                console.log(error);
+					            }
+					        });
+				        <% } else { %>
+				        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크' ";
+				        <% } %>
+				        
+				        $.ajax({
+				            type: 'GET',
+				            url: '${path}/select_count',
+				            data: { play_id: list1[i].play_id },
+				            dataType: 'json',
+				            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+				            success: function(response) {
+				                var Bookcount = 0;
+				                for (var k = 0; k < response.length; k++) {
+				                    if (list1[i].play_id == response[k].play_id) {
+				                    	Bookcount += 1;
+				                    }
+				                }
+				                console.log("북마크 개수 : " + Bookcount);
+				             	// 북마크 수를 표시하는 숫자 추가
+				                table += "data-count=" + Bookcount + ">";			                
+				                table += Bookcount + " ";			                
+				            },
+				            error: function(xhr, status, error) {
+				                console.log(error);
+				            }
+				        });
+						//공유 아이콘 테이블에 넣기
+				        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+				        table += '</table>';
+				    } //for
+				    table += '<br><br><br>';
+				    
+				    // 테이블 추가
+				    $('#infolist').html(table);
 				}//addItems
 				
+				//지도에 마커 추가
 				function addMarkers(list1, list2) {
 					//console.log("addMarkers delist2 호출!!!!! >> " + list2[0].latitude);
 					for (var i = 0; i < list1.length; i++) {
@@ -151,7 +222,7 @@
 				        }
 				    }
 				}
-				
+				//마커 클릭 이벤트 함수
 				function addMarkerClickListener(marker, index) {
 					naver.maps.Event.addListener(marker, 'click', function() {
 						var markerPosition = marker.getPosition();
@@ -192,37 +263,47 @@
 					      	for (var i = 0; i < selectedPerformances.length; i++) {
 					        	var playinfo = selectedPerformances[i].playinfo;
 				        		table += '<table id="infotable"><tr><td><img id="poster" src="' + playinfo.poster + '"></td></tr>';
-						        table += "<tr><td><b><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "'>" + playinfo.play_name + '<b></a></td></tr>';
+				        		table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "' data-play-id='" + playinfo.play_id + "'><b>" + playinfo.play_name + '</b></a></td></tr>';
 						        table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
 						        table += '<tr><td>' + stgname + '</td></tr>';
-						        table += "<tr><td style='text-align:right'>"
-											+ "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:40px; padding-top:10px;' alt='북마크'>"
-												+ "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:40px; padding-top:10px;' alt='sns공유'></td></tr>";
-					        	table += '</table>';
-				        	}
-					      	table += '<br><br><br>';
-					      	$('#infolist').html(table);
-					      	
-					      	$('.shareIcon').click(function () {
-							    var row = $(this).closest('table'); // 현재 클릭된 아이콘이 속한 테이블(table)을 선택합니다.
-							    var playName = row.find('b').text(); // 테이블 내부의 링크(b 태그)에서 공연 제목을 가져옵니다.
-							    var stageName = row.find('tr:nth-last-child(2) td').text(); // 테이블 내부에서 마지막에서 두 번째 행의 td 요소에서 공연장 이름을 가져옵니다.
-
-							    snsPopup(playName, stageName);
-							});
-					      	
-					      	$('.bookIcon').click(function() {
-							    var bookmarkImg = $(this);
-
-							    // 이미지 소스 변경
-							    if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
-							        bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
-							    } else {
-							        bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
-							    }
-							});
+						        table += "<tr><td style='text-align:right'>";
+						        <% if (session.getAttribute("email") != null) { %>
+								//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
+									$.ajax({
+							            type: 'GET',
+							            url: '${path}/select_my',
+							            data: { email: '<%= session.getAttribute("email") %>' },
+							            dataType: 'json',
+							            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+							            success: function(response) {
+							                var hasBookmark = false;
+							                for (var k = 0; k < response.length; k++) {
+							                    if (playinfo.play_id == response[k].play_id) {
+							                        hasBookmark = true;
+							                        break;
+							                    }
+							                }
+							                if (hasBookmark) {
+							                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+							                } else {
+							                    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+							                }
+							            },
+					            		error: function(xhr, status, error) {
+					                		console.log(error);
+					            		}
+					        		});
+				        		<% } else { %>
+				        				table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				        		<% } %>
+						        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+						        table += '</table>';
+				    		} //for
+				    		table += '<br><br><br>';
+				    
+						    // 테이블 추가
+						    $('#infolist').html(table);
 				    	}//if
-				    	
 					    //infowindow.setContent("<div style='padding:10px;'>" + stageName + "</div>");
 				        infowindow.open(map, marker);
 				  	});
@@ -597,7 +678,7 @@
 		        	map.setZoom(11);
 		        } else if(area == "전라남도"){
 		        	map.setCenter(jeolla_nam);
-		        	map.setZoom(9);
+			        	map.setZoom(9);
 		        } else if(area == "전라북도"){
 		        	map.setCenter(jeolla_buk);
 		        	map.setZoom(9);
@@ -640,13 +721,41 @@
 			            for(var j=0; j<delist1.length; j++){
 			            	if(stageinfo.stage_id == delist1[j].stage_id){
 			            		table += '<table id="infotable"><tr><td><img id="poster" src="' + delist1[j].poster + '"></td></tr>';
-					            table += "<tr><td><a href='${path}/search/playDetail?play_id=" + delist1[j].play_id + "'><b>" + delist1[j].play_name + '</b></a></td></tr>';
-					            table += '<tr><td>' + delist1[j].play_start + ' ~ ' + delist1[j].play_end + '</td></tr>';
+			            		table += "<tr><td><a href='${path}/search/playDetail?play_id=" + delist1[j].play_id + "' data-play-id='" + delist1[j].play_id + "'><b>" + delist1[j].play_name + '</b></a></td></tr>';
+						        table += '<tr><td>' + delist1[j].play_start + ' ~ ' + delist1[j].play_end + '</td></tr>';
 					            table += '<tr><td>' + stageinfo.stage_name + '</td></tr>';
 					            table += "<tr><td style='text-align:right'>"
-									+ "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:40px; padding-top:10px;' alt='북마크'>"
-										+ "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:40px; padding-top:10px;' alt='sns공유'></td></tr>";
-					            table += '</table>'; // 공연 간의 여백을 위한 줄바꿈 추가   		
+				            	<% if (session.getAttribute("email") != null) { %>
+								//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
+									$.ajax({
+							            type: 'GET',
+							            url: '${path}/select_my',
+							            data: { email: '<%= session.getAttribute("email") %>' },
+							            dataType: 'json',
+							            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+							            success: function(response) {
+							                var hasBookmark = false;
+							                for (var k = 0; k < response.length; k++) {
+							                    if (delist1[j].play_id == response[k].play_id) {
+							                        hasBookmark = true;
+							                        break;
+							                    }
+							                }
+							                if (hasBookmark) {
+							                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+							                } else {
+							                    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+							                }
+							            },
+					            		error: function(xhr, status, error) {
+					                		console.log(error);
+					            		}
+					        		});
+				        		<% } else { %>
+				        				table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				        		<% } %>
+						        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+						        table += '</table>';		
 				            	count++; //공연 수 카운트
 			            	}
 			            }         	
@@ -654,26 +763,7 @@
 			    	table = "<br><h3 style='text-align:center'><" + area + "> 검색결과 " + count + "개</h3>" + table;
 			    	table += '<br><br><br>';
 			    	
-			    	$('#infolist').html(table);
-			        
-			    	$('.shareIcon').click(function () {
-					    var row = $(this).closest('table'); // 현재 클릭된 아이콘이 속한 테이블(table)을 선택합니다.
-					    var playName = row.find('b').text(); // 테이블 내부의 링크(b 태그)에서 공연 제목을 가져옵니다.
-					    var stageName = row.find('tr:nth-last-child(2) td').text(); // 테이블 내부에서 마지막에서 두 번째 행의 td 요소에서 공연장 이름을 가져옵니다.
-
-					    snsPopup(playName, stageName);
-					});
-			        
-			        $('.bookIcon').click(function() {
-					    var bookmarkImg = $(this);
-
-					    // 이미지 소스 변경
-					    if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
-					        bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
-					    } else {
-					        bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
-					    }
-					});
+			    	$('#infolist').html(table);			    	
 			    } else {
 			    	$('#infolist').empty();
 			    	table = "<br><h3 style='text-align:center;'><" + area + " 검색결과></h3>" + "<br><br><br><br><br><br><br><br><br><br><h4 style='text-align:center; color:gray;'>검색결과 없음</h4>";
