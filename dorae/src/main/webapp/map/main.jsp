@@ -61,6 +61,7 @@
 				    if (userEmail != "null") {
 				    	console.log("userEmail != null if문 들어옴!!");
 				        var bookmarkImg = $(this);
+				        //var bookmarkCount = $(this).data('count');
 				        var playId = bookmarkImg.closest('table').find('a').data('play-id');
 				        
 				        // 이미지 소스 변경 추후 수정예정
@@ -132,7 +133,6 @@
 							}
 						}
 						table += "<tr><td style='text-align:right'>";
-						
 					 	<% if (session.getAttribute("email") != null) { %>
 						//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
 							$.ajax({
@@ -150,9 +150,9 @@
 					                    }
 					                }
 					                if (hasBookmark) {
-					                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+					                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크' ";
 					                } else {
-					                    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+					                    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크' ";
 					                }
 					            },
 					            error: function(xhr, status, error) {
@@ -160,9 +160,32 @@
 					            }
 					        });
 				        <% } else { %>
-				        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크' ";
 				        <% } %>
 				        
+				        $.ajax({
+				            type: 'GET',
+				            url: '${path}/select_count',
+				            data: { play_id: list1[i].play_id },
+				            dataType: 'json',
+				            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+				            success: function(response) {
+				                var Bookcount = 0;
+				                for (var k = 0; k < response.length; k++) {
+				                    if (list1[i].play_id == response[k].play_id) {
+				                    	Bookcount += 1;
+				                    }
+				                }
+				                console.log("북마크 개수 : " + Bookcount);
+				             	// 북마크 수를 표시하는 숫자 추가
+				                table += "data-count=" + Bookcount + ">";			                
+				                table += Bookcount + " ";			                
+				            },
+				            error: function(xhr, status, error) {
+				                console.log(error);
+				            }
+				        });
+						//공유 아이콘 테이블에 넣기
 				        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
 				        table += '</table>';
 				    } //for
