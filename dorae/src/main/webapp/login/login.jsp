@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="${path}/resources/css/style.css"/>
+<link rel="stylesheet" href="../resources/css/sns.css">
 <meta charset="UTF-8">
 <title>로그인페이지</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
@@ -16,66 +16,10 @@
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 	
-</script>
- <script>
-    // JavaScript 코드
-    window.addEventListener('DOMContentLoaded', function () {
-        var menuItems = document.querySelectorAll('.menu-item');
-
-        menuItems.forEach(function (menuItem) {
-            var submenu = menuItem.querySelector('.submenu');
-
-            menuItem.addEventListener('mouseover', function () {
-                submenu.style.display = 'block';
-            });
-
-            menuItem.addEventListener('mouseout', function () {
-                submenu.style.display = 'none';
-            });
-        });
-    });
-</script>
-<style>
-    /* 화면 가운데 정렬 스타일 */
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-  </style>
+</script>  
 </head>
 <body>
-	<h1><a href="page01.jsp">도래도래</a></h1>
-	<div class="menu">
-		<nav class="clearfix">
-			<ul class="clearfix">
-				<!-- <li class="header_li"><a id="menu_search" href="">공연</a></li>
-				<li class="header_li"><a id="menu_review" href="">리뷰검색</a></li>
-				<li class="header_li"><a id="menu_help" href="">고객센터</a></li>
-				<li class="header_li"><a id="menu_mypage" href="">	마이페이지</a></li> -->
-								
-				<li class="header_li"><a href="../search/search.jsp">공연</a></li>
-				
-				<div class="dropdown">
-					<li class="header_li"><a href="../review/reviewBbs.jsp">커뮤니티</a></li>
-						<div class="dropdown-content">
-							<a href="../review/reviewBbs.jsp">다녀온 후기</a>
-							<a href="../sns/sns.jsp">SNS추천</a>
-							<a href="../noticeBbs/noticeBbs.jsp">공지사항</a>
-						</div>
-				</div>
-					
-				<li class="header_li"><a href="../help/main">고객센터</a></li> 
-				<li class="header_li"><a  href="../mypage/main.jsp">마이페이지</a></li>
-				
-			</ul>
-			<a id="pull" href="#"></a>
-		</nav>
-	</div>
-	<div id="res"></div>
-	
-	<div class="center">
+
 ${email}
 <% if(session.getAttribute("email") == null){ %>
 	<h3>로그인페이지 입니다.</h3>

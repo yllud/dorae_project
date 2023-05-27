@@ -20,14 +20,20 @@ public class BookDAO implements BookDAOInterface{
 	}
 	
 	@Override
-	public int delete(String play_id) {
-		int result = my.delete("book.del", play_id);
+	public int delete(BookVO bag) {
+		int result = my.delete("book.del", bag);
 		return result;
 	}	
 
 	@Override
-	public List<BookVO> all(String email) {
-		List<BookVO> list = my.selectList("book.all", email);
+	public List<BookVO> count(String play_id) {
+		List<BookVO> list = my.selectList("book.cnt", play_id);
+		return list;
+	}
+	
+	@Override
+	public List<BookVO> mybook(String email) {
+		List<BookVO> list = my.selectList("book.my", email);
 		return list;
 	}
 }

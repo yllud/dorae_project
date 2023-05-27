@@ -19,17 +19,21 @@ public class BookService implements BookServiceInterface{
 		return result;
 	}
 	
-	
 	@Override
-	public int delete(String play_id) {
-		int result = dao.delete(play_id);
+	public int delete(BookVO bag) {
+		int result = dao.delete(bag);
 		return result;
 	}	
 
-	
 	@Override
-	public List<BookVO> all(String email) {
-		List<BookVO> list = dao.all(email);
+	public List<BookVO> count(String play_id) {
+		List<BookVO> list = dao.count(play_id);
+		return list;
+	}
+
+	@Override
+	public List<BookVO> mybook(String email) {
+		List<BookVO> list = dao.mybook(email);
 		return list;
 	}
 }
