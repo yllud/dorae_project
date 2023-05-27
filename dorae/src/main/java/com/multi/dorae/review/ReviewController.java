@@ -170,8 +170,8 @@ public class ReviewController {
 
 	// 후기 삭제
 	@RequestMapping("review/delete")
-	public String delete(int id) {
-		dao.delete(id);
+	public String delete(ReviewVO vo) {
+		dao.delete(vo);
 		return "redirect:/review/reviewBbs.jsp";
 	}
 

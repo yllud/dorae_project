@@ -6,7 +6,7 @@
 		useGeneratedKeys="true" keyProperty="review_id">
 		insert into review values (null,
 		#{email}, #{title}, #{images}, #{content},
-		#{tag})
+		#{tag}, null)
 	</insert>
 	
 	<update id="update" parameterType="reviewVO">
@@ -23,9 +23,11 @@
 		where review_id = #{id}
 	</update>
 	
-	<delete id="delete" parameterType="Integer">
-		delete from review where review_id = #{id}
-	</delete>
+	<update id="delete" parameterType="reviewVO">
+		update review
+		set delete_date = #{deleteDate}
+		where review_id = #{id}
+	</update>
 
 	<select id="all" resultType="reviewVO" parameterType="reviewPageVO">
 		SELECT id, title, content, tag, images, email
@@ -38,6 +40,7 @@
 		review_img AS images,
 		email
 		FROM review
+		WHERE delete_date IS NULL
 		) review2
 		WHERE review2.review_no BETWEEN #{start} AND #{end};
 	</select>
@@ -54,6 +57,7 @@
 		email
 		FROM review
 		where review_tag = #{tag}
+		WHERE delete_date IS NULL
 		) review2
 		WHERE review2.review_no BETWEEN #{start} AND #{end};
 	</select>
@@ -73,11 +77,13 @@
 	<!--전체 게시글 수 계산 -->
 	<select id="count" resultType="Integer">
 		select count(*) from review
+		WHERE delete_date IS NULL
 	</select>
 	
 	<!--태그검색 게시글 수 계산 -->
 	<select id="tagCount" resultType="Integer" parameterType="String">
 		select count(*) from review where review_tag = #{tag}
+		WHERE delete_date IS NULL
 	</select>
 	
 	<!--태그 공연명 연동 -->
@@ -87,6 +93,7 @@
 		SELECT ROW_NUMBER() OVER (ORDER BY play_start DESC) AS play_no,
 		play_name, genre_name
 		FROM play
+		WHERE delete_date IS NULL
 		) play2
 		WHERE play2.play_no BETWEEN #{start} AND #{end};
 	</select>
@@ -94,6 +101,7 @@
 	<!--전체 공연 수 계산 -->
 	<select id="playCount" resultType="Integer">
 		select count(*) from play
+		WHERE delete_date IS NULL
 	</select>
 	
 	<!--공연 태그 검색  -->
@@ -104,6 +112,7 @@
 		play_name, genre_name
 		FROM play
 		WHERE play_name LIKE CONCAT('%', #{query}, '%')
+		AND delete_date IS NULL
 		) play2
 		WHERE play2.play_no BETWEEN #{start} AND #{end};
 	</select>
@@ -116,6 +125,7 @@
 		play_name, genre_name
 		FROM play
 		WHERE genre_name = #{genre}
+		AND delete_date IS NULL
 		) play2
 		WHERE play2.play_no BETWEEN #{start} AND #{end};
 	</select>
@@ -123,11 +133,13 @@
 	<!--전체 공연 수 계산 -->
 	<select id="playSearchCount" resultType="Integer" parameterType = "String">
 		select count(*) from play where play_name LIKE CONCAT('%', #{query}, '%')
+		AND delete_date IS NULL
 	</select>
 	
 	<!--전체 공연 수 계산 -->
 	<select id="genreCount" resultType="Integer" parameterType = "String">
 		select count(*) from play where genre_name = #{genre}
+		AND delete_date IS NULL
 	</select>
 	
 	

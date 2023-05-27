@@ -55,8 +55,8 @@ public class ReviewDAO {
 	}
 	
 	// 후기 삭제
-	public void delete(int id) {
-		my.delete("review.delete", id);
+	public void delete(ReviewVO vo) {
+		my.update("review.delete", vo);
 	}
 	
 	// 사진 수정

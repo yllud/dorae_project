@@ -124,11 +124,13 @@ div.centered {
         var result = confirm("정말 삭제하시겠습니까?");
         if (result) {
             // 확인을 누른 경우 Ajax를 통해 삭제 요청 보내기
+            var deleteDate = new Date().toISOString().split("T")[0];
             $.ajax({
                 url: "delete",
                 type: "POST",
                 data: {
-                    id: id
+                    id: id,
+                    deleteDate: deleteDate
                 },
                 success: function() {
                     alert("후기가 삭제되었습니다.");
