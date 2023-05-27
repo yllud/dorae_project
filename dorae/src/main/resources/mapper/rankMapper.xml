@@ -9,7 +9,9 @@
 	</insert>
 
 	<select id="playIdList" resultType="String">
-		select play_id from ranking
+		select p.play_id from ranking as r inner join play as p
+		on r.play_id=p.play_id
+		where p.state="공연중"
 	</select>
 	
 	<delete id="delete">

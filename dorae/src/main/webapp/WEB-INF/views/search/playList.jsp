@@ -53,6 +53,10 @@
 			$('#district_id').empty()
 			$('#district_id').append($('#district').val())
 
+			$('#result2').empty()
+			$('#result3').empty()
+			$('#result4').empty()
+
 			$.ajax({
 				url : "playList2",
 				data : {
@@ -70,10 +74,6 @@
 					var div2 = $x.filter('.footer2'); // 클래스가 'footer2'인 div 선택
 					var div3 = $x.filter('.ranking'); // 클래스가 'ranking'인 div 선택
 
-					$('#result2').empty()
-					$('#result3').empty()
-					$('#result3').empty()
-
 					$('#result2').append(div1)
 					$('#result3').append(div2)
 					$('#result4').html(div3)
@@ -85,9 +85,8 @@
 		})//b1
 
 		$('.footer').on('click', '.next', function() {
-			var page_cnt =
-<%=request.getAttribute("page_cnt")%>
-	;
+			var page_cnt = document.getElementById("a").value;
+<%-- <%=request.getAttribute("page_cnt")%>; --%>
 
 			var lastPage = parseInt($('.pages:last').text()); // 마지막 버튼의 값을 가져옴
 			var end = lastPage + 10;
@@ -109,6 +108,8 @@
 				var buttonN = $('<button>').addClass('next').text("다음");
 				$('.footer').append(buttonN);
 			}
+			
+			console.log("page_cnt: " + page_cnt);
 		});
 
 		$('.footer').on('click', '.back', function() {
@@ -158,8 +159,7 @@ td {
 				<option value="복합">복합</option>
 				<option value="서양/한국무용(무용)">무용</option>
 				<option value="대중무용">대중무용</option>
-			</select> 
-			<select id="district" name="type3">
+			</select> <select id="district" name="type3">
 				<option value="전체(지역)">전체(지역)</option>
 				<option value="서울">서울</option>
 				<option value="경기">경기도</option>
@@ -173,13 +173,12 @@ td {
 				<option value="경상">경상도</option>
 				<option value="전라">전라도</option>
 				<option value="제주">제주도</option>
-			</select>
-			<select id="state" name="type2">
+			</select> <select id="state" name="type2">
 				<option value="공연중">공연중</option>
 				<option value="공연예정">공연예정</option>
 				<option value="공연완료">공연완료</option>
 			</select>
-			
+
 			<button id="b1">적용</button>
 		</div>
 		<div>
@@ -187,7 +186,7 @@ td {
 			<mark id="genre_id">${cri.genre}</mark>
 			<mark id="district_id">${cri.district}</mark>
 			<mark id="state_id">${cri.state}</mark>
-			
+
 			<hr color="red">
 		</div>
 		<br>
@@ -199,7 +198,7 @@ td {
 			<c:forEach items="${list}" var="bag">
 				<!-- el 속성만 받아올 수 있는 표현식 -->
 				<a href="playDetail?play_id=${bag.play_id}" class="product"> <img
-					src="${bag.poster}" width="200" height="200">
+					src="${bag.poster}" width="200" height="230">
 					<div class="product-name">${bag.play_name}</div>
 					<div class="product-name1">${bag.stage_name}</div>
 					<div class="product-name2">
@@ -210,10 +209,11 @@ td {
 			</c:forEach>
 
 		</div>
-
+		
 		<div class="clearfix">
 
 			<div id="result3" class="footer">
+			<input id="a" value="${page_cnt}" type="hidden">
 				<%
 					int start = 1;
 					int end = start + 9;
