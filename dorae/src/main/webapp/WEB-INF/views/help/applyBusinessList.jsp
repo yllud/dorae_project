@@ -74,13 +74,13 @@
 		<li class="applyItem">
 			<button class="applyItemBtn"><fmt:formatDate value="${item.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/></button>
 			<c:if test="${empty item.approval_at }">
-			<button class="applyItemBtn">확인 중</button>
+			<button class="applyItemBtn">검토 중</button>
 			</c:if>
 			<c:if test="${not empty item.approval_at and item.approval == true}">
-			<button class="applyItemBtn">승인됨</button>
+			<button class="applyItemBtn">승인</button>
 			</c:if>
 			<c:if test="${not empty item.approval_at and item.approval == false}">
-			<button class="applyItemBtn">거부됨</button>
+			<button class="applyItemBtn">거부</button>
 			</c:if>
 		</li>
 		</c:forEach>

@@ -21,6 +21,10 @@ public class ApplyBusinessDAO {
 		return sql.update("apply.updateApproval", applyVO);
 	}
 	
+	public ApplyBusinessVO one(long apply_id) {
+		return sql.selectOne("apply.selectOne", apply_id);
+	}
+	
 	public List<ApplyBusinessVO> listWithPaging(PageVO pageVO) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		pageVO.setTotal(count());
@@ -29,7 +33,7 @@ public class ApplyBusinessDAO {
 		map.put("start", pageVO.getStart());
 		map.put("end", pageVO.getEnd());
 		map.put("cntPerPage", pageVO.getCntPerPage());
-		System.out.println(pageVO);
+
 		return sql.selectList("apply.selectListWithPaging", map);
 	}
 	
