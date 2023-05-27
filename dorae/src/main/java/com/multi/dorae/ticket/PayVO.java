@@ -9,7 +9,7 @@ public class PayVO {
 	private String paid_amount; //결제금액
 	private String buyer_name; //주문자 이름
 	private String buyer_tel; //주문자 전화번호
-	private String buyer_email; //주문자 이메일
+	private String email; //주문자 이메일
 	private String play_id; //공연ID
 	private String booking; //예매일
 	private String seat_id; //티켓번호
@@ -51,11 +51,11 @@ public class PayVO {
 	public void setBuyer_tel(String buyer_tel) {
 		this.buyer_tel = buyer_tel;
 	}
-	public String getBuyer_email() {
-		return buyer_email;
+	public String getEmail() {
+		return email;
 	}
-	public void setBuyer_email(String buyer_email) {
-		this.buyer_email = buyer_email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPlay_id() {
 		return play_id;
@@ -79,7 +79,7 @@ public class PayVO {
 	public String toString() {
 		return "PayVO [imp_uid=" + imp_uid + ", merchant_uid=" + merchant_uid + ", apply_num=" + apply_num
 				+ ", paid_amount=" + paid_amount + ", buyer_name=" + buyer_name
-				+ ", buyer_tel=" + buyer_tel + ", buyer_email=" + buyer_email + ", play_id=" + play_id + ", booking="
+				+ ", buyer_tel=" + buyer_tel + ", email=" + email + ", play_id=" + play_id + ", booking="
 				+ booking + ", seat_id=" + seat_id + "]";
 	}
 	
