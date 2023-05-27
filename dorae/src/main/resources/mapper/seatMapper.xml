@@ -8,7 +8,7 @@
 			FROM seat
 			WHERE seat_id LIKE CONCAT(DATE_FORMAT(NOW(), '%y%m%d'), '%');
 		</selectKey>
-		insert into seat values (#{seat_member}, #{play_id}, #{seat_date}, #{seat_time}, #{seat_number}, #{seat_id})
+		insert into seat values (#{email}, #{play_id}, #{seat_date}, #{seat_time}, #{seat_number}, #{seat_id})
 	</insert>
 	
 	<!-- 공연ID, 날짜, 시간 전부 같은 좌석넘버 가져오기  -->

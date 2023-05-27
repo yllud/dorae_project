@@ -25,6 +25,7 @@ public class AdminFilter implements Filter{
 		// 해당 url는 비로그인만 접속 가능
 		url.add("/dorae/admin/login");
 		url.add("/dorae/admin/join");
+		url.add("/dorae/admin/find");
 	}
 
 	@Override

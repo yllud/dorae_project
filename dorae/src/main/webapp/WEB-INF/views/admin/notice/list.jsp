@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 	<h1 class="h2">공지사항 목록 페이지</h1>
 </div>
@@ -19,7 +20,9 @@
 				<tr>
 					<td>${item.notice_id }</td>
 					<td><button class="btn btn-link" value="/dorae/admin/notice/one?notice_id=${item.notice_id }" onclick="goToPage(this)">${item.title }</button></td>
-					<td>${item.created_at }</td>
+					<td><fmt:timeZone value="GMT">
+						<fmt:formatDate value="${item.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/>
+					</fmt:timeZone></td>
 					<td>${item.tag }</td>
 				</tr>
 			</c:forEach>

@@ -42,7 +42,7 @@
 				}
 			});
 		})
-
+	
 		// 후기 작성 버튼 클릭 함수
 		$('#writeReview').click(function() {
 			<%if (session.getAttribute("email") != null) {%>

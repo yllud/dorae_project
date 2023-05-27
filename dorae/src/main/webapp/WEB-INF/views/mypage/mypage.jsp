@@ -12,6 +12,9 @@
 <link rel="stylesheet" href="../resources/css/sns.css">
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <style>
+#mypage{
+	margin-top: 175px;
+}
 .button {
 	margin-top: 20px;
 }
@@ -33,6 +36,19 @@
         box-sizing: border-box;
         background: #fcfcfa;
       }
+.imageContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.imageContainer img {
+	max-width: 100%;
+	max-height: 400px;
+	object-fit: contain;
+	margin: 0 5px;
+}
     
 </style>
 
@@ -73,39 +89,43 @@ $(document).ready(function() {
 <body>
 <!-- 헤더 추가 -->
 <header id="header" class="fixed-top"></header>
-<div >
+<div id="mypage">
 <%
 	if(session.getAttribute("email") != null){
 %>
 
-	<h2>도래도래</h2>
-	${nickname} 님<br>
-	
-		
-	
-	<a href="http://localhost:8888/dorae/login/login.jsp">
-		<button>회원가입</button>
-	</a>
-	
 	<div class="left">
-	<img src="../resources/img/풍경.jpg" width=180 height=180>
+	<!-- 프로필 이미지 -->
+	<c:choose>
+	<c:when test="${not empty vo2.profile_image}">
+						<div class="imageContainer">
+							<c:forEach var="image" items="${vo2.profile_image}">
+								<img src="../resources/upload/${image}" alt="프로필 이미지" />
+							</c:forEach>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="no-image">이미지가 없습니다.</div>
+					</c:otherwise>
+				</c:choose>
 	<br>
 <form action="../mypage/uploadProfileImage.jsp" method="post" enctype="multipart/form-data">
   <input type="file" name="profileImage">
   <input type="submit" value="프로필 사진 업로드">
 </form>
 <br>
-	<table border="1" width="150" heigth="30">
+	<!-- <table border="1" width="150" heigth="30"> -->
+	<table heigth="50">
 		<tr align="center">
-			<td>닉네임</td>
-			<td>${nickname}</td>
+			<td width="70">닉네임</td>
+			<td width="150">${nickname}</td>
 		</tr>
 		<tr align="center">
 			<td>가입일</td>
 			<td><fmt:formatDate value="${vo2.joinDate}" pattern="yyyy년 MM월 dd일"/></td>
 		</tr>
 		<tr align="center">
-			<td>관람수</td>
+			<td>방문 수</td>
 			<td>1</td>
 		</tr>
 	</table>

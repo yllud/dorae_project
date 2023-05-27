@@ -57,6 +57,7 @@ public class HelpController {
 	
 	@RequestMapping("faqSearch")
 	public void faqSearch(String search, Model model) {
+		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
 		model.addAttribute("faqList", faqService.listBySearch(search));
 		model.addAttribute("search", search);
 	}

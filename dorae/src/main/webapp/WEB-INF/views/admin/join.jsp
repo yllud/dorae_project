@@ -7,6 +7,15 @@
 <title>관리자 가입 페이지</title>
 <link rel="stylesheet" href="/dorae/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="/dorae/resources/css/signin.css">
+<style type="text/css">
+	.form-floating {
+		margin-bottom: 10px;
+	}
+	
+	.form-signin input[type="password"] {
+		border-radius: .375rem;
+	}
+</style>
 </head>
 <body>
 	<main class="form-signin w-100 m-auto">
@@ -30,7 +39,7 @@
 	      <label for="floatingNickName">닉네임</label>
 	    </div>
 	    
-	    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+	    <button class="w-100 btn btn-lg btn-primary" type="submit">가입하기</button>
 	  </form>
 	</main>
 </body>

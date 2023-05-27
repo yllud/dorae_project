@@ -24,6 +24,16 @@
 	<select id="stageIdList" resultType="String">
 		select stage_id from play
 	</select>
+	
+	<select id="listPlayDate" resultType="playVO">
+		select play_id,play_name,play_start,play_end,state
+		from play where state = "공연중" or state="공연예정"
+	</select>
+	
+	<update id="updateState" parameterType="playVO">
+		update play set state=#{state}
+		where play_id=#{play_id}
+	</update>
 
 
 	<select id="one" parameterType="String" resultType="playVO">

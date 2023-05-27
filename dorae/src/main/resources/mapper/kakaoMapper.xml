@@ -10,8 +10,8 @@
 
 	<insert id="kakaoInsert" parameterType="kakaoVO">
 
-		insert into member(nickname, email, joinDate)
-			values(#{nickname}, #{email}, #{joinDate})
+		insert into member(nickname, email, joinDate, user_type)
+			values(#{nickname}, #{email}, #{joinDate}, 'user')
 	</insert>
 	
 	<delete id="kakaoDelete" parameterType="String">

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>좌석선택</title>
-<link rel="stylesheet" href="../resources/css/seat.css">
+
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -15,54 +15,262 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style type="text/css">
+.header {
+    position: fixed;
+    z-index: 100;
+    width: 990px;
+    background: #fff;
+}
+.main {
+    position: relative;
+    width: 1000px;
+    height: 100%;
+}
+.content {
+    position: relative;
+    zoom: 1;
+}
+.left {
+    overflow-y: auto;
+    float: left;
+    position: relative;
+    width: 680px;
+    min-height: 630px;
+    max-height: 630px;
+    padding: 20px;
+    border-right: 1px solid #ecedf2;
+    background: #f8f9fa;
+}
+.white_box {
+	overflow: hidden;
+    border: 1px solid #ecedf2;
+    border-radius: 2px;
+    background: #fff;
+    min-height: 550px;
+    max-height: 550px;
+    padding: 20px;
+}
+.right {
+	font-size: 14px;
+    letter-spacing: -1px;
+    float: left;
+    position: relative;
+    width: 280px;
+    height: auto;
+    min-height: 670px;
+    max-height: 670px;
+    margin-left: -1px;
+    padding: 20px 30px 30px 29px;
+    border-left: 1px solid #ecedf2;
+    box-sizing: border-box;
+    background: #fff;
+}
+ 
+.right .info .poster {
+    float: left;
+}
+.info2 {
+    clear: both;
+    font-size: 17px;
+}
+
+.info2 table {
+    width: 100%;
+    font-size: 14px;
+}
+caption {
+    visibility: hidden;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+colgroup {
+    display: table-column-group;
+}
+tfoot {
+    display: table-footer-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+.info2 tfoot th, .info2 tfoot td {
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #242428;
+}
+.info2 th {
+    position: relative;
+    padding: 5px 1px;
+    border-top: 1px solid #ecedf2;
+    font-weight: 400;
+    line-height: 18px;
+    vertical-align: top;
+    text-align: left;
+}
+.info2 tfoot td {
+    padding-top: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fa2828;
+}
+.info2 td {
+    position: relative;
+    padding: 5px 1px;
+    border-top: 1px solid #ecedfe;
+    line-height: 18px;
+    font-size: 16px;
+    text-align: right;
+}
+
+.container { 
+  perspective: 1000px;
+  margin-bottom: 30px; /* container 기준으로 아래 여백*/
+}
+.seat {
+  background-color: #c0e0fe;
+  height: 13px;
+  width: 15px;
+  margin: 3px; /* 여백*/
+  border-top-left-radius: 5px; /* 좌석 왼쪽 모서리 깎은 정도*/
+  border-top-right-radius: 5px; /* 좌석 오른쪽 모서리 깎은 정도*/
+}
+
+.seat.selected { /* 좌석 선택시 색깔*/
+  background-color: #74bcfe;
+}
+
+.seat.sold { /* 예매된 좌석(선택불가) 색깔*/
+  background-color: #d7d7d7;
+  pointer-events: none;
+}
+
+.seat:nth-of-type(5) { /* div의 자식이면서 같은 유형 2번째 오른쪽 공백*/
+  margin-right: 20px;
+}
+
+.seat:nth-last-of-type(5) { /* div의 자식이면서 같은 유형 끝에서 2번째 왼쪽 공백*/
+  margin-left: 20px;
+}
+
+.seat:not(.sold):hover { /* 선택가능한 좌석에 커서를 올렸을 때 좌석의 크기가 1.2배로 확대*/
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.stage { /* 무대표시*/
+  background-color: #e4e4e4;
+  height: 50px;
+  width: 500px;
+  margin: 15px auto;
+  transform: rotateX(-45deg);
+}
+.row { /* row 가로 나열*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 </style>
 </head>
 <body>
-
  <input type="hidden" class="class" name="name" id="show_price" value="35000">
-
+<div class="main">
+ <div class="content">
+   <div class="left">
+    <div class="white_box">
     <div class="container">
       <div class="stage"></div>		<!-- 무대 -->
       <div class="row"></div>  <!-- 좌석 -->
     </div>
-   
-	<div>
-      <fieldset>
-      <legend>예매정보</legend>
-      <img src="${vo.poster}" width="180" height="180"><br>
-       <input type="hidden" id="play_id" value="${vo.play_id}">
-      <c:set var="today" value="<%=new java.util.Date() %>"/>
-	  예매일 <a id="booking"><fmt:formatDate value="${today}" type="date" pattern="yyyy-MM-dd" /></a><br>
-      상품명 <span id="play_name">${vo.play_name}</span><br>
-      장소 <span id="place">${vo.stage_name}</span><br>
-      <hr>
-	  관람날짜 <span id="d_day"></span><br>
-	  관람시간<span id="d_time"></span><br>
-	  좌석번호 <span id="seat_num"></span><br>
-	  좌석수 <span id="count">0</span>개<br>
-	  </fieldset>
-	  
-	  <fieldset>
-	  <legend>결제정보</legend>
-      티켓금액 <span id="price">0</span>원<br>
-      예매수수료 <span id="fee">0</span>원<br>
-      <hr>
-      총결제 <span id="total">0</span>원<br><br>
-      </fieldset>
-      
-      <fieldset id="check" style="display:none;">
-      <legend>주문자확인</legend>
-	  구매자이름: <input id="name" readonly><br>
-	  이메일: <input id="email" readonly><br>
-	  전화번호: <input id="tel" placeholder="숫자만 입력해주세요" value="" oninput="phone(this)" maxlength="13"><br>
-	  </fieldset>
-	  <br>
-	<button id="clearBtn" class="clear" >다시선택</button>
-    <button id="next">다음단계</button>
-    <button id="payment" style="display:none;" disabled="disabled">결제하기</button>
     </div>
- 
+   </div> <!-- left -->
+	
+  <div class="right">
+   <div class="info">
+   <input type="hidden" id="play_id" value="${vo.play_id}">
+    <span class="poster">
+     <img src="${vo.poster}" width="150" height="180"><br>
+    </span>
+   </div> <!-- info -->
+   <div class="info2">
+    <table>
+     <caption>예매정보</caption>
+     <colgroup>
+      <col style="width:70px"><col>
+     </colgroup>
+     <tfoot>
+      <tr>
+       <th>총결제</th> 
+       <td id="total">0</td>
+      </tr>
+     </tfoot>
+     <tbody>
+      <tr>
+       <th>예매일</th>
+       <c:set var="today" value="<%=new java.util.Date() %>"/>
+       <td id="booking"><fmt:formatDate value="${today}" type="date" pattern="yyyy-MM-dd" /></td>
+      </tr>
+      <tr>
+       <th>공연명</th>
+       <td id="play_name"><${vo.genre_name}>${vo.play_name}</td>
+      </tr>
+      <tr>
+       <th>장소</th>
+       <td id="place">${vo.stage_name}</td>
+      </tr>
+      <tr>
+       <th>관람날짜</th>
+       <td id="d_day"></td>
+      </tr>
+      <tr>
+       <th>관람시간</th>
+       <td id="d_time"></td>
+      </tr>
+      <tr>
+       <th>좌석번호</th>
+       <td id="seat_num"></td>
+      </tr>
+      <tr>
+       <th>좌석수</th>
+       <td id="count">0</td>
+      </tr>
+      <tr>
+       <th>티켓가격</th>
+       <td id="price">0</td>
+      </tr>
+      <tr>
+       <th>예매수수료</th>
+       <td id="fee">0</td>
+      </tr>
+     </tbody>
+    </table>
+    <fieldset id="check" style="display:none;">
+      <legend>주문자확인</legend>
+	  구매자이름 <input id="name" readonly><br>
+	  이메일 <input id="email" readonly><br>
+	  전화번호 <input id="tel" placeholder="숫자만 입력해주세요" value="" oninput="phone(this)" maxlength="13"><br>
+	  </fieldset>
+   </div> <!-- info2 -->
+	 <button onclick="history.back()">이전단계</button>
+	 <button id="clearBtn" class="clear" >새로고침</button>
+     <button id="next">다음단계</button>
+     <button id="payment" style="display:none;" disabled="disabled">결제하기</button>
+  </div> <!-- right -->
+ </div>
+</div>
+      
+
  <script type="text/javascript">
 $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태그의 로드만을 감지, 중복가능
 	$('#d_day').text(localStorage.getItem("d_day")); 
@@ -148,9 +356,9 @@ function updateSelectedCount() {
   
 	// text부분에 나타낼 정보(선택된 좌석, 가격, 수수료, 총 합계)
   $('#count').text(selectedSeatsCount);
-  $('#price').text(selectedSeatsCount * ticketPrice);
-  $('#fee').text(selectedSeatsCount * 1000);
-  $('#total').text(selectedSeatsCount * ticketPrice + selectedSeatsCount * 1000);
+  $('#price').text(selectedSeatsCount * ticketPrice + " " + "원");
+  $('#fee').text(selectedSeatsCount * 1000 + " " + "원");
+  $('#total').text(selectedSeatsCount * ticketPrice + selectedSeatsCount * 1000 + " " + "원");
 };
 
 $('#next').click(function() { 
@@ -192,7 +400,7 @@ $('#clearBtn').click(function() {
 }); // 다시선택
 
 </script>
-  
+
 <script type="text/javascript" src="../resources/js/pay.js"></script>
 </body>
 </html>

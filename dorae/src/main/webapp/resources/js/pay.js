@@ -17,7 +17,7 @@ $('#payment').click(function() {
 			      $.ajax({
 			    	  url: "insert", // 티켓정보(seatDB)
 			    	  data: { 
-			    		  seat_member: $('#email').val(), //회원e-mail
+			    		  email: $('#email').val(), //회원e-mail
 			    		  play_id: $('#play_id').val(), //공연ID
 			    		  seat_date: $('#d_day').text(), //공연날짜
 			    		  seat_time: $('#d_time').text(), //공연시간
@@ -34,7 +34,7 @@ $('#payment').click(function() {
 			    		 	paid_amount: rsp.paid_amount, //결제금액
 			    		 	buyer_name: rsp.buyer_name, //주문자 이름
 			    		 	buyer_tel: rsp.buyer_tel, //주문자 전화번호
-			    			buyer_email: rsp.buyer_email, //주문자 이메일
+			    			email: rsp.buyer_email, //주문자 이메일
 			    			play_id: $('#play_id').val(), //공연ID
 			    			booking: $('#booking').text(),//예매일
 			    		 	//seat_id: 티켓번호 자동생성 됨

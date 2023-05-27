@@ -10,8 +10,11 @@
 		select * from apply_business where apply_id = #{apply_id}
 	</select>
 	
-	<select id="selectList" resultType="applyVO">
-		select * from apply_business
+	<select id="selectListWithPaging" resultType="applyVO">
+		select * from (
+			select ROW_NUMBER() over (order by apply_id desc) as apply, a.*
+			from apply_business a) a2
+		where a2.apply between #{start} and #{end}
 	</select>
 	
 	<select id="selectListByMemberId" resultType="applyVO">
@@ -21,5 +24,9 @@
 	<update id="updateApproval">
 		update apply_business set approval = #{approval}, approval_at = now() where apply_id = #{apply_id}
 	</update>
+	
+	<select id="count" resultType="int">
+		select count(*) from apply_business
+	</select>
 		
 </mapper>

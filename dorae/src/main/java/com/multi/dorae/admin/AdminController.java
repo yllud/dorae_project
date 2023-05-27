@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.multi.dorae.help.ApplyBusinessDAO;
+import com.multi.dorae.help.ApplyBusinessVO;
 import com.multi.dorae.help.HelpCategoryService;
 import com.multi.dorae.help.HelpCategoryVO;
+import com.multi.dorae.help.PageVO;
+import com.multi.dorae.login.NaverDAO;
 
 @RequestMapping("admin")
 @Controller
@@ -21,6 +25,10 @@ public class AdminController {
 	HelpCategoryService helpCategoryService;
 	@Autowired
 	AdminService adminService;
+	@Autowired
+	ApplyBusinessDAO applyDAO;
+	@Autowired
+	NaverDAO naverDAO;
 	
 	@RequestMapping
 	public String adminMain(@SessionAttribute("admin") AdminVO adminVO, Model model) {
@@ -74,5 +82,27 @@ public class AdminController {
 		session.invalidate(); // 세션 만료시킴
 		
 		return "redirect:../admin";
+	}
+	
+	@RequestMapping("apply/list")
+	public void applyList(PageVO pageVO, Model model) {
+		model.addAttribute("applyList", applyDAO.listWithPaging(pageVO));
+		model.addAttribute("page", pageVO);
+	}
+	
+	@RequestMapping("apply/one")
+	public void applyOne(long apply_id, Model model) {
+		model.addAttribute("apply", applyDAO.one(apply_id));
+	}
+	
+	@RequestMapping(value = "apply/update", method = RequestMethod.POST, produces = "application/text;charset=UTF-8")
+	public String applyUpdate(ApplyBusinessVO applyVO, Model model) {
+		if (applyDAO.updateApproval(applyVO) == 1) {
+			if (applyVO.isApproval()) { // true 면 승인됨
+				naverDAO.updateUserType(applyDAO.one(applyVO.getApply_id()).getMember_id());				
+			}
+		}
+		
+		return "redirect:one?apply_id=" + applyVO.getApply_id();
 	}
 }

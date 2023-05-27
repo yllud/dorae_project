@@ -65,6 +65,7 @@
 	}
 	
 	.btn-small {
+		font-size: 20px;
 		margin: 4px;
 	}
 	
@@ -111,6 +112,16 @@
 			<input type="text" id="searchInput" name="search" value="${search }"/>
 			<button type="submit" id="searchBtn">검색</button>
 		</form>
+		
+		<!-- FAQ 유형별 버튼 -->
+		<div id="faqBtnList">
+			<c:forEach items="${helpCategory}" var="item">
+			<a href="faqCategory?help_category_id=${item.help_category_id }">
+				<button class="btn-small">${item.name }</button>
+			</a>
+			</c:forEach>
+		</div>
+		<hr color="red">
 		
 		<div id="helpContent">
 			<div id="searchItemList">
