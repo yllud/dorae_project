@@ -34,9 +34,9 @@ public class TwitterAPI {
         // 결과 객체 생성
         for (Status status : result.getTweets()) {
             // 리트윗된 게시물인 경우, 원본 게시물 가져오기
-            if (status.isRetweet()) {
-                status = twitter.showStatus(status.getRetweetedStatus().getId());
-            }
+//            if (status.isRetweet()) {
+//                status = twitter.showStatus(status.getRetweetedStatus().getId());
+//            }
 
             TwitterVO tweet = new TwitterVO();
             tweet.setUser(status.getUser().getName());
