@@ -8,7 +8,7 @@ public interface BookServiceInterface {
 
 	int delete(BookVO bag);
 
-	List<BookVO> count(String play_id);
+	int count(String play_id);
 	
 	List<BookVO> mybook(String email);
 	

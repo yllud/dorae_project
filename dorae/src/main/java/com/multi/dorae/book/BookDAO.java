@@ -26,9 +26,9 @@ public class BookDAO implements BookDAOInterface{
 	}	
 
 	@Override
-	public List<BookVO> count(String play_id) {
-		List<BookVO> list = my.selectList("book.cnt", play_id);
-		return list;
+	public int count(String play_id) {
+		int result = my.selectOne("book.cnt", play_id);
+		return result;
 	}
 	
 	@Override

@@ -26,9 +26,9 @@ public class BookService implements BookServiceInterface{
 	}	
 
 	@Override
-	public List<BookVO> count(String play_id) {
-		List<BookVO> list = dao.count(play_id);
-		return list;
+	public int count(String play_id) {
+		int result = dao.count(play_id);
+		return result;
 	}
 
 	@Override

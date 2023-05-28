@@ -22,9 +22,9 @@
 		book where id = #{id}
 	</select>
 -->
-	<!-- 공연의 북마크 수 -->
-	<select id="cnt" parameterType="String" resultType="bookVO">
-		select * from book where play_id = #{play_id}
+	<!-- 특정 공연의 북마크 수 -->
+	<select id="cnt" parameterType="String" resultType="java.lang.Integer">
+		select COUNT(*) from book where play_id = #{play_id}
 	</select>
 	
 	<!-- 본인의 북마크 리스트 -->
