@@ -29,5 +29,14 @@ public class TicketDAO {
 		 List<TicketVO> list = my.selectList("mypageList.ticketJoin", email);
 		    return list;
 		}
+	 
+	// 페이징 처리
+		 public List<TicketVO> ticketPaging(Map<String, Object> map) {
+			    return my.selectList("mypageList.ticketPaging", map);
+			}
+		 // 페이징에 필요한 카운트 수
+		 public int ticketCount() {
+			 return my.selectOne("mypageList.ticketCount");
+		 }
 	
 }

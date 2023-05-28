@@ -1,8 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    int pages = (int) request.getAttribute("pages");
+    for (int p = 1; p <= pages; p++) {
+%>
+
+        <button class="page-number"><%= p %></button>
+
+<% } %>
 
 <script type="text/javascript" src="resources/js/jquery-3.6.4.js"></script>
+<script>
+$(document).ready(function() {
+    $(".page-number").on("click", function(e) {
+        e.preventDefault();
+
+        // Get the page number from the clicked button
+        var pageNumber = $(this).text();
+
+        // Send an AJAX request with the page number
+        $.ajax({
+            url: "../mypage/ticketList2",
+            type: "GET",
+            data: { page: pageNumber },
+            success: function(response) {
+                // Update the div with the retrieved content
+                $("#contentDiv").html(response);
+            },
+            error: function() {
+                console.log("Error occurred while fetching page data.");
+            }
+        });
+    });
+});
+</script>
+          <div id="contentDiv">
 
     <table>
         <thead>
@@ -32,6 +65,7 @@
             </c:forEach>
         </tbody>
     </table>
+    </div>
     
     <script>
  // 후기 작성 버튼 클릭 시 팝업 창을 열고 티켓 정보 전달
