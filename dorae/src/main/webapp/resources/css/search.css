@@ -36,32 +36,111 @@
 	/* 	color: #545454; */
 	/* 	font-size: 13px; */
 	/* 	text-decoration: none; */
-	/* } */    
+	/* } */          
 mark {
-  background-color: pink;
-  color: white;
-  border-radius: 7px
+	
 }
 
-.body {
-	/* 	display: block; */
+button {
+	cursor: pointer;
+}
+/* body { */
+/* 	display: flex; */
+/* } */
+.container {
+	display: flex;
 	margin-top: 169px;
-	/* 	margin-top: 300px; */
+	width: 1500px;
+	/* 	background: #ff0000; */
 	margin-left: auto;
 	margin-right: auto;
-	/* 	margin-right: 50px; */
-	/* 	margin-bottom: 80px; */
 }
 
-.filter {
-	/* 	display: block; */
-	width: 1150px;
+.body0 {
+	width: 1050px;
+	/* 		display: block; */
+	margin-top: 10px;
 	/* 	margin-top: 300px; */
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: 90px;
+	/* 	margin-right: 80px; */
 	/* 	margin-right: 50px; */
 	/* 	margin-bottom: 80px; */
-/* 	background: #a2d5f2 */
+	/* 	background: #a2d5f2 */
+}
+
+}
+.filter0 {
+	/* 	display: block; */
+	width: 700px;
+	/* 	margin-top: 300px; */
+	margin-left: 500px;
+	margin-right: auto;
+	/* 	margin-right: 50px; */
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background: #a2d5f2;
+}
+
+/* 검색 div */
+.filter1 {
+	/* 	display: block; */
+	width: 320px;
+	height: 40px;
+	/* 	margin-top: 300px; */
+	margin-left: 372px;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	border: 2px solid #ff0000;
+	background: #ffffff;
+	border-radius: 4px;
+}
+
+#inputSearch {
+	font-size: 16px;
+	width: 250px;
+	padding: 10px;
+	border: 0px;
+	outline: none;
+	float: left;
+}
+
+/* 검색시 x버튼 */
+input.hide-clear[type="search"]::-webkit-search-decoration, input.hide-clear[type="search"]::-webkit-search-cancel-button,
+	input.hide-clear[type="search"]::-webkit-search-results-button, input.hide-clear[type="search"]::-webkit-search-results-decoration
+	{
+	display: none;
+}
+
+#BtnSearch {
+	width: 50px;
+	height: 100%;
+	border: 0px;
+	background: #ff0000;
+	outline: none;
+	float: right;
+	color: #ffff;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+/* select option */
+.filter2 {
+	/* 	display: block; */
+	width: 500px;
+	/* 	margin-top: 300px; */
+	margin-left: 739px;
+	margin-top: 3px;
+	margin-bottom: 15px;
+	/* 	background: #a2d5f2 */
+}
+
+#b1 {
+	color: #ffff;
+	border: 0px;
+	background: #ff0000;
+	border-radius: 5px;
+	/* 	color: DarkRed; */
+	/* 	font-weight: bold; */
 }
 
 .product {
@@ -71,42 +150,39 @@ mark {
 	text-decoration: none;
 	color: black;
 	float: left;
-	margin-left: 40px;
-	margin-right: 40px;
+	margin-left: 10px;
+	margin-right: 70px;
 	margin-bottom: 80px;
-/* 	background: #a2d5f2 */
+	/* 	background: #a2d5f2 */
 }
 
 .product-list {
-	width: 1200px;
-	margin-left: 50px;
+	width: 1150px;
+	margin-left: 0px;
 	margin-right: auto;
 	/* 	text-align: center; */
-	
 }
 
-.products h3 {
-	font-size: 24px;
-	color: #545454;
-	margin-top: 60px;
-	margin-bottom: 60px;
-	text-align: center;
+.rounded-poster {
+	border-radius: 10%;
+	width: 200px;
+	height: 230px
 }
 
 .product-name {
 	/* 	width:300px; */
-	margin-top: 10px;
-	margin-bottom: 4px;
+	margin-top: 5px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	text-align: center;
+	font-weight: bold;
 }
 
 .product-name1 {
 	/* 	width:300px; */
-	margin-top: 10px;
-	margin-bottom: 4px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -114,17 +190,26 @@ mark {
 }
 
 .product-name2 {
-/* 	width:250px; */
-	margin-bottom: 4px;
+	/* 	width:250px; */
+	/* 	margin-bottom: 4px; */
 	text-align: center;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	text-align: center;
 }
 
+.rank0 {
+	position: fixed;
+	margin-left: 1190px;
+	margin-top: 30px;
+	width: 260px;
+	/* 	height: 500px; */
+	/* 	background: #a2d5f2 */
+}
+
 .rank {
 	/* 	display: block; */
-	width: 300px;
+	width: 210px;
 	/* 	margin-top: 300px; */
 	/* 	margin-right: 500px; */
 	margin-left: 1000px;
@@ -132,18 +217,20 @@ mark {
 }
 
 .rank-left {
-	width: 30px;
+	width: 50px;
+	text-align: center;
 }
 
-.rank-right {
-	width: 180px;
+.rank-right1 {
+	width: 210px;
+	text-align: center;
 	/* 	overflow: hidden; */
 	/*     text-overflow: ellipsis; */
 	/*     white-space: nowrap;  */
 }
 
 .rank-right2 {
-	width: 180px;
+	width: 210px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -154,12 +241,12 @@ mark {
 }
 
 .footer {
-	width:1000px;
+	width: 500px;
 	text-align: center;
 	margin-top: 40px;
-	margin-left: 110px;
-	margin-bottom: 40px;
-/* 	background: #a2d5f2 */
+	margin-left: 280px;
+	margin-bottom: 100px;
+	/* 	background: #a2d5f2 */
 }
 
 .footer a {
@@ -167,3 +254,86 @@ mark {
 	margin-right: 10px;
 	text-decoration: none;
 }
+
+.pages {
+	border: 0px;
+	background: transparent;
+	color: blue;
+}
+
+.next {
+	border: 0px;
+/* 	background: transparent; */
+	color: blue;
+}
+
+.back {
+	border: 0px;
+/* 	background: transparent; */
+	color: blue;
+}
+
+mark {
+	color: white;
+	border-radius: 6px;
+	margin-right: 4px;
+	/*  	font-family: Courier, monospace; */
+	font-weight: bold;
+	font-size: 17px;
+}
+
+#markGenre {
+	background-color: Magenta;
+}
+
+#markState {
+	background-color: Lime;
+}
+
+.hidden-mark {
+	display: none;
+}
+
+.typeRank {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	border-collapse: separate;
+	text-align: left;
+	line-height: 1.5;
+	margin: 20px 10px;
+	border-radius: 20px;
+}
+
+th, td {
+	/*     padding: 10px; */
+	/* 	border-radius: 20px; */
+	
+}
+
+table.typeRank thead th {
+	padding: 10px;
+	font-weight: bold;
+	/* 	border-top: 1px solid #ccc; */
+	/* 	border-right: 1px solid #ccc; */
+	/* 	border-bottom: 2px solid #c00; */
+	background: #dcdcd1;
+	border-radius: 20px;
+	/* 	border: 1px solid #000; */
+}
+
+/* table.typeRank tbody th { */
+/*   width: 20px; */
+/*   padding: 10px; */
+/*   font-weight: bold; */
+/*   vertical-align: top; */
+/*   border-right: 1px solid #ccc; */
+/*   border-bottom: 1px solid #ccc; */
+/*   background: #ececec; */
+/* } */
+/* table.Rank td { */
+/* 	width: 350px; */
+/* 	padding: 10px; */
+/* 	vertical-align: top; */
+/* 	border-right: 1px solid #ccc; */
+/* 	border-bottom: 1px solid #ccc; */
+/* 	border: 1px solid #000; */
+/* } */

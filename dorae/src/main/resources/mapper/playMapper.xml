@@ -24,14 +24,17 @@
 	<select id="stageIdList" resultType="String">
 		select stage_id from play
 	</select>
-	
+
 	<select id="listPlayDate" resultType="playVO">
-		select play_id,play_name,play_start,play_end,state
-		from play where state = "공연중" or state="공연예정"
+		select
+		play_id,play_name,play_start,play_end,state
+		from play where state =
+		"공연중" or state="공연예정"
 	</select>
-	
+
 	<update id="updateState" parameterType="playVO">
-		update play set state=#{state}
+		update play set
+		state=#{state}
 		where play_id=#{play_id}
 	</update>
 
@@ -52,8 +55,10 @@
 		from play p inner join stage s
 		on s.stage_id=p.stage_id
 		where
-		p.delete_date is null
-		and p.play_name LIKE CONCAT('%', #{title}, '%')
+		(p.play_name LIKE CONCAT('%', #{title}, '%') or s.stage_name LIKE
+		CONCAT('%', #{title}, '%') or p.casting LIKE CONCAT('%', #{title},
+		'%'))
+		and p.delete_date is null
 		and p.state=#{state}
 		<if test='genre!="전체(장르)"'>
 			and p.genre_name=#{genre}
@@ -69,9 +74,11 @@
 	<select id="count" resultType="Integer" parameterType="cri">
 		select count(*) from play p inner join stage s
 		on s.stage_id=p.stage_id
-		where p.delete_date is null
-		and p.play_name LIKE CONCAT('%',
-		#{title},'%')
+		where
+		(p.play_name LIKE CONCAT('%', #{title}, '%') or s.stage_name LIKE
+		CONCAT('%', #{title}, '%') or p.casting LIKE CONCAT('%', #{title},
+		'%'))
+		and p.delete_date is null
 		and p.state=#{state}
 		<if test='genre!="전체(장르)"'>
 			and p.genre_name=#{genre}
@@ -84,9 +91,11 @@
 
 	<!-- 리뷰 리스트 -->
 	<select id="review" resultType="replyVO" parameterType="String">
-		select p.play_name, m.nickname, text 
+		select
+		p.play_name, m.nickname, text
 		from play p inner join m_review r inner join member m
-		on p.play_id =r.play_id and m.email =r.email 
+		on p.play_id
+		=r.play_id and m.email =r.email
 		where p.play_id = #{play_id}
 
 	</select>

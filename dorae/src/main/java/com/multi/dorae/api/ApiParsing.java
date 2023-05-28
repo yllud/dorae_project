@@ -340,7 +340,7 @@ public class ApiParsing {
 		        // 어제 날짜 계산
 		        Calendar calendar = Calendar.getInstance();
 		        calendar.setTime(currentDate);
-		        calendar.add(Calendar.DAY_OF_MONTH, -1);
+		        calendar.add(Calendar.DAY_OF_MONTH, -2);
 		        Date yesterdayDate = new Date(calendar.getTimeInMillis()); 
 
 		        // 날짜 포맷 지정

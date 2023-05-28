@@ -20,8 +20,8 @@ public class RankDAO {
 		return result;
 	}
 	
-	public List<RankVO> rankList(String genre){
-		List<RankVO> vo=my.selectList("rank.list", genre);
+	public List<RankVO> rankList(Criteria cri){
+		List<RankVO> vo=my.selectList("rank.list", cri);
 				
 		return vo;
 		

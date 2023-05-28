@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.dorae.mypage.ReplyVO;
 
@@ -37,10 +36,16 @@ public class PlayController {
 		cri.setStartEnd(cri.getPage());	//페이지 번호로 시작번호 끝번호 설정
 		System.out.println(cri);
 		List<PlayVO> list = dao.list(cri);
+		
+		List<RankVO> list2=dao3.rankList(cri);
+		
+		String genre_name=cri.getGenre();
 
 		model.addAttribute("list", list);
 		model.addAttribute("cri", cri);
+		model.addAttribute("list2", list2);
 		model.addAttribute("page_cnt", page_cnt);
+		model.addAttribute("genre_name", genre_name);
 	}
 
 
@@ -59,14 +64,14 @@ public class PlayController {
 		System.out.println(cri);
 		List<PlayVO> list = dao.list(cri);
 		
-		List<RankVO> list2=dao3.rankList(cri.getGenre());
+		List<RankVO> list2=dao3.rankList(cri);
 		
 		String genre_name=cri.getGenre();
 
 		model.addAttribute("list", list);
 		model.addAttribute("cri", cri);
 		model.addAttribute("list2", list2);
-		model.addAttribute("page_cnt", page_cnt);
+		model.addAttribute("page_cnt2", page_cnt);
 		model.addAttribute("genre_name", genre_name);
 	}
 

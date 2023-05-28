@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../resources/css/search.css">
+<!-- <link rel="stylesheet" href="../resources/css/search.css"> -->
 <title>Insert title here</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
@@ -26,7 +26,7 @@ body {
 	width: 1200px;
 	height: 500px;
 /* 	background: #a2d5f2; */
-	margin-top:10px;
+	margin-top:200px;
 }
 
 .left-items {
