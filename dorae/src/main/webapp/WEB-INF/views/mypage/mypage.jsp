@@ -100,7 +100,8 @@ $(document).ready(function() {
 	<c:when test="${not empty vo2.profile_image}">
 						<div class="imageContainer">
 							<c:forEach var="image" items="${vo2.profile_image}">
-								<img src="../resources/upload/${image}" alt="프로필 이미지" />
+								<img src="${vo2.profile_image}" width=300 height=300 alt="프로필 이미지" />
+								<img src="resources/upload/${savedName}" width=300 height=300 alt="프로필 이미지" />
 							</c:forEach>
 						</div>
 					</c:when>

@@ -42,7 +42,7 @@ public class TicketController {
 	
 	// 예매내역 페이징
 		@RequestMapping("mypage/ticketList")
-		public void replyList(MypagePageVO vo, Model model) {
+		public void ticketList(MypagePageVO vo, Model model) {
 		    vo.mypageStartEnd(vo.getPage());
 		    String email = (String) session.getAttribute("email");
 		    
@@ -63,7 +63,7 @@ public class TicketController {
 		
 		// 페이징 - 두번째 페이지 이상일 경우 사용
 		@RequestMapping("mypage/ticketList2")
-		public void replyList2(MypagePageVO vo, Model model) {
+		public void ticketList2(MypagePageVO vo, Model model) {
 		    vo.mypageStartEnd(vo.getPage());
 		    String email = (String) session.getAttribute("email");
 		   
