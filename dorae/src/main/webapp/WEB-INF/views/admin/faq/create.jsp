@@ -35,17 +35,11 @@
 
 <script type="text/javascript">
 	function submitFaq(element) {
-		$.ajax({
-			url: "/dorae/admin/faq/create",
-			type: "POST",
-			data: {
-				help_category_id: $("#faqCategory").val(),
-				title: $("#faqTitle").val(),
-				content: $("#faqContent").val()
-			},
-			success: function(res) {
-				asyncLoad(history.state.url);
-			}
-		})
+		asyncLoad("/dorae/admin/faq/create",
+				"POST", {
+					help_category_id: $("#faqCategory").val(),
+					title: $("#faqTitle").val(),
+					content: $("#faqContent").val()
+				})
 	}
 </script>

@@ -44,4 +44,10 @@ public class ApplyBusinessDAO {
 	public int count() {
 		return sql.selectOne("apply.count");
 	}
+	
+	public boolean isUnderReview(String member_id) {
+		Boolean selectOne = sql.selectOne("apply.isUnderReview", member_id);
+		System.out.println("isUnderReview : " + selectOne);
+		return selectOne;
+	}
 }

@@ -29,4 +29,8 @@
 		select count(*) from apply_business
 	</select>
 		
+	<select id="isUnderReview" parameterType="String" resultType="boolean">
+		select EXISTS (
+			select * from apply_business where member_id = #{member_id} and approval_at is null) as exi
+	</select>
 </mapper>
