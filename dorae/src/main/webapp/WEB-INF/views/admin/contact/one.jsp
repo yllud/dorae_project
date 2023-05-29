@@ -34,17 +34,11 @@
 
 <script type="text/javascript">
 	function submitAnswer(element) {
-		$.ajax({
-			url: "/dorae/admin/contact/updateAnswer",
-			type: "POST",
-			data: {
-				contact_id: element.value,
-				answer: $("#contactAnswer").val()
-			},
-			success: function(res) {
-				asyncLoad(history.state.url);
-			}
-		})
+		asyncLoad("/dorae/admin/contact/updateAnswer",
+				"POST", {
+					contact_id: element.value,
+					answer: $("#contactAnswer").val()
+				});
 	}
 </script>
 </c:if>
