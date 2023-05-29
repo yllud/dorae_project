@@ -1,0 +1,238 @@
+@charset "UTF-8";
+
+mark {
+	
+}
+
+button {
+	cursor: pointer;
+}
+
+.container {
+	display: flex;
+	width: 1500px;
+	height: 550px;
+	/*  	background: #a2d5f2; */
+	margin-top: 120px;
+	margin-left: auto;
+	margin-right: auto;
+	background: linear-gradient(to right, #0F2027, #203A43, #0F2027);
+	/*   	-webkit-background-clip: text; */
+	/*   	-webkit-text-fill-color: transparent; */
+	border-radius: 20px;
+}
+
+.left-items {
+	width: 350px;
+	height: 500px;
+	/* 	text-align: center; */
+	margin-top: 50px;
+	margin-left: 200px;
+	/* 	background: #ffc93c; */
+	border-radius: 20px;
+}
+
+.poster {
+	border-radius: 20px;
+	width: 300px;
+	height: 400px;
+}
+
+.reserve {
+	width: 300px;
+	height: 40px;
+	border-radius: 10px;
+	background-color: CadetBlue;
+	border: 0px;
+	font-weight: bold;
+	color: white;
+}
+
+.right-items {
+	width: 800px;
+	height: 500px;
+	margin-top: 100px;
+	margin-left: 100px;
+}
+
+.right-text {
+	width: 800px;
+	height: 300px;
+	/* 	text-align: center; */
+	/* 	margin-top: 100px; */
+	/* 	margin-left: 100px; */
+	/* 		background: #ffc93c; */
+	font-size: x-large;
+	color: white;
+}
+
+.btnShare {
+	width: 45px;
+	height: 45px;
+	background: white;
+	color: white;
+	/* 	border: 2px solid blue; */
+	border-radius: 10px;
+	/* 	position: relative; */
+}
+
+.shareIcon {
+	width: 30px;
+	/* 	height: 20px: */
+	/* 	padding-top: 10px; */
+	margin-left: 0px;
+	alt: 'sns공유';
+	/* 	position: absolute; */
+	top: -5px; /* 원하는 위쪽 간격으로 조정 */
+	left: 4px; /* 원하는 위쪽 간격으로 조정 */
+}
+
+.bookIcon {
+	width: 30px;
+	/* 	height: 20px: */
+	/* 	padding-top: 10px; */
+	margin-left: 0px;
+	alt: 'sns공유';
+	/* 	position: absolute; */
+	top: -5px; /* 원하는 위쪽 간격으로 조정 */
+	left: 4px; /* 원하는 위쪽 간격으로 조정 */
+}
+
+.right-grade {
+	width: 80px;
+	height: 80px;
+	/* 	text-align: center; */
+	margin-top: 20px;
+	/* 		margin-left: 100px; */
+	/* 	background: #ffc93c; */
+	/* 	font-size: x-large; */
+	color: white;
+}
+
+.left-text-style {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.container2 {
+	display: flex;
+	width: 1500px;
+	height: 800px;
+	/*  	background: #a2d5f2; */
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	/* 	background: linear-gradient(to right, #0F2027, #203A43, #0F2027); */
+	/*   	-webkit-background-clip: text; */
+	/*   	-webkit-text-fill-color: transparent; */
+	border-radius: 20px;
+}
+
+.left-items2 {
+	width: 650px;
+	height: 550px;
+	/* 	text-align: center; */
+	margin-top: 30px;
+	margin-left: 200px;
+/* 		background: #ffc93c; */
+	/* 	border-radius: 20px; */
+}
+
+.left-text2 {
+	width: 650px;
+	height: 275px;
+	/* 	text-align: center; */
+	/* 	margin-top: 30px; */
+	/* 	margin-left: 200px; */
+	/* 	background: #ffc93c; */
+	/* 	border-radius: 20px; */
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+.detail {
+	margin-left: 30px;
+}
+
+.review-items {
+	width: 650px;
+	height: 180px;
+	margin-left: 0px;
+	margin-top: 22px;
+	height: 200px;
+	/* 	text-align: center; */
+	/* 	background: #ffc93c; */
+	border: 2px solid MediumSpringGreen;
+	border-radius: 10px;
+	background:MediumSpringGreen;
+}
+
+.reivew-text {
+	margin-left: 30px;
+	margin-top: 20px;
+	/* 	height: 200px; */
+	/* 	overflow: scroll; */
+	/* 	background: #ffc93c; */
+}
+
+.review-scroll {
+	/* 	margin-left: auto; */
+	max-height: 100px;
+	overflow-y: auto; /* 세로 스크롤 활성화 */
+	margin-top: 5px;
+	height: 100px;
+	margin-left: 30px;
+/* 	overflow: scroll; */
+	/* 	background: #ffc93c; */
+}
+
+.nick-name{
+/* 	text-align: center; */
+/* 	margin-left:10px; */
+	margin-top:9px;
+}
+
+.review-grade{
+	text-align: center;
+}
+
+.review-content{
+/* 	text-align: center; */
+	margin-left:10px;
+}
+
+
+
+
+.right-items2 {
+	margin-left: auto;
+	margin-top: 30px;
+	/* 	margin-bottom: 50px; */
+	margin-left: 50px;
+	width: 450px;
+	height: 500px;
+	/* 	text-align: center; */
+	/* 	background: #ffc93c; */
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+.map {
+	/* 	margin-left: auto; */
+	/* 	margin-top: 30px; */
+	/* 	margin-right: 50px; */
+	/* 	margin-left: 50px; */
+	width: 450px;
+	height: 330px;
+	border-radius: 10px;
+}
+
+.map-stage {
+	font-weight: bold;
+	margin-left: 6px;
+}
+
+.map-detail {
+	margin-left: 5px;
+}

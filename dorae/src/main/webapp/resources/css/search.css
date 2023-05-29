@@ -44,9 +44,7 @@ mark {
 button {
 	cursor: pointer;
 }
-/* body { */
-/* 	display: flex; */
-/* } */
+
 .container {
 	display: flex;
 	margin-top: 169px;
@@ -61,7 +59,7 @@ button {
 	/* 		display: block; */
 	margin-top: 10px;
 	/* 	margin-top: 300px; */
-	margin-left: 90px;
+	margin-left: 140px;
 	/* 	margin-right: 80px; */
 	/* 	margin-right: 50px; */
 	/* 	margin-bottom: 80px; */
@@ -150,8 +148,8 @@ input.hide-clear[type="search"]::-webkit-search-decoration, input.hide-clear[typ
 	text-decoration: none;
 	color: black;
 	float: left;
-	margin-left: 10px;
-	margin-right: 70px;
+	margin-left: 0px;
+	margin-right: 83px;
 	margin-bottom: 80px;
 	/* 	background: #a2d5f2 */
 }
@@ -166,7 +164,7 @@ input.hide-clear[type="search"]::-webkit-search-decoration, input.hide-clear[typ
 .rounded-poster {
 	border-radius: 10%;
 	width: 200px;
-	height: 230px
+	height: 242px
 }
 
 .product-name {
@@ -200,7 +198,7 @@ input.hide-clear[type="search"]::-webkit-search-decoration, input.hide-clear[typ
 
 .rank0 {
 	position: fixed;
-	margin-left: 1190px;
+	margin-left: 1225px;
 	margin-top: 30px;
 	width: 260px;
 	/* 	height: 500px; */
