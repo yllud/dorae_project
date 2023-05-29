@@ -13,6 +13,7 @@
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script>
 	$(window).on('load', function() {
+		$('body').scrollTop(0); // 스크롤 위치 초기화
 		$('#banner').click(function() {
 			$('#banner').animate({
 				opacity : 0
@@ -37,9 +38,9 @@
 		var startIndex = 0; // 시작 인덱스
 		var dataCount = 30; // 한 번에 가져올 데이터 개수
 		
-		function snsPopup(playName, stageName) {
-			console.log("값넘겨주기!!! >>> " + playName + ", " + stageName);
-			var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName);
+		function snsPopup(playName, stageName, playId) {
+			console.log("값넘겨주기!!! >>> " + playName + ", " + stageName + ", " + playId);
+			var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName) + "&playId=" + encodeURIComponent(playId);
 			//var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName)  + "&latitude=" + encodeURIComponent(share_lat)  + "&longitude=" + encodeURIComponent(share_lng);
 		    window.open(url, "_blank", "width=500,height=500");
 		}
@@ -165,8 +166,9 @@
 				    var row = $(this).closest('table');
 				    var playName = row.find('b').text();
 				    var stageName = row.find('tr:nth-last-child(2) td').text();
-
-				    snsPopup(playName, stageName);
+				    var playId = row.find('a').data('play-id');
+				    
+				    snsPopup(playName, stageName, playId);
 				});
 
 				addItems(startIndex, dataCount);
@@ -174,6 +176,7 @@
 				
 				//infolist 테이블 추가
 				function addItems(startIndex, dataCount) {
+					infoWindow.close();
 					click = "first";
 					var table = "";
 					if(startIndex == 0)
