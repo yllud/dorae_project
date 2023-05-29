@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <!-- 헤더 추가 -->
-<link rel="stylesheet" href="../resources/css/sns.css">
+<link rel="stylesheet" href="../resources/css/mypage.css">
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <style>
 #mypage{
@@ -25,14 +25,15 @@
         border: 1px solid #003458;
       }
       div.left {
-        width: 20%;
-        float: left;
+        margin-top:300px;
+        width: 250px;
+        /* float: left; */
         box-sizing: border-box;
-        background: #fff3f2;
       }
       div.right {
-        width: 80%;
-        float: right;
+        width: 1400px;
+         float: right;  
+        margin-left:300px;
         box-sizing: border-box;
         background: #fcfcfa;
       }
@@ -100,8 +101,8 @@ $(document).ready(function() {
 	<c:when test="${not empty vo2.profile_image}">
 						<div class="imageContainer">
 							<c:forEach var="image" items="${vo2.profile_image}">
-								<img src="${vo2.profile_image}" width=300 height=300 alt="프로필 이미지" />
-								<img src="resources/upload/${savedName}" width=300 height=300 alt="프로필 이미지" />
+								<img src="${vo2.profile_image}" width=180 height=180 alt="프로필 이미지" />
+								<%-- <img src="resources/upload/${savedName}" width=200 height=200 alt="프로필 이미지" /> --%>
 							</c:forEach>
 						</div>
 					</c:when>
@@ -131,18 +132,24 @@ $(document).ready(function() {
 		</tr>
 	</table>
 	 <br>
-    <button class="btn-ajax" data-url="../mypage/ticketList.jsp" data-target="#ticketInfo">예매내역</button>
-    <br>
-    <button class="btn-ajax" data-url="../mypage/replyList.jsp" data-target="#replyList">작성한 후기</button>
-    <br>
-    <button class="btn-ajax" data-url="../mypage/reviewList.jsp" data-target="#reviewList">다녀온 후기</button>
-    <br>
-    <button class="btn-ajax" data-url="../help/contactList" data-target="#qnaList">문의내역</button>
-    <hr color="pink">
-    <button>사업자 등록</button>
-    <a href="../login/logout.jsp">
- 			<button>로그아웃</button>
-		</a>
+	 <ul>
+	 <li>
+    <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/ticketList.jsp" data-target="#ticketInfo">예매내역</a>
+    </li>
+  <li>
+  <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/replyList.jsp" data-target="#replyList">작성한 후기</a>
+  </li>
+  <li>
+  <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/reviewList.jsp" data-target="#reviewList">다녀온 후기</a>
+  </li>
+  <li>
+  <a href="javascript:void(0);" class="btn-ajax" data-url="../help/contactList" data-target="#qnaList">문의내역</a>
+  </li>
+    <li>
+  <a href="javascript:void(0);" class="btn-ajax" data-url="../help/contactList" data-target="#qnaList">사업자 등록</a>
+  </li>
+  </ul>
+    
   </div>
   <div class="right" id="contentContainer">
     <!-- 예매내역을 표시할 영역 -->

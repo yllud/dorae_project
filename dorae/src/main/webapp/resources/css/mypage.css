@@ -1,0 +1,6 @@
+li{
+	position: relative;
+    padding: 14px 0 10px 0;
+    border-bottom: 1px solid #efefef;
+    list-style-type: none;
+}
