@@ -95,19 +95,45 @@
 	<form action="businessInsert" method="post" target="_blank">
 		<button>공연 추가</button>
 	</form>
-	<div id="result2">
-		<table>
-			<c:forEach items="${list}" var="vo">
+<!-- 	<div id="result0"> -->
+<!-- 		<table> -->
+<%-- 			<c:forEach items="${list}" var="vo"> --%>
+<!-- 				<tr> -->
+<%-- 					<td>${vo.rownum}</td> --%>
+<!-- 					<td><form action="businessDetail" method="post" -->
+<!-- 							target="_blank"> -->
+<%-- 							<input type="hidden" name="play_id" value="${vo.play_id}"> --%>
+<%-- 							<a href="#" onclick="submitForm(event, this);">${vo.play_name}</a> --%>
+<!-- 						</form></td> -->
+<!-- 				</tr> -->
+<%-- 			</c:forEach> --%>
+<!-- 		</table> -->
+<!-- 	</div> -->
+	
+	<div id="result2" class="table-responsive">
+		<table class="table table-striped table-hover aling-middle">
+			<thead>
 				<tr>
-					<td>${vo.rownum}</td>
-					<td><form action="businessDetail" method="post"
+					<th scope="col">#</th>
+					<th scope="col">제목</th>
+<!-- 					<th scope="col">유형</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${list}" var="vo">
+					<tr>
+						<td>${vo.rownum}</td>
+						<td><form action="businessDetail" method="post"
 							target="_blank">
 							<input type="hidden" name="play_id" value="${vo.play_id}">
 							<a href="#" onclick="submitForm(event, this);">${vo.play_name}</a>
 						</form></td>
-				</tr>
-			</c:forEach>
+<%-- 						<td>${item.help_category_id }</td> --%>
+					</tr>
+				</c:forEach>
+			</tbody>
 		</table>
+
 	</div>
 	<div class="footer">
 		<%

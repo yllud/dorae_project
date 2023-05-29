@@ -15,20 +15,43 @@
 	</script>
 </head>
 <body>
-<!-- 	<div id="result"> -->
-		<table>
-			<c:forEach items="${list2}" var="vo">
+<!-- 		<table> -->
+<%-- 			<c:forEach items="${list2}" var="vo"> --%>
+<!-- 				<tr> -->
+<%-- 					<td>${vo.rownum}</td> --%>
+<!-- 					<td><form action="businessDetail" method="post" target="_blank"> -->
+<%-- 							<input type="hidden" name="play_id" value="${vo.play_id}"> --%>
+<%-- 							<a href="#" onclick="submitForm(event, this);">${vo.play_name}</a> --%>
+<!-- 						</form></td> -->
+
+<!-- 				</tr> -->
+<%-- 			</c:forEach> --%>
+<!-- 		</table> -->
+
+		
+		<table class="table table-striped table-hover aling-middle">
+			<thead>
 				<tr>
-					<td>${vo.rownum}</td>
-					<td><form action="businessDetail" method="post" target="_blank">
+					<th scope="col">#</th>
+					<th scope="col">제목</th>
+<!-- 					<th scope="col">유형</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${list2}" var="vo">
+					<tr>
+						<td>${vo.rownum}</td>
+						<td><form action="businessDetail" method="post"
+							target="_blank">
 							<input type="hidden" name="play_id" value="${vo.play_id}">
 							<a href="#" onclick="submitForm(event, this);">${vo.play_name}</a>
 						</form></td>
-
-				</tr>
-			</c:forEach>
+<%-- 						<td>${item.help_category_id }</td> --%>
+					</tr>
+				</c:forEach>
+			</tbody>
 		</table>
-<!-- 	</div> -->
+
 	
 
 </body>

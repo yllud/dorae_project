@@ -33,6 +33,7 @@ public class BusinessController {
 
 	@Autowired
 	StageDAO dao3;
+	
 
 	@RequestMapping(value = "search/business", method = RequestMethod.POST)
 	public void businessPage(String email, Model model) {
