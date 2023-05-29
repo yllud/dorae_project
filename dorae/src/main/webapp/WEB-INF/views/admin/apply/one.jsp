@@ -52,17 +52,11 @@
 <c:if test="${empty apply.approval_at }">
 <script type="text/javascript">
 	function submitApproval(element) {
-		$.ajax({
-			url: "/dorae/admin/apply/update",
-			type: "POST",
-			data: {
-				apply_id: ${apply.apply_id},
-				approval: element.value
-			},
-			success: function(res) {
-				asyncLoad(history.state.url);
-			}
-		})
+		asyncLoad("/dorae/admin/apply/update",
+				"POST", {
+					apply_id: ${apply.apply_id},
+					approval: element.value
+				});
 	}
 </script>
 </c:if>

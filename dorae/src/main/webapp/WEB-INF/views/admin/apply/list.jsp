@@ -35,7 +35,9 @@
 						<c:if test="${item.approval == false }">
 						<td>거부</td>						
 						</c:if>
-						<td></td>
+						<td><fmt:timeZone value="GMT">
+						<fmt:formatDate value="${item.approval_at }" pattern="yyyy-MM-dd hh:mm:ss"/>
+						</fmt:timeZone></td>
 					</c:if>
 					<td><button class="btn btn-link" value="/dorae/admin/apply/one?apply_id=${item.apply_id }" onclick="goToPage(this)">보기</button></td>
 				</tr>

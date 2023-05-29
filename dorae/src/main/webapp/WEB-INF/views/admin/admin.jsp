@@ -65,7 +65,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
+	<script type="text/javascript">		
 		function setActive(element) {
 			let temp = document.getElementsByClassName("active")[0];
 			
@@ -87,12 +87,13 @@
 			history.pushState({"url": element.getAttribute("value")}, null, location.pathname);
 		}
 		
-		function asyncLoad(url) {
+		function asyncLoad(url, type, data) {
 			$.ajax({
 				url: url,
-				success: function(data, statusText, jqXHR) {
-					$("#contents").html(data);
-					//console.log(data);
+				type: type,
+				data: data,
+				success: function(res, statusText, jqXHR) {
+					$("#contents").html(res);
 					console.log(statusText);
 					console.log(jqXHR);
 					console.log(jqXHR.getResponseHeader("invalidated"));
