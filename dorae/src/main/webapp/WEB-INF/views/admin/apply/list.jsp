@@ -37,6 +37,7 @@
 						</c:if>
 						<td></td>
 					</c:if>
+					<td><button class="btn btn-link" value="/dorae/admin/apply/one?apply_id=${item.apply_id }" onclick="goToPage(this)">보기</button></td>
 				</tr>
 			</c:forEach>
 		</tbody>

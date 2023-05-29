@@ -44,7 +44,8 @@ public class PlayService implements PlayServiceInterface {
     	    if (!stList.contains(stageId)) {
     	        stList.add(stageId);
     	    }
-	        delist1.add(dao.playDetail(idList.get(i)));
+    	    if(dao.playDetail(idList.get(i)).getState().equals("공연중"))
+                delist1.add(dao.playDetail(idList.get(i)));
 	    }
 	    for(int i=0; i<stList.size(); i++) {
 	    	String stageId = stList.get(i);
