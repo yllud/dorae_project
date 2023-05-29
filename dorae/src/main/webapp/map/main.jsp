@@ -7,11 +7,10 @@
 <html>
 <head>
 <script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe&submodules=geocoder"></script>
-
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe"></script>
+<script src="https://openapi.map.naver.com/openapi/v3/maps-geocoder.js"></script>
 <script type="text/javascript" src="../resources/js/MarkerClustering.js"></script>
-<script type="text/javascript"
-	src="${path}/resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script>
 	$(window).on('load', function() {
 		$('#banner').click(function() {
@@ -28,8 +27,15 @@
 		var markers = []; // 전역 변수로 선언
 		var temp_marker; 
 		
+		var isLogin = false; //로그인여부
 		var delist1 = []; //play
 		var delist2 = []; //stage
+		var mylist = []; //myBook
+		var userEmail; //로그인 이메일
+		var click = "all";
+		
+		var startIndex = 0; // 시작 인덱스
+		var dataCount = 30; // 한 번에 가져올 데이터 개수
 		
 		function snsPopup(playName, stageName) {
 			console.log("값넘겨주기!!! >>> " + playName + ", " + stageName);
@@ -52,14 +58,63 @@
 				console.log("delist1 길이 : " + delist1.length);
 				console.log("delist2 길이 : " + delist2.length);
 				
-				console.log(delist2[0].stage_name);
-				addItems(delist1, delist2); //시작하자마자 테이블 추가
-				addMarkers(delist1, delist2); //시작하자마자 마커 추가
+				//console.log(delist2[0].stage_name);
 				
+				//로그인 세션이 있다면 isLogin=true, mylist[]값 받아오기
+				<% if (session.getAttribute("email") != null) { %>
+					userEmail = '<%= session.getAttribute("email") %>';
+					isLogin = true;
+				//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
+					$.ajax({
+		            type: 'GET',
+		            url: '${path}/select_my',
+		            data: { email: userEmail },
+		            dataType: 'json',
+		            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+		            success: function(response) {
+		                mylist = response;
+		                console.log(mylist);
+		            },
+		            error: function(xhr, status, error) {
+		                console.log(error);
+		            }
+		        });
+		        <% } else { %>
+		        	console.log("로그인 안되어있음!");
+		        <% } %>
+		        
+		        //스크롤 이벤트 핸들러
+		        $('#infolist').on('scroll', function() {
+		        	if(click == "all"){
+			            // 현재 스크롤 위치
+			            console.log("스크롤 하고 있는 중");
+			            var scrollPosition = $('#infolist').scrollTop();
+
+			            // 스크롤 가능한 전체 높이 (infolist의 높이)
+			            var contentHeight = $('#infolist').prop('scrollHeight');
+
+			            // 스크롤 영역의 높이 (infolist의 높이)
+			            var scrollAreaHeight = $('#infolist').height();
+
+			            // 스크롤이 infolist의 끝에 도달하면 추가 데이터를 가져옴
+			            if (scrollPosition >= contentHeight - scrollAreaHeight) {
+			                // 추가 데이터 가져오기
+			                console.log("스크롤 infolist의 끝에 도달!!");
+			                startIndex += dataCount;
+			                dataCount += dataCount;
+			                if(dataCount > delist1.length){
+								console.log("delist1의 길이 >>> " + delist1.length);
+			                	dataCount = delist1.length;
+			                	startIndex = 0;
+			                	console.log("dataCount의 값 >>> " + dataCount);
+			                }
+			                addItems(startIndex, dataCount);
+			            }
+		        	}
+		        });
+		     
 				$('#infolist').on('click', '.bookIcon', function() {
-				    var userEmail = "<%= session.getAttribute("email")%>";
-				    if (userEmail != "null") {
-				    	console.log("userEmail != null if문 들어옴!!");
+				    if (isLogin == true) {
 				        var bookmarkImg = $(this);
 				        //var bookmarkCount = $(this).data('count');
 				        var playId = bookmarkImg.closest('table').find('a').data('play-id');
@@ -102,11 +157,9 @@
 				        }
 				        console.log("bookIcon 클릭! >>> " + playId);
 				    } else {
-				    	//console.log("userEmail != null else문 들어옴!!");
 				        alert('로그인 후 이용 가능합니다');
 				    }
 				});
-				
 				//공유 아이콘 클릭 이벤트
 				$('#infolist').on('click', '.shareIcon', function() {
 				    var row = $(this).closest('table');
@@ -115,84 +168,75 @@
 
 				    snsPopup(playName, stageName);
 				});
+
+				addItems(startIndex, dataCount);
+				addMarkers(delist1, delist2); //시작하자마자 마커 추가
 				
 				//infolist 테이블 추가
-				function addItems(list1, list2) {
-					$('#infolist').empty();
-					
-					// 테이블 생성
-					var table = "<br><h3 style='text-align:center;'><전체지역> 검색결과 " + delist1.length + "개</h3>";
-					for (var i = 0; i < list1.length; i++) {
-						table += '<table id="infotable"><tr><td><img id="poster" src="' + list1[i].poster + '"></td></tr>';
-						table += "<tr><td><a href='${path}/search/playDetail?play_id=" + list1[i].play_id + "' data-play-id='" + list1[i].play_id + "'><b>" + list1[i].play_name + '</b></a></td></tr>';
-						table += '<tr><td>' + list1[i].play_start + " ~ " + list1[i].play_end + '</td></tr>';
-						for(var j=0; j<list2.length; j++){
-							if(list1[i].stage_id == list2[j].stage_id){
-								table += '<tr><td>' + list2[j].stage_name + '</td></tr>';
-								break;
-							}
-						}
-						table += "<tr><td style='text-align:right'>";
-					 	<% if (session.getAttribute("email") != null) { %>
-						//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
-							$.ajax({
-					            type: 'GET',
-					            url: '${path}/select_my',
-					            data: { email: '<%= session.getAttribute("email") %>' },
-					            dataType: 'json',
-					            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
-					            success: function(response) {
-					                var hasBookmark = false;
-					                for (var k = 0; k < response.length; k++) {
-					                    if (list1[i].play_id == response[k].play_id) {
-					                        hasBookmark = true;
-					                        break;
-					                    }
-					                }
-					                if (hasBookmark) {
-					                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크' ";
-					                } else {
-					                    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크' ";
-					                }
-					            },
-					            error: function(xhr, status, error) {
-					                console.log(error);
-					            }
-					        });
-				        <% } else { %>
-				        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크' ";
-				        <% } %>
-				        
-				        $.ajax({
-				            type: 'GET',
-				            url: '${path}/select_count',
-				            data: { play_id: list1[i].play_id },
-				            dataType: 'json',
-				            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
-				            success: function(response) {
-				                var Bookcount = 0;
-				                for (var k = 0; k < response.length; k++) {
-				                    if (list1[i].play_id == response[k].play_id) {
-				                    	Bookcount += 1;
-				                    }
-				                }
-				                console.log("북마크 개수 : " + Bookcount);
-				             	// 북마크 수를 표시하는 숫자 추가
-				                table += "data-count=" + Bookcount + ">";			                
-				                table += Bookcount + " ";			                
-				            },
-				            error: function(xhr, status, error) {
-				                console.log(error);
-				            }
-				        });
-						//공유 아이콘 테이블에 넣기
-				        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
-				        table += '</table>';
-				    } //for
-				    table += '<br><br><br>';
-				    
-				    // 테이블 추가
-				    $('#infolist').html(table);
+				function addItems(startIndex, dataCount) {
+					click = "first";
+					var table = "";
+					if(startIndex == 0)
+					{
+						$('#infolist').scrollTop(0); // 스크롤 위치 초기화
+						$('#infolist').empty(); // infolist 비우기
+
+						// 테이블 생성
+						table += "<br><h3 style='text-align:center;'><전체지역> 검색결과 " + delist1.length + "개</h3>";
+					}
+					if(dataCount <= delist1.length){
+						console.log("startIndex 값 : " + startIndex);
+						console.log("dataCount 값 : " + dataCount);
+						for (var i = startIndex; i < dataCount; i++) {
+							if (i >= delist1.length) {
+					            break;
+					        }
+						    table += '<table id="infotable"><tr><td><img id="poster" src="' + delist1[i].poster + '"></td></tr>';
+						    table += "<tr><td><a href='${path}/search/playDetail?play_id=" + delist1[i].play_id + "' data-play-id='" + delist1[i].play_id + "'><b>" + delist1[i].play_name + '</b></a></td></tr>';
+						    table += '<tr><td>' + delist1[i].play_start + " ~ " + delist1[i].play_end + '</td></tr>';
+						    for (var j = 0; j < delist2.length; j++) {
+						        if (delist1[i].stage_id == delist2[j].stage_id) {
+						            table += '<tr><td>' + delist2[j].stage_name + '</td></tr>';
+						            break;
+						        }
+						    }
+						    table += "<tr><td style='text-align:right'>";
+						    if (isLogin == true){
+						        var hasBookmark = false;
+						        for (var k = 0; k < mylist.length; k++) {
+						            if (delist1[i].play_id == mylist[k].play_id) {
+						                table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+						                hasBookmark = true;
+						                break;
+						            }
+						        }
+						        if (!hasBookmark) {
+						            table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+						        }
+						    } else {
+						    	console.log("로그인 되어있지않습니다!!");
+						        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+						    }
+	                        $.ajax({
+	                            type: 'GET',
+	                            url: '${path}/select_count',
+	                            data: { play_id: delist1[i].play_id },
+	                            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+	                            success: function(response) {
+	                            	var cnt = response;
+	                                table += cnt + " ";
+	                            },
+	                            error: function(xhr, status, error) {
+	                            	table += "0";  
+	                                console.log("북마크 카운트 ajax 실패!");
+	                            }
+	                        });
+	                        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+	                        table += '</table>';
+					    } //for
+					    // 테이블 추가
+					    $('#infolist').append(table);
+					}//if문
 				}//addItems
 				
 				//지도에 마커 추가
@@ -225,14 +269,15 @@
 				//마커 클릭 이벤트 함수
 				function addMarkerClickListener(marker, index) {
 					naver.maps.Event.addListener(marker, 'click', function() {
+						click = "marker";
 						var markerPosition = marker.getPosition();
 						var stgname;
+						
 						for (var i = 0; i < delist2.length; i++) {
 							if(delist2[i].latitude == markerPosition.lat() && delist2[i].longitude == markerPosition.lng()) {
 								stgname = delist2[i].stage_name;
 							}
 						}
-
 						var infowindow = new naver.maps.InfoWindow({
 					        content: "<div style='padding-top:10px;'>" + stgname + "</div>"
 					    });
@@ -257,9 +302,12 @@
 					    }
 					    
 					    if (selectedPerformances.length > 0) {
-					    	$('#infolist').empty();
+					    	//테이블 생성
+					    	var table = "";
+							$('#infolist').scrollTop(0); // 스크롤 위치 초기화
+							$('#infolist').empty(); // infolist 비우기
+							table += "<br><h3 style='text-align:center;'>" + stgname + "</h3>";
 					    	
-					    	var table = "<br><h3 style='text-align:center;'>" + stgname + "</h3>";
 					      	for (var i = 0; i < selectedPerformances.length; i++) {
 					        	var playinfo = selectedPerformances[i].playinfo;
 				        		table += '<table id="infotable"><tr><td><img id="poster" src="' + playinfo.poster + '"></td></tr>';
@@ -267,43 +315,44 @@
 						        table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
 						        table += '<tr><td>' + stgname + '</td></tr>';
 						        table += "<tr><td style='text-align:right'>";
-						        <% if (session.getAttribute("email") != null) { %>
-								//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
-									$.ajax({
-							            type: 'GET',
-							            url: '${path}/select_my',
-							            data: { email: '<%= session.getAttribute("email") %>' },
-							            dataType: 'json',
-							            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
-							            success: function(response) {
-							                var hasBookmark = false;
-							                for (var k = 0; k < response.length; k++) {
-							                    if (playinfo.play_id == response[k].play_id) {
-							                        hasBookmark = true;
-							                        break;
-							                    }
-							                }
-							                if (hasBookmark) {
-							                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-							                } else {
-							                    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-							                }
-							            },
-					            		error: function(xhr, status, error) {
-					                		console.log(error);
-					            		}
-					        		});
-				        		<% } else { %>
-				        				table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-				        		<% } %>
-						        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
-						        table += '</table>';
-				    		} //for
-				    		table += '<br><br><br>';
+						        table += "<tr><td style='text-align:right'>";
+						        if (isLogin == true) {
+						            var hasBookmark = false;
+						            for (var k = 0; k < mylist.length; k++) {
+						                if (playinfo.play_id == mylist[k].play_id) {
+						                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+						                    hasBookmark = true;
+						                    break;
+						                }
+						            }
+						            if (!hasBookmark) {
+						                table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+						            }
+						        } else {
+						            table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+						        }
+		                        $.ajax({
+		                            type: 'GET',
+		                            url: '${path}/select_count',
+		                            data: { play_id: playinfo.play_id },
+		                            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+		                            success: function(response) {
+		                            	var cnt = response;
+		                                table += cnt + " ";
+		                            },
+		                            error: function(xhr, status, error) {
+		                            	table += "0";  
+		                                console.log("북마크 카운트 ajax 실패!");
+		                            }
+		                        });
+		                        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+		                        table += '</table>';
+						    } //for
+						    table += '<br><br><br>';
 				    
 						    // 테이블 추가
 						    $('#infolist').html(table);
-				    	}//if
+				    	}//if selectedPerformances.length > 0
 					    //infowindow.setContent("<div style='padding:10px;'>" + stageName + "</div>");
 				        infowindow.open(map, marker);
 				  	});
@@ -713,9 +762,13 @@
 			    }
 				
 			    if (filteredList.length > 0) {
+			    	click = "areaClick";
+			    	$('#infolist').scrollTop(0); // 스크롤 위치 초기화
+			    	$('#infolist').empty(); // infolist 비우기
 			    	var table = "<table id='infotable'>";
 			    	var count = 0;
 			    	var table = "";
+			    	click = "area";
 			    	for (var i = 0; i < filteredList.length; i++) {
 			            var stageinfo = filteredList[i].stageinfo;
 			            for(var j=0; j<delist1.length; j++){
@@ -725,48 +778,50 @@
 						        table += '<tr><td>' + delist1[j].play_start + ' ~ ' + delist1[j].play_end + '</td></tr>';
 					            table += '<tr><td>' + stageinfo.stage_name + '</td></tr>';
 					            table += "<tr><td style='text-align:right'>"
-				            	<% if (session.getAttribute("email") != null) { %>
-								//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
-									$.ajax({
-							            type: 'GET',
-							            url: '${path}/select_my',
-							            data: { email: '<%= session.getAttribute("email") %>' },
-							            dataType: 'json',
-							            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
-							            success: function(response) {
-							                var hasBookmark = false;
-							                for (var k = 0; k < response.length; k++) {
-							                    if (delist1[j].play_id == response[k].play_id) {
-							                        hasBookmark = true;
-							                        break;
-							                    }
-							                }
-							                if (hasBookmark) {
-							                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-							                } else {
-							                    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-							                }
-							            },
-					            		error: function(xhr, status, error) {
-					                		console.log(error);
-					            		}
-					        		});
-				        		<% } else { %>
-				        				table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-				        		<% } %>
-						        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
-						        table += '</table>';		
-				            	count++; //공연 수 카운트
+				            	if (isLogin == true) {
+				            	    var hasBookmark = false;
+				            	    for (var k = 0; k < mylist.length; k++) {
+				            	        if (delist1[j].play_id == mylist[k].play_id) {
+				            	            table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				            	            hasBookmark = true;
+				            	            break;
+				            	        }
+				            	    }
+				            	    if (!hasBookmark) {
+				            	        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				            	    }
+				            	} else {
+				            	    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				            	}
+		                        $.ajax({
+		                            type: 'GET',
+		                            url: '${path}/select_count',
+		                            data: { play_id: delist1[j].play_id },
+		                            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+		                            success: function(response) {
+		                            	var cnt = response;
+		                                table += cnt + " ";
+		                            },
+		                            error: function(xhr, status, error) {
+		                            	table += "0";  
+		                                console.log("북마크 카운트 ajax 실패!");
+		                            }
+		                        });
+		                        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+		                        table += '</table>';
+		                        count++;
 			            	}
-			            }         	
-			        }
+			            }//for ㅓ문       	
+			        }//for i문
 			    	table = "<br><h3 style='text-align:center'><" + area + "> 검색결과 " + count + "개</h3>" + table;
 			    	table += '<br><br><br>';
 			    	
 			    	$('#infolist').html(table);			    	
 			    } else {
-			    	$('#infolist').empty();
+			    	$('#infolist').scrollTop(0); // 스크롤 위치 초기화
+			    	$('#infolist').empty(); // infolist 비우기
 			    	table = "<br><h3 style='text-align:center;'><" + area + " 검색결과></h3>" + "<br><br><br><br><br><br><br><br><br><br><h4 style='text-align:center; color:gray;'>검색결과 없음</h4>";
+			    	table += "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 			    	$('#infolist').html(table);
 			    }	        
 				

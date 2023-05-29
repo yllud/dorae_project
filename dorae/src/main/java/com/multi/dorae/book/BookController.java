@@ -45,17 +45,17 @@ public class BookController {
 	
 	@RequestMapping("select_count")
 	@ResponseBody
-	public List<BookVO> count(String play_id) {
-		System.out.println("count요청됨.");
+	public int count(String play_id) {
+		//System.out.println("count요청됨.");
 		
-		List<BookVO> list = service.count(play_id);
-		return list;
+		int result = service.count(play_id);
+		return result;
 	}	
 	
 	@RequestMapping("select_my")
 	@ResponseBody
 	public List<BookVO> mybook(String email) {
-		System.out.println("mybook요청됨.");
+		//System.out.println("mybook요청됨.");
 		
 		List<BookVO> list = service.mybook(email);
 		return list;

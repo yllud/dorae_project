@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+select {
+    font-size: 15px; /* 드롭다운 목록의 글꼴 크기 조정 */
+    padding: 10px; /* 드롭다운 목록의 내부 여백 조정 */
+}
+  
 .header {
     position: fixed;
     z-index: 100;
@@ -20,8 +25,8 @@
     float: left;
     position: relative;
     width: 680px;
-    min-height: 600px;
-    max-height: 600px;
+    min-height: 630px;
+    max-height: 630px;
     padding: 20px;
     border-right: 1px solid #ecedf2;
     background: #f8f9fa;
@@ -30,22 +35,7 @@
     font-size: 14px;
     letter-spacing: -1px;
 }
-.left .white_box {
-    overflow: hidden;
-}
 .left .white_box .title {
-    display: block;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #cfd0d7;
-    text-align: center;
-}
-select {
-    font-size: 15px; /* 드롭다운 목록의 글꼴 크기 조정 */
-    padding: 10px; /* 드롭다운 목록의 내부 여백 조정 */
-  }
-  
-.white_box .title {
 	font-size: 17px;
     display: block;
     margin-bottom: 15px;
@@ -54,6 +44,7 @@ select {
     text-align: center;
 }
 .white_box {
+	overflow: hidden;
     border: 1px solid #ecedf2;
     border-radius: 2px;
     background: #fff;
@@ -73,7 +64,6 @@ select {
 .white_box+.title_notice {
     margin-top: 20px;
 }
-
 .title_notice {
 	font-size: 16px;
     margin: 20px 0 7px;
@@ -98,20 +88,19 @@ li {
     letter-spacing: -1px;
     line-height: 20px;
 }
-
 .right {
     float: left;
     position: relative;
     width: 280px;
     height: auto;
-    min-height: 700px;
+    min-height: 670px;
+    max-height: 670px;
     margin-left: -1px;
-    padding: 20px 30px 85px 29px;
+    padding: 20px 30px 30px 29px;
     border-left: 1px solid #ecedf2;
     box-sizing: border-box;
     background: #fff;
 }
- 
 .right .info .poster {
     float: left;
 }
@@ -119,7 +108,6 @@ li {
     clear: both;
     font-size: 17px;
 }
-
 .info2 table {
     width: 100%;
     font-size: 14px;

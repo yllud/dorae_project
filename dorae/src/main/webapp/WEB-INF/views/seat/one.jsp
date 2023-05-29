@@ -111,8 +111,6 @@ $(function() {
 				} //success
 			}) //ajax - seats 
 	}) //b
-	
-	
 }) //$
 </script>
 </head>
@@ -169,7 +167,7 @@ out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.j
      <tfoot>
       <tr>
        <th>총결제</th> 
-       <td>0</td> 
+       <td id="total">0</td> 
       </tr>
      </tfoot>
      <tbody>
