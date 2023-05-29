@@ -16,7 +16,7 @@ button {
 	margin-top: 120px;
 	margin-left: auto;
 	margin-right: auto;
-	background: linear-gradient(to right, #0F2027, #203A43, #0F2027);
+	background: linear-gradient(to right, #0F2027, #2C5364, #0F2027);
 	/*   	-webkit-background-clip: text; */
 	/*   	-webkit-text-fill-color: transparent; */
 	border-radius: 20px;
@@ -230,9 +230,9 @@ button {
 
 .map-stage {
 	font-weight: bold;
-	margin-left: 6px;
+	margin-left: 10px;
 }
 
 .map-detail {
-	margin-left: 5px;
+	margin-left: 10px;
 }
