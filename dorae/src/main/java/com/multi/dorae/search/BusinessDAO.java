@@ -38,6 +38,27 @@ public class BusinessDAO {
 		int result = my.insert("business.insert", vo);
 		System.out.println(result);
 		return result;
-
 	}
+
+	// 공연 페이지 리스트로 불러오기
+	public List<PlayVO> listDelete(CriteriaB cri) {
+		System.out.println("(DAO) ListDelete");
+		List<PlayVO> list = my.selectList("business.pageDelete", cri);
+		for (PlayVO bag : list) {
+			System.out.println(bag.getPlay_name());
+			System.out.println(bag.getDelete_date());
+			System.out.println(bag);
+		}
+		return list;
+	}
+	
+	
+	// 리시트 개수
+		public int countDelete(CriteriaB cri) {
+			System.out.println("(DAO) count");
+			int cnt = my.selectOne("business.countDelete", cri);
+			System.out.println(cnt);
+			return cnt;
+
+		}
 }

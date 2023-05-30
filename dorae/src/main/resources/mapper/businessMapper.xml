@@ -6,9 +6,10 @@
 	<select id="page" resultType="playVO" parameterType="cri2">
 		select *
 		from (select ROW_NUMBER() over(order by business_id desc) as
-		rownum, play.play_id ,play.play_name
-		from play inner join business
-		on business.play_id=play.play_id where play.delete_date is null and 
+		rownum, play.play_id ,play.play_name,s.stage_name,play.genre_name,play.play_start,play.play_end
+		from play inner join business inner join stage as s
+		on business.play_id=play.play_id and play.stage_id=s.stage_id
+		where play.delete_date is null and 
 		business.email=#{email}
 		) play2
 		where play2.rownum between #{start} and #{end}
@@ -23,4 +24,23 @@
 	<select id="insert" resultType="Integer" parameterType="businessVO">
 		insert into business (email, play_id) values	(#{email},#{play_id})
 	</select>
+	
+	<!-- 사업자 삭제 공연 리스트 불러오기 -->
+	<select id="pageDelete" resultType="playVO" parameterType="cri2">
+		select *
+		from (select ROW_NUMBER() over(order by business_id desc) as
+		rownum, play.play_id ,play.play_name,s.stage_name, play.delete_date,play.genre_name,play.play_start,play.play_end
+		from play inner join business inner join stage as s
+		on business.play_id=play.play_id and play.stage_id=s.stage_id
+		where play.delete_date is not null and 
+		business.email=#{email}
+		) play2
+		where play2.rownum between #{start} and #{end}
+	</select>
+	
+	<!-- 사업자 삭제 공연 리스트 개수(페이지 버튼 생성에 필요) -->
+	<select id="countDelete" resultType="Integer" parameterType="cri2">
+		select count(*) from business inner join play on play.play_id=business.play_id where play.delete_date is not null and business.email=#{email}
+	</select>
+	
 </mapper>

@@ -14,17 +14,17 @@
 <script type="text/javascript">
 	$(function() {
 
-		$('#b1').click(function() {
+		$('#btnRecover').click(function() {
 			//기존의 것 삭제됨.
 
 			$.ajax({
 				type : "post",
-				url : "businessDelete",
+				url : "businessRecover",
 				data : {
 					play_id : $('#play_id').val()
 				},
 				success : function(x) {
-					alert('공연 삭제 성공')
+					alert('공연 복원 성공')
 					window.close()
 				},//success
 				error : function() {
@@ -157,15 +157,7 @@
 			</div>
 		</div>
 
-		<div class="form-wrapper">
-			<form action="businessUpdate" method="post">
-				<input type="hidden" name="play_id" value="${vo.play_id}">
-				<button class="btn btn-primary mb-3"
-					onclick="openPopup(); return false;">수정</button>
-			</form>
-			<button class="btn btn-danger mb-3" id="b1">삭제</button>
-		</div>
-
+		<button class="btn btn-primary mb-3" id="btnRecover">복원</button>
 	</div>
 
 </body>
