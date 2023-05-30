@@ -43,6 +43,7 @@ public class BusinessController {
 	}
 
 	@RequestMapping(value = "search/businessList", method = RequestMethod.POST)
+//	@RequestMapping("search/businessList")
 	public void businessList(CriteriaB cri, Model model) {
 
 		System.out.println("(Controller) business list 요청");
@@ -64,6 +65,7 @@ public class BusinessController {
 	}
 
 	@RequestMapping(value = "search/businessList2", method = RequestMethod.POST)
+//	@RequestMapping("search/businessList2")
 	public void businessList2(CriteriaB cri, Model model) {
 
 		System.out.println("(Controller) business list2 요청");
@@ -78,6 +80,7 @@ public class BusinessController {
 	}
 
 	@PostMapping("search/businessInsert")
+//	@RequestMapping("search/businessInsert")
 	public void businessInsert() {
 		System.out.println("(Controller) business insert 요청");
 	}
@@ -96,6 +99,7 @@ public class BusinessController {
 	}
 
 	@PostMapping("search/businessInsert2")
+//	@RequestMapping("search/businessInsert2")
 	public void businessInsert2(HttpServletRequest request, MultipartFile file, String email, PlayVO vo, Model model)
 			throws Exception {
 
@@ -198,6 +202,64 @@ public class BusinessController {
 		dao2.delete(vo);
 
 	}
+	
+	
+	
+	@RequestMapping(value = "search/businessDeleteList", method = RequestMethod.POST)
+	public void businessDeleteList(CriteriaB cri, Model model) {
+
+		System.out.println("(Controller) business delete list 요청");
+		System.out.println(cri.getEmail());
+		System.out.println(cri.getPage());
+
+		int count = dao.countDelete(cri); // 리스트 개수
+		System.out.println("list count>> " + count);
+		int page_cnt = cri.makePageBtn(count); // 페이지 버튼 개수
+		System.out.println("page count>> " + page_cnt);
+
+		cri.setStartEnd(cri.getPage()); // 페이지 번호로 시작번호 끝번호 설정
+		System.out.println(cri);
+		List<PlayVO> list = dao.listDelete(cri);
+
+		model.addAttribute("list", list);
+		model.addAttribute("cri", cri);
+		model.addAttribute("page_cnt", page_cnt);
+	}
+
+	@RequestMapping(value = "search/businessDeleteList2", method = RequestMethod.POST)
+	public void businessDeleteList2(CriteriaB cri, Model model) {
+
+		System.out.println("(Controller) business delete list2 요청");
+
+		cri.setStartEnd(cri.getPage()); // 페이지 번호로 시작번호 끝번호 설정
+		System.out.println(cri);
+		List<PlayVO> list2 = dao.listDelete(cri);
+
+		model.addAttribute("list2", list2);
+		model.addAttribute("cri", cri);
+	}
+	
+	@RequestMapping(value = "search/businessRecover", method = RequestMethod.POST)
+	public void businessRecover(String play_id, Model model) {
+		System.out.println("(Controller) business recover 요청");
+		System.out.println(play_id);
+		PlayVO vo=new PlayVO();
+		vo.setPlay_id(play_id);
+		
+		vo.setDelete_date(CurrentDate());
+		System.out.println(vo);
+		dao2.recover(vo);
+	}
+	
+	@RequestMapping(value = "search/businessDeleteDetail", method = RequestMethod.POST)
+	public void businessDeleteDetail(String play_id, Model model) {
+		System.out.println("(Controller) business delete Detail 요청");
+		System.out.println(play_id);
+		PlayVO vo = dao2.playDeleteDetail(play_id);
+
+		model.addAttribute("vo", vo);
+	}
+	
 
 	// 현재 시간
 	public String CurrentTime() {

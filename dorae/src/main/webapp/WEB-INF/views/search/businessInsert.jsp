@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="/dorae/resources/css/businessSidebars.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
 <link rel="stylesheet"
@@ -60,8 +62,24 @@
 			} //onChange
 		}); //selector flatpickr
 
-		$('#b0').click(function() {
-			//기존의 것 삭제됨.
+		$('#btnInsert').click(function() {
+
+			  var inputFields = document.querySelectorAll('[data-required="true"]');
+			  var isEmpty = false;
+
+			  for (var i = 0; i < inputFields.length; i++) {
+			    if (inputFields[i].value === '') {
+			      isEmpty = true;
+			      break;
+			    }
+			  }
+
+			  if (isEmpty) {
+			    alert('필수 입력 항목을 입력해주세요.');
+			    event.preventDefault(); // 버튼 실행 취소
+			    return; // 함수 종료
+			  }
+
 			var form = $('#poster')[0].files[0];
 			var formData = new FormData();
 
@@ -93,11 +111,11 @@
 				cache : false,
 				data : formData,
 				success : function(x) {
-					alert('공연 추가 성공')
+					alert('공연 추가 성공');
 					window.close()
 				},//success
 				error : function() {
-					alert('필수 항목을 입력해주세요')
+					alert('필수 항목을 입력해주세요.')
 				}//error
 			})//ajax
 		})//b0
@@ -118,60 +136,163 @@
 </head>
 <body>
 
+	
+
+
+
+	<div class="new-page">
 	<input id="email_id" type="hidden"
 		value="<%=session.getAttribute("email")%>">
-	<h3>공연 추가</h3>
+		<div
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2">공연 추가</h1>
+		</div>
+		<input id="play_id" type="hidden" value="${vo.play_id}"> <br>
 
-	<!-- el 속성만 받아올 수 있는 표현식 -->
-	<br> 제목 :
-	<input id="play_name" value="도래도래">
-	<br> 장르 :
-	<select id="genre_name" name="type">
-				<option value="전체(장르)">전체(장르)</option>
-				<option value="뮤지컬">뮤지컬</option>
-				<option value="연극">연극</option>
-				<option value="서커스/마술">서커스/마술</option>
-				<option value="서양음악(클래식)">클래식</option>
-				<option value="한국음악(국악)">국악</option>
-				<option value="대중음악">대중음악</option>
-				<option value="복합">복합</option>
-				<option value="서양/한국무용(무용)">무용</option>
-				<option value="대중무용">대중무용</option>
-			</select> 
-	<br> 공연장 :
-	<mark id="stage_name"></mark>
-	<br>
-	<button type="button" onclick="openPopup()">공연장 찾기</button>
-	<input id="stage_id" type="hidden" value="">
-	<!-- 달력 -->
-	<br> 공연 기간:
-	<input id="play_start" class="date">~
-	<input id="play_end" class="date">
-	<br> 요일별 공연 시간 :
-	<input id="play_time" value="수요일 ~ 목요일(11:00), 금요일(11:00,14:00)">
-	<br> 런타임:
-	<input id="runtime" value="1시간 30분">
-	<br> 관람연령 :
-	<input id="play_age" value="만 13세 이상">
-	<br> 출연진 :
-	<input id="casting" value="...">
-	<br> 제작진 :
-	<input id="crew" value="도래맨">
-	<br> 기업 :
-	<input id="enterprise" value="도래도래">
-	<br> 가격 :
-	<input id="price" value="전석 10,000원">
-	<br> 포스터 이미지
-	<input id="poster" type="file" name="file">
-	<br>
-	<br> 내용 :
-	<br>
-	<textarea id="content" cols="40" rows="8">내요옹</textarea>
-	<br> 오픈런 :
-	<input id="openrun" value="Y">
-	<br>
-	<br>
-	<button id="b0">공연 추가</button>
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*제목</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="play_name"
+					value="${vo.play_name}" data-required="true">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*장르</label>
+			<div class="col-sm-10">
+				<select id="genre_name" class="form-control" name="type">
+					<option value="뮤지컬">뮤지컬</option>
+					<option value="연극">연극</option>
+					<option value="서커스/마술">서커스/마술</option>
+					<option value="서양음악(클래식)">클래식</option>
+					<option value="한국음악(국악)">국악</option>
+					<option value="대중음악">대중음악</option>
+					<option value="복합">복합</option>
+					<option value="서양/한국무용(무용)">무용</option>
+					<option value="대중무용">대중무용</option>
+				</select>
+			</div>
+		</div>
+
+		<input id="stage_id" class="required-input" type="hidden" value=""
+			data-required="true">
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*공연장</label>
+			<div class="col-sm-10">
+				<mark class="col-sm-2 col-form-label" id="stage_name">${vo.stage_name}</mark>
+				<button type="button" class="btn btn-primary mb-2"
+					onclick="openPopup()">공연장 선택</button>
+			</div>
+		</div>
+
+		<!-- 달력 -->
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*공연
+				시작</label>
+			<div class="col-sm-10">
+				<input type="text" class="date" id="play_start"
+					value="${vo.play_start}">
+			</div>
+		</div>
+
+		<!-- 달력 -->
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*공연
+				종료</label>
+			<div class="col-sm-10">
+				<input type="text" class="date" id="play_end" value="${vo.play_end}">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*공연
+				시간</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="play_time"
+					data-required="true"
+					placeholder="ex)화요일 ~ 수요일(20:00), 금요일(20:00), 목요일(16:00)">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">런타임</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="runtime"
+					placeholder="ex)1시간 30분">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">관람연령</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="play_age"
+					placeholder="ex)만 17세 이상">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">출연진</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="casting">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">제작진</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="crew">
+			</div>
+		</div>
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">기업</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="enterprise">
+			</div>
+		</div>
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*가격</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="price"
+					data-required="true" placeholder="ex)R석 66,000원, S석 44,000원">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">포스터
+			</label>
+			<div class="col-sm-10">
+				<input id="poster" type="file" name="file">
+			</div>
+		</div>
+
+
+		<div class="mb-3 row">
+			<label for="noticeContent" class="col-sm-2 col-form-label">내용</label>
+			<div class="col-sm-10">
+				<textarea class="form-control" id="content" rows="5"></textarea>
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">오픈런</label>
+			<div class="col-sm-10">
+				<select id="openrun" class="form-control" name="type">
+					<option value="Y">Y</option>
+					<option value="N">N</option>
+				</select>
+			</div>
+		</div>
+
+
+
+		<button id="btnInsert" class="btn btn-primary mb-3">공연
+			추가</button>
+
+
+
+	</div>
+
 
 </body>
 </html>

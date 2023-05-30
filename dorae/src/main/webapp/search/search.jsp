@@ -96,7 +96,7 @@
 
 				if (userType != null && userType.equals("business")) {
 			%>
-			<form action="../search/business" method="post">
+			<form action="../search/business" method="post" target="_blank">
 				<button>사업자 페이지로</button>
 			</form>
 

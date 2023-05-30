@@ -120,6 +120,13 @@
 		delete_date=#{delete_date}
 		where play_id=#{play_id}
 	</update>
+	
+	<!-- 삭제 공연 복원(사업자) -->
+	<update id="recoverOne" parameterType="playVO">
+		update play set
+		delete_date=null
+		where play_id=#{play_id}
+	</update>
 
 	<delete id="deleteComplete" parameterType="String">
 		delete from play where
