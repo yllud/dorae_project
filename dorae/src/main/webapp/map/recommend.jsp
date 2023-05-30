@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%><%@ taglib prefix="c"
+	uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <style>
@@ -11,28 +12,75 @@ span.selected-label {
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script>
 var genreCount = 0;
 var areaCount = 0;
 
-function sendRecommendationRequest() {
-    var selectedGenres = getSelectedValues("genre");
-    var selectedAreas = getSelectedValues("area");
+var selectedOrders = {
+	area: [],
+    genre: []
+	
+}; // 체크된 항목의 순서를 저장하는 배열
 
+//설정완료 버튼 클릭 시 이벤트 처리
+var submitButton = document.querySelector(".submit");
+if (submitButton) {
+	submitButton.addEventListener("click", function() {// 선택한 데이터를 가져오는 코드
+		var selectedGenre = selectedOrders.genre.map(function(checkbox) {
+		      return checkbox.value;
+		    }).slice(0, 3);
+		var selectedArea = selectedOrders.area.map(function(checkbox) {
+		      return checkbox.value;
+		    }).slice(0, 3);
+		
+		var email = "yg9316@naver.com";
+		
+		// 데이터 생성
+	    var data = {
+	      genre1: selectedGenre[0],
+	      genre2: selectedGenre[1],
+	      genre3: selectedGenre[2],
+	      area1: selectedArea[0],
+	      area2: selectedArea[1],
+	      area3: selectedArea[2],
+	      email: email
+	    };
+		 
+		$.ajax({
+			url: "${path}/insert_preference",
+			method: "POST",
+		    data: JSON.stringify(data),
+		    success: function(response) {
+	        	console.log("Preference inserted successfully.");
+	        	alert("삽입성공!");
+		    },
+		    error: function(xhr, status, error) {
+		        console.log("Error occurred while sending Ajax request:", error);
+		        alert("삽입실패!");
+		    }
+	    });
+	});
+}
+
+// sendRecommendationRequest 함수 수정
+function sendRecommendationRequest() {
     var request = new XMLHttpRequest();
-    request.open("POST", "RecommendationServlet", true);
+    request.open("POST", "insert_preference", true);  // PreferenceController의 insert 메소드로 요청을 보냄
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = function() {
         if (request.readyState === 4 && request.status === 200) {
             var response = request.responseText;
-            // 처리된 추천 결과를 이용하여 원하는 방식으로 표시하거나 처리합니다.
-            // 예: 결과를 테이블에 동적으로 추가하는 등의 작업을 수행할 수 있습니다.
+            if (response === "success") {
+                alert("설정이 저장되었습니다.");
+            } else {
+                alert("설정 저장에 실패했습니다.");
+            }
         }
     };
-    request.send("genres=" + encodeURIComponent(selectedGenres) + "&areas=" + encodeURIComponent(selectedAreas));
+    // 선택된 장르 배열과 지역 배열을 파라미터로 전송
+    request.send("selectedGenres=" + encodeURIComponent(selectedGenres) + "&selectedAreas=" + encodeURIComponent(selectedAreas));
 }
-
-var selectedOrder = []; // 체크된 항목의 순서를 저장하는 배열
 
 function limitCheckboxSelection(checkbox) {
     var checkboxes = document.getElementsByName(checkbox.name);
@@ -52,6 +100,12 @@ function limitCheckboxSelection(checkbox) {
     }
 
     if (checkbox.checked) {
+    	// 해당 체크박스가 속한 그룹 (지역 또는 장르) 확인
+        var group = checkbox.name;
+    	
+     	// 해당 그룹에 대한 selectedOrder 배열 가져오기
+        var selectedOrder = selectedOrders[group];
+     
         // 가장 먼저 push된 체크박스는 1순위로 유지되도록 배열의 맨 앞에 추가(unshift)
         if (selectedOrder.length === 0) {
             selectedOrder.unshift(checkbox);
@@ -65,6 +119,8 @@ function limitCheckboxSelection(checkbox) {
         }
     } else {
         // 체크박스가 선택 해제되면 배열에서 제거
+        var group = checkbox.name;
+        var selectedOrder = selectedOrders[group];
         var index = selectedOrder.indexOf(checkbox);
         if (index > -1) {
             selectedOrder.splice(index, 1);
@@ -74,16 +130,16 @@ function limitCheckboxSelection(checkbox) {
  	// 순위 표시 업데이트
     for (var i = 0; i < checkboxes.length; i++) {
         var label = document.getElementById(checkbox.name + "_selected_" + checkboxes[i].id);
+        var group = checkbox.name;
+        var selectedOrder = selectedOrders[group];
+        
         if (checkboxes[i] === checkbox) {
             if (isFirstCheckboxChecked) {
                 label.innerHTML = "1순위";
             } else {
                 label.innerHTML = "";
             }
-        } else if (checkbox.checked && checkboxes[i].checked) {
-            var order = selectedOrder.indexOf(checkboxes[i]) + 2;
-            label.innerHTML = order + "순위";
-        } else if (!checkbox.checked && checkboxes[i].checked) {
+        } else if (checkboxes[i].checked) {
             var order = selectedOrder.indexOf(checkboxes[i]) + 1;
             label.innerHTML = order + "순위";
         } else {
@@ -98,23 +154,12 @@ function limitCheckboxSelection(checkbox) {
             label.innerHTML = selectedOrder.indexOf(checkboxes[i]) + 1 + "순위";
         }
     }
-    
-    console.log("selectedOrder 값 >>> " + selectedOrder.map(function(checkbox) {
+    console.log("selectedOrders genre 값 >>> " + selectedOrders["genre"].map(function(checkbox) {
     	  return checkbox.value;
     	}).join(", "));
-}
-
-function getSelectedValues(name) {
-    var checkboxes = document.getElementsByName(name);
-    var selectedValues = [];
-
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            selectedValues.push(checkboxes[i].value);
-        }
-    }
-
-    return selectedValues;
+    console.log("selectedOrders area 값 >>> " + selectedOrders["area"].map(function(checkbox) {
+    	  return checkbox.value;
+    	}).join(", "));
 }
 </script>
 <link rel="stylesheet" href="../resources/css/recommend.css" />
@@ -165,7 +210,7 @@ function getSelectedValues(name) {
 	
 	<div class="wrap_btn_zone">
 	    <button class="btn cancle"><a href="">취소</a></button>
-	    <button class="btn submit"><a href="">설정완료</a></button>
+	    <button class="btn submit">설정완료</button>
     </div>              
 </body>
 </html>

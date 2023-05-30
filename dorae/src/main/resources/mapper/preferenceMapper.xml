@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="preference">
+
+	<!-- 공연 북마크 입력 -->
+	<insert id="create" parameterType="preferenceVO">
+		insert into preference values (#{email}, #{genre1}, #{genre2}, #{genre3}, #{area1}, #{area2}, #{area3})
+	</insert>
+	
+	<!-- 본인의 취향설정 -->
+	<select id="my" parameterType="String" resultType="preferenceVO">
+		select * from preference where email = #{email}
+	</select>
+
+</mapper>
