@@ -148,12 +148,9 @@
 	<!-- where email=#{email} -->
 	<!-- </update> -->
 
-
-
-
-	<select id="searchStageId" parameterType="String"
-		resultType="String">
-		select stage_id from play where play_id =#{play_id}
-	</select>
+	<!-- 공연중인 전체 공연목록 -->
+	<select id="playList" resultType="playVO">
+        select play_id, stage_id, play_name, play_start, play_end, stage_name, poster, genre_name from play where state = '공연중'
+    </select>
 
 </mapper>

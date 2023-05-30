@@ -143,4 +143,9 @@ public class PlayDAO {
 		return stage_id;
 	}
 
+	// 공연중인 전체 공연목록 검색 (api)
+	public List<PlayVO> listPlay() {
+		List<PlayVO> list = my.selectList("playList");
+		return list;
+	}
 }

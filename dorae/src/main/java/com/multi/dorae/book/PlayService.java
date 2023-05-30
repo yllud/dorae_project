@@ -32,30 +32,26 @@ public class PlayService implements PlayServiceInterface {
 	
 	@Override
 	public String infoList() throws Exception {
-	    System.out.println("infoList");
-	    List<String> idList = dao.listPlayId(); // play id 리스트
-	    List<String> stList = new ArrayList<>(); // stage id 리스트 
-	    List<PlayVO> delist1 = new ArrayList<>(); // play detail
-	    List<StageVO> delist2 = new ArrayList<>(); // stage detail
-
-	    for(int i=0; i<idList.size(); i++) {
-	    	 String stageId = dao.stageId(idList.get(i));
-	    	    
-    	    if (!stList.contains(stageId)) {
-    	        stList.add(stageId);
-    	    }
-    	    if(dao.playDetail(idList.get(i)).getState().equals("공연중"))
-                delist1.add(dao.playDetail(idList.get(i)));
-	    }
-	    for(int i=0; i<stList.size(); i++) {
-	    	String stageId = stList.get(i);
-	        StageVO stageDetail = dao2.stageDetail(stageId);
+	    //System.out.println("infoList");
+	    //List<String> idList = dao.listPlayId(); // play id 리스트
+	    //List<String> stList = dao.listStageId(); // stage id 리스트 
+	    List<PlayVO> delist1 = dao.listPlay(); // play detail
+	    List<StageVO> delist2 = dao2.listStage(); // stage detail
+	    
+	    /*
+	    for (String p_id : idList) {
+	    	if(dao.playDetail(p_id).getState().equals("공연중"))
+                delist1.add(dao.playDetail(p_id));
+		}
+	    
+	    for (String s_id : stList) {
+	    	StageVO stageDetail = dao2.stageDetail(s_id);
 	    	
 	    	if (stageDetail != null) {
 	            boolean hasDuplicate = false;
 	            
 	            for (StageVO existingStage : delist2) {
-	                if (existingStage.getStage_id() == stageId) {
+	                if (existingStage.getStage_id() == s_id) {
 	                    hasDuplicate = true;
 	                    break;
 	                }
@@ -65,10 +61,7 @@ public class PlayService implements PlayServiceInterface {
 	            }
 	        }
 	    }
-	    System.out.println("--------------");
-	    for(int i=0; i<delist1.size(); i++) {
-			System.out.println(i + " >> " + delist1.get(i));
-		}
+	    */
 	    
 		// JSON 변환을 위한 ObjectMapper 생성
 	    ObjectMapper objectMapper = new ObjectMapper();
