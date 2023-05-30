@@ -36,7 +36,8 @@
 		var click = "all";
 		
 		var startIndex = 0; // 시작 인덱스
-		var dataCount = 20; // 한 번에 가져올 데이터 개수
+		var dataCount = 10; // 한 번에 가져올 데이터 개수
+		var endIndex = dataCount; // 끝 인덱스
 		
 		function snsPopup(playName, stageName, playId) {
 			console.log("값넘겨주기!!! >>> " + playName + ", " + stageName + ", " + playId);
@@ -85,31 +86,35 @@
         
       //스크롤 이벤트 핸들러
         $('#infolist').on('scroll', function() {
-        	if(click == "all"){
-	            // 현재 스크롤 위치
-	            console.log("스크롤 하고 있는 중");
-	            var scrollPosition = $('#infolist').scrollTop();
+            // 현재 스크롤 위치
+            console.log("스크롤 하고 있는 중");
+            var scrollPosition = $('#infolist').scrollTop();
 
-	            // 스크롤 가능한 전체 높이 (infolist의 높이)
-	            var contentHeight = $('#infolist').prop('scrollHeight');
+            // 스크롤 가능한 전체 높이 (infolist의 높이)
+            var contentHeight = $('#infolist').prop('scrollHeight');
 
-	            // 스크롤 영역의 높이 (infolist의 높이)
-	            var scrollAreaHeight = $('#infolist').height();
+            // 스크롤 영역의 높이 (infolist의 높이)
+            var scrollAreaHeight = $('#infolist').height();
 
-	            // 스크롤이 infolist의 끝에 도달하면 추가 데이터를 가져옴
-	            if (scrollPosition >= contentHeight - scrollAreaHeight) {
-	                // 추가 데이터 가져오기
-	                console.log("스크롤 infolist의 끝에 도달!!");
-	                startIndex += dataCount;
-	                dataCount += dataCount;
-	                if(dataCount > delist1.length){
-						console.log("delist1의 길이 >>> " + delist1.length);
-	                	dataCount = delist1.length;
-	                	console.log("dataCount의 값 >>> " + dataCount);
-	                }
-	                addItems(startIndex, dataCount);
-	            }
-        	}
+            // 스크롤이 infolist의 끝에 도달하면 추가 데이터를 가져옴
+            if (scrollPosition >= contentHeight - scrollAreaHeight) {
+                // 추가 데이터 가져오기
+                console.log("스크롤 infolist의 끝에 도달!!");
+                startIndex += dataCount;
+                endIndex += dataCount;
+                
+                if(click == "all"){
+                	if(dataCount > delist1.length){
+    					console.log("delist1의 길이 >>> " + delist1.length);
+                    	dataCount = delist1.length;
+                    	console.log("dataCount의 값 >>> " + dataCount);
+                    }
+                    addItems(startIndex, endIndex, dataCount);
+                }
+                else if(click == "area"){
+                	
+                }
+            }
         });
       
         $('#infolist').on('click', '.bookIcon', function() {
@@ -171,7 +176,7 @@
 		});
       	
 		//infolist 테이블 추가
-		function addItems(startIndex, dataCount) {
+		function addItems(startIndex, endIndex, dataCount) {
 			infoWindow.close();
 			click = "all";
 			var table = "";
@@ -183,10 +188,11 @@
 				// 테이블 생성
 				table += "<br><h3 style='text-align:center;'><전체지역> 검색결과 " + delist1.length + "개</h3>";
 			}
-			if(dataCount <= delist1.length){
+			if(endIndex <= delist1.length){
 				console.log("startIndex 값 : " + startIndex);
 				console.log("dataCount 값 : " + dataCount);
-				for (var i = startIndex; i < dataCount; i++) {
+				console.log("endIndex 값 : " + endIndex);
+				for (var i = startIndex; i < endIndex; i++) {
 					if (i >= delist1.length) {
 			            break;
 			        }
@@ -377,7 +383,7 @@
 				console.log("delist1 길이 : " + delist1.length);
 				console.log("delist2 길이 : " + delist2.length);
 				
-				addItems(startIndex, dataCount);
+				addItems(startIndex, dataCount, endIndex);
 				addMarkers(delist1, delist2); //시작하자마자 마커 추가
 				
 				var marker1 = {
@@ -718,7 +724,10 @@
 		        map.data.addGeoJson(geojson);
 		    });
 		
+		    //지역 클릭 시
 		    map.data.addListener('click', function(e) {
+		    	startIndex = 0;
+		    	dataCount = 20;
 		        var feature = e.feature;
 		       	var area = feature.getProperty('area1');
 		       	
@@ -792,13 +801,15 @@
 			    }
 				
 			    if (filteredList.length > 0) {
-			    	click = "areaClick";
-			    	$('#infolist').scrollTop(0); // 스크롤 위치 초기화
-			    	$('#infolist').empty(); // infolist 비우기
-			    	var table = "<table id='infotable'>";
+			    	click = "area";
 			    	var count = 0;
 			    	var table = "";
-			    	click = "area";
+			    	if(startIndex == 0)
+			    	{
+			    		$('#infolist').scrollTop(0); // 스크롤 위치 초기화
+			    		$('#infolist').empty(); // infolist 비우기
+
+			    	}
 			    	for (var i = 0; i < filteredList.length; i++) {
 			            var stageinfo = filteredList[i].stageinfo;
 			            for(var j=0; j<delist1.length; j++){
@@ -843,8 +854,8 @@
 			            	}
 			            }//for ㅓ문       	
 			        }//for i문
-			    	table = "<br><h3 style='text-align:center'><" + area + "> 검색결과 " + count + "개</h3>" + table;
-			    	table += '<br><br><br>';
+			        if(startIndex == 0)
+				    	table = "<br><h3 style='text-align:center'><" + area + "> 검색결과 " + count + "개</h3>" + table;
 			    	
 			    	$('#infolist').html(table);			    	
 			    } else {
