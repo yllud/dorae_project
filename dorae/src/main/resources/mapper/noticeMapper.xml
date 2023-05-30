@@ -15,6 +15,10 @@
 		select * from notice
 	</select>
 	
+	<select id="selectListByTag" resultType="noticeVO" parameterType="String">
+		select * from notice where tag = #{tag}
+	</select>
+	
 	<select id="selectListWithPaging" resultType="noticeVO" parameterType="hashMap">
 		select * from (
 			select ROW_NUMBER() over (order by notice_id desc) as notice, n.*

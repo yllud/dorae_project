@@ -29,9 +29,6 @@ public class AdminContactController {
 	
 	@RequestMapping("list")
 	public void contactList(PageVO pageVO, Model model) {
-		pageVO.setTotal(contactService.count());
-		
-		System.out.println(pageVO);
 		model.addAttribute("page", pageVO);
 		model.addAttribute("contactList", contactService.listWithPaging(pageVO));
 	}

@@ -7,13 +7,13 @@
 <div class="mb-3 row">
 	<label for="contactTitle" class="col-sm-2 col-form-label">제목</label>
 	<div class="col-sm-10">
-	  <input type="text" readonly class="form-control-plaintext" id="contactTitle" value="${contact.title}">
+	  	<p class="form-control-plaintext" id="contactTitle">${contact.title}</p>
 	</div>
 </div>
 <div class="mb-3 row">
 	<label for="contactContent" class="col-sm-2 col-form-label">내용</label>
 	<div class="col-sm-10">
-	  <input type="text" readonly class="form-control-plaintext" id="contactContent" value="${contact.content}">
+		<p class="form-control-plaintext" id="contactContent">${contact.content}</p>		
 	</div>
 </div>
 
@@ -34,17 +34,11 @@
 
 <script type="text/javascript">
 	function submitAnswer(element) {
-		$.ajax({
-			url: "/dorae/admin/contact/updateAnswer",
-			type: "POST",
-			data: {
-				contact_id: element.value,
-				answer: $("#contactAnswer").val()
-			},
-			success: function(res) {
-				asyncLoad(history.state.url);
-			}
-		})
+		asyncLoad("/dorae/admin/contact/updateAnswer",
+				"POST", {
+					contact_id: element.value,
+					answer: $("#contactAnswer").val()
+				});
 	}
 </script>
 </c:if>

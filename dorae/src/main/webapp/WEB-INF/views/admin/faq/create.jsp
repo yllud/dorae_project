@@ -14,9 +14,9 @@
 
 <div class="mb-3 row">
   <label for="faqContent" class="col-sm-2 col-form-label">내용</label>
-  <div class="col-sm-10">
-    <textarea class="form-control" id="faqContent" rows="5"></textarea>
-  </div>
+  <div class="col-sm-10" style="height: 500px;">
+		<iframe src="/dorae/resources/smarteditor2-2.8.2.3/SmartEditor2.jsp" width="100%" height="100%" id="faqContent"></iframe>
+	</div>
 </div>
 
 <div class="mb-3 row">
@@ -35,17 +35,15 @@
 
 <script type="text/javascript">
 	function submitFaq(element) {
-		$.ajax({
-			url: "/dorae/admin/faq/create",
-			type: "POST",
-			data: {
-				help_category_id: $("#faqCategory").val(),
-				title: $("#faqTitle").val(),
-				content: $("#faqContent").val()
-			},
-			success: function(res) {
-				asyncLoad(history.state.url);
-			}
-		})
+		asyncLoad("/dorae/admin/faq/create",
+				"POST", {
+					help_category_id: $("#faqCategory").val(),
+					title: $("#faqTitle").val(),
+					content: $("#faqContent").contents().find("#ir1").val()
+				})
+	}
+	
+	function setContent() {
+		$("#faqContent")[0].contentWindow.clearHTML();
 	}
 </script>

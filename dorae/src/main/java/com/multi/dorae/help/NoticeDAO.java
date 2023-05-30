@@ -35,6 +35,7 @@ public class NoticeDAO {
 	
 	public List<NoticeVO> listWithPaging(PageVO pageVO) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		pageVO.setTotal(count());
 		pageVO.calc();
 
 		map.put("start", pageVO.getStart());
@@ -45,6 +46,7 @@ public class NoticeDAO {
 	
 	public List<NoticeVO> listByTagWithPaging(String tag, PageVO pageVO) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		pageVO.setTotal(count());
 		pageVO.calc();
 
 		map.put("tag", tag);

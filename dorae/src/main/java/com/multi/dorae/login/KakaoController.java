@@ -1,9 +1,11 @@
 package com.multi.dorae.login;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,28 +26,46 @@ public class KakaoController {
 
 	@Autowired
 	private KakaoDAO dao;
+	
+	@Autowired
+	private HttpServletRequest request;
 
 	@RequestMapping(value = "login/kakaoLogin", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, Model model)
-			throws Exception {
-		System.out.println("#########" + code);
-		String access_Token = ms.getAccessToken(code);
-		ArrayList list = ms.getUserInfo(access_Token);
-		System.out.println("###access_Token#### : " + access_Token);
-//		System.out.println("###nickname#### : " + userInfo.getNickname());
-//		System.out.println("###email#### : " + userInfo.getEmail());
+	        throws Exception {
+	    String access_Token = ms.getAccessToken(code);
+	    ArrayList list = ms.getUserInfo(access_Token);
+	    System.out.println(list.size());
 
-		// 아래 코드가 추가되는 내용
-		session.invalidate();
-		// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
-//		session.setAttribute("kakaoN", userInfo.getNickname());
-		session.setAttribute("kakaoE", list.get(1));
-		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
-		// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
-		
-		// 리턴값은 용도에 맞게 변경하세요~
-		model.addAttribute("result", (int) (list.get(1)));
-		return "/login/testPage";
+	    String email = (String) list.get(0);
+	    System.out.println(email);
+
+	    // DB에서 해당 이메일로 조회
+	    KakaoVO userInfo = dao.findkakao(email);
+	    System.out.println(userInfo);
+	    
+	    if (userInfo != null) {
+	        // 이미 가입된 사용자이므로 로그인 처리 및 세션 설정
+	        HttpSession session = request.getSession();
+	        session.setAttribute("email", userInfo.getEmail());
+	        session.setAttribute("nickname", userInfo.getNickname());
+	        session.setAttribute("user_type", userInfo.getUser_type());
+	        return "redirect:mypage/mypage"; // mypage로 리디렉션
+	    } else {
+	        // 신규 가입자이므로 DB에 사용자 정보 저장
+	        KakaoVO newUserInfo = new KakaoVO();
+	        newUserInfo.setEmail(email);
+	        newUserInfo.setNickname((String) list.get(1));
+	        newUserInfo.setJoinDate(new Timestamp(System.currentTimeMillis()));
+	        newUserInfo.setUser_type("user");
+	        dao.insert(newUserInfo);
+
+	        HttpSession session = request.getSession();
+	        session.setAttribute("email", newUserInfo.getEmail());
+	        session.setAttribute("nickname", newUserInfo.getNickname());
+	        session.setAttribute("user_type", newUserInfo.getUser_type());
+	        return "mypage/mypage"; // mypage로 리디렉션
+	    }
 	}
 	
 
@@ -56,19 +76,19 @@ public class KakaoController {
 		dao.delete(email);
 	}
 
-	// 세션 잡으려고 새로 추가한 것
-	@RequestMapping("login/kakaoLogin")
-	public String login(@RequestParam("code") String authorize_code, HttpSession session) {
-	    String access_Token = ms.getAccessToken(authorize_code);
-	    ArrayList userInfo = ms.getUserInfo(access_Token);
-
-	    // 로그인 정보를 세션에 설정
-	    KakaoVO vo = (KakaoVO) userInfo.get(0);
-	    ms.setSessionAttributes(session, vo);
-
-	    // 세션 설정 후 원하는 페이지로 리다이렉트
-	    return "redirect:mypage/mypage";
-	}
+//	// 세션 잡으려고 새로 추가한 것
+//	@RequestMapping("login/kakaoLogin")
+//	public String login(@RequestParam("code") String authorize_code, HttpSession session) {
+//	    String access_Token = ms.getAccessToken(authorize_code);
+//	    ArrayList userInfo = ms.getUserInfo(access_Token);
+//
+//	    // 로그인 정보를 세션에 설정
+//	    KakaoVO vo = (KakaoVO) userInfo.get(0);
+//	    ms.setSessionAttributes(session, vo);
+//
+//	    // 세션 설정 후 원하는 페이지로 리다이렉트
+//	    return "redirect:mypage/mypage";
+//	}
 	
 	@RequestMapping("login/logout2")
 	public String logout(Model model, HttpSession session) {

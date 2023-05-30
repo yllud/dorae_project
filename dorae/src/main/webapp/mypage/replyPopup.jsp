@@ -56,6 +56,12 @@ textarea {
 			작성자 : ${nickname} <input type="hidden" name="nickname" value="${nickname}"><br>
 			<input type="hidden" name="email" value="${email}"><br>
 	</div>
+	<div class="input-area">
+        <!-- 평가 점수 입력 폼 -->
+        <label for="score">평가 점수:</label>
+        <input type="number" name="score" id="score" min="1" max="5" required>
+    </div>
+
 	<div class="button-area">
 		<button onclick="confirmPopup()">확인</button>
 		<button onclick="window.close()">닫기</button>
@@ -65,8 +71,10 @@ textarea {
 	<script>
 		function confirmPopup() {
 			var inputText = document.getElementById("inputText").value;
-			// 여기에서 입력된 내용을 처리하는 로직을 추가하세요.
-			console.log("입력된 내용: " + inputText);
+			 var score = parseInt(document.getElementById("score").value);
+		        // 여기에서 입력된 내용과 점수를 처리하는 로직을 추가하세요.
+		        console.log("입력된 내용: " + inputText);
+		        console.log("선택된 점수: " + score);
 		}
 		function fillTicketInfo(playId, playName, seatDate, seatTime, seatId) {
 			document.getElementById("playId").textContent = playId;

@@ -35,6 +35,7 @@ public class FaqDAO {
 	
 	public List<FaqVO> listByCategoryWithPaging(String help_category_id, PageVO pageVO) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		pageVO.setTotal(countByCategory(help_category_id));
 		pageVO.calc();
 		
 		map.put("help_category_id", help_category_id);
@@ -42,6 +43,18 @@ public class FaqDAO {
 		map.put("end", pageVO.getEnd());
 		
 		return sql.selectList("faq.selectListByHelpCategoryWithPaging", map);
+	}
+	
+	public List<FaqVO> listBySearchWithPaging(String search, PageVO pageVO) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		pageVO.setTotal(countBySearch(search));
+		pageVO.calc();
+		
+		map.put("search", search);
+		map.put("start", pageVO.getStart());
+		map.put("end", pageVO.getEnd());
+		
+		return sql.selectList("faq.selectListBySearchWithPaging", map);
 	}
 	
 	public List<FaqVO> listByCategory(String help_category_id) {
@@ -58,5 +71,9 @@ public class FaqDAO {
 	
 	public int countByCategory(String help_category_id) {
 		return sql.selectOne("faq.countByCategory", help_category_id);
+	}
+	
+	public int countBySearch(String search) {
+		return sql.selectOne("faq.countBySearch", search);
 	}
 }

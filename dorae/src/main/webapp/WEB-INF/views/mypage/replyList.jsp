@@ -39,6 +39,7 @@ $(document).ready(function() {
 	<table>
         <tr>
             <th>글번호</th>
+            <th>평점</th>
             <th>공연id</th>
             <th>공연명</th>
             <th>내용</th>
@@ -54,6 +55,7 @@ $(document).ready(function() {
         <c:forEach items="${list}" var="reply">
             <tr>
                 <td>${reply.r_number}</td>
+                <td>${reply.score}</td>
                 <td>${reply.play_id}</td>
                 <td>${reply.play_name}</td>
                 <td>${reply.text}</td>

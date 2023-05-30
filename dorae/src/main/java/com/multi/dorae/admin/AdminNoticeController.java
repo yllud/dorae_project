@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.multi.dorae.help.NoticeService;
@@ -33,6 +34,11 @@ public class AdminNoticeController {
 		
 	}
 	
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public void noticeUpdate(long notice_id, Model model) {
+		model.addAttribute("notice_id", notice_id);
+	}
+	
 	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String noticeUpdate(NoticeVO noticeVO) {
 		if (noticeService.update(noticeVO)) { // 공지사항 수정에 성공하면
@@ -40,7 +46,6 @@ public class AdminNoticeController {
 		} else {
 			return "redirect:one?notice_id=" + noticeVO.getNotice_id();
 		}
-		
 	}
 	
 	@RequestMapping("one")
@@ -48,10 +53,14 @@ public class AdminNoticeController {
 		model.addAttribute("notice", noticeService.one(notice_id));
 	}
 	
+	@ResponseBody
+	@RequestMapping("one.json")
+	public NoticeVO noticeOneJson(long notice_id) {
+		return noticeService.one(notice_id);
+	}
+	
 	@RequestMapping("list")
-	public void noticeList(PageVO pageVO, Model model) {
-		pageVO.setTotal(noticeService.count());
-		
+	public void noticeList(PageVO pageVO, Model model) {		
 		model.addAttribute("page", pageVO);
 		model.addAttribute("noticeList", noticeService.listWithPaging(pageVO));
 	}

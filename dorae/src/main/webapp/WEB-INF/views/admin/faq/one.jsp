@@ -7,45 +7,25 @@
 <div class="mb-3 row">
 	<label for="faqTitle" class="col-sm-2 col-form-label">제목</label>
 	<div class="col-sm-10">
-	  <input type="text" class="form-control" id="faqTitle" value="${faq.title}">
+	  	<p class="form-control-plaintext" id="faqTitle">${faq.title}</p>	
 	</div>
 </div>
 
 <div class="mb-3 row">
-  <label for="faqCategory" class="col-sm-2 col-form-label">유형</label>
-  <div class="col-sm-10">
-	  <select class="form-select" id="faqCategory">
-	    <c:forEach items="${helpCategoryList }" var="item">
-	    <option value="${item.help_category_id }" <c:if test="${item.help_category_id eq faq.help_category_id }">selected</c:if> >${item.name }</option>
-	    </c:forEach>
-	  </select>
-  </div>
+	<label for="faqCategory" class="col-sm-2 col-form-label">유형</label>
+	<div class="col-sm-10">
+		<c:forEach items="${helpCategoryList }" var="item">
+		<c:if test="${item.help_category_id eq faq.help_category_id }">
+		<p class="form-control-plaintext" id="faqCategory">${item.name }</p>
+		</c:if>
+		</c:forEach>
+	</div>
 </div>
 
 <div class="mb-3 row">
 	<label for="faqContent" class="col-sm-2 col-form-label">내용</label>
-	<div class="col-sm-10">
-		<textarea class="form-control" id="faqContent" rows="5">${faq.content }</textarea>
-	</div>
+	<div class="col-sm-10 py-2">${faq.content }</div>
 </div>
 
-<button class="btn btn-primary mb-3" value="${faq.faq_id }" onclick="submitContent(this)">내용 수정</button>
+<button class="btn btn-primary mb-3" value="/dorae/admin/faq/update?faq_id=${faq.faq_id }" onclick="goToPage(this)">내용 수정</button>
 <button class="btn btn-light mb-3" onclick="javascript:history.back()">목록으로</button>
-
-<script type="text/javascript">
-	function submitContent(element) {
-		$.ajax({
-			url: "/dorae/admin/faq/update",
-			type: "POST",
-			data: {
-				faq_id: element.value,
-				help_category_id: $("#faqCategory").val(),
-				title: $("#faqTitle").val(),
-				content: $("#faqContent").val()
-			},
-			success: function(res) {
-				asyncLoad(history.state.url);
-			}
-		})
-	}
-</script>

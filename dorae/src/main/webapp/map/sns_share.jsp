@@ -13,59 +13,62 @@
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
 
-var thisUrl = document.URL;
+var thisUrl = "http://localhost:8888/dorae/search/playDetail?play_id=";
+var snsTitle = "도래도래";
 
 <%
 	String playName = request.getParameter("playName"); // 공연 이름 값 가져오기
 	String stageName = request.getParameter("stageName"); // 공연장 이름 값 가져오기
-	/* String share_lat = request.getParameter("latitude"); // 공연장 위도 값 가져오기
-	String share_lng = request.getParameter("longitude"); // 공연장 경도 값 가져오기 */
-	//out.println("Received value: " + share_lat + ", " + share_lng); // 받은 값 출력
+	String playId = request.getParameter("playId"); // 공연 id 값 가져오기
 
 %>
-	
+
+var DetailUrl = thisUrl +  	"<%= playId %>";
+
 function shareTwitter() {
-    var sendText = "도래도래 공연 <" + "<%= playName %>" + ">"; // 전달할 텍스트
-    <%-- var sendUrl = "https://map.naver.com/?x=" + <%= share_lat %> + "&y=" + <%= share_lng %>;// 전달할 네이버 지도 URL--%>
-    var query = encodeURIComponent("<%= stageName %>"); // 검색할 공연장 이름 인코딩
-    var sendUrl = "https://map.naver.com/v5/search?query=" + query; // 네이버 지도 검색 결과 페이지 URL
+    var sendText = snsTitle + " <" + "<%= playName %>" + ">"; // 전달할 텍스트
+    var sendUrl = DetailUrl;
     var encodedText = encodeURIComponent(sendText); // 텍스트 인코딩
     var encodedUrl = encodeURIComponent(sendUrl); // URL 인코딩
     window.open("https://twitter.com/intent/tweet?text=" + encodedText + "&url=" + encodedUrl);
+    window.close();
 }
+
+function shareNaver() {
+    var url = encodeURIComponent(DetailUrl);
+    var title = encodeURIComponent("<%=playName%>");
+    var shareURL = "https://share.naver.com/web/shareView?url=" + url + "&title=" + title;
+    window.open(shareURL);
+    window.close();
+}
+
+//localhost주소라 아직 오류남
 function shareFacebook() {
-    var sendUrl = "https://www.naver.com/"; // 전달할 URL
+    var sendUrl = DetailUrl;
     var encodedUrl = encodeURIComponent(sendUrl); // URL 인코딩
     window.open("http://www.facebook.com/sharer/sharer.php?u=" + encodedUrl);
+    window.close();
 }
-function shareNaver() {
-    var url = encodeURI(encodeURIComponent("https://www.naver.com/"));
-    var title = encodeURI(playName);
-    var shareURL = "https://share.naver.com/web/shareView?url=" + url + "&title=" + title;
-    document.location = shareURL;
-}
-function shareKakao() {
-	// 사용할 앱의 JavaScript 키 설정
-  	Kakao.init('7377e77dbf4c68a33c18016f4dc8dc45');
 
-  	// 카카오링크 버튼 생성
-  	Kakao.Link.createDefaultButton({
-	    container: '#btnKakao', // 카카오공유버튼ID
-	    objectType: 'feed',
-	    content: {
-	    	title: "도래도래", // 보여질 제목
-	      	description: "도래도래 사이트입니다", // 보여질 설명
-	      	imageUrl: "https://www.naver.com/", // 콘텐츠 URL
-	      	link: {
-	      		mobileWebUrl: "https://www.naver.com/",
-	         	webUrl: "https://www.naver.com/"
-	      	}
-	  	}
-  	});
+function shareKakao() {
+    Kakao.init('7377e77dbf4c68a33c18016f4dc8dc45');
+    Kakao.Link.sendDefault({
+        objectType: 'feed',
+        content: {
+            title: '도래도래',
+            description: '도래도래 사이트입니다',
+            imageUrl: DetailUrl,
+            link: {
+                mobileWebUrl: DetailUrl,
+                webUrl: DetailUrl
+            }
+        }
+    });
+    window.close();
 }
 	
 </script>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>sns 공유하기</title>
 </head>
 <body>

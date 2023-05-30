@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -56,9 +57,10 @@ public class HelpController {
 	}
 	
 	@RequestMapping("faqSearch")
-	public void faqSearch(String search, Model model) {
+	public void faqSearch(String search, PageVO pageVO, Model model) {
 		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
-		model.addAttribute("faqList", faqService.listBySearch(search));
+		model.addAttribute("faqList", faqService.listBySearchWithPaging(search, pageVO));
+		model.addAttribute("page", pageVO);
 		model.addAttribute("search", search);
 	}
 	
@@ -99,6 +101,10 @@ public class HelpController {
 	@RequestMapping(value = "applyBusiness", method = RequestMethod.GET)
 	public HashMap<String, Boolean> applyBusiness(@SessionAttribute String email) {
 		HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+		if (applyDAO.isUnderReview(email)) { // 검토 중인 신청 내역이 있으면
+			map.put("success", false);
+			return map;
+		}
 		
 		if (applyDAO.insert(email) == 1) {
 			map.put("success", true);
