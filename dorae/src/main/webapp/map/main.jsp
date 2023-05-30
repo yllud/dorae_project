@@ -36,13 +36,337 @@
 		var click = "all";
 		
 		var startIndex = 0; // 시작 인덱스
-		var dataCount = 30; // 한 번에 가져올 데이터 개수
+		var dataCount = 10; // 한 번에 가져올 데이터 개수
+		var endIndex = dataCount; // 끝 인덱스
 		
 		function snsPopup(playName, stageName, playId) {
 			console.log("값넘겨주기!!! >>> " + playName + ", " + stageName + ", " + playId);
 			var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName) + "&playId=" + encodeURIComponent(playId);
 			//var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName)  + "&latitude=" + encodeURIComponent(share_lat)  + "&longitude=" + encodeURIComponent(share_lng);
 		    window.open(url, "_blank", "width=500,height=500");
+		}
+		
+		// 네이버 지도 API를 로드합니다.
+		map = new naver.maps.Map('map', {
+			zoom : 7,
+			minZoom: 7,
+			maxZoom: 17,
+			mapTypeId: 'normal',
+			center : new naver.maps.LatLng(36.0566103, 125.9783882), // 대한민국 중심
+			mapDataControl: false,
+			zoomControl : true,
+			zoomControlOptions : {
+				position : naver.maps.Position.TOP_RIGHT,
+				style : naver.maps.ZoomControlStyle.SMALL
+			}
+		});//new map
+		
+		//로그인 세션이 있다면 isLogin=true, mylist[]값 받아오기
+		<% if (session.getAttribute("email") != null) { %>
+			userEmail = '<%= session.getAttribute("email") %>';
+			isLogin = true;
+		//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
+			$.ajax({
+            type: 'GET',
+            url: '${path}/select_my',
+            data: { email: userEmail },
+            dataType: 'json',
+            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+            success: function(response) {
+                mylist = response;
+                console.log(mylist);
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+        <% } else { %>
+        	console.log("로그인 안되어있음!");
+        <% } %>
+        
+      //스크롤 이벤트 핸들러
+        $('#infolist').on('scroll', function() {
+            // 현재 스크롤 위치
+            console.log("스크롤 하고 있는 중");
+            var scrollPosition = $('#infolist').scrollTop();
+
+            // 스크롤 가능한 전체 높이 (infolist의 높이)
+            var contentHeight = $('#infolist').prop('scrollHeight');
+
+            // 스크롤 영역의 높이 (infolist의 높이)
+            var scrollAreaHeight = $('#infolist').height();
+
+            // 스크롤이 infolist의 끝에 도달하면 추가 데이터를 가져옴
+            if (scrollPosition >= contentHeight - scrollAreaHeight) {
+                // 추가 데이터 가져오기
+                console.log("스크롤 infolist의 끝에 도달!!");
+                startIndex += dataCount;
+                endIndex += dataCount;
+                
+                if(click == "all"){
+                	if(dataCount > delist1.length){
+    					console.log("delist1의 길이 >>> " + delist1.length);
+                    	dataCount = delist1.length;
+                    	console.log("dataCount의 값 >>> " + dataCount);
+                    }
+                    addItems(startIndex, endIndex, dataCount);
+                }
+                else if(click == "area"){
+                	
+                }
+            }
+        });
+      
+        $('#infolist').on('click', '.bookIcon', function() {
+		    if (isLogin == true) {
+		        var bookmarkImg = $(this);
+		        //var bookmarkCount = $(this).data('count');
+		        var playId = bookmarkImg.closest('table').find('a').data('play-id');
+		        
+		        // 이미지 소스 변경 추후 수정예정
+		        if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
+		            // 북마크 추가
+		            $.ajax({
+		                url: "${path}/insert_book",
+		                method: "POST",
+		                data: { 
+		                    play_id: playId,
+		                    email: userEmail
+		                },
+		                success: function(response) {
+		                    bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
+		                    alert("북마크 추가됨!");
+		                },
+		                error: function(xhr, status, error) {
+		                    console.log('북마크 추가 중 에러가 발생했습니다.');
+		                }
+		            });
+		        } else {
+		            // 북마크 삭제
+		            $.ajax({
+		                url: "${path}/delete_book",
+		                method: "POST",
+		                data: { 
+		                    play_id: playId,
+		                    email: userEmail
+		                },
+		                success: function(response) {
+		                    bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
+		                    alert("북마크 삭제됨!");
+		                },
+		                error: function(xhr, status, error) {
+		                    console.log('북마크 삭제 중 에러가 발생했습니다.');
+		                }
+		            });
+		        }
+		        console.log("bookIcon 클릭! >>> " + playId);
+		    } else {
+		        alert('로그인 후 이용 가능합니다');
+		    }
+		});
+		
+      	//공유 아이콘 클릭 이벤트
+		$('#infolist').on('click', '.shareIcon', function() {
+		    var row = $(this).closest('table');
+		    var playName = row.find('b').text();
+		    var stageName = row.find('tr:nth-last-child(2) td').text();
+		    var playId = row.find('a').data('play-id');
+		    
+		    snsPopup(playName, stageName, playId);
+		});
+      	
+		//infolist 테이블 추가
+		function addItems(startIndex, endIndex, dataCount) {
+			infoWindow.close();
+			click = "all";
+			var table = "";
+			if(startIndex == 0)
+			{
+				$('#infolist').scrollTop(0); // 스크롤 위치 초기화
+				$('#infolist').empty(); // infolist 비우기
+
+				// 테이블 생성
+				table += "<br><h3 style='text-align:center;'><전체지역> 검색결과 " + delist1.length + "개</h3>";
+			}
+			if(endIndex <= delist1.length){
+				console.log("startIndex 값 : " + startIndex);
+				console.log("dataCount 값 : " + dataCount);
+				console.log("endIndex 값 : " + endIndex);
+				for (var i = startIndex; i < endIndex; i++) {
+					if (i >= delist1.length) {
+			            break;
+			        }
+				    table += '<table id="infotable"><tr><td><img id="poster" src="' + delist1[i].poster + '"></td></tr>';
+				    table += "<tr><td><a href='${path}/search/playDetail?play_id=" + delist1[i].play_id + "' data-play-id='" + delist1[i].play_id + "'><b>" + delist1[i].play_name + '</b></a></td></tr>';
+				    table += '<tr><td>' + delist1[i].play_start + " ~ " + delist1[i].play_end + '</td></tr>';
+				    for (var j = 0; j < delist2.length; j++) {
+				        if (delist1[i].stage_id == delist2[j].stage_id) {
+				            table += '<tr><td>' + delist2[j].stage_name + '</td></tr>';
+				            break;
+				        }
+				    }
+				    table += "<tr><td style='text-align:right'>";
+				    if (isLogin == true){
+				        var hasBookmark = false;
+				        for (var k = 0; k < mylist.length; k++) {
+				            if (delist1[i].play_id == mylist[k].play_id) {
+				                table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				                hasBookmark = true;
+				                break;
+				            }
+				        }
+				        if (!hasBookmark) {
+				            table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				        }
+				    } else {
+				    	console.log("로그인 되어있지않습니다!!");
+				        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				    }
+                    $.ajax({
+                        type: 'GET',
+                        url: '${path}/select_count',
+                        data: { play_id: delist1[i].play_id },
+                        async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+                        success: function(response) {
+                        	var cnt = response;
+                            table += cnt + " ";
+                        },
+                        error: function(xhr, status, error) {
+                        	table += "0";  
+                            console.log("북마크 카운트 ajax 실패!");
+                        }
+                    });
+                    table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+                    table += '</table>';
+			    } //for
+			    // 테이블 추가
+			    $('#infolist').append(table);
+			}//if문
+		}//addItems
+		
+		//마커 클릭 이벤트 함수
+		function addMarkerClickListener(marker, index) {
+			naver.maps.Event.addListener(marker, 'click', function() {
+				handleMarkerClick(marker);
+				
+		  	});
+		}//addMarkerClickListener
+		
+		function handleMarkerClick(marker) {
+			click = "marker";
+			var markerPosition = marker.getPosition();
+			var stgname;
+			
+			for (var i = 0; i < delist2.length; i++) {
+				if(delist2[i].latitude == markerPosition.lat() && delist2[i].longitude == markerPosition.lng()) {
+					stgname = delist2[i].stage_name;
+				}
+			}
+			var infowindow = new naver.maps.InfoWindow({
+		        content: "<div style='padding-top:10px;'>" + stgname + "</div>"
+		    });
+			infowindow.close();
+		    console.log("마커 좌표 : " + markerPosition.lat() + ", " + markerPosition.lng());
+		    
+		    var selectedPerformances = [];
+		    for (var i = 0; i < delist2.length; i++) {
+		    	var latitude = parseFloat(delist2[i].latitude);
+		      	var longitude = parseFloat(delist2[i].longitude);
+		      	
+		      	if (latitude == markerPosition.lat() && longitude == markerPosition.lng()) {
+		        	var stageId = delist2[i].stage_id;
+		        	for (var j = 0; j < delist1.length; j++) {
+		          		if (stageId == delist1[j].stage_id) {
+		            		selectedPerformances.push({
+		              			playinfo: delist1[j]
+		            		});
+		          		}
+		        	}
+	        	}
+		    }
+		    
+		    if (selectedPerformances.length > 0) {
+		    	//테이블 생성
+		    	var table = "";
+				$('#infolist').scrollTop(0); // 스크롤 위치 초기화
+				$('#infolist').empty(); // infolist 비우기
+				table += "<br><h3 style='text-align:center;'>" + stgname + "</h3>";
+		    	
+		      	for (var i = 0; i < selectedPerformances.length; i++) {
+		        	var playinfo = selectedPerformances[i].playinfo;
+	        		table += '<table id="infotable"><tr><td><img id="poster" src="' + playinfo.poster + '"></td></tr>';
+	        		table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "' data-play-id='" + playinfo.play_id + "'><b>" + playinfo.play_name + '</b></a></td></tr>';
+			        table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
+			        table += '<tr><td>' + stgname + '</td></tr>';
+			        table += "<tr><td style='text-align:right'>";
+			        table += "<tr><td style='text-align:right'>";
+			        if (isLogin == true) {
+			            var hasBookmark = false;
+			            for (var k = 0; k < mylist.length; k++) {
+			                if (playinfo.play_id == mylist[k].play_id) {
+			                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+			                    hasBookmark = true;
+			                    break;
+			                }
+			            }
+			            if (!hasBookmark) {
+			                table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+			            }
+			        } else {
+			            table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+			        }
+                    $.ajax({
+                        type: 'GET',
+                        url: '${path}/select_count',
+                        data: { play_id: playinfo.play_id },
+                        async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
+                        success: function(response) {
+                        	var cnt = response;
+                            table += cnt + " ";
+                        },
+                        error: function(xhr, status, error) {
+                        	table += "0";  
+                            console.log("북마크 카운트 ajax 실패!");
+                        }
+                    });
+                    table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+                    table += '</table>';
+			    } //for
+			    table += '<br><br><br>';
+	    
+			    // 테이블 추가
+			    $('#infolist').html(table);
+	    	}//if selectedPerformances.length > 0
+		    //infowindow.setContent("<div style='padding:10px;'>" + stageName + "</div>");
+	        infowindow.open(map, marker);
+		}
+		
+		//지도에 마커 추가
+		function addMarkers(list1, list2) {
+			//console.log("addMarkers delist2 호출!!!!! >> " + list2[0].latitude);
+			for (var i = 0; i < list1.length; i++) {
+				var playItem = list1[i];
+			    var stageItem = list2.find(function(stage) {
+			    	return stage.stage_id == playItem.stage_id;
+			    });
+			    if (stageItem) {
+			        var lat = parseFloat(stageItem.latitude);
+			        var lng = parseFloat(stageItem.longitude);
+			        var existingMarker = markers.find(function(marker) {
+			        	return marker.getPosition().lat() == lat && marker.getPosition().lng() == lng;
+			        });
+
+			        if (!existingMarker) {
+			          	var marker = new naver.maps.Marker({
+				            position: new naver.maps.LatLng(lat, lng),
+				            draggable: false,
+				            map: map
+			          	});
+			          	markers.push(marker);
+			          	addMarkerClickListener(marker, i);
+		          	}
+		        }
+		    }
 		}
 		
 		$.ajax({
@@ -59,308 +383,9 @@
 				console.log("delist1 길이 : " + delist1.length);
 				console.log("delist2 길이 : " + delist2.length);
 				
-				//console.log(delist2[0].stage_name);
-				
-				//로그인 세션이 있다면 isLogin=true, mylist[]값 받아오기
-				<% if (session.getAttribute("email") != null) { %>
-					userEmail = '<%= session.getAttribute("email") %>';
-					isLogin = true;
-				//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
-					$.ajax({
-		            type: 'GET',
-		            url: '${path}/select_my',
-		            data: { email: userEmail },
-		            dataType: 'json',
-		            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
-		            success: function(response) {
-		                mylist = response;
-		                console.log(mylist);
-		            },
-		            error: function(xhr, status, error) {
-		                console.log(error);
-		            }
-		        });
-		        <% } else { %>
-		        	console.log("로그인 안되어있음!");
-		        <% } %>
-		        
-		        //스크롤 이벤트 핸들러
-		        $('#infolist').on('scroll', function() {
-		        	if(click == "all"){
-			            // 현재 스크롤 위치
-			            console.log("스크롤 하고 있는 중");
-			            var scrollPosition = $('#infolist').scrollTop();
-
-			            // 스크롤 가능한 전체 높이 (infolist의 높이)
-			            var contentHeight = $('#infolist').prop('scrollHeight');
-
-			            // 스크롤 영역의 높이 (infolist의 높이)
-			            var scrollAreaHeight = $('#infolist').height();
-
-			            // 스크롤이 infolist의 끝에 도달하면 추가 데이터를 가져옴
-			            if (scrollPosition >= contentHeight - scrollAreaHeight) {
-			                // 추가 데이터 가져오기
-			                console.log("스크롤 infolist의 끝에 도달!!");
-			                startIndex += dataCount;
-			                dataCount += dataCount;
-			                if(dataCount > delist1.length){
-								console.log("delist1의 길이 >>> " + delist1.length);
-			                	dataCount = delist1.length;
-			                	startIndex = 0;
-			                	console.log("dataCount의 값 >>> " + dataCount);
-			                }
-			                addItems(startIndex, dataCount);
-			            }
-		        	}
-		        });
-		     
-				$('#infolist').on('click', '.bookIcon', function() {
-				    if (isLogin == true) {
-				        var bookmarkImg = $(this);
-				        //var bookmarkCount = $(this).data('count');
-				        var playId = bookmarkImg.closest('table').find('a').data('play-id');
-				        
-				        // 이미지 소스 변경 추후 수정예정
-				        if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
-				            // 북마크 추가
-				            $.ajax({
-				                url: "${path}/insert_book",
-				                method: "POST",
-				                data: { 
-				                    play_id: playId,
-				                    email: userEmail
-				                },
-				                success: function(response) {
-				                    bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
-				                    alert("북마크 추가됨!");
-				                },
-				                error: function(xhr, status, error) {
-				                    console.log('북마크 추가 중 에러가 발생했습니다.');
-				                }
-				            });
-				        } else {
-				            // 북마크 삭제
-				            $.ajax({
-				                url: "${path}/delete_book",
-				                method: "POST",
-				                data: { 
-				                    play_id: playId,
-				                    email: userEmail
-				                },
-				                success: function(response) {
-				                    bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
-				                    alert("북마크 삭제됨!");
-				                },
-				                error: function(xhr, status, error) {
-				                    console.log('북마크 삭제 중 에러가 발생했습니다.');
-				                }
-				            });
-				        }
-				        console.log("bookIcon 클릭! >>> " + playId);
-				    } else {
-				        alert('로그인 후 이용 가능합니다');
-				    }
-				});
-				//공유 아이콘 클릭 이벤트
-				$('#infolist').on('click', '.shareIcon', function() {
-				    var row = $(this).closest('table');
-				    var playName = row.find('b').text();
-				    var stageName = row.find('tr:nth-last-child(2) td').text();
-				    var playId = row.find('a').data('play-id');
-				    
-				    snsPopup(playName, stageName, playId);
-				});
-
-				addItems(startIndex, dataCount);
+				addItems(startIndex, dataCount, endIndex);
 				addMarkers(delist1, delist2); //시작하자마자 마커 추가
 				
-				//infolist 테이블 추가
-				function addItems(startIndex, dataCount) {
-					infoWindow.close();
-					click = "first";
-					var table = "";
-					if(startIndex == 0)
-					{
-						$('#infolist').scrollTop(0); // 스크롤 위치 초기화
-						$('#infolist').empty(); // infolist 비우기
-
-						// 테이블 생성
-						table += "<br><h3 style='text-align:center;'><전체지역> 검색결과 " + delist1.length + "개</h3>";
-					}
-					if(dataCount <= delist1.length){
-						console.log("startIndex 값 : " + startIndex);
-						console.log("dataCount 값 : " + dataCount);
-						for (var i = startIndex; i < dataCount; i++) {
-							if (i >= delist1.length) {
-					            break;
-					        }
-						    table += '<table id="infotable"><tr><td><img id="poster" src="' + delist1[i].poster + '"></td></tr>';
-						    table += "<tr><td><a href='${path}/search/playDetail?play_id=" + delist1[i].play_id + "' data-play-id='" + delist1[i].play_id + "'><b>" + delist1[i].play_name + '</b></a></td></tr>';
-						    table += '<tr><td>' + delist1[i].play_start + " ~ " + delist1[i].play_end + '</td></tr>';
-						    for (var j = 0; j < delist2.length; j++) {
-						        if (delist1[i].stage_id == delist2[j].stage_id) {
-						            table += '<tr><td>' + delist2[j].stage_name + '</td></tr>';
-						            break;
-						        }
-						    }
-						    table += "<tr><td style='text-align:right'>";
-						    if (isLogin == true){
-						        var hasBookmark = false;
-						        for (var k = 0; k < mylist.length; k++) {
-						            if (delist1[i].play_id == mylist[k].play_id) {
-						                table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-						                hasBookmark = true;
-						                break;
-						            }
-						        }
-						        if (!hasBookmark) {
-						            table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-						        }
-						    } else {
-						    	console.log("로그인 되어있지않습니다!!");
-						        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-						    }
-	                        $.ajax({
-	                            type: 'GET',
-	                            url: '${path}/select_count',
-	                            data: { play_id: delist1[i].play_id },
-	                            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
-	                            success: function(response) {
-	                            	var cnt = response;
-	                                table += cnt + " ";
-	                            },
-	                            error: function(xhr, status, error) {
-	                            	table += "0";  
-	                                console.log("북마크 카운트 ajax 실패!");
-	                            }
-	                        });
-	                        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
-	                        table += '</table>';
-					    } //for
-					    // 테이블 추가
-					    $('#infolist').append(table);
-					}//if문
-				}//addItems
-				
-				//지도에 마커 추가
-				function addMarkers(list1, list2) {
-					//console.log("addMarkers delist2 호출!!!!! >> " + list2[0].latitude);
-					for (var i = 0; i < list1.length; i++) {
-						var playItem = list1[i];
-					    var stageItem = list2.find(function(stage) {
-					    	return stage.stage_id == playItem.stage_id;
-					    });
-					    if (stageItem) {
-					        var lat = parseFloat(stageItem.latitude);
-					        var lng = parseFloat(stageItem.longitude);
-					        var existingMarker = markers.find(function(marker) {
-					        	return marker.getPosition().lat() == lat && marker.getPosition().lng() == lng;
-					        });
-
-					        if (!existingMarker) {
-					          	var marker = new naver.maps.Marker({
-						            position: new naver.maps.LatLng(lat, lng),
-						            draggable: false,
-						            map: map
-					          	});
-					          	markers.push(marker);
-					          	addMarkerClickListener(marker, i);
-				          	}
-				        }
-				    }
-				}
-				//마커 클릭 이벤트 함수
-				function addMarkerClickListener(marker, index) {
-					naver.maps.Event.addListener(marker, 'click', function() {
-						click = "marker";
-						var markerPosition = marker.getPosition();
-						var stgname;
-						
-						for (var i = 0; i < delist2.length; i++) {
-							if(delist2[i].latitude == markerPosition.lat() && delist2[i].longitude == markerPosition.lng()) {
-								stgname = delist2[i].stage_name;
-							}
-						}
-						var infowindow = new naver.maps.InfoWindow({
-					        content: "<div style='padding-top:10px;'>" + stgname + "</div>"
-					    });
-						infowindow.close();
-					    console.log("마커 좌표 : " + markerPosition.lat() + ", " + markerPosition.lng());
-					    
-					    var selectedPerformances = [];
-					    for (var i = 0; i < delist2.length; i++) {
-					    	var latitude = parseFloat(delist2[i].latitude);
-					      	var longitude = parseFloat(delist2[i].longitude);
-					      	
-					      	if (latitude == markerPosition.lat() && longitude == markerPosition.lng()) {
-					        	var stageId = delist2[i].stage_id;
-					        	for (var j = 0; j < delist1.length; j++) {
-					          		if (stageId == delist1[j].stage_id) {
-					            		selectedPerformances.push({
-					              			playinfo: delist1[j]
-					            		});
-					          		}
-					        	}
-				        	}
-					    }
-					    
-					    if (selectedPerformances.length > 0) {
-					    	//테이블 생성
-					    	var table = "";
-							$('#infolist').scrollTop(0); // 스크롤 위치 초기화
-							$('#infolist').empty(); // infolist 비우기
-							table += "<br><h3 style='text-align:center;'>" + stgname + "</h3>";
-					    	
-					      	for (var i = 0; i < selectedPerformances.length; i++) {
-					        	var playinfo = selectedPerformances[i].playinfo;
-				        		table += '<table id="infotable"><tr><td><img id="poster" src="' + playinfo.poster + '"></td></tr>';
-				        		table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "' data-play-id='" + playinfo.play_id + "'><b>" + playinfo.play_name + '</b></a></td></tr>';
-						        table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
-						        table += '<tr><td>' + stgname + '</td></tr>';
-						        table += "<tr><td style='text-align:right'>";
-						        table += "<tr><td style='text-align:right'>";
-						        if (isLogin == true) {
-						            var hasBookmark = false;
-						            for (var k = 0; k < mylist.length; k++) {
-						                if (playinfo.play_id == mylist[k].play_id) {
-						                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-						                    hasBookmark = true;
-						                    break;
-						                }
-						            }
-						            if (!hasBookmark) {
-						                table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-						            }
-						        } else {
-						            table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
-						        }
-		                        $.ajax({
-		                            type: 'GET',
-		                            url: '${path}/select_count',
-		                            data: { play_id: playinfo.play_id },
-		                            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
-		                            success: function(response) {
-		                            	var cnt = response;
-		                                table += cnt + " ";
-		                            },
-		                            error: function(xhr, status, error) {
-		                            	table += "0";  
-		                                console.log("북마크 카운트 ajax 실패!");
-		                            }
-		                        });
-		                        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
-		                        table += '</table>';
-						    } //for
-						    table += '<br><br><br>';
-				    
-						    // 테이블 추가
-						    $('#infolist').html(table);
-				    	}//if selectedPerformances.length > 0
-					    //infowindow.setContent("<div style='padding:10px;'>" + stageName + "</div>");
-				        infowindow.open(map, marker);
-				  	});
-				}//addMarkerClickListener
-			  	        
 				var marker1 = {
 					url: 'http://static.naver.net/maps/img/icons/sp_pins_default_v3_over.png',
 				    size: new naver.maps.Size(24, 37),
@@ -404,23 +429,7 @@
 				alert('실패@@@');
 			}
 		});//ajax
-	
-		
-		// 네이버 지도 API를 로드합니다.
-		map = new naver.maps.Map('map', {
-			zoom : 7,
-			minZoom: 7,
-			maxZoom: 17,
-			mapTypeId: 'normal',
-			center : new naver.maps.LatLng(36.0566103, 125.9783882), // 대한민국 중심
-			mapDataControl: false,
-			zoomControl : true,
-			zoomControlOptions : {
-				position : naver.maps.Position.TOP_RIGHT,
-				style : naver.maps.ZoomControlStyle.SMALL
-			}
-		});//new map
-		
+			
 		//region순서 : 강원도 - 경기도 - 경상남도 - 경상북도 - 광주 - 대구 - 대전 - 부산
 		//			- 서울 - 울산 - 인천 - 전남 - 전북 - 제주도 - 충남 - 충북 - 세종
 	    urlPrefix = '../resources/data/region';
@@ -495,6 +504,28 @@
 	        });	     
 	    }//searchCoordinateToAddress
 	    
+	 	// 공연장 이름 검색
+	    function searchStageName(address) {
+	        for (var i = 0; i < delist2.length; i++) {
+	            var stageName = delist2[i].stage_name.trim();
+	            var add = address.trim();
+	            // 공연장 이름에 유사한 부분이 있는지 확인
+	            if (stageName.includes(address)) {
+	                var latitude = parseFloat(delist2[i].latitude);
+	                var longitude = parseFloat(delist2[i].longitude);
+	                
+	                // 이미 만들어진 공연장 마커를 찾음
+	                var existingMarker = markers.find(function(marker) {
+	                    return marker.getPosition().lat() === latitude && marker.getPosition().lng() === longitude;
+	                });
+
+	                if (existingMarker) {
+	                    handleMarkerClick(existingMarker);
+	                }
+	            }
+	        }
+	    }
+	    
 	    function searchAddressToCoordinate(address) {
 	        naver.maps.Service.geocode({
 	            query: address
@@ -503,7 +534,9 @@
 	                return alert('API오류가 발생했습니다');
 	            }
 	            if (response.v2.meta.totalCount == 0) {
-	                return alert('주소를 다시 입력해주세요');
+	            	//주소 입력결과 없음.
+	            	searchStageName(address);
+	                return 0;
 	            }
 
 	            var item = response.v2.addresses[0];
@@ -691,7 +724,10 @@
 		        map.data.addGeoJson(geojson);
 		    });
 		
+		    //지역 클릭 시
 		    map.data.addListener('click', function(e) {
+		    	startIndex = 0;
+		    	dataCount = 20;
 		        var feature = e.feature;
 		       	var area = feature.getProperty('area1');
 		       	
@@ -765,13 +801,15 @@
 			    }
 				
 			    if (filteredList.length > 0) {
-			    	click = "areaClick";
-			    	$('#infolist').scrollTop(0); // 스크롤 위치 초기화
-			    	$('#infolist').empty(); // infolist 비우기
-			    	var table = "<table id='infotable'>";
+			    	click = "area";
 			    	var count = 0;
 			    	var table = "";
-			    	click = "area";
+			    	if(startIndex == 0)
+			    	{
+			    		$('#infolist').scrollTop(0); // 스크롤 위치 초기화
+			    		$('#infolist').empty(); // infolist 비우기
+
+			    	}
 			    	for (var i = 0; i < filteredList.length; i++) {
 			            var stageinfo = filteredList[i].stageinfo;
 			            for(var j=0; j<delist1.length; j++){
@@ -816,8 +854,8 @@
 			            	}
 			            }//for ㅓ문       	
 			        }//for i문
-			    	table = "<br><h3 style='text-align:center'><" + area + "> 검색결과 " + count + "개</h3>" + table;
-			    	table += '<br><br><br>';
+			        if(startIndex == 0)
+				    	table = "<br><h3 style='text-align:center'><" + area + "> 검색결과 " + count + "개</h3>" + table;
 			    	
 			    	$('#infolist').html(table);			    	
 			    } else {

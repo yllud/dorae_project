@@ -5,7 +5,7 @@
 
 	<insert id="create" parameterType="replyVO">
 		insert into m_review values (null,
-		#{text}, #{play_id}, #{play_name}, #{seat_date}, #{seat_time}, #{seat_id}, #{email}, #{upload_date}, #{nickname})
+		#{text}, #{play_id}, #{play_name}, #{seat_date}, #{seat_time}, #{seat_id}, #{email}, #{upload_date}, #{nickname}, #{score})
 	</insert>
 
 	<update id="update" parameterType="replyVO">
