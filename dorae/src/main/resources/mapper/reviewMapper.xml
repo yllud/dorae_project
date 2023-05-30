@@ -8,26 +8,29 @@
 		#{email}, #{title}, #{images}, #{content},
 		#{tag})
 	</insert>
-	
+
 	<update id="update" parameterType="reviewVO">
 		update review
-		set review_title = #{title},
+		set review_title
+		= #{title},
 		review_content = #{content},
 		review_tag = #{tag}
-		where review_id = #{id}
 	</update>
-	
+
 	<update id="imgUpdate" parameterType="reviewVO">
 		update review
-		set review_img = #{images}
+		set review_img
+		= #{images}
 		where review_id = #{id}
 	</update>
-	
+
 	<delete id="delete" parameterType="Integer">
-		delete from review where review_id = #{id}
+		delete from review
+		where review_id = #{id}
 	</delete>
 
-	<select id="all" resultType="reviewVO" parameterType="reviewPageVO">
+	<select id="all" resultType="reviewVO"
+		parameterType="reviewPageVO">
 		SELECT id, title, content, tag, images, email
 		FROM (
 		SELECT ROW_NUMBER() OVER (ORDER BY review_id DESC) AS review_no,
@@ -39,10 +42,12 @@
 		email
 		FROM review
 		) review2
-		WHERE review2.review_no BETWEEN #{start} AND #{end};
+		WHERE review2.review_no BETWEEN #{start}
+		AND #{end};
 	</select>
 
-	<select id="tagSearch" resultType="reviewVO" parameterType="java.util.Map">
+	<select id="tagSearch" resultType="reviewVO"
+		parameterType="java.util.Map">
 		SELECT id, title, content, tag, images, email
 		FROM (
 		SELECT ROW_NUMBER() OVER (ORDER BY review_id DESC) AS review_no,
@@ -53,82 +58,117 @@
 		review_img AS images,
 		email
 		FROM review
-		where review_tag = #{tag}
+		where
+		review_tag = #{tag}
 		) review2
-		WHERE review2.review_no BETWEEN #{start} AND #{end};
+		WHERE
+		review2.review_no BETWEEN #{start} AND #{end};
 	</select>
-	
+
 	<select id="one" resultType="reviewVO" parameterType="Integer">
 		SELECT
-		review_id as id, 
+		review_id as id,
 		review_title as title,
 		review_content as content,
 		review_tag as tag,
-		review_img as images,
+		review_img as
+		images,
 		email
 		FROM review
 		where review_id = #{id}
 	</select>
-	
+
 	<!--전체 게시글 수 계산 -->
 	<select id="count" resultType="Integer">
 		select count(*) from review
 	</select>
-	
+
 	<!--태그검색 게시글 수 계산 -->
-	<select id="tagCount" resultType="Integer" parameterType="String">
-		select count(*) from review where review_tag = #{tag}
+	<select id="tagCount" resultType="Integer"
+		parameterType="String">
+		select count(*) from review
+		where review_tag = #{tag}
 	</select>
+
+	<!--삭제된 이미지 파일명 가져오기  -->
+	<select id="deletedImg" resultType="String" parameterType="Integer">
+		SELECT review_img
+		FROM review
+		WHERE review_id = #{id};
+	</select>
+
+	<!--아래는 play테이블 정보 가져오는 코드 -->
 	
 	<!--태그 공연명 연동 -->
-	<select id= "tag" resultType="playVO" parameterType="reviewPageVO">
+	<select id="tag" resultType="playVO"
+		parameterType="reviewPageVO">
 		SELECT play_name, genre_name
 		FROM (
-		SELECT ROW_NUMBER() OVER (ORDER BY play_start DESC) AS play_no,
+		SELECT ROW_NUMBER()
+		OVER (ORDER BY play_start DESC) AS play_no,
 		play_name, genre_name
-		FROM play
+		FROM
+		play
+		WHERE delete_date IS NULL
 		) play2
-		WHERE play2.play_no BETWEEN #{start} AND #{end};
+		WHERE play2.play_no BETWEEN
+		#{start} AND #{end};
 	</select>
-	
+
 	<!--전체 공연 수 계산 -->
 	<select id="playCount" resultType="Integer">
 		select count(*) from play
+		WHERE delete_date IS NULL
 	</select>
-	
-	<!--공연 태그 검색  -->
-	<select id="playSearch" resultType="playVO" parameterType="java.util.Map">
+
+	<!--공연 태그 검색 -->
+	<select id="playSearch" resultType="playVO"
+		parameterType="java.util.Map">
 		SELECT play_name, genre_name
 		FROM (
-		SELECT ROW_NUMBER() OVER (ORDER BY play_start DESC) AS play_no,
+		SELECT ROW_NUMBER()
+		OVER (ORDER BY play_start DESC) AS play_no,
 		play_name, genre_name
-		FROM play
+		FROM
+		play
 		WHERE play_name LIKE CONCAT('%', #{query}, '%')
+		AND delete_date IS
+		NULL
 		) play2
 		WHERE play2.play_no BETWEEN #{start} AND #{end};
 	</select>
-	
-	<!--공연 태그  장르로 검색  -->
-	<select id="genreSearch" resultType="playVO" parameterType="java.util.Map">
+
+	<!--공연 태그 장르로 검색 -->
+	<select id="genreSearch" resultType="playVO"
+		parameterType="java.util.Map">
 		SELECT play_name, genre_name
 		FROM (
-		SELECT ROW_NUMBER() OVER (ORDER BY play_start DESC) AS play_no,
+		SELECT ROW_NUMBER()
+		OVER (ORDER BY play_start DESC) AS play_no,
 		play_name, genre_name
-		FROM play
+		FROM
+		play
 		WHERE genre_name = #{genre}
+		AND delete_date IS NULL
 		) play2
-		WHERE play2.play_no BETWEEN #{start} AND #{end};
+		WHERE
+		play2.play_no BETWEEN #{start} AND #{end};
 	</select>
-	
+
 	<!--전체 공연 수 계산 -->
-	<select id="playSearchCount" resultType="Integer" parameterType = "String">
-		select count(*) from play where play_name LIKE CONCAT('%', #{query}, '%')
+	<select id="playSearchCount" resultType="Integer"
+		parameterType="String">
+		select count(*) from play where play_name LIKE
+		CONCAT('%', #{query}, '%')
+		AND delete_date IS NULL
 	</select>
-	
+
 	<!--전체 공연 수 계산 -->
-	<select id="genreCount" resultType="Integer" parameterType = "String">
+	<select id="genreCount" resultType="Integer"
+		parameterType="String">
 		select count(*) from play where genre_name = #{genre}
+		AND delete_date IS NULL
 	</select>
-	
-	
+
+
 </mapper>

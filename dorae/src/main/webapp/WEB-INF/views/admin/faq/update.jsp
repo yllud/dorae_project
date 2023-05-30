@@ -24,13 +24,14 @@
   <div class="col-sm-10">
 	  <select class="form-select" id="faqCategory">
 	    <c:forEach items="${helpCategoryList }" var="item">
-	    <option value="${item.help_category_id }" <c:if test="${item.help_category_id eq faq.help_category_id }">selected</c:if> >${item.name }</option>
+	    <option value="${item.help_category_id }">${item.name }</option>
 	    </c:forEach>
 	  </select>
   </div>
 </div>
 
 <button class="btn btn-primary mb-3" onclick="submitFaq(this)">등록</button>
+<button class="btn btn-light mb-3" onclick="javascript:history.back()">뒤로</button>
 
 <script type="text/javascript">
 	function submitFaq(element) {
@@ -54,7 +55,7 @@
 			},
 			success: function(res) {
 				$("#faqTitle").val(res.title);
-				$("#faqCategory").val(res.help_category_id);
+				$("#faqCategory").val(res.help_category_id).prop("selected", true);
 				$("#faqContent")[0].contentWindow.pasteHTML(res.content);
 			}
 		})

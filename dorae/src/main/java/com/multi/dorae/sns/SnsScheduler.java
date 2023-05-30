@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import twitter4j.TwitterException;
 
 @Component("snsScheduler")
-public class Scheduler {
+public class SnsScheduler {
 
 	@Autowired
 	BlogDAO blogDao;

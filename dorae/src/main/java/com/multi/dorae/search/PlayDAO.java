@@ -36,7 +36,7 @@ public class PlayDAO {
 
 	// 공연중, 공연완료인 공연 id, 날짜, 시작날짜, 종료날짜 검색 (api)
 	public int updateState(PlayVO vo) {
-		int result=my.update("play.updateState", vo);
+		int result = my.update("play.updateState", vo);
 		return result;
 	}
 
@@ -85,6 +85,17 @@ public class PlayDAO {
 		return list;
 	}
 
+	// 공연 id로 리뷰 평균 평점 검색
+	public String ReviewScore(String play_id) {
+		System.out.println("(DAO) reveiw Score");
+		String score="-";
+		if(my.selectOne("play.reviewScore", play_id)!=null) {
+			score = my.selectOne("play.reviewScore", play_id);
+		}
+		System.out.println("score: "+score);
+		return score;
+	}
+
 	// 공연 수정
 	public int updateAll(PlayVO vo) {
 		System.out.println("(DAO) updateAll");
@@ -105,6 +116,22 @@ public class PlayDAO {
 	public int delete(PlayVO vo) {
 		System.out.println("(DAO) delete");
 		int result = my.update("play.deleteOne", vo);
+		System.out.println(result);
+		return result;
+	}
+
+	// 공연 id로 삭제 공연 한개 검색
+	public PlayVO playDeleteDetail(String play_id) {
+		System.out.println("(Dao) playDetail");
+		System.out.println(play_id);
+		PlayVO vo = my.selectOne("play.one", play_id);
+		return vo;
+	}
+
+	// 공연 복원
+	public int recover(PlayVO vo) {
+		System.out.println("(DAO) recover");
+		int result = my.update("play.recoverOne", vo);
 		System.out.println(result);
 		return result;
 	}

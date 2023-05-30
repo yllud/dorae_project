@@ -14,7 +14,7 @@
 			$('#result2').empty()
 			$.ajax({
 				type : 'post',
-				url : "businessList2",
+				url : "businessDeleteList2",
 				data : {
 					page : $(this).text(),
 					email : $('#email_id').val()
@@ -87,9 +87,7 @@
 
 </head>
 <body>
-
 	<div class="new-page0">
-
 		<input id="email_id" type="hidden"
 			value="<%=session.getAttribute("email")%>">
 
@@ -97,7 +95,7 @@
 
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">공연 목록</h1>
+			<h1 class="h2">공연 삭제 목록</h1>
 		</div>
 
 
@@ -110,29 +108,28 @@
 						<th scope="col">공연장</th>
 						<th scope="col">기간</th>
 						<th scope="col">장르</th>
+						<th scope="col">삭제 날짜</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${list}" var="vo">
 						<tr>
 							<td class="rownum">${vo.rownum}</td>
-							<td><form action="businessDetail" method="post"
+							<td><form action="businessDeleteDetail" method="post"
 									target="_blank">
 									<input type="hidden" name="play_id" value="${vo.play_id}">
 									<a href="#" onclick="submitForm(event, this);">${vo.play_name}</a>
 								</form></td>
-								<td>${vo.stage_name}</td>
-								<td>${vo.play_start} ~ ${vo.play_end}</td>
-								<td>${vo.genre_name}</td>
+							<td>${vo.stage_name}</td>
+							<td>${vo.play_start}~ ${vo.play_end}</td>
+							<td>${vo.genre_name}</td>
+							<td>${vo.delete_date}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 
 		</div>
-		<form action="businessInsert" method="post" target="_blank">
-			<button id="btnInsert1" class="btn btn-primary mb-3">공연 추가</button>
-		</form>
 		<div class="footer">
 			<%
 				int start = 1;
@@ -151,7 +148,7 @@
 				}
 			%>
 		</div>
-	</div>
 
+	</div>
 </body>
 </html>
