@@ -65,6 +65,7 @@
 		<% if (session.getAttribute("email") != null) { %>
 			userEmail = '<%= session.getAttribute("email") %>';
 			isLogin = true;
+			console.log("로그인 완료함!! >>>> " + userEmail);
 		//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
 			$.ajax({
             type: 'GET',

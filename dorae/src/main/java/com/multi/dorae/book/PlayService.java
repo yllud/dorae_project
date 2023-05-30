@@ -65,10 +65,6 @@ public class PlayService implements PlayServiceInterface {
 	            }
 	        }
 	    }
-	    System.out.println("--------------");
-	    for(int i=0; i<delist1.size(); i++) {
-			System.out.println(i + " >> " + delist1.get(i));
-		}
 	    
 		// JSON 변환을 위한 ObjectMapper 생성
 	    ObjectMapper objectMapper = new ObjectMapper();
