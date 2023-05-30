@@ -41,18 +41,9 @@
 			</ul>
 			<hr>
 			
-			<div class="dropdown">
-				<button class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
-					style="background-color: transparent; border: 0;">
-					<strong>${adminVO.id }</strong>
-				</button>
-				<ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-					<li><a class="dropdown-item" href="#">New project...</a></li>
-					<li><a class="dropdown-item" href="#">Settings</a></li>
-					<li><a class="dropdown-item" href="#">Profile</a></li>
-					<li><hr class="dropdown-divider"></li>
-					<li><a class="dropdown-item" href="admin/logout">로그아웃</a></li>
-				</ul>
+			<div class="d-flex">
+				<strong class="flex-grow-1">${adminVO.id }</strong>
+				<a class="text-light" style="text-decoration: none;" href="admin/logout">로그아웃</a>
 			</div>
 		</div>
 		<div class="b-example-divider b-example-vr"></div>
@@ -82,7 +73,7 @@
 		
 		function goToPage(element) {
 			asyncLoad(element.getAttribute("value"));
-			//console.log(element.getAttribute("value"));
+			console.log(element.getAttribute("value"));
 			//history.pushState({"url": element.getAttribute("value")}, null, element.getAttribute("value"));
 			history.pushState({"url": element.getAttribute("value")}, null, location.pathname);
 		}
@@ -94,9 +85,9 @@
 				data: data,
 				success: function(res, statusText, jqXHR) {
 					$("#contents").html(res);
-					/* console.log(statusText);
+					console.log(statusText);
 					console.log(jqXHR);
-					console.log(jqXHR.getResponseHeader("invalidated")); */
+					console.log(jqXHR.getResponseHeader("invalidated"));
 					if (jqXHR.getResponseHeader("invalidated") != null) {
 						location.href = jqXHR.getResponseHeader("invalidated");
 					}
@@ -105,6 +96,7 @@
 		}
 		
 		window.onpopstate = function(event) {
+			console.log(event.state);
 			if (event.state != null) { // state 가 null 이 아닐 때만 ajax로 갱신
 				asyncLoad(event.state.url);				
 			}

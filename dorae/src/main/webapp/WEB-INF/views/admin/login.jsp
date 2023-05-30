@@ -33,8 +33,6 @@
 		
 		<a class="w-100 btn btn-lg btn-danger" href="join">관리자 가입</a>
 		<hr>
-		
-		<a class="nav-link" href="find">아이디/비밀번호 찾기</a>
 	</main>
 </body>
 </html>
