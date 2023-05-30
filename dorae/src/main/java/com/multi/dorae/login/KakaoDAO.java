@@ -56,10 +56,8 @@ public class KakaoDAO {
 
 
 	// 정보 확인
-	public KakaoVO findkakao(HashMap<String, Object> userInfo) {
-		System.out.println("RN:"+userInfo.get("nickname"));
-		System.out.println("RE:"+userInfo.get("email"));
-		return sql.selectOne("kakaoMember.kakaoFind", userInfo);
+	public KakaoVO findkakao(String email) {
+	    return sql.selectOne("kakaoMember.kakaoFind", email);
 	}
 
 
