@@ -33,7 +33,4 @@ public class Scheduler {
 		service.apiRank();
 
 	}
-	
-	
-	
 }

@@ -18,7 +18,7 @@ button {
 	margin-right: auto;
 	background: linear-gradient(to right, #0F2027, #2C5364, #0F2027);
 	/*   	-webkit-background-clip: text; */
-	/*   	-webkit-text-fill-color: transparent; */
+	/* 	  	-webkit-text-fill-color: transparent; */
 	border-radius: 20px;
 }
 
@@ -28,7 +28,7 @@ button {
 	/* 	text-align: center; */
 	margin-top: 50px;
 	margin-left: 200px;
-	/* 	background: #ffc93c; */
+/* 		background: #ffc93c; */
 	border-radius: 20px;
 }
 
@@ -50,9 +50,10 @@ button {
 
 .right-items {
 	width: 800px;
-	height: 500px;
+	height: 400px;
 	margin-top: 100px;
 	margin-left: 100px;
+/* 	background: #ffc93c; */
 }
 
 .right-text {
@@ -123,7 +124,7 @@ button {
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	/* 	background: linear-gradient(to right, #0F2027, #203A43, #0F2027); */
+/* 	background: red; */
 	/*   	-webkit-background-clip: text; */
 	/*   	-webkit-text-fill-color: transparent; */
 	border-radius: 20px;
@@ -135,7 +136,7 @@ button {
 	/* 	text-align: center; */
 	margin-top: 30px;
 	margin-left: 200px;
-/* 		background: #ffc93c; */
+/* 	background: #ffc93c; */
 	/* 	border-radius: 20px; */
 }
 
@@ -145,7 +146,7 @@ button {
 	/* 	text-align: center; */
 	/* 	margin-top: 30px; */
 	/* 	margin-left: 200px; */
-	/* 	background: #ffc93c; */
+/* 		background: MediumSpringGreen; */
 	/* 	border-radius: 20px; */
 	border: 1px solid black;
 	border-radius: 10px;
@@ -153,6 +154,7 @@ button {
 
 .detail {
 	margin-left: 30px;
+/* 	background: MediumSpringGreen; */
 }
 
 .review-items {
@@ -165,7 +167,7 @@ button {
 	/* 	background: #ffc93c; */
 	border: 2px solid MediumSpringGreen;
 	border-radius: 10px;
-	background:MediumSpringGreen;
+	background: MediumSpringGreen;
 }
 
 .reivew-text {
@@ -183,27 +185,24 @@ button {
 	margin-top: 5px;
 	height: 100px;
 	margin-left: 30px;
-/* 	overflow: scroll; */
+	/* 	overflow: scroll; */
 	/* 	background: #ffc93c; */
 }
 
-.nick-name{
-/* 	text-align: center; */
-/* 	margin-left:10px; */
-	margin-top:9px;
+.nick-name {
+	/* 	text-align: center; */
+	/* 	margin-left:10px; */
+	margin-top: 9px;
 }
 
-.review-grade{
+.review-grade {
 	text-align: center;
 }
 
-.review-content{
-/* 	text-align: center; */
-	margin-left:10px;
+.review-content {
+	/* 	text-align: center; */
+	margin-left: 10px;
 }
-
-
-
 
 .right-items2 {
 	margin-left: auto;
