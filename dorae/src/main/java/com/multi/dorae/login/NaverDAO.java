@@ -6,7 +6,6 @@ import java.sql.Date;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Component
 public class NaverDAO {
@@ -50,6 +49,15 @@ public class NaverDAO {
 		}
 		return vo;
 	}
+	public NaverVO one(String email) {
+		NaverVO vo = null; 
+		try {
+			vo = mn.selectOne("naverMember.one", email);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return vo;
+	}
 	
 	
 //	public int update(NaverVO bag) {
@@ -73,11 +81,6 @@ public class NaverDAO {
         return result;
     }
 	
-	@RequestMapping("mypage/mypage") // 마이페이지 URL 매핑
-	public String mypage() {
-	    return "mypage/mypage"; // WEB-INF/views/mypage/mypage.jsp로 이동
-	}
-	
 	// 공연 수정
 		public int updateUserType(String email) {
 			System.out.println("(DAO) update user type");
@@ -85,8 +88,6 @@ public class NaverDAO {
 			System.out.println(result);
 			return result;
 		}
-		
-		
 		
 //	//로그인 횟수 카운트 (실패함 다시 수정) - Controller,VO,Mapper
 //	public int updateVisitCount(String email) {

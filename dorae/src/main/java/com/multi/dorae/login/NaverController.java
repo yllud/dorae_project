@@ -54,7 +54,7 @@ public class NaverController {
 	            // 세션 유지 시간 설정 (옵션)
 	            session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
 
-	            return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
+	            return "redirect:../map/main.jsp"; // 로그인 성공 후 마이페이지로 리다이렉트
 	        } else {
 	            return "redirect:/login/login.jsp"; // 로그인 실패 시 로그인 페이지로 리다이렉트
 	        }
@@ -67,7 +67,7 @@ public class NaverController {
 	        session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
 	        
 	        
-	        return "/mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
+	        return "redirect:../map/main.jsp"; // 로그인 성공 후 마이페이지로 리다이렉트
 	    }
 	}
 	
@@ -97,48 +97,12 @@ public class NaverController {
 //	}
 
 
-//	 @RequestMapping("login/uploadProfileImage")
-//		public String uploadProfileImage(@RequestParam("profileImage") MultipartFile file, NaverVO vo, Model model) {
-//		    if (!file.isEmpty()) {
-//		        try {
-//		            // 파일을 저장할 경로 설정
-//		            String uploadPath = servletContext.getRealPath("resources/upload/");
-//		            String fileName = file.getOriginalFilename();
-//		            
-//		            // 파일을 지정된 경로에 저장
-//		            File uploadDir = new File(uploadPath);
-//		            if (!uploadDir.exists()) {
-//		                uploadDir.mkdirs(); // 디렉토리가 없으면 생성
-//		            }
-//		            String filePath = uploadPath + fileName;
-//		            File dest = new File(filePath);
-//		            file.transferTo(dest);
-//		            
-//		            // NaverVO에 파일 경로 설정
-//		            vo.setProfile_image(fileName);
-//		            
-//		            // NaverDAO를 통해 사진 정보를 DB에 저장
-//		            int result = dao.insertProfileImage(vo);
-//		            if (result > 0) {
-//		                model.addAttribute("success", true);
-//		                model.addAttribute("fileName", fileName);
-//		            } else {
-//		                model.addAttribute("success", false);
-//		            }
-//		        } catch (IOException e) {
-//		            e.printStackTrace();
-//		            model.addAttribute("success", false);
-//		        }
-//		    } else {
-//		        model.addAttribute("success", false);
-//		    }
-//		    
-//		    return "redirect:/mypage/mypage"; // 업로드 완료 후 리다이렉트
-//		}
-	 @RequestMapping("mypage/mypage")
-	 public String mypage() {
-	     return "mypage/mypage"; // WEB-INF/views/mypage/mypage.jsp로 이동
-	 }
+	 @RequestMapping("login/mypage") //() 안에 마이페이지 주소 지정 localhost:8888/dorae/login/mypage가 주소
+	 public String mypage(Model model) { //누를 때 마다 model로 DB 정보 검색해서 불러와야 함
+		 NaverVO vo2 = dao.one((String)session.getAttribute("email"));
+		 model.addAttribute("vo2", vo2);
+		 return "mypage/mypage";
+	}
 	 
 	 @RequestMapping("mypage/uploadProfileImage")
 	 public void uploadProfileImage(NaverVO naverVO, MultipartFile file, Model model) throws Exception {
