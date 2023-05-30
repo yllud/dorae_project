@@ -37,7 +37,6 @@ public class AdminNoticeController {
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public void noticeUpdate(long notice_id, Model model) {
 		model.addAttribute("notice_id", notice_id);
-
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")

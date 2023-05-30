@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-	<h1 class="h2">FAQ 등록 페이지</h1>
+	<h1 class="h2">FAQ 수정 페이지</h1>
 </div>
 
 <div class="mb-3 row">
@@ -13,8 +13,8 @@
 </div>
 
 <div class="mb-3 row">
-  <label for="faqContent" class="col-sm-2 col-form-label">내용</label>
-  <div class="col-sm-10" style="height: 500px;">
+	<label for="faqContent" class="col-sm-2 col-form-label">내용</label>
+	<div class="col-sm-10" style="height: 500px;">
 		<iframe src="/dorae/resources/smarteditor2-2.8.2.3/SmartEditor2.jsp" width="100%" height="100%" id="faqContent"></iframe>
 	</div>
 </div>
@@ -23,9 +23,8 @@
   <label for="faqCategory" class="col-sm-2 col-form-label">유형</label>
   <div class="col-sm-10">
 	  <select class="form-select" id="faqCategory">
-	    <option selected>선택하세요.</option>
 	    <c:forEach items="${helpCategoryList }" var="item">
-	    <option value="${item.help_category_id }">${item.name }</option>
+	    <option value="${item.help_category_id }" <c:if test="${item.help_category_id eq faq.help_category_id }">selected</c:if> >${item.name }</option>
 	    </c:forEach>
 	  </select>
   </div>
@@ -35,15 +34,29 @@
 
 <script type="text/javascript">
 	function submitFaq(element) {
-		asyncLoad("/dorae/admin/faq/create",
+		$("#faqContent").get(0).contentWindow.submitContents();	// 에디터의 내용이 textarea에 적용됩니다. // 에디터가 iframe 내에 있어서 contentWindow 를 가져와서 함수 호출
+		console.log($("#faqContent").contents().find("#ir1").val());
+		
+		asyncLoad("/dorae/admin/faq/update",
 				"POST", {
+					faq_id: ${faq_id},
 					help_category_id: $("#faqCategory").val(),
 					title: $("#faqTitle").val(),
-					content: $("#faqContent").contents().find("#ir1").val()
-				})
+					content: $("#faqContent").contents().find("#ir1").val(),
+				});
 	}
 	
 	function setContent() {
-		$("#faqContent")[0].contentWindow.clearHTML();
+		$.ajax({
+			url: "/dorae/admin/faq/one.json",
+			data: {
+				faq_id: ${faq_id}
+			},
+			success: function(res) {
+				$("#faqTitle").val(res.title);
+				$("#faqCategory").val(res.help_category_id);
+				$("#faqContent")[0].contentWindow.pasteHTML(res.content);
+			}
+		})
 	}
 </script>

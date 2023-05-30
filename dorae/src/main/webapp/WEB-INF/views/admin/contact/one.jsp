@@ -7,13 +7,13 @@
 <div class="mb-3 row">
 	<label for="contactTitle" class="col-sm-2 col-form-label">제목</label>
 	<div class="col-sm-10">
-	  <input type="text" readonly class="form-control-plaintext" id="contactTitle" value="${contact.title}">
+	  	<p class="form-control-plaintext" id="contactTitle">${contact.title}</p>
 	</div>
 </div>
 <div class="mb-3 row">
 	<label for="contactContent" class="col-sm-2 col-form-label">내용</label>
 	<div class="col-sm-10">
-	  <input type="text" readonly class="form-control-plaintext" id="contactContent" value="${contact.content}">
+		<p class="form-control-plaintext" id="contactContent">${contact.content}</p>		
 	</div>
 </div>
 

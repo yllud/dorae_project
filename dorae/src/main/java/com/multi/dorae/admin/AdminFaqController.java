@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.dorae.help.FaqService;
 import com.multi.dorae.help.FaqVO;
@@ -37,6 +38,12 @@ public class AdminFaqController {
 //		return "redirect:one?faq_id=" + vo.getFaq_id();
 //	}
 	
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public void faqUpdatePage(int faq_id, Model model) {
+		model.addAttribute("helpCategoryList", categoryService.listByParentId("None"));
+		model.addAttribute("faq_id", faq_id);
+	}
+	
 	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
 	public String faqUpdate(FaqVO faqVO) {
 		faqService.update(faqVO);
@@ -47,6 +54,12 @@ public class AdminFaqController {
 	public void faqOne(int faq_id, Model model) {
 		model.addAttribute("helpCategoryList", categoryService.listByParentId("None"));
 		model.addAttribute("faq", faqService.one(faq_id));
+	}
+	
+	@ResponseBody
+	@RequestMapping("one.json")
+	public FaqVO noticeOneJson(int faq_id) {
+		return faqService.one(faq_id);
 	}
 	
 	@RequestMapping("list")
