@@ -135,6 +135,10 @@ public class NaverController {
 //		    
 //		    return "redirect:/mypage/mypage"; // 업로드 완료 후 리다이렉트
 //		}
+	 @RequestMapping("mypage/mypage")
+	 public String mypage() {
+	     return "mypage/mypage"; // WEB-INF/views/mypage/mypage.jsp로 이동
+	 }
 	 
 	 @RequestMapping("mypage/uploadProfileImage")
 	 public void uploadProfileImage(NaverVO naverVO, MultipartFile file, Model model) throws Exception {
