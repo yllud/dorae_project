@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<!-- 헤더 추가 -->
+<!-- mypage.css 추가 -->
 <link rel="stylesheet" href="../resources/css/mypage.css">
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <style>
@@ -111,7 +111,7 @@ $(document).ready(function() {
 					</c:otherwise>
 				</c:choose>
 	<br>
-<form action="../mypage/uploadProfileImage.jsp" method="post" enctype="multipart/form-data">
+<form action="mypage/uploadProfileImage" method="post" enctype="multipart/form-data">
   <input type="file" name="profileImage">
   <input type="submit" value="프로필 사진 업로드">
 </form>
@@ -144,9 +144,6 @@ $(document).ready(function() {
   </li>
   <li>
   <a href="javascript:void(0);" class="btn-ajax" data-url="../help/contactList" data-target="#qnaList">문의내역</a>
-  </li>
-    <li>
-  <a href="javascript:void(0);" class="btn-ajax" data-url="../help/contactList" data-target="#qnaList">사업자 등록</a>
   </li>
   </ul>
     

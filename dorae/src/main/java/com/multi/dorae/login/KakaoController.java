@@ -54,6 +54,12 @@ public class KakaoController {
 //		return "mypage/mypage";
 //	}
 	
+	
+	 @RequestMapping("login/mypage")
+	 public String mypage() {
+		 return "mypage/mypage";
+	    // WEB-INF/views/mypage/mypage.jsp로 이동
+	 }
 	@RequestMapping(value = "login/kakaoLogin", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam(value = "code") String code, Model model, HttpSession session)
 	        throws Exception {
