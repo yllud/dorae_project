@@ -38,7 +38,11 @@ public class StageDAO {
 		return list;
 	}
 	
-	
+	//공연중인 공연장 전체목록
+	public List<StageVO> listStage() {
+        List<StageVO> list = my.selectList("stageList");
+        return list;
+    }
 //	public List<String> listId() {
 //		List<String> list=my.selectList("place.idList");
 //		return list;
