@@ -19,9 +19,20 @@
 		
 		// 상세페이지 클릭함수
 		$('.detail').click(function() {
-			var id = $(this).data('id'); // 클릭한 요소의 data-id 속성에서 id 추출
-			location.href = 'detail?notice_id=' + id; // 상세 페이지를 새 창에서 열기
+		var id = $(this).data('id');
+		$.ajax({
+			url: "detail",
+			data: {
+				notice_id: id
+			},
+			success: function(result) { // 수정된 부분
+				$('#noticeBbs').html(result);
+			},
+			error: function(xhr, status, error) {
+				alert('에러 발생');
+			}
 		});
+	});
 		
 		// 페이징 버튼 클릭함수
 		$('.pages').click(function() {
@@ -107,11 +118,6 @@
 </head>
 <body>
 <table>
-<tr>
-<td>분류</td>
-<td>제목</td>
-<td>공지날짜</td>
-</tr>
 <c:forEach var="list" items="${list}">
 <tr class="detail" data-id="${list.notice_id}">
 <td>${list.tag}</td>

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,9 +29,8 @@ public class ReviewController {
 
 	@Autowired
 	ReviewDAO dao;
-	 @Autowired
+	@Autowired
 	private ServletContext servletContext;
-	
 
 	// 다녀온 후기 등록(사진 복수 첨부)
 	@RequestMapping("review/insert")
@@ -130,7 +130,8 @@ public class ReviewController {
 	}
 
 	// 수정 전 정보를 불러와서 띄워주기
-	@RequestMapping("review/update")
+	// PostMapping으로 URL 접근 차단
+	@PostMapping("review/update")
 	public void update(int id, Model model) {
 		ReviewVO review = dao.one(id);
 		model.addAttribute("review", review);
@@ -139,24 +140,22 @@ public class ReviewController {
 	// 후기 수정
 	@RequestMapping("review/update2")
 	public void update2(ReviewVO vo, HttpServletResponse response) throws IOException {
-	    dao.update(vo);
+		dao.update(vo);
 
-	    // 작업 완료 후 팝업 창을 닫고 이전 창을 새로고침하는 JavaScript 코드
-	    String script = "<script>" +
-	    		"alert('게시글 수정이 완료되었습니다.');" +
-	            "window.opener.location.reload();" + // 이전 창 새로고침
-	            "window.close();" + // 팝업 창 닫기
-	            "</script>";
+		// 작업 완료 후 팝업 창을 닫고 이전 창을 새로고침하는 JavaScript 코드
+		String script = "<script>" + "alert('게시글 수정이 완료되었습니다.');" + "window.opener.location.reload();" + // 이전 창 새로고침
+				"window.close();" + // 팝업 창 닫기
+				"</script>";
 
-	    response.setContentType("text/html; charset=UTF-8");
-	    response.getWriter().print(script);
-	    response.getWriter().flush();
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(script);
+		response.getWriter().flush();
 	}
 
 	// 사진 수정
 	@RequestMapping("review/imgUpdate")
-	public void imgUpdate(ReviewVO reviewVO, HttpServletResponse response, HttpServletRequest request, MultipartFile[] files, Model model)
-			throws Exception {
+	public void imgUpdate(ReviewVO reviewVO, HttpServletResponse response, HttpServletRequest request,
+			MultipartFile[] files, Model model) throws Exception {
 
 		List<String> savedNames = new ArrayList<>();
 		String uploadPath = request.getSession().getServletContext().getRealPath("resources/upload");
@@ -184,41 +183,51 @@ public class ReviewController {
 		}
 		System.out.println("업로드경로: " + uploadPath);
 		dao.imgUpdate(reviewVO);
-		
-		// 작업 완료 후 알림 팝업 창을 띄우는 JavaScript 코드
-	    String script = "<script>" +
-	    		"alert('사진 수정이 완료되었습니다.');" +
-	    		"window.location.href = document.referrer;" +
-	            "</script>";
 
-	    response.setContentType("text/html; charset=UTF-8");
-	    response.getWriter().print(script);
-	    response.getWriter().flush();
+		// 작업 완료 후 알림 팝업 창을 띄우고 이전페이지로 돌아가는 JavaScript 코드
+		String script = "<script>alert('사진 수정이 완료되었습니다.'); history.back();</script>";
+
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(script);
+		response.getWriter().flush();
+		
+		
 	}
 
 	// 후기 삭제
 	@RequestMapping("review/delete")
-	public void delete(int id) {
-		// 이미지 삭제 처리
-		System.out.println("-----------삭제할 id :" + id);
+	public void delete(int id, HttpServletResponse response) throws IOException {
+		// 이미지 삭제 처리를 위한 이미지 리스트 받아오기
 		List<String> deletedImgList = dao.deletedImg(id);
+		// 이미지가 존재할 경우 삭제
 		String uploadPath = servletContext.getRealPath("/resources/upload");
-		System.out.println("----------삭제할 경로 : " + uploadPath);
 		for (String deletedImg : deletedImgList) {
-		    String filePathString = uploadPath + "/" + deletedImg;
-		    Path filePath = Paths.get(filePathString);
-		    
-		    try {
-		        Files.delete(filePath);
-		        System.out.println("-----삭제한 파일: " + deletedImg);
-		    } catch (Exception e) {
-		        System.out.println("-----삭제 실패한 파일: " + deletedImg);
-		        e.printStackTrace();
-		    }
+			if (deletedImg == null) {
+				continue;
+			}
+			String filePathString = uploadPath + "/" + deletedImg;
+			Path filePath = Paths.get(filePathString);
+
+			try {
+				Files.delete(filePath);
+				System.out.println("-----삭제한 파일: " + deletedImg);
+			} catch (Exception e) {
+				System.out.println("-----삭제 실패한 파일: " + deletedImg);
+				e.printStackTrace();
+			}
 		}
-		
+
 		// db 삭제 처리
 		dao.delete(id);
+
+		// 작업 완료 후 팝업 창을 닫고 이전 창을 새로고침하는 JavaScript 코드
+		String script = "<script>" + "alert('게시글 삭제가 완료되었습니다.');" + "window.opener.location.reload();" + // 이전 창 새로고침
+				"window.close();" + // 팝업 창 닫기
+				"</script>";
+
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(script);
+		response.getWriter().flush();
 	}
 
 	// 태그 공연명 연동
