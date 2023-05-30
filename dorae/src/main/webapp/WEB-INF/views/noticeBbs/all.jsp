@@ -107,7 +107,7 @@
 <table>
 <tr>
 <td>분류</td>
-<td>공지사항</td>
+<td>제목</td>
 <td>공지날짜</td>
 </tr>
 <c:forEach var="list" items="${list}">
