@@ -33,7 +33,7 @@
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
 				<li><button value="/dorae/admin/contact/list?page=1" class="nav-link text-white" aria-current="page" onclick="setActive(this)"> 1:1 문의 목록 </button></li>
-				<li><button value="/dorae/admin/faq/list?help_category_id=D01&page=1" class="nav-link text-white" onclick="setActive(this)">FAQ 목록 </button></li>
+				<li><button value="/dorae/admin/faq/list?page=1" class="nav-link text-white" onclick="setActive(this)">FAQ 목록 </button></li>
 				<li><button value="/dorae/admin/faq/create" class="nav-link text-white" onclick="setActive(this)">FAQ 등록 </button></li>
 				<li><button value="/dorae/admin/notice/list?page=1" class="nav-link text-white" onclick="setActive(this)">공지사항 목록 </button></li>
 				<li><button value="/dorae/admin/notice/create" class="nav-link text-white" onclick="setActive(this)">공지사항 등록 </button></li>

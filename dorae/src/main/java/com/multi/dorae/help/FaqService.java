@@ -67,12 +67,28 @@ public class FaqService {
 		return faqDAO.listByCategoryWithPaging(help_category_id, pageVO);
 	}
 	
+	public List<FaqVO> listByWithPaging(String help_category_id, PageVO pageVO) {
+		if (help_category_id == null || help_category_id.trim().isEmpty()) {
+			help_category_id = "D01";
+		}
+		
+		return faqDAO.listByCategoryWithPaging(help_category_id, pageVO);
+	}
+	
 	public List<FaqVO> listBySearch(String search) {
 		if (search == null || search.trim().isEmpty()) {
 			return null;
 		}
 		
 		return faqDAO.listBySearch(search);
+	}
+	
+	public List<FaqVO> listBySearchWithPaging(String search, PageVO pageVO) {
+		if (search == null || search.trim().isEmpty()) {
+			return null;
+		}
+		
+		return faqDAO.listBySearchWithPaging(search, pageVO);
 	}
 	
 	public int count() {

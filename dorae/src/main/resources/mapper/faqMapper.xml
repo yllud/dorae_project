@@ -21,6 +21,13 @@
 		where f2.faq between #{start} and #{end}
 	</select>
 	
+	<select id="selectListBySearchWithPaging" resultType="faqVO" parameterType="hashMap">
+		select * from (
+			select ROW_NUMBER() over (order by faq_id desc) as faq, f.*
+			from faq f where title like concat('%',#{search},'%')) f2
+		where f2.faq between #{start} and #{end}
+	</select>
+	
 	<select id="selectListWithPaging" resultType="faqVO" parameterType="hashmap">
 		select * from faq where help_category_id = #{help_category_id} limit #{offset}, #{limit}
 	</select>
@@ -39,6 +46,10 @@
 	
 	<select id="countByCategory" resultType="int" parameterType="String">
 		select count(*) from faq where help_category_id = #{help_category_id}
+	</select>
+	
+	<select id="countBySearch" resultType="int" parameterType="String">
+		select count(*) from faq where title like concat('%',#{search},'%')
 	</select>
 	
 </mapper>

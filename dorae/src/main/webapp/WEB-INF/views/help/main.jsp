@@ -108,6 +108,7 @@
 		<!-- FAQ 검색 -->
 		<form action="faqSearch">
 			<h2 id="faqTitle">FAQ 검색</h2>
+			<input type="text" name="page" value="1" hidden="hidden"/>
 			<input type="text" id="searchInput" name="search"/>
 			<button type="submit" id="searchBtn">검색</button>
 		</form>

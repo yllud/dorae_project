@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -56,9 +57,10 @@ public class HelpController {
 	}
 	
 	@RequestMapping("faqSearch")
-	public void faqSearch(String search, Model model) {
+	public void faqSearch(String search, PageVO pageVO, Model model) {
 		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
-		model.addAttribute("faqList", faqService.listBySearch(search));
+		model.addAttribute("faqList", faqService.listBySearchWithPaging(search, pageVO));
+		model.addAttribute("page", pageVO);
 		model.addAttribute("search", search);
 	}
 	

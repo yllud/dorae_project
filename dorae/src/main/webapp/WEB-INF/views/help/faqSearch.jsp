@@ -13,7 +13,27 @@
 <script type="text/javascript">
 	$(function() {
 		$("#header").load("/dorae/header/header.jsp");
+		
+		$(".faqItemBtn").click(function() {
+				$.ajax({
+					url: "faqOne",
+					data: {
+						faq_id: $(this).val()
+					},
+					context: this, // ajax에서 현재 객체(.faqItemBtn)를 사용할 수 있다.
+					success: function(res) {					
+						$(this).closest("li")
+							.append($("<div>", {class: "faqItemContent"})
+							.html(res.content)); // this 와 가장 가까운 상위 요소(부모) 에 내용 추가					
+						$(this).off("click");
+						$(this).click(function() {
+							$(this).next("div.faqItemContent").toggle();
+						})
+					}
+				})
+			})
 	})
+	
 </script>
 <style type="text/css">
 	#helpBody {
@@ -73,32 +93,33 @@
 		padding: 0 40px;
 	}
 	
-	.searchItem:first-child {
+	.faqItem:first-child {
 		border-top: 1px solid grey;
 	}
 	
-	.searchItem {
+	.faqItem {
 		list-style: none;
 		border-bottom: 1px solid grey;
-		text-align: left;
 		width: 100%;
+		text-align: left;
 	}
 	
-	.searchItemBtn {
+	.faqItemBtn {
 		padding: 12px;
-		font-size: 20px;
+		font-size: 24px;
 		border: 0;
 		background-color: transparent;
 		cursor: pointer;
 		text-align: left;
 	}
 	
-	.searchItemBtn h4 {
-		margin-top: 0;
+	.faqItemContent {
+		font-size: 20px;
+		padding: 12px;
 	}
 	
-	.searchItemBtn p {
-		margin-bottom: 0;
+	.noResult {
+		font-size: 24px;
 	}
 </style>
 </head>
@@ -109,6 +130,7 @@
 		<!-- FAQ 검색 -->
 		<form action="faqSearch">
 			<h2 id="faqTitle">FAQ 검색</h2>
+			<input type="text" name="page" value="1" hidden="hidden"/>
 			<input type="text" id="searchInput" name="search" value="${search }"/>
 			<button type="submit" id="searchBtn">검색</button>
 		</form>
@@ -124,20 +146,35 @@
 		<hr color="red">
 		
 		<div id="helpContent">
-			<div id="searchItemList">
-				<ul id="searchList">
-					<c:forEach items="${faqList }" var="item">
-						<li class="searchItem">
-							<button class="searchItemBtn">
-								<h4>${item.title }</h4>
-								<p>${item.content }</p>
-							</button>
-						</li>
+			<c:if test="${empty faqList }">
+			<p class="noResult">검색결과가 없습니다.</p>
+			</c:if>
+			<c:if test="${not empty faqList }">
+			<ul id="faqList">
+				<c:forEach items="${faqList }" var="item">
+				<li class="faqItem">
+					<button class="faqItemBtn" value="${item.faq_id }">${item.title }</button>
+				</li>
+				</c:forEach>
+			</ul>
+			
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item <c:if test="${page.startPage == 1 }">disabled</c:if>">
+					    <a class="page-link" href="/dorae/help/faqSearch?search=${search }&page=${page.startPage - 1 }">&lt;</a>
+					</li>
+					<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p">
+					<li class="page-item">
+						<a class="page-link <c:if test="${page.page eq p }">active</c:if>" href="/dorae/help/faqSearch?search=${search }&page=${p }">${p }</a>
+					</li>
 					</c:forEach>
+					<li class="page-item <c:if test="${page.endPage == page.lastPage}">disabled</c:if>">
+					    <a class="page-link" href="/dorae/help/faqSearch?search=${search }&page=${page.endPage + 1 }">&gt;</a>
+					</li>
 				</ul>
-			</div>
+			</nav>
+			</c:if>
 		</div>
-		
 	</div>
 	
 	<!-- 챗봇 -->

@@ -22,13 +22,13 @@
 				},
 				context: this, // ajax에서 현재 객체(.faqItemBtn)를 사용할 수 있다.
 				success: function(res) {					
-					if ($(this).next("p.faqItemContent").length != 0) { // 내용 요소가 있으면 
-						$(this).next("p.faqItemContent").text(res.content); // 해당 요소의 텍스트만 바꾸기	
-					} else {
-						$(this).closest("li")
-							.append($("<p>", {class: "faqItemContent"})
-							.text(res.content)); // this 와 가장 가까운 상위 요소(부모) 에 내용 추가					
-					}
+					$(this).closest("li")
+						.append($("<div>", {class: "faqItemContent"})
+						.html(res.content)); // this 와 가장 가까운 상위 요소(부모) 에 내용 추가					
+					$(this).off("click");
+					$(this).click(function() {
+						$(this).next("div.faqItemContent").toggle();
+					})
 				}
 			})
 		})
@@ -114,8 +114,7 @@
 	
 	.faqItemContent {
 		font-size: 20px;
-		text-align: center;
-		padding: 0 10%;
+		padding: 12px;
 	}
 </style>
 </head>
@@ -126,30 +125,34 @@
 		<!-- FAQ 검색 -->
 		<form action="faqSearch">
 			<h2 id="faqTitle">FAQ 검색</h2>
+			<input type="text" name="page" value="1" hidden="hidden"/>
 			<input type="text" id="searchInput" name="search"/>
 			<button type="submit" id="searchBtn">검색</button>
 		</form>
 		
-		<div id="helpContent">
-			<!-- FAQ 유형별 버튼 -->
-			<div id="faqBtnList">
-				<c:forEach items="${helpCategory}" var="item">
-				<a href="faqCategory?help_category_id=${item.help_category_id }">
-					<button class="btn-small">${item.name }</button>
-				</a>
+		<!-- FAQ 유형별 버튼 -->
+		<div id="faqBtnList">
+			<c:forEach items="${helpCategory}" var="item">
+			<a href="faqCategory?help_category_id=${item.help_category_id }">
+				<button class="btn-small">${item.name }</button>
+			</a>
+			</c:forEach>
+		</div>
+		<hr color="red">
+		
+		<div id="helpContent">	
+			<c:if test="${empty faqList }">
+			<p class="noResult">검색결과가 없습니다.</p>
+			</c:if>
+			<c:if test="${not empty faqList }">
+			<ul id="faqList">
+				<c:forEach items="${faqList }" var="item">
+				<li class="faqItem">
+					<button class="faqItemBtn" value="${item.faq_id }">${item.title }</button>
+				</li>
 				</c:forEach>
-			</div>
-			<hr color="red">
-			
-			<div id="faqItemList">
-				<ul id="faqList">
-					<c:forEach items="${faqList }" var="item">
-					<li class="faqItem">
-						<button class="faqItemBtn" value="${item.faq_id }">${item.title }</button>
-					</li>
-					</c:forEach>
-				</ul>
-			</div>
+			</ul>
+			</c:if>
 		</div>
 	</div>
 	

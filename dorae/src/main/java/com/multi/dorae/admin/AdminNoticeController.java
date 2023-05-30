@@ -60,9 +60,7 @@ public class AdminNoticeController {
 	}
 	
 	@RequestMapping("list")
-	public void noticeList(PageVO pageVO, Model model) {
-		pageVO.setTotal(noticeService.count());
-		
+	public void noticeList(PageVO pageVO, Model model) {		
 		model.addAttribute("page", pageVO);
 		model.addAttribute("noticeList", noticeService.listWithPaging(pageVO));
 	}
