@@ -20,8 +20,9 @@
 		<typeAlias type="com.multi.dorae.search.CriteriaB"
 			alias="cri2"></typeAlias>
 
-		<!-- 장희진 -->
+		<!-- 장희정 -->
 		<typeAlias type="com.multi.dorae.book.BookVO" alias="bookVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.book.PreferenceVO" alias="preferenceVO"></typeAlias>
 
 		<!-- 최현석 -->
 		<typeAlias type="com.multi.dorae.review.ReviewVO"
@@ -75,8 +76,9 @@
 		<mapper resource="mapper/rankMapper.xml" />
 		<mapper resource="mapper/businessMapper.xml" />
 
-		<!-- 장희진 -->
+		<!-- 장희정 -->
 		<mapper resource="mapper/bookMapper.xml" />
+		<mapper resource="mapper/preferenceMapper.xml" />
 
 		<!-- 최현석 -->
 		<mapper resource="mapper/reviewMapper.xml" />
