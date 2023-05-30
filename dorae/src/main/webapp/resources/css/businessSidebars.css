@@ -164,6 +164,13 @@ main {
 	margin-left: auto;
 }
 
+.new-page-stage {
+	width: 580px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+
 
 .form-wrapper {
 	display: flex;
@@ -175,7 +182,7 @@ main {
 	align-items: center;
 }
 .form-wrapper button {
-	margin-right: 10px; /* 원하는 간격 조정 */
+	margin-right: 8px; /* 원하는 간격 조정 */
 }
 
 

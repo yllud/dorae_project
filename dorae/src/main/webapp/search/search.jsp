@@ -84,20 +84,18 @@
 </head>
 <body>
 
-
 	<header id="header" class="fixed-top"></header>
 	<div class="container">
 		<div class="body0">
 			<!-- 세션에 user_type이 business면 버튼을 보여주자!(사업자 페이지) -->
-			<input value="<%=session.getAttribute("user_type")%>" type="hidden">
-			<input value="<%=session.getAttribute("email")%>" type="hidden">
+<%-- 			<input value="<%=session.getAttribute("user_type")%>"> --%>
+<%-- 			<input value="<%=session.getAttribute("email")%>"> --%>
 			<%
 				String userType = (String) session.getAttribute("user_type");
-
 				if (userType != null && userType.equals("business")) {
 			%>
 			<form action="../search/business" method="post" target="_blank">
-				<button>사업자 페이지로</button>
+				<button>사업자 페이지</button>
 			</form>
 
 			<%

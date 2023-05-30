@@ -23,7 +23,7 @@
 			$('#stage_name', window.opener.document).text(stageName);
 			// 		    window.close();
 		})//stageSelect
-		
+
 		$('#complete').click(function() {
 			//기존의 것 삭제됨.
 
@@ -31,7 +31,6 @@
 		})//complete
 
 	})//$
-
 </script>
 <style type="text/css">
 .date {
@@ -42,22 +41,23 @@
 </style>
 </head>
 <body>
+
+
 	<table>
-		<c:forEach items="${list}" var="vo">
-			<tr>
-<%-- 				<td>${vo.stage_id}</td> --%>
-				<td><a href="#" data-stage-id="${vo.stage_id}"
-					class="stageSelect">${vo.stage_name}</a></td>
-				<td>${vo.address}</td>
-			</tr>
-		</c:forEach>
+
+		<tbody>
+			<c:forEach items="${list}" var="vo">
+				<tr>
+					<td><a href="#" data-stage-id="${vo.stage_id}"
+						class="stageSelect">${vo.stage_name}</a></td>
+					<td>${vo.address}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
-
-
 	<br>
 	<mark id="select0"></mark>
 	<br>
 	<button id="complete">선택</button>
-
 </body>
 </html>

@@ -72,7 +72,7 @@ public class ApiParsing {
 		// api 날짜 요청 변수 설정
 		Date currentDate = new Date(System.currentTimeMillis());
 
-		// 30일 후의 날짜 계산
+		// 60일 후의 날짜 계산
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(currentDate);
 		calendar.add(Calendar.DAY_OF_MONTH, 60);
@@ -85,7 +85,7 @@ public class ApiParsing {
 		String formattedCurrentDate = dateFormat.format(currentDate);
 		System.out.println("오늘 날짜: " + formattedCurrentDate);
 
-		// 30일 후의 날짜 출력
+		// 60일 후의 날짜 출력
 		String formattedFutureDate = dateFormat.format(futureDate);
 		System.out.println("30일 후 날짜: " + formattedFutureDate);
 

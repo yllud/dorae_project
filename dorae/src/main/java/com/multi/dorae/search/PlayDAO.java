@@ -85,6 +85,17 @@ public class PlayDAO {
 		return list;
 	}
 
+	// 공연 id로 리뷰 평균 평점 검색
+	public String ReviewScore(String play_id) {
+		System.out.println("(DAO) reveiw Score");
+		String score="-";
+		if(my.selectOne("play.reviewScore", play_id)!=null) {
+			score = my.selectOne("play.reviewScore", play_id);
+		}
+		System.out.println("score: "+score);
+		return score;
+	}
+
 	// 공연 수정
 	public int updateAll(PlayVO vo) {
 		System.out.println("(DAO) updateAll");

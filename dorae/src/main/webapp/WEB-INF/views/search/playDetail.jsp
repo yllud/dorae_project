@@ -50,9 +50,12 @@
 
 			<div class="left-items">
 				<img src="${vo.poster}" class="poster"> <a
-					href="../seat/one?play_id=${vo.play_id}"><button
-						class="reserve">예매</button></a>
+					href="../seat/one?play_id=${vo.play_id}"></a>
+				<c:if test="${a == 1}">
+					<button class="reserve">예매</button>
+				</c:if>
 			</div>
+
 			<div class="right-items">
 				<div id="infoList" class="right-text">
 					#${vo.genre_name} #${vo2.stage_name} <br>
@@ -66,7 +69,7 @@
 				</div>
 				<div class="right-grade">
 					<p style="font-weight: 300; color: #888888;">평점</p>
-					<h3>0.0</h3>
+					<h3> ${score}</h3>
 				</div>
 			</div>
 

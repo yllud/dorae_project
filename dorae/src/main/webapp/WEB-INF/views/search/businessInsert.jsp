@@ -123,7 +123,7 @@
 	})//$
 
 	function openPopup() {
-		window.open("businessInsertStage", "_blank", "width=600,height=600");
+		window.open("businessInsertStage", "_blank", "width=650,height=650");
 	}
 </script>
 <style type="text/css">

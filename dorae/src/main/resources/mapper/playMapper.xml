@@ -93,11 +93,20 @@
 	<select id="review" resultType="replyVO" parameterType="String">
 		select
 		p.play_name, m.nickname, text
-		from play p inner join m_review r inner join member m
+		from play p inner join m_review r inner
+		join member m
 		on p.play_id
 		=r.play_id and m.email =r.email
-		where p.play_id = #{play_id}
+		where
+		p.play_id = #{play_id}
+	</select>
 
+	<!-- 리뷰 총점 -->
+	<select id="reviewScore" resultType="String" parameterType="String">
+		select
+		ROUND(AVG(r.score), 1) from play as p inner join m_review as r
+		on p.play_id =r.play_id
+		where p.play_id= #{play_id}
 	</select>
 
 
@@ -120,7 +129,7 @@
 		delete_date=#{delete_date}
 		where play_id=#{play_id}
 	</update>
-	
+
 	<!-- 삭제 공연 복원(사업자) -->
 	<update id="recoverOne" parameterType="playVO">
 		update play set
