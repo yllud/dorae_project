@@ -3,6 +3,10 @@
 
 <mapper namespace="naverMember">
 
+	<select id="one" resultType="naverVO" parameterType="String">
+		select * from member 
+		where email=#{email}
+	</select>
 	<select id="naverFind" resultType="naverVO" parameterType="naverVO">
 		select * from member 
 		where email=#{email}

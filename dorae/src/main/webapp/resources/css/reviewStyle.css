@@ -34,5 +34,10 @@ table img {
 }
 
 .review-detail:hover {
-	background-color: lightgray;
+	background-color: lightgrey;
+}
+
+.body {
+	width: 80%;
+	max-width: 800px;
 }

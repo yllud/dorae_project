@@ -49,6 +49,15 @@ public class NaverDAO {
 		}
 		return vo;
 	}
+	public NaverVO one(String email) {
+		NaverVO vo = null; 
+		try {
+			vo = mn.selectOne("naverMember.one", email);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return vo;
+	}
 	
 	
 //	public int update(NaverVO bag) {
