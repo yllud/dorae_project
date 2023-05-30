@@ -46,7 +46,7 @@
 				<button>사업자 페이지로</button>
 			</form>
 		<% } %>
-    	<%=session.getAttribute("nickname") %>님 <a id="loginBtn" href="../mypage/main.jsp">마이페이지</a> | <a id="logout" href='http://localhost:8888/dorae/login/logout.jsp'>로그아웃</a>
+    	<%=session.getAttribute("nickname") %>님 <a id="loginBtn" href="../login/mypage">마이페이지</a> | <a id="logout" href='http://localhost:8888/dorae/login/logout.jsp'>로그아웃</a>
     	
     <% } else { %>
     	<a href='http://localhost:8888/dorae/login/login.jsp'>로그인/회원가입</a>
