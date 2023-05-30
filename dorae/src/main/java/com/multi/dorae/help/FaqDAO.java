@@ -29,8 +29,15 @@ public class FaqDAO {
 		return sql.selectList("faq.selectList");
 	}
 	
-	public List<FaqVO> listWithPaging() {
-		return sql.selectList("faq.selectListWithPaging");
+	public List<FaqVO> listWithPaging(PageVO pageVO) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		pageVO.setTotal(count());
+		pageVO.calc();
+		
+		map.put("start", pageVO.getStart());
+		map.put("end", pageVO.getEnd());
+		
+		return sql.selectList("faq.selectListWithPaging", pageVO);
 	}
 	
 	public List<FaqVO> listByCategoryWithPaging(String help_category_id, PageVO pageVO) {

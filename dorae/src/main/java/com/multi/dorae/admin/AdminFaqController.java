@@ -3,8 +3,10 @@ package com.multi.dorae.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.dorae.help.FaqService;
@@ -63,9 +65,16 @@ public class AdminFaqController {
 	}
 	
 	@RequestMapping("list")
-	public void faqList(String help_category_id, PageVO pageVO, Model model) {
+	public void faqList(String help_category_id, int page, Model model) {
+		PageVO pageVO = new PageVO();
+		pageVO.setPage(page);
+		
+		if (help_category_id == null) {
+			model.addAttribute("faqList", faqService.listWithPaging(pageVO));
+		} else {
+			model.addAttribute("faqList", faqService.listByCategoryWithPaging(help_category_id, pageVO));			
+		}
 		model.addAttribute("page", pageVO);
-		model.addAttribute("faqList", faqService.listByCategoryWithPaging(help_category_id, pageVO));
 		model.addAttribute("help_category_id", help_category_id);
 	}
 }
