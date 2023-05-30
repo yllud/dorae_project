@@ -64,8 +64,12 @@ public class AdminFaqController {
 	
 	@RequestMapping("list")
 	public void faqList(String help_category_id, PageVO pageVO, Model model) {
+		if (help_category_id == null) {
+			model.addAttribute("faqList", faqService.listWithPaging(pageVO));
+		} else {
+			model.addAttribute("faqList", faqService.listByCategoryWithPaging(help_category_id, pageVO));			
+		}
 		model.addAttribute("page", pageVO);
-		model.addAttribute("faqList", faqService.listByCategoryWithPaging(help_category_id, pageVO));
 		model.addAttribute("help_category_id", help_category_id);
 	}
 }

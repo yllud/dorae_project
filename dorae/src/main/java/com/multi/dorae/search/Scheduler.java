@@ -21,14 +21,16 @@ public class Scheduler {
 	ApiParsing service;
 	
 	//초 분 시 일 월 일 
-	@Scheduled(cron = "00 35 15 * * *")
+	@Scheduled(cron = "00 01 00 * * *")
 	public void auto() throws ClassNotFoundException, IOException, ParserConfigurationException, SAXException, SQLException {
 		System.out.println("오후 10:41에 매일 호출됨...");
 		
 		//play 공연 상태 업데이트(공연 시작,종료날짜 오늘과 비교)
 		service.dbUpdate();
-//		service.apiPlay();
-//		service.apiStage();
+		service.deleteRank();
+		service.apiPlay();
+		service.apiStage();
+		service.apiRank();
 
 	}
 	

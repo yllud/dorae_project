@@ -8,14 +8,15 @@
 <div class="mb-3 row">
 	<label for="applyMemberId" class="col-sm-2 col-form-label">신청자</label>
 	<div class="col-sm-10">
-	  <input type="text" readonly class="form-control-plaintext" id="applyMemberId" value="${apply.member_id}">
+	  <p class="form-control-plaintext" id="applyMemberId">${apply.member_id}</p>
 	</div>
 </div>
 <div class="mb-3 row">
 	<label for="applyCreatedAt" class="col-sm-2 col-form-label">신청일</label>
 	<div class="col-sm-10">
-	  <input type="text" readonly class="form-control-plaintext" id="applyCreatedAt" 
-	  	value="<fmt:timeZone value="GMT"><fmt:formatDate value="${apply.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/></fmt:timeZone>">
+	  <p class="form-control-plaintext" id="applyCreatedAt">
+	  	<fmt:timeZone value="GMT"><fmt:formatDate value="${apply.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/></fmt:timeZone>
+	  </p>
 	</div>
 </div>
 
@@ -42,8 +43,9 @@
 <div class="mb-3 row">
 	<label for="applyApproval_at" class="col-sm-2 col-form-label">승인/거부일</label>
 	<div class="col-sm-10">
-		<input type="text" readonly class="form-control-plaintext" id="applyApproval_at" 
-		  	value="<fmt:timeZone value="GMT"><fmt:formatDate value="${apply.approval_at }" pattern="yyyy-MM-dd hh:mm:ss"/></fmt:timeZone>">
+		<p class="form-control-plaintext" id="applyApproval_at"> 
+		  	<fmt:timeZone value="GMT"><fmt:formatDate value="${apply.approval_at }" pattern="yyyy-MM-dd hh:mm:ss"/></fmt:timeZone>
+		</p>
 	</div>
 </div>
 
