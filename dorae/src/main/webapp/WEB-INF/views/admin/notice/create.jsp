@@ -27,6 +27,7 @@
 </div>
 
 <button class="btn btn-primary mb-3" onclick="submitNotice(this)">등록</button>
+<button class="btn btn-light mb-3" onclick="javascript:history.back()">뒤로</button>
 
 <script type="text/javascript">
 	function submitNotice(element) {

@@ -37,7 +37,7 @@ public class FaqDAO {
 		map.put("start", pageVO.getStart());
 		map.put("end", pageVO.getEnd());
 		
-		return sql.selectList("faq.selectListWithPaging", pageVO);
+		return sql.selectList("faq.selectListWithPaging", map);
 	}
 	
 	public List<FaqVO> listByCategoryWithPaging(String help_category_id, PageVO pageVO) {
