@@ -27,13 +27,13 @@
 		$('.pages').click(function() {
 			var tag = '<%=request.getParameter("tag")%>';
 			$.ajax({
-				url : "tag",
+				url : "event",
 				data : {
 					tag : tag,
 					page : $(this).text()
 				},
 				success : function(result) {
-					$('#result').html(result);
+					$('#event').html(result);
 				},
 				error : function() {
 					alert('에러 발생');

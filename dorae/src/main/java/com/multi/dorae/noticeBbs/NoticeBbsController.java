@@ -47,7 +47,7 @@ public class NoticeBbsController {
 	}
 	
 	// 태그 분류 게시글
-	@RequestMapping("noticeBbs/tag")
+	@RequestMapping("noticeBbs/event")
 	public void tag(NoticeBbsPageVO vo, Model model, String tag) {
 		vo.setStartEnd(vo.getPage());
 		List<NoticeVO> list = dao.tag(vo, tag);
