@@ -15,12 +15,16 @@
 	$(window).on('load', function() {
 		$('body').scrollTop(0); // 스크롤 위치 초기화
 		
-		$('#banner').click(function() {
+		$('#btn_map').click(function() {
 			$('#banner').animate({
 				opacity : 0
 			}, 1000, function() {
 				$(this).remove(); // 애니메이션이 끝난 후 요소를 삭제
 			});
+		});
+		
+		$('#btn_check').click(function() {
+		    window.location.href = "recommend.jsp";
 		});
 		
 		$("#header").load("../header/header.jsp");
@@ -949,9 +953,35 @@
 <body>
 	<header id="header"></header>
 	<div id="map-container">
-		<div id="banner">
+		<div id="banner" style="display: flex; justify-content: center;">
 			<div id="imgBody">
-				<img src="../resources/img/temp-banner2.png" id="main-img"/>
+				<img src="../resources/img/temp-banner3.png" id="main-img"/>
+				<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+					<table>
+						<tr>
+							<td>
+								<button id="btn_check" style="background-color: white; padding: 2%; margin: 2%; width: 33%; height: 33%;">
+									<img src="../resources/img/check.png" style="width: 100%; height: 100%;">
+								</button>
+							</td>
+						</tr>
+						<tr>
+							<td>맞춤추천 공연 보기</td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td>
+								<button id="btn_map" style="background-color: white; padding: 2%; margin: 2%; width: 33%; height: 33%;">
+									<img src="../resources/img/map.png" style="width: 100%; height: 100%;">
+								</button>
+							</td>
+						</tr>
+						<tr>
+							<td>지도로 찾아보기</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 		<div id="map">
@@ -968,7 +998,45 @@
 			</div>
 		</div>
 	</div>
-	<div id="result"><br><br>내용 들어가는 곳<br><br><br><br><br><br><br><br><br><br></div>
-
+	<div id="result">
+	<br><br><br><br><br>
+	<table style="width: 100%;">
+		<tr>
+			<td style="width: 33.33%;">
+				<div id="review">
+					다녀온 후기
+				</div>
+			</td>
+			<td style="width: 33.33%;">
+				<div id="notice">
+					공지사항
+				</div>
+			</td>
+			<td style="width: 33.33%;">
+				<div id="faq">
+					FAQ
+				</div>
+			</td>
+		</tr>
+	</table>
+	</div>
+<script>
+	$(document).ready(function() {
+		/* $.ajax({
+	        url: "../review/all",
+	        data : {
+				page : 1
+			},
+	        success: function(data) {
+	          $("#review").html(data);
+	        },
+	        error: function() {
+	          alert("데이터를 불러오는 중에 오류가 발생했습니다.");
+	        }
+	      });//ajax */
+	});
+	
+	
+</script>
 </body>
 </html>
