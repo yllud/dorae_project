@@ -32,7 +32,7 @@ public class NoticeBbsDAO {
 		return my.selectOne("notice.selectOne", notice_id);
 	}
 	
-	// 태그 분류해서 검색
+	// 태그 분류해서 검색(페이징처리)
 	public List<NoticeVO> tag(NoticeBbsPageVO vo, String tag) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", vo.getStart());
@@ -46,4 +46,8 @@ public class NoticeBbsDAO {
 		return my.selectOne("notice.countByTag", tag);
 	}
 	
+	// 태그 분류해서 검색(페이징X-공지사항용)
+	public List<NoticeVO> notice(String tag) {
+		return my.selectList("notice.selectListByTag", tag);
+	}
 }
