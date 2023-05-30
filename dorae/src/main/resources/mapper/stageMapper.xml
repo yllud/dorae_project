@@ -24,7 +24,9 @@
 		where stage_name LIKE CONCAT('%', #{title}, '%')
 	</select>
 	
-	
+	<select id="stageList" resultType="stageVO">
+        SELECT * FROM stage WHERE stage_id IN (SELECT stage_id FROM play where state = '공연중');
+    </select>
 	<!-- <update id="update" parameterType="playVO"> -->
 	<!-- update member set play_name = #{play_name} where play_id = #{play_id} -->
 	<!-- </update> -->
