@@ -40,4 +40,8 @@
 					tag: $("#noticeTag").val()
 				})
 	}
+	
+	function setContent() {
+		$("#noticeContent")[0].contentWindow.clearHTML();
+	}
 </script>

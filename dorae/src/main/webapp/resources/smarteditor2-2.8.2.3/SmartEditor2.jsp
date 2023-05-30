@@ -45,27 +45,28 @@ nhn.husky.EZCreator.createInIFrame({
 	}, //boolean
 	fOnAppLoad : function(){
 		//예제 코드
-		//oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
-		parent.console.log(typeof parent.setContent);
-		
+		//oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);		
 		if ((typeof parent.setContent) != "undefined") {
 			parent.setContent();
 		}
-		
 	},
 	fCreator: "createSEditor2"
 });
 
 function pasteHTML(sHTML) {
 	//var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
-	oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
+	oEditors.getById["ir1"].exec("SET_IR", [sHTML]);
+}
+
+function clearHTML() {
+	oEditors.getById["ir1"].exec("SET_IR", [""]);
 }
 
 function showHTML() {
 	var sHTML = oEditors.getById["ir1"].getIR();
-	alert(sHTML);
+	parent.alert(sHTML);
 }
-	
+
 function submitContents() {
 	oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
 	
