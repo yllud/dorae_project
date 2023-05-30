@@ -1,11 +1,17 @@
 package com.multi.dorae.review;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +28,9 @@ public class ReviewController {
 
 	@Autowired
 	ReviewDAO dao;
+	 @Autowired
+	private ServletContext servletContext;
+	
 
 	// 다녀온 후기 등록(사진 복수 첨부)
 	@RequestMapping("review/insert")
@@ -129,14 +138,24 @@ public class ReviewController {
 
 	// 후기 수정
 	@RequestMapping("review/update2")
-	public String update2(ReviewVO vo) {
-		dao.update(vo);
-		return "redirect:/review/reviewBbs.jsp";
+	public void update2(ReviewVO vo, HttpServletResponse response) throws IOException {
+	    dao.update(vo);
+
+	    // 작업 완료 후 팝업 창을 닫고 이전 창을 새로고침하는 JavaScript 코드
+	    String script = "<script>" +
+	    		"alert('게시글 수정이 완료되었습니다.');" +
+	            "window.opener.location.reload();" + // 이전 창 새로고침
+	            "window.close();" + // 팝업 창 닫기
+	            "</script>";
+
+	    response.setContentType("text/html; charset=UTF-8");
+	    response.getWriter().print(script);
+	    response.getWriter().flush();
 	}
 
 	// 사진 수정
 	@RequestMapping("review/imgUpdate")
-	public String imgUpdate(ReviewVO reviewVO, HttpServletRequest request, MultipartFile[] files, Model model)
+	public void imgUpdate(ReviewVO reviewVO, HttpServletResponse response, HttpServletRequest request, MultipartFile[] files, Model model)
 			throws Exception {
 
 		List<String> savedNames = new ArrayList<>();
@@ -165,14 +184,41 @@ public class ReviewController {
 		}
 		System.out.println("업로드경로: " + uploadPath);
 		dao.imgUpdate(reviewVO);
-		return "redirect:/review/reviewBbs.jsp";
+		
+		// 작업 완료 후 알림 팝업 창을 띄우는 JavaScript 코드
+	    String script = "<script>" +
+	    		"alert('사진 수정이 완료되었습니다.');" +
+	    		"window.location.href = document.referrer;" +
+	            "</script>";
+
+	    response.setContentType("text/html; charset=UTF-8");
+	    response.getWriter().print(script);
+	    response.getWriter().flush();
 	}
 
 	// 후기 삭제
 	@RequestMapping("review/delete")
-	public String delete(ReviewVO vo) {
-		dao.delete(vo);
-		return "redirect:/review/reviewBbs.jsp";
+	public void delete(int id) {
+		// 이미지 삭제 처리
+		System.out.println("-----------삭제할 id :" + id);
+		List<String> deletedImgList = dao.deletedImg(id);
+		String uploadPath = servletContext.getRealPath("/resources/upload");
+		System.out.println("----------삭제할 경로 : " + uploadPath);
+		for (String deletedImg : deletedImgList) {
+		    String filePathString = uploadPath + "/" + deletedImg;
+		    Path filePath = Paths.get(filePathString);
+		    
+		    try {
+		        Files.delete(filePath);
+		        System.out.println("-----삭제한 파일: " + deletedImg);
+		    } catch (Exception e) {
+		        System.out.println("-----삭제 실패한 파일: " + deletedImg);
+		        e.printStackTrace();
+		    }
+		}
+		
+		// db 삭제 처리
+		dao.delete(id);
 	}
 
 	// 태그 공연명 연동

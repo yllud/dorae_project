@@ -55,8 +55,8 @@ public class ReviewDAO {
 	}
 	
 	// 후기 삭제
-	public void delete(ReviewVO vo) {
-		my.update("review.delete", vo);
+	public void delete(int id) {
+		my.delete("review.delete", id);
 	}
 	
 	// 사진 수정
@@ -102,7 +102,7 @@ public class ReviewDAO {
 	}
 	
 	// 삭제된 사진명 가져오기
-	public List<String> deletedImg() {
-		return my.selectList("review.deletedImg");
+	public List<String> deletedImg(int id) {
+		return my.selectList("review.deletedImg", id);
 	}
 }

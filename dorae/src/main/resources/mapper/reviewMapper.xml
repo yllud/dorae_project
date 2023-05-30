@@ -6,7 +6,7 @@
 		useGeneratedKeys="true" keyProperty="review_id">
 		insert into review values (null,
 		#{email}, #{title}, #{images}, #{content},
-		#{tag}, null)
+		#{tag})
 	</insert>
 
 	<update id="update" parameterType="reviewVO">
@@ -15,8 +15,6 @@
 		= #{title},
 		review_content = #{content},
 		review_tag = #{tag}
-		where
-		review_id = #{id}
 	</update>
 
 	<update id="imgUpdate" parameterType="reviewVO">
@@ -26,12 +24,10 @@
 		where review_id = #{id}
 	</update>
 
-	<update id="delete" parameterType="reviewVO">
-		update review
-		set delete_date =
-		#{deleteDate}
+	<delete id="delete" parameterType="Integer">
+		delete from review
 		where review_id = #{id}
-	</update>
+	</delete>
 
 	<select id="all" resultType="reviewVO"
 		parameterType="reviewPageVO">
@@ -45,8 +41,6 @@
 		review_img AS images,
 		email
 		FROM review
-		WHERE
-		delete_date IS NULL
 		) review2
 		WHERE review2.review_no BETWEEN #{start}
 		AND #{end};
@@ -66,7 +60,6 @@
 		FROM review
 		where
 		review_tag = #{tag}
-		AND delete_date IS NULL
 		) review2
 		WHERE
 		review2.review_no BETWEEN #{start} AND #{end};
@@ -88,8 +81,6 @@
 	<!--전체 게시글 수 계산 -->
 	<select id="count" resultType="Integer">
 		select count(*) from review
-		WHERE
-		delete_date IS NULL
 	</select>
 
 	<!--태그검색 게시글 수 계산 -->
@@ -97,14 +88,13 @@
 		parameterType="String">
 		select count(*) from review
 		where review_tag = #{tag}
-		AND delete_date IS NULL
 	</select>
 
 	<!--삭제된 이미지 파일명 가져오기  -->
-	<select id="deletedImg" resultType="String">
+	<select id="deletedImg" resultType="String" parameterType="Integer">
 		SELECT review_img
 		FROM review
-		WHERE delete_date IS NOT NULL;
+		WHERE review_id = #{id};
 	</select>
 
 	<!--아래는 play테이블 정보 가져오는 코드 -->
