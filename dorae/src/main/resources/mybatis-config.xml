@@ -21,8 +21,8 @@
 			alias="cri2"></typeAlias>
 
 		<!-- 장희정 -->
-		<typeAlias type="com.multi.dorae.book.BookVO" alias="bookVO"></typeAlias>
-		<typeAlias type="com.multi.dorae.book.PreferenceVO" alias="preferenceVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.map.BookVO" alias="bookVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.map.PreferenceVO" alias="preferenceVO"></typeAlias>
 
 		<!-- 최현석 -->
 		<typeAlias type="com.multi.dorae.review.ReviewVO"
