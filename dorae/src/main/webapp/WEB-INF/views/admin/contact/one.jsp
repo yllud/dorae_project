@@ -30,17 +30,27 @@
 </div>
 
 <c:if test="${empty contact.answer }">
-<button class="btn btn-primary mb-3" value="${contact.contact_id }" onclick="submitAnswer(this)">답변 등록</button>
+<button class="btn btn-primary mb-3" onclick="submitAnswer(this)">답변 등록</button>
 
 <script type="text/javascript">
 	function submitAnswer(element) {
 		asyncLoad("/dorae/admin/contact/updateAnswer",
 				"POST", {
-					contact_id: element.value,
+					contact_id: ${contact.contact_id },
 					answer: $("#contactAnswer").val()
-				});
+		});
 	}
 </script>
 </c:if>
 
 <button class="btn btn-light mb-3" onclick="javascript:history.back()">목록으로</button>
+<button class="btn btn-danger mb-3" onclick="deleteContact()">삭제</button>
+
+<script type="text/javascript">
+	function deleteContact() {
+		asyncLoad("/dorae/admin/contact/delete",
+				"POST", {
+					contact_id: ${contact.contact_id }
+		});
+	}
+</script>

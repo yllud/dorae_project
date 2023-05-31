@@ -25,3 +25,4 @@
 
 <button class="btn btn-primary mb-3" value="/dorae/admin/notice/update?notice_id=${notice.notice_id }" onclick="goToPage(this)">내용 수정</button>
 <button class="btn btn-light mb-3" onclick="javascript:history.back()">목록으로</button>
+<button class="btn btn-danger mb-3" onclick="deleteNotice()">삭제</button>

@@ -1,5 +1,7 @@
 package com.multi.dorae.admin;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +33,6 @@ public class AdminNoticeController {
 		} else {
 			return "redirect:list";
 		}
-		
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.GET)
@@ -65,4 +66,12 @@ public class AdminNoticeController {
 		model.addAttribute("noticeList", noticeService.listWithPaging(pageVO));
 	}
 
+	@RequestMapping("delete")
+	public String noticeDelete(long notice_id, HttpServletRequest requset) {
+		if (noticeService.delete(notice_id)) {
+			return "redirect:" + requset.getHeader("Referer");
+		} else {
+			return "redirect:list";
+		}
+	}
 }

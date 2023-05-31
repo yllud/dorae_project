@@ -1,5 +1,7 @@
 package com.multi.dorae.admin;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,12 +33,6 @@ public class AdminFaqController {
 		faqService.create(faqVO);
 		return "redirect:one?faq_id=" + faqVO.getFaq_id();
 	}
-	
-//	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-//	public String faqCreate(FaqVO vo) {
-//		faqService.create(vo);
-//		return "redirect:one?faq_id=" + vo.getFaq_id();
-//	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public void faqUpdatePage(int faq_id, Model model) {
@@ -71,5 +67,14 @@ public class AdminFaqController {
 		}
 		model.addAttribute("page", pageVO);
 		model.addAttribute("help_category_id", help_category_id);
+	}
+	
+	@RequestMapping("delete")
+	public String faqDelete(int faq_id, HttpServletRequest requset) {
+		if (faqService.delete(faq_id)) {
+			return "redirect:" + requset.getHeader("Referer");
+		} else {
+			return "redirect:list";
+		}
 	}
 }

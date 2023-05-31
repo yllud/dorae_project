@@ -23,7 +23,7 @@ public class AdminContactController {
 		if (contactService.updateAnswer(contactVO, adminVO)) {
 			return "redirect:one?contact_id=" + contactVO.getContact_id();
 		} else {
-			return "redirect:one?contact_id=" + contactVO.getContact_id();
+			return "redirect:list";
 		}
 	}
 	
@@ -36,5 +36,14 @@ public class AdminContactController {
 	@RequestMapping("one")
 	public void contactOne(long contact_id, Model model) {
 		model.addAttribute("contact", contactService.one(contact_id));
+	}
+	
+	@RequestMapping("delete")
+	public String contactDelete(long contact_id) {
+		if (contactService.delete(contact_id)) {
+			return "redirect:list";
+		} else {
+			return "redirect:list";
+		}
 	}
 }

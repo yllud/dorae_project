@@ -29,3 +29,4 @@
 
 <button class="btn btn-primary mb-3" value="/dorae/admin/faq/update?faq_id=${faq.faq_id }" onclick="goToPage(this)">내용 수정</button>
 <button class="btn btn-light mb-3" onclick="javascript:history.back()">목록으로</button>
+<button class="btn btn-danger mb-3" onclick="deleteFaq()">삭제</button>

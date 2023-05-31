@@ -25,6 +25,10 @@ public class FaqDAO {
 		return sql.selectOne("faq.selectOne", faq_id);
 	}
 	
+	public int delete(int faq_id) {
+		return sql.delete("faq.delete", faq_id);
+	}
+	
 	public List<FaqVO> list() {
 		return sql.selectList("faq.selectList");
 	}
