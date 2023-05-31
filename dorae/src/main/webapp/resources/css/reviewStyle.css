@@ -14,7 +14,7 @@ table, th, td {
 	border: none;
 }
 
-table img {
+.review-img {
 	width: 300px;
 	height: 300px;
 	object-fit: cover;
@@ -38,6 +38,38 @@ table img {
 }
 
 .body {
-	width: 80%;
-	max-width: 800px;
+margin-top: 175px;
+background: red;
+display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+}
+
+#searchDiv{
+	background: yellow;
+	margin-bottom: 20px;
+}
+#reviewList {
+background: green;
+
+}
+
+.pages {
+	border: 0px;
+	background: transparent;
+	color: blue;
+}
+
+#previous {
+	border: 0px;
+/* 	background: transparent; */
+	color: blue;
+}
+
+#next {
+	border: 0px;
+/* 	background: transparent; */
+	color: blue;
 }
