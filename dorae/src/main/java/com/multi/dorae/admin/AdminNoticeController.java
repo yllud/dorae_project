@@ -24,13 +24,15 @@ public class AdminNoticeController {
 		
 	}
 	
-	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String noticeCreate(NoticeVO noticeVO, @SessionAttribute("admin") AdminVO adminVO) {
+	@ResponseBody
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public ResponseMessage noticeCreate(NoticeVO noticeVO, @SessionAttribute("admin") AdminVO adminVO) {
+		ResponseMessage mes = new ResponseMessage();
 		if (noticeService.insert(noticeVO, adminVO)) { // 공지사항 생성에 성공하면
-			return "redirect:one?notice_id=" + noticeVO.getNotice_id();
-		} else {
-			return "redirect:list";
+			mes.setSuccess(true);
+			mes.setMessage(String.valueOf(noticeVO.getNotice_id()));
 		}
+		return mes;
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.GET)

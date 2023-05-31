@@ -19,13 +19,12 @@ public class AdminContactController {
 	@Autowired
 	ContactService contactService;
 	
-	@RequestMapping(value = "updateAnswer", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String updateAnswer(ContactVO contactVO, @SessionAttribute("admin") AdminVO adminVO) {
-		if (contactService.updateAnswer(contactVO, adminVO)) {
-			return "redirect:one?contact_id=" + contactVO.getContact_id();
-		} else {
-			return "redirect:list";
-		}
+	@ResponseBody
+	@RequestMapping(value = "updateAnswer", method = RequestMethod.POST)
+	public ResponseMessage updateAnswer(ContactVO contactVO, @SessionAttribute("admin") AdminVO adminVO) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(contactService.updateAnswer(contactVO, adminVO));
+		return mes;
 	}
 	
 	@RequestMapping("list")

@@ -31,14 +31,21 @@
 <script type="text/javascript">
 	function submitNotice(element) {
 		$("#noticeContent").get(0).contentWindow.submitContents();	// 에디터의 내용이 textarea에 적용됩니다. // 에디터가 iframe 내에 있어서 contentWindow 를 가져와서 함수 호출
-		console.log($("#noticeContent").contents().find("#ir1").val());
 		
-		asyncLoad("/dorae/admin/notice/create",
-				"POST", {
-					title: $("#noticeTitle").val(),
-					content: $("#noticeContent").contents().find("#ir1").val(),
-					tag: $("#noticeTag").val()
-				})
+		$.ajax({
+			url: "/dorae/admin/notice/create",
+			type: "POST",
+			data: {
+				title: $("#noticeTitle").val(),
+				content: $("#noticeContent").contents().find("#ir1").val(),
+				tag: $("#noticeTag").val()
+			},
+			success: function(res) {
+				if (res.success) {
+					goToPage("/dorae/admin/notice/one?page=1&notice_id=" + res.message);
+				}
+			}
+		});
 	}
 	
 	function setContent() {

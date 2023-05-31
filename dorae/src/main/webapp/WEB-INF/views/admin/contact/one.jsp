@@ -21,7 +21,7 @@
 	<label for="contactAnswer" class="col-sm-2 col-form-label">답변 내용</label>
 	<div class="col-sm-10">
 		<c:if test="${not empty contact.answer }">
-			<textarea class="form-control" id="contactAnswer" rows="5" readonly>${contact.answer }</textarea>
+			<p class="form-control-plaintext" id="contactAnswer">${contact.answer }</p>
 		</c:if>
 		<c:if test="${empty contact.answer }">
 			<textarea class="form-control" id="contactAnswer" rows="5"></textarea>
@@ -31,16 +31,6 @@
 
 <c:if test="${empty contact.answer }">
 <button class="btn btn-primary mb-3" onclick="submitAnswer(this)">답변 등록</button>
-
-<script type="text/javascript">
-	function submitAnswer(element) {
-		asyncLoad("/dorae/admin/contact/updateAnswer",
-				"POST", {
-					contact_id: ${contact.contact_id },
-					answer: $("#contactAnswer").val()
-		});
-	}
-</script>
 </c:if>
 
 <button class="btn btn-light mb-3" value="/dorae/admin/contact/list?page=${param.page }" onclick="goToList(this)" id="toList">목록으로</button>
@@ -64,3 +54,22 @@
 		}
 	}
 </script>
+<c:if test="${empty contact.answer }">
+<script type="text/javascript">
+	function submitAnswer(element) {
+		$.ajax({
+			url: "/dorae/admin/contact/updateAnswer",
+			type: "POST",
+			data: {
+				contact_id: ${contact.contact_id },
+				answer: $("#contactAnswer").val()
+			},
+			success: function(res) {
+				if (res.success) {
+					goToPage("/dorae/admin/contact/one?page=" + ${param.page } + "&contact_id=" + ${contact.contact_id}, true);
+				}
+			}
+		})
+	}
+</script>
+</c:if>

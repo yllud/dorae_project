@@ -26,10 +26,15 @@ public class AdminFaqController {
 		model.addAttribute("helpCategoryList", categoryService.listByParentId("None"));
 	}
 	
-	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String faqCreate(FaqVO faqVO) {
-		faqService.create(faqVO);
-		return "redirect:one?faq_id=" + faqVO.getFaq_id();
+	@ResponseBody
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public ResponseMessage faqCreate(FaqVO faqVO) {
+		ResponseMessage mes = new ResponseMessage();
+		if (faqService.create(faqVO)) {
+			mes.setSuccess(true);
+			mes.setMessage(String.valueOf(faqVO.getFaq_id()));
+		}
+		return mes;
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.GET)

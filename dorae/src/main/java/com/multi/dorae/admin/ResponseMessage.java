@@ -2,7 +2,7 @@ package com.multi.dorae.admin;
 
 public class ResponseMessage {
 	
-	private Boolean success;
+	private Boolean success = false;
 	private String url;
 	private String message;
 	
