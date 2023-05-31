@@ -34,6 +34,7 @@ var selectedOrders = {
 		$("#header").load("../header/header.jsp");
 		
 		$('#submit').click(function() {
+			alert("설정이 완료되었습니다!");
 			console.log("Button clicked");
 			var selectedGenre = selectedOrders.genre.map(function(checkbox) {
 				return checkbox.value;
@@ -68,6 +69,8 @@ var selectedOrders = {
 					// 에러 처리 로직 작성
 				}
 			});
+			
+			window.location.href = "main.jsp";
 		});
 	})
 	/* //설정완료 버튼 클릭 시 이벤트 처리

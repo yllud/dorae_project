@@ -1,6 +1,7 @@
 @charset "UTF-8";
 body{
 	overflow-y: scroll;
+  	overflow-x: hidden; /* 가로 스크롤 비활성화 */
 }
 /* 아래의 모든 코드는 영역::코드로 사용 */
 body::-webkit-scrollbar {
@@ -73,6 +74,7 @@ th, td {
 	max-width: 1300px;
 	max-height: 750px; /* 원하는 최대 높이 값으로 설정 */
 }
+
 
 #imgBody img {
 	max-width: 100%;
