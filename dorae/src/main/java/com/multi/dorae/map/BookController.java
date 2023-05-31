@@ -1,13 +1,9 @@
-package com.multi.dorae.book;
+package com.multi.dorae.map;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.dorae.mypage.MypagePageVO;
-import com.multi.dorae.mypage.ReviewListVO;
-import com.multi.dorae.search.PlayVO;
 
+@RequestMapping("book")
 @Controller //스프링에서 제어하는 역할로 등록! 
 public class BookController {
 
@@ -66,15 +61,16 @@ public class BookController {
 	}	
 	
 	@RequestMapping("select_my")
-	@ResponseBody
-	public List<BookVO> mybook(String email) {
+	public String mybook(String email, Model model) {
 		//System.out.println("mybook요청됨.");
 		
 		List<BookVO> list = service.mybook(email);
-		return list;
+	    model.addAttribute("list", list);
+	    
+		return "book/bookList";
 	}	
 	
-	@RequestMapping("map/bookList")
+	@RequestMapping("bookList")
 	public void bookList(MypagePageVO vo, Model model) {
 	    String email = (String) session.getAttribute("email");
 	    
