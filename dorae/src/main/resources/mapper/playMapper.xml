@@ -92,19 +92,22 @@
 	<!-- 리뷰 리스트 -->
 	<select id="review" resultType="replyVO" parameterType="String">
 		select
-		p.play_name, m.nickname, text
+		p.play_name, m.nickname, text, score, DATE_FORMAT(upload_date, '%Y-%m-%d %H:%i') as upload_date2
 		from play p inner join m_review r inner
 		join member m
 		on p.play_id
 		=r.play_id and m.email =r.email
 		where
 		p.play_id = #{play_id}
+		ORDER BY upload_date DESC
 	</select>
 
 	<!-- 리뷰 총점 -->
-	<select id="reviewScore" resultType="String" parameterType="String">
+	<select id="reviewScore" resultType="String"
+		parameterType="String">
 		select
-		ROUND(AVG(r.score), 1) from play as p inner join m_review as r
+		ROUND(AVG(r.score), 1) from play as p inner join
+		m_review as r
 		on p.play_id =r.play_id
 		where p.play_id= #{play_id}
 	</select>
@@ -148,9 +151,18 @@
 	<!-- where email=#{email} -->
 	<!-- </update> -->
 
+
+	<select id="searchStageId" parameterType="String"
+		resultType="String">
+		select stage_id from play where play_id =#{play_id}
+	</select>
+
 	<!-- 공연중인 전체 공연목록 -->
 	<select id="playList" resultType="playVO">
-        select play_id, stage_id, play_name, play_start, play_end, stage_name, poster, genre_name from play where state = '공연중'
-    </select>
+		select play_id, stage_id,
+		play_name, play_start, play_end, stage_name,
+		poster, genre_name from
+		play where state = '공연중'
+	</select>
 
 </mapper>
