@@ -24,7 +24,27 @@
 		});
 		
 		$('#btn_check').click(function() {
-		    window.location.href = "recommend.jsp";
+			$.ajax({
+			    url: "/dorae/map/select_myPreference",
+			    type: "GET",
+			    data: { email: userEmail },
+			    success: function(response) {
+			    	console.log(response);
+			        if(response == []){
+			        	window.location.href = "recommend.jsp";
+			        }
+			        else{
+			        	// 스크롤을 내리는 코드
+		                $('html, body').animate({
+		                    scrollTop: $("#result").offset().top
+		                }, 500);
+			        }
+			    },
+			    error: function() {
+			        alert("데이터를 불러오는 중에 오류가 발생했습니다.");
+			    }
+			});
+		    
 		});
 		
 		$("#header").load("../header/header.jsp");
@@ -945,18 +965,39 @@
 		var tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
 		tooltip.appendTo(map.getPanes().floatPane);
 		
-		$.ajax({
-		    url: "/dorae/map/select_recommendPlay",
-		    type: "GET",
-		    data: { email: userEmail },
-		    success: function(response) {
-		        // 서버에서 성공적으로 응답을 받았을 때 실행되는 함수입니다.
-		        $('#result').html(response); // 응답 데이터를 HTML로 설정합니다.
-		    },
-		    error: function() {
-		        alert("데이터를 불러오는 중에 오류가 발생했습니다.");
-		    }
-		});
+
+		$('#result').empty();
+		if(userEmail != null){
+			$.ajax({
+			    url: "/dorae/map/select_myPreference",
+			    type: "GET",
+			    data: { email: userEmail },
+			    success: function(response) {
+			    	console.log(response);
+			        if(response != []){
+			        	$.ajax({
+						    url: "/dorae/map/select_recommendPlay",
+						    type: "GET",
+						    data: { email: userEmail },
+						    success: function(response) {
+						        $('#result').html(response); // 응답 데이터를 HTML로 설정합니다.
+						    },
+						    error: function() {
+						        alert("데이터를 불러오는 중에 오류가 발생했습니다.");
+						    }
+						});
+			        }else{
+			        	$('#result').html("<button style='margin:20px; width:200px; height:70px;'><a href='/dorae/map/recommend.jsp'>맞춤설정하러가기</a></button>")
+			        }
+			    },
+			    error: function() {
+			        alert("데이터를 불러오는 중에 오류가 발생했습니다.");
+			    }
+			});
+		}
+		else{
+			$('#result').html("<button style='margin:20px; width:200px; height:70px;'><a href='/dorae/login/login.jsp'>로그인 후 맞춤설정하러가기</a></button>")
+		}
 	});
 </script>
 <link rel="stylesheet" href="../resources/css/sidemenu.css" />
