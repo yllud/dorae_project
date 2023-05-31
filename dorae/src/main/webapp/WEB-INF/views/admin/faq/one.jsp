@@ -28,5 +28,24 @@
 </div>
 
 <button class="btn btn-primary mb-3" value="/dorae/admin/faq/update?faq_id=${faq.faq_id }" onclick="goToPage(this)">내용 수정</button>
-<button class="btn btn-light mb-3" onclick="javascript:history.back()">목록으로</button>
+<button class="btn btn-light mb-3" value="/dorae/admin/faq/list?page=${param.page }" onclick="goToPage(this)" id="toList">목록으로</button>
 <button class="btn btn-danger mb-3" onclick="deleteFaq()">삭제</button>
+
+<script type="text/javascript">
+	function deleteFaq() {
+		if (confirm("정말 삭제하시겠습니까?")) {
+			$.ajax({
+				url: "/dorae/admin/faq/delete",
+				type: "POST",
+				data: {
+					faq_id: ${faq.faq_id}
+				},
+				success: function(res) {
+					if (res.success) {
+						goToPage($("#toList")[0], true);
+					}
+				}
+			})			
+		}
+	}
+</script>

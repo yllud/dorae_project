@@ -71,11 +71,13 @@
 			goToPage(element);
 		}
 		
-		function goToPage(element) {
+		function goToPage(element, isReplace) {
+			if (isReplace) {
+				history.replaceState({"url": element.getAttribute("value")}, null, location.pathname);
+			} else {
+				history.pushState({"url": element.getAttribute("value")}, null, location.pathname);				
+			}
 			asyncLoad(element.getAttribute("value"));
-			console.log(element.getAttribute("value"));
-			//history.pushState({"url": element.getAttribute("value")}, null, element.getAttribute("value"));
-			history.pushState({"url": location.pathname}, null, location.pathname);
 		}
 		
 		function asyncLoad(url, type, data) {
@@ -86,7 +88,6 @@
 				success: function(res, statusText, jqXHR) {
 					console.log(statusText);
 					console.log(jqXHR);
-					console.log(jqXHR.getResponseHeader("invalidated"));
 					if (jqXHR.getResponseHeader("invalidated") != null) {
 						location.href = jqXHR.getResponseHeader("invalidated");
 					}

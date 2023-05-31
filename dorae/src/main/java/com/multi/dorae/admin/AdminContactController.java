@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.multi.dorae.help.ContactService;
@@ -38,12 +39,11 @@ public class AdminContactController {
 		model.addAttribute("contact", contactService.one(contact_id));
 	}
 	
-	@RequestMapping("delete")
-	public String contactDelete(long contact_id) {
-		if (contactService.delete(contact_id)) {
-			return "redirect:list";
-		} else {
-			return "redirect:list";
-		}
+	@ResponseBody
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public ResponseMessage contactDelete(long contact_id) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(contactService.delete(contact_id));
+		return mes;
 	}
 }

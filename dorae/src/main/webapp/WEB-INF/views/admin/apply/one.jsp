@@ -49,7 +49,7 @@
 	</div>
 </div>
 
-<button class="btn btn-light mb-3" onclick="javascript:history.back()">목록으로</button>
+<button class="btn btn-light mb-3" value="/dorae/admin/apply/list?page=${param.page }" onclick="goToPage(this)" id="toList">목록으로</button>
 
 <c:if test="${empty apply.approval_at }">
 <script type="text/javascript">

@@ -19,7 +19,7 @@
 			<c:forEach items="${noticeList }" var="item">
 				<tr>
 					<td>${item.notice_id }</td>
-					<td><button class="btn btn-link" value="/dorae/admin/notice/one?notice_id=${item.notice_id }" onclick="goToPage(this)">${item.title }</button></td>
+					<td><button class="btn btn-link" value="/dorae/admin/notice/one?page=${param.page }&notice_id=${item.notice_id }" onclick="goToPage(this)">${item.title }</button></td>
 					<td><fmt:timeZone value="GMT">
 						<fmt:formatDate value="${item.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/>
 					</fmt:timeZone></td>

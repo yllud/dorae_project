@@ -24,5 +24,24 @@
 </div>
 
 <button class="btn btn-primary mb-3" value="/dorae/admin/notice/update?notice_id=${notice.notice_id }" onclick="goToPage(this)">내용 수정</button>
-<button class="btn btn-light mb-3" onclick="javascript:history.back()">목록으로</button>
+<button class="btn btn-light mb-3" value="/dorae/admin/notice/list?page=${param.page }" onclick="goToPage(this)" id="toList">목록으로</button>
 <button class="btn btn-danger mb-3" onclick="deleteNotice()">삭제</button>
+
+<script type="text/javascript">
+	function deleteNotice() {
+		if (confirm("정말 삭제하시겠습니까?")) {
+			$.ajax({
+				url: "/dorae/admin/notice/delete",
+				type: "POST",
+				data: {
+					notice_id: ${notice.notice_id}
+				},
+				success: function(res) {
+					if (res.success) {
+						goToPage($("#toList")[0], true);
+					}
+				}
+			})			
+		}
+	}
+</script>

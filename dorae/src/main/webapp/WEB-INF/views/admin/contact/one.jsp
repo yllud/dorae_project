@@ -43,14 +43,24 @@
 </script>
 </c:if>
 
-<button class="btn btn-light mb-3" onclick="javascript:history.back()">목록으로</button>
+<button class="btn btn-light mb-3" value="/dorae/admin/contact/list?page=${param.page }" onclick="goToPage(this)" id="toList">목록으로</button>
 <button class="btn btn-danger mb-3" onclick="deleteContact()">삭제</button>
 
 <script type="text/javascript">
 	function deleteContact() {
-		asyncLoad("/dorae/admin/contact/delete",
-				"POST", {
-					contact_id: ${contact.contact_id }
-		});
+		if (confirm("정말 삭제하시겠습니까?")) {
+			$.ajax({
+				url: "/dorae/admin/contact/delete",
+				type: "POST",
+				data: {
+					contact_id: ${contact.contact_id}
+				},
+				success: function(res) {
+					if (res.success) {
+						goToPage($("#toList")[0], true);
+					}
+				}
+			})			
+		}
 	}
 </script>

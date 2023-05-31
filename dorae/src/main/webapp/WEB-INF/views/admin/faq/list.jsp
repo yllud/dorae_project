@@ -17,7 +17,7 @@
 			<c:forEach items="${faqList }" var="item">
 				<tr>
 					<td>${item.faq_id }</td>
-					<td><button class="btn btn-link" value="/dorae/admin/faq/one?faq_id=${item.faq_id }" onclick="goToPage(this)">${item.title }</button></td>
+					<td><button class="btn btn-link" value="/dorae/admin/faq/one?page=${param.page }&faq_id=${item.faq_id }" onclick="goToPage(this)">${item.title }</button></td>
 					<td>${item.help_category_id }</td>
 				</tr>
 			</c:forEach>

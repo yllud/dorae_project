@@ -1,7 +1,5 @@
 package com.multi.dorae.admin;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,13 +66,12 @@ public class AdminFaqController {
 		model.addAttribute("page", pageVO);
 		model.addAttribute("help_category_id", help_category_id);
 	}
-	
-	@RequestMapping("delete")
-	public String faqDelete(int faq_id, HttpServletRequest requset) {
-		if (faqService.delete(faq_id)) {
-			return "redirect:" + requset.getHeader("Referer");
-		} else {
-			return "redirect:list";
-		}
+
+	@ResponseBody
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public ResponseMessage faqDelete(int faq_id) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(faqService.delete(faq_id));
+		return mes;
 	}
 }
