@@ -41,7 +41,7 @@ button {
 .reserve {
 	width: 300px;
 	height: 45px;
-	margin-top:10px;
+	margin-top: 10px;
 	border-radius: 8px;
 	background-color: CadetBlue;
 	border: 0px;
@@ -121,11 +121,11 @@ button {
 	display: flex;
 	width: 1500px;
 	height: 530px;
-	background: #a2d5f2;
+	/* 	background: #a2d5f2; */
 	margin-top: 30px;
 	margin-left: auto;
 	margin-right: auto;
-	/* 	background: red; */
+/* 	background: blue; */
 	/*   	-webkit-background-clip: text; */
 	/*   	-webkit-text-fill-color: transparent; */
 	border-radius: 20px;
@@ -134,27 +134,28 @@ button {
 .left-items2 {
 	width: 650px;
 	height: 500px;
-	/* 	text-align: center; */
 	margin-top: 10px;
 	margin-left: 200px;
-	/* 	background: #ffc93c; */
-	/* 	border-radius: 20px; */
+	background: LavenderBlush;
+	border-radius: 20px;
 }
 
 .left-text2 {
 	width: 650px;
-	height: 500px;
-	/* 	text-align: center; */
-	/* 	margin-top: 30px; */
-	/* 	margin-left: 200px; */
-	background: cyan;
-	border: 1px solid black;
+	height: 450px;
+/* 	background: cyan; */
+	/* 	border: 1px solid black; */
 	border-radius: 10px;
+}
+
+.detail1 {
+	margin-left: 30px;
+	margin-top: 30px;
+	/* 	background: MediumSpringGreen; */
 }
 
 .detail {
 	margin-left: 30px;
-	/* 	margin-top: 30px; */
 	/* 	background: MediumSpringGreen; */
 }
 
@@ -166,8 +167,8 @@ button {
 	width: 450px;
 	height: 500px;
 	/* 	text-align: center; */
-	/* 	background: #ffc93c; */
-	border: 1px solid black;
+	background: LavenderBlush;
+	/* 	border: 1px solid black; */
 	border-radius: 10px;
 }
 
@@ -191,14 +192,14 @@ button {
 }
 
 .container3 {
-	/* 	display: flex; */
+	display: flex;
 	width: 1500px;
 	height: 450px;
 	/*  	background: #a2d5f2; */
 	margin-top: 5x;
 	margin-left: auto;
 	margin-right: auto;
-/* 	background: red; */
+/* 	background: blue; */
 	/*   	-webkit-background-clip: text; */
 	/*   	-webkit-text-fill-color: transparent; */
 	border-radius: 20px;
@@ -208,20 +209,32 @@ button {
 	width: 1150px;
 	height: 400px;
 	margin-left: 200px;
-	margin-top: 22px;
-	/* 	text-align: center; */
-	/* 	background: #ffc93c; */
-	border: 2px solid MediumSpringGreen;
+	margin-top: 20px;
+	/* 		text-align: center; */
+	/* 	border: 2px solid MediumSpringGreen; */
 	border-radius: 10px;
 	background: LavenderBlush;
 }
 
-.reivew-text {
-	margin-left: 30px;
+
+.review-text {
+	width: 500px;
+/* 	height: 100px; */
+	/* 	margin-left: 30px; */
 	margin-top: 20px;
 	/* 	height: 200px; */
 	/* 	overflow: scroll; */
-	/* 	background: #ffc93c; */
+/* 	background: cyan; */
+	border-radius: 10px;
+}
+
+.review-title {
+	/* 	height:50px; */
+	margin-left: 30px;
+	margin-top: 30px;
+	/* 	height: 200px; */
+	/* 	overflow: scroll; */
+	/* 		background: #ffc93c; */
 }
 
 #review-scroll {
@@ -229,7 +242,7 @@ button {
 	max-height: 300px;
 	overflow-y: auto; /* 세로 스크롤 활성화 */
 	margin-top: 5px;
-	height:300px;
+	height: 300px;
 	margin-left: 30px;
 	/* 	overflow: scroll; */
 	/* 	background: #ffc93c; */

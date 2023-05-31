@@ -81,7 +81,7 @@
 				<div class="left-text2">
 					<input id="play_id" type="hidden" value="${vo.play_id}"> <input
 						id="stage_name" type="hidden" value="${vo.stage_name}">
-					<h3 class="detail">공연 상세</h3>
+					<h3 class="detail1">공연 상세</h3>
 					<div class="detail">제목 : ${vo.play_name}</div>
 					<div class="detail">장르 : ${vo.genre_name} / ${vo.runtime}</div>
 					<div class="detail">출연 : ${vo.casting}</div>
@@ -110,10 +110,10 @@
 
 		<div class="container3">
 			<div class="review-items">
-				<div class="reivew-text">
-					<h3>Review</h3>
+				<div class="review-text">
+					<h3 class="review-title">Review</h3>
 					<c:if test="${empty listReview}">
-						<h5>리뷰가 아직 없습니다.</h5>
+						<h5 class="review-title">리뷰가 아직 없습니다.</h5>
 					</c:if>
 				</div>
 				<div id="review-scroll" class="table-responsive">
@@ -126,7 +126,7 @@
 									<td><div class="review-td">${bag.nickname}</div></td>
 									<td><div class="review-td">${bag.score}</div></td>
 									<td><div class="review-td">${bag.text}</div></td>
-									<td><div class="review-td">${bag.upload_date2}</div></td>
+<%-- 									<td><div class="review-td">${bag.upload_date2}</div></td> --%>
 								</tr>
 							</c:forEach>
 						</tbody>

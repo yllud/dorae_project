@@ -92,7 +92,8 @@
 	<!-- 리뷰 리스트 -->
 	<select id="review" resultType="replyVO" parameterType="String">
 		select
-		p.play_name, m.nickname, text, score, DATE_FORMAT(upload_date, '%Y-%m-%d %H:%i') as upload_date2
+		p.play_name, m.nickname, text, score
+<!-- 		, DATE_FORMAT(upload_date, '%Y-%m-%d %H:%i') as upload_date2 -->
 		from play p inner join m_review r inner
 		join member m
 		on p.play_id
