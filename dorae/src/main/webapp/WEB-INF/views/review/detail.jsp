@@ -78,7 +78,7 @@ div.centered {
 		</form>
 		<form action="delete" method="post" id="deleteForm">
 			<input type="hidden" name="id" value="${review.id}">
-			<button type = "button" onclick="confirmDelete()">후기 삭제</button>
+			<button type="button" onclick="confirmDelete()">후기 삭제</button>
 		</form>
 	</c:if>
 </div>
