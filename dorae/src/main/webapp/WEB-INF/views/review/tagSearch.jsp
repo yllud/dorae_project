@@ -100,48 +100,40 @@
 </head>
 <body>
 	<a href="reviewBbs.jsp"><button>전체 목록으로</button></a>
-	<h3>${tag}태그로검색된 글 count: ${count}</h3>
-	<hr color="red">
+	
 	<div>
-		<h1>후기 목록</h1>
+		<h1>다녀온 후기</h1><h3>${tag}태그로검색된 게시글 수: ${count}</h3>
 		<c:choose>
 			<c:when test="${not empty list}">
 				<table>
 					<tr>
 						<c:forEach var="review" items="${list}" varStatus="status">
 							<td class="review-detail" data-id="${review.id}">
-								<table>
-									<tr>
-										<td>작성자:</td>
-										<td>${review.email}</td>
-									</tr>
-									<tr>
-										<td>제목:</td>
-										<td>${review.title}</td>
-									</tr>
-									<tr>
-										<td>내용:</td>
-										<td>${review.content}</td>
-									</tr>
-									<tr>
-										<td>태그:</td>
-										<td>${review.tag}</td>
-									</tr>
-									<tr>
-										<td colspan="2"><c:choose>
-												<c:when test="${not empty review.images}">
-													<img src="../resources/upload/${review.images[0]}"
-														alt="후기 이미지" />
-												</c:when>
-												<c:otherwise>
-													<div class="no-image">후기 이미지가 없습니다.</div>
-												</c:otherwise>
-											</c:choose></td>
-									</tr>
-								</table>
-							</td>
-						</c:forEach>
+				<table>
+					<tr>
+						<td><img src="../resources/img/pin.png" width="40" height="40"></td>
+						<td>${review.tag}</td>
 					</tr>
+					<tr>
+						<td colspan="2"><c:choose>
+								<c:when test="${not empty review.images}">
+									<img src="../resources/upload/${review.images[0]}" alt="후기 이미지" class="review-img" />
+								</c:when>
+								<c:otherwise>
+									<div class="no-image">후기 이미지가 없습니다.</div>
+								</c:otherwise>
+							</c:choose></td>
+					</tr>
+					<tr>
+						<td colspan="2">${review.email}</td>
+					</tr>
+					<tr>
+						<td colspan="2">${review.title}</td>
+					</tr>
+				</table>
+				</td>
+				</c:forEach>
+				</tr>
 				</table>
 			</c:when>
 			<c:otherwise>
@@ -149,7 +141,6 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	<hr color="red">
 	<!--페이지버튼 -->
 	<table>
 	<tr>

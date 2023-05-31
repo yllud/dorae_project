@@ -304,17 +304,6 @@ public class ReviewController {
 		model.addAttribute("currentButtonPage", currentButtonPage);
 	}
 
-	// 임시로 세션값 설정-> 테스트용
-	@RequestMapping("review/setSession")
-	public ResponseEntity<String> setSession(HttpServletRequest request) {
-		request.getSession().setAttribute("email", "test@example.com");
-		return ResponseEntity.ok("세션 값이 설정되었습니다.");
-	}
-
-	@RequestMapping("review/clearSession")
-	public ResponseEntity<String> clearSession(HttpServletRequest request) {
-		request.getSession().invalidate();
-		return ResponseEntity.ok("세션 값이 비워졌습니다.");
-	}
+	
 
 }
