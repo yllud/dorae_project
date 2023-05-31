@@ -19,7 +19,7 @@
 			<h1 class="h3 mb-3 fw-normal">관리자 로그인</h1>
 
 			<div class="form-floating">
-				<input type="text" class="form-control" id="floatingID" name="id" placeholder="아이디">
+				<input type="text" class="form-control" id="floatingID" name="id" placeholder="아이디" autofocus="autofocus">
 				<label for="floatingID">아이디</label>
 			</div>
 			<div class="form-floating">

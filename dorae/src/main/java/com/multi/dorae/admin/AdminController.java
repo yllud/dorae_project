@@ -95,14 +95,17 @@ public class AdminController {
 		model.addAttribute("apply", applyDAO.one(apply_id));
 	}
 	
-	@RequestMapping(value = "apply/update", method = RequestMethod.POST, produces = "application/text;charset=UTF-8")
-	public String applyUpdate(ApplyBusinessVO applyVO, Model model) {
+	@ResponseBody
+	@RequestMapping(value = "apply/update", method = RequestMethod.POST)
+	public ResponseMessage applyUpdate(ApplyBusinessVO applyVO, Model model) {
+		ResponseMessage mes = new ResponseMessage();
 		if (applyDAO.updateApproval(applyVO) == 1) {
 			if (applyVO.isApproval()) { // true 면 승인됨
-				naverDAO.updateUserType(applyDAO.one(applyVO.getApply_id()).getMember_id());				
+				naverDAO.updateUserType(applyDAO.one(applyVO.getApply_id()).getMember_id());
 			}
+			mes.setSuccess(true);
 		}
 		
-		return "redirect:one?apply_id=" + applyVO.getApply_id();
+		return mes;
 	}
 }

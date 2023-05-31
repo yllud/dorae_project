@@ -27,20 +27,29 @@
 </div>
 
 <button class="btn btn-primary mb-3" onclick="submitNotice(this)">등록</button>
-<button class="btn btn-light mb-3" onclick="javascript:history.back()">뒤로</button>
+<button class="btn btn-light mb-3" value="/dorae/admin/notice/one?page=${param.page }&notice_id=${notice_id}" onclick="goToList(this, true)">뒤로</button>
 
 <script type="text/javascript">
 	function submitNotice(element) {
 		$("#noticeContent").get(0).contentWindow.submitContents();	// 에디터의 내용이 textarea에 적용됩니다. // 에디터가 iframe 내에 있어서 contentWindow 를 가져와서 함수 호출
 		console.log($("#noticeContent").contents().find("#ir1").val());
 		
-		asyncLoad("/dorae/admin/notice/update",
-				"POST", {
-					notice_id: ${notice_id},
-					title: $("#noticeTitle").val(),
-					content: $("#noticeContent").contents().find("#ir1").val(),
-					tag: $("#noticeTag").val()
-				});
+		$.ajax({
+			url: "/dorae/admin/notice/update",
+			type: "POST",
+			data: {
+				notice_id: ${notice_id},
+				title: $("#noticeTitle").val(),
+				content: $("#noticeContent").contents().find("#ir1").val(),
+				tag: $("#noticeTag").val()
+			},
+			success: function(res) {
+				console.log(res);
+				if (res.success) {
+					goToPage("/dorae/admin/notice/one?page=" + ${param.page } + "&notice_id=" + ${notice_id}, true);
+				}
+			}
+		});
 	}
 	
 	function setContent() {

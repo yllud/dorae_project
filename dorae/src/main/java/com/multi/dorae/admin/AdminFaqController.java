@@ -38,10 +38,12 @@ public class AdminFaqController {
 		model.addAttribute("faq_id", faq_id);
 	}
 	
-	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String faqUpdate(FaqVO faqVO) {
-		faqService.update(faqVO);
-		return "redirect:one?faq_id=" + faqVO.getFaq_id();
+	@ResponseBody
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public ResponseMessage faqUpdate(FaqVO faqVO) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(faqService.update(faqVO));
+		return mes;		
 	}
 	
 	@RequestMapping("one")

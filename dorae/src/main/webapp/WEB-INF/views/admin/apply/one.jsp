@@ -49,16 +49,33 @@
 	</div>
 </div>
 
-<button class="btn btn-light mb-3" value="/dorae/admin/apply/list?page=${param.page }" onclick="goToPage(this)" id="toList">목록으로</button>
+<button class="btn btn-light mb-3" value="/dorae/admin/apply/list?page=${param.page }" onclick="goToList(this)" id="toList">목록으로</button>
 
 <c:if test="${empty apply.approval_at }">
 <script type="text/javascript">
 	function submitApproval(element) {
-		asyncLoad("/dorae/admin/apply/update",
-				"POST", {
+		let confirmStr;
+		if (element.value) {
+			confirmStr = "정말 승인하시겠습니까?";
+		} else {
+			confirmStr = "정말 거부하시겠습니까?";
+		}
+		
+		if (confirm(confirmStr)) {
+			$.ajax({
+				url: "/dorae/admin/apply/update",
+				type: "POST",
+				data: {
 					apply_id: ${apply.apply_id},
 					approval: element.value
-				});
+				},
+				success: function(res) {
+					if (res.success) {
+						goToPage("/dorae/admin/apply/one?page=" + ${param.page } + "&apply_id=" + ${apply.apply_id }, true);
+					}
+				}
+			})	
+		}
 	}
 </script>
 </c:if>

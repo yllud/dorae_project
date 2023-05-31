@@ -38,13 +38,13 @@ public class AdminNoticeController {
 		model.addAttribute("notice_id", notice_id);
 	}
 	
-	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String noticeUpdate(NoticeVO noticeVO) {
-		if (noticeService.update(noticeVO)) { // 공지사항 수정에 성공하면
-			return "redirect:one?notice_id=" + noticeVO.getNotice_id();
-		} else {
-			return "redirect:one?notice_id=" + noticeVO.getNotice_id();
-		}
+	@ResponseBody
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public ResponseMessage noticeUpdate(NoticeVO noticeVO) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(noticeService.update(noticeVO));
+		System.out.println("notice Update : " + mes.toString());
+		return mes;		
 	}
 	
 	@RequestMapping("one")

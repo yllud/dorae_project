@@ -68,16 +68,20 @@
 			element.classList.remove("text-white");
 			element.classList.add("active");
 			
-			goToPage(element);
+			goToList(element);
 		}
 		
-		function goToPage(element, isReplace) {
+		function goToList(element, isReplace) {
+			goToPage(element.getAttribute("value"), isReplace);
+		}
+		
+		function goToPage(url, isReplace) {
 			if (isReplace) {
-				history.replaceState({"url": element.getAttribute("value")}, null, location.pathname);
+				history.replaceState({"url": url}, null, location.pathname);
 			} else {
-				history.pushState({"url": element.getAttribute("value")}, null, location.pathname);				
+				history.pushState({"url": url}, null, location.pathname);				
 			}
-			asyncLoad(element.getAttribute("value"));
+			asyncLoad(url);
 		}
 		
 		function asyncLoad(url, type, data) {
