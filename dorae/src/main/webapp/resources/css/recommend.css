@@ -53,3 +53,7 @@ a {
 .cancle:hover{
 	background-color: #dcdcdc; /* Orange */
 }
+
+span.selected-label {
+  font-size: 12pt;
+}

@@ -1,5 +1,6 @@
 package com.multi.dorae.review;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,7 +102,7 @@ public class ReviewDAO {
 		return my.selectOne("review.genreCount", genre);
 	}
 	
-	// 삭제된 사진명 가져오기
+	// 삭제할 사진명 가져오기
 	public List<String> deletedImg(int id) {
 		return my.selectList("review.deletedImg", id);
 	}

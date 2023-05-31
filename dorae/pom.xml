@@ -251,7 +251,11 @@
 		    <artifactId>spring-security-web</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
-		        
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-s3</artifactId>
+		    <version>1.11.238</version>
+		</dependency>
         <!-- 허성만 - dependency 끝 -->
         
          <!-- 장희정 기타의존성 dependency 시작  -->

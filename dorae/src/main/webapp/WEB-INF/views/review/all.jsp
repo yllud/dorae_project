@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="../resources/css/reviewStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script type="text/javascript">
@@ -91,7 +92,6 @@
     int buttonsPerPage = 10;
     int currentPage = 1;
 %>
-<link rel="stylesheet" type="text/css" href="../resources/css/reviewStyle.css">
 </head>
 <body>
 	<h3>전체 review 글 count: ${count}</h3>

@@ -38,31 +38,6 @@ public class PlayService implements PlayServiceInterface {
 	    List<PlayVO> delist1 = dao.listPlay(); // play detail
 	    List<StageVO> delist2 = dao2.listStage(); // stage detail
 	    
-	    /*
-	    for (String p_id : idList) {
-	    	if(dao.playDetail(p_id).getState().equals("공연중"))
-                delist1.add(dao.playDetail(p_id));
-		}
-	    
-	    for (String s_id : stList) {
-	    	StageVO stageDetail = dao2.stageDetail(s_id);
-	    	
-	    	if (stageDetail != null) {
-	            boolean hasDuplicate = false;
-	            
-	            for (StageVO existingStage : delist2) {
-	                if (existingStage.getStage_id() == s_id) {
-	                    hasDuplicate = true;
-	                    break;
-	                }
-	            }
-	            if (!hasDuplicate) {
-	                delist2.add(stageDetail);
-	            }
-	        }
-	    }
-	    */
-	    
 		// JSON 변환을 위한 ObjectMapper 생성
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);

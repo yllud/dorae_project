@@ -11,7 +11,20 @@
 	$(function() {
 		$("#header").load("../header/header.jsp");
 		// 페이지 로드 시
-				
+
+		$.ajax({
+			url : "notice",
+			data : {
+				tag : "공지사항"
+			},
+			success : function(result) {
+				$('#notice').html(result);
+			},
+			error : function(xhr, status, error) {
+				alert('에러 발생');
+			}
+		})
+
 		$.ajax({
 			url : "event",
 			data : {
@@ -25,22 +38,20 @@
 				alert('에러 발생');
 			}
 		})
-		
+
 	})
-	
-	
 </script>
 <style>
-  #noticeBbs{
+#noticeBbs {
 	margin-top: 175px;
 }
 </style>
 </head>
 <body>
-<header id="header" class="fixed-top"></header>
-<div id="noticeBbs">
-	<div id="notice"></div>
-	<div id="event"></div>
+	<header id="header" class="fixed-top"></header>
+	<div id="noticeBbs">
+		<div id="notice"></div>
+		<div id="event"></div>
 	</div>
 </body>
 </html>

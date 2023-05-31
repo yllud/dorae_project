@@ -54,6 +54,7 @@ public class KakaoController {
 //		return "mypage/mypage";
 //	}
 	
+	
 	@RequestMapping(value = "login/kakaoLogin", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam(value = "code") String code, Model model, HttpSession session)
 	        throws Exception {
@@ -85,7 +86,7 @@ public class KakaoController {
 	            // 세션 유지 시간 설정 (옵션)
 	            session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
 
-	            return "mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
+	            return "redirect:../map/main.jsp"; // 로그인 성공 후 마이페이지로 리다이렉트
 	        } else {
 	            return "redirect:../login/login.jsp"; // 로그인 실패 시 로그인 페이지로 리다이렉트
 	        }
@@ -98,7 +99,7 @@ public class KakaoController {
 	        // 세션 유지 시간 설정 (옵션)
 	        session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
 	        
-	        return "mypage/mypage"; // 로그인 성공 후 마이페이지로 리다이렉트
+	        return "redirect:../map/main.jsp"; // 로그인 성공 후 마이페이지로 리다이렉트
 	    }
 	}
 

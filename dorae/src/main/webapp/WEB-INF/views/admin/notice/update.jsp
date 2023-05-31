@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-	<h1 class="h2">공지사항 등록 페이지</h1>
+	<h1 class="h2">공지사항 수정 페이지</h1>
 </div>
 
 <div class="mb-3 row">
