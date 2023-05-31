@@ -9,8 +9,15 @@
 	</insert>
 
 	<select id="playIdList" resultType="String">
-		select play_id from ranking
+		select p.play_id from ranking
+		as r inner join play as p
+		on r.play_id=p.play_id
+		where p.state="공연중"
 	</select>
+
+	<delete id="delete">
+		delete from ranking
+	</delete>
 
 	<!-- <select id="stageIdList" resultType="String"> -->
 	<!-- select stage_id from ranking -->
@@ -32,14 +39,23 @@
 	<!-- play where play_id=#{play_id} -->
 	<!-- </select> -->
 
-	<select id="list" parameterType="String" resultType="rankVO">
+	<select id="list" parameterType="cri" resultType="rankVO">
 		select
 		rank_id, ranking.play_id , rank_genre,rank_area,
 		rank_date,ranking,play_name
-		from ranking inner join play on ranking.play_id =play.play_id where
-		ranking.rank_genre =#{rank_genre} limit 5
+		from ranking inner join play on
+		ranking.play_id =play.play_id 
+		and play.state!="공연완료"
+		where
+		<if test='genre!="전체(장르)"'>
+			ranking.rank_genre =#{genre}
+		</if>
+		<if test='genre=="전체(장르)"'>
+			ranking.rank_genre ="뮤지컬"
+		</if>
+		limit 10
+		
 	</select>
-
 
 
 </mapper>

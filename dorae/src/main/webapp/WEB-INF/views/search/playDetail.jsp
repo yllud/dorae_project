@@ -6,82 +6,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../resources/css/search.css">
+<link rel="stylesheet" href="../resources/css/playDetail.css">
 <title>Insert title here</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#header").load("../header/header.jsp");
 	})//$
+	
+	$(window).on('load', function() {
+		function snsPopup(playName, stageName) {
+			console.log("값넘겨주기!!! >>> " + playName + ", " + stageName);
+			var url = "../map/sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName);
+			//var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName)  + "&latitude=" + encodeURIComponent(share_lat)  + "&longitude=" + encodeURIComponent(share_lng);
+		    window.open(url, "_blank", "width=500,height=500");
+		}
+		//공유 아이콘 클릭 이벤트
+		$('#infoList').on('click', '.shareIcon', function() {
+// 		    var row = $(this).closest('table');
+		    var playName = $('#play_id').val();
+		    var stageName = $('#stage_id').val();
+
+		    snsPopup(playName, stageName);
+		});
+	
+	})//$
 </script>
 <style type="text/css">
-body {
-	display: flex;
-	/* 	width: 1000px; */
-	/* 	height: 100px; */
-}
-
-.container {
-	display: flex;
-	width: 1200px;
-	height: 500px;
-/* 	background: #a2d5f2; */
-	margin-top:10px;
-}
-
-.left-items {
-	width: 400px;
-	height: 400px;
-	/* 	text-align: center; */
-	margin-top: 10px;
-	margin-left: 0px;
-	/* 	background: #ffc93c; */
-}
-
-.left-text {
-	width: 800px;
-	height: 380px;
-	/* 	text-align: center; */
-	margin-top: 20px;
-	margin-left: 10px;
-	/* 	background: #ffc93c; */
-	font-size: x-large;
-}
-
-.left-text-style {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.review-items {
-	margin-left: auto;
-	/*  	margin-top: 500px; */
-	/* 	margin-right: 50px; */
-	margin-left: 50px;
-	width: 300px;
-	height: 300px;
-	/* 	text-align: center; */
-/* 	background: #ffc93c; */
-}
-
-.review-scroll {
-	margin-left: auto;
-	height: 200px;
-	overflow: scroll;
-/* 	background: #ffc93c; */
-}
-
-.right-items {
-	margin-left: auto;
-	/*  	margin-top: 500px; */
-	/* 	margin-right: 50px; */
-	margin-left: 50px;
-	width: 300px;
-	height: 450px;
-	/* 	text-align: center; */
-/* 	background: #ffc93c; */
-}
+/* body { */
+/* 	display: flex; */
+/* 	/* 	width: 1000px; */
+/* 	/* 	height: 100px; */
+/* } */
 </style>
 </head>
 <body>
@@ -93,22 +49,27 @@ body {
 		<div class="container">
 
 			<div class="left-items">
-				<img src="${vo.poster}" width="400" height="400">
+				<img src="${vo.poster}" class="poster"> <a
+					href="../seat/one?play_id=${vo.play_id}"></a>
+				<c:if test="${a == 1}">
+					<button class="reserve">예매</button>
+				</c:if>
 			</div>
-			<div class="left-text">
-				<div>제목 : ${vo.play_name}</div>
-				<div>장르: ${vo.genre_name}</div>
-				<div>출연진: ${vo.casting}</div>
-				<div>공연장: ${vo2.stage_name}</div>
-				<div>런타임: ${vo.runtime}</div>
-				<div>가격: ${vo.price}</div>
-				<div>기간: ${vo.play_start} ~ ${vo.play_end}</div>
-				<div class="left-text-style">공연 시간: ${vo.play_time}</div>
-				<div>${vo.state}</div>
-				<div>관람 연령: ${vo.play_age}</div>
-				<%-- 				<div>공연장: ${vo.stage_name}</div> --%>
-				<div>
-					<a href="../seat/one?play_id=${vo.play_id}"><button>예매하기</button></a>
+
+			<div class="right-items">
+				<div id="infoList" class="right-text">
+					#${vo.genre_name} #${vo2.stage_name} <br>
+					<h1>${vo.play_name}</h1>
+					<button class="btnShare">
+						<img class='bookIcon' src='../resources/img/icon-book_none.jpg'>
+					</button>
+					<button class="btnShare">
+						<img class='shareIcon' src='../resources/img/icon-share.png'>
+					</button>
+				</div>
+				<div class="right-grade">
+					<p style="font-weight: 300; color: #888888;">평점</p>
+					<h3> ${score}</h3>
 				</div>
 			</div>
 
@@ -116,28 +77,55 @@ body {
 			<!-- 			<hr color="red"> -->
 
 		</div>
-		<div class="container">
-			<div class="review-items">
-				리뷰목록
-				<div class="review-scroll">
-					<table>
-						<c:forEach items="${listReview}" var="bag">
-							<tr>
-								<!-- el 속성만 받아올 수 있는 표현식 -->
-								<td><div class="product-name">${bag.nickname}</div></td>
-								<td><div class="product-name1">${bag.text}</div></td>
-							</tr>
-						</c:forEach>
-					</table>
+		<div class="container2">
+			<div class="left-items2">
+				<div class="left-text2">
+					<input id="play_id" type="hidden" value="${vo.play_id}"> <input
+						id="stage_name" type="hidden" value="${vo.stage_name}">
+					<h3 class="detail">공연 상세</h3>
+					<div class="detail">제목 : ${vo.play_name}</div>
+					<div class="detail">장르 : ${vo.genre_name} / ${vo.runtime}</div>
+					<div class="detail">출연 : ${vo.casting}</div>
+					<div class="detail">장소 : ${vo2.stage_name}</div>
+					<%-- 					<div>런타임: ${vo.runtime}</div> --%>
+					<div class="detail">가격 : ${vo.price}</div>
+					<div class="detail">기간 : ${vo.play_start} ~ ${vo.play_end}</div>
+					<div class="detail">시간 : ${vo.play_time}</div>
+					<div class="detail">등급 : ${vo.play_age}</div>
+					<div class="detail">${vo.state}</div>
+				</div>
+				<div class="review-items">
+					<div class="reivew-text">
+						<h3>Review</h3>
+						<c:if test="${empty listReview}">
+							<h5>리뷰가 아직 없습니다.</h5>
+						</c:if>
+					</div>
+					<div class="review-scroll">
+						<table>
+							<c:forEach items="${listReview}" var="bag">
+								<tr>
+									<!-- el 속성만 받아올 수 있는 표현식 -->
+									<td><div class="nick-name">${bag.nickname}</div></td>
+									<td><div class="review-content">${bag.text}</div></td>
+								</tr>
+							</c:forEach>
+
+						</table>
+					</div>
 				</div>
 			</div>
-			<div class="right-items">
+			<div class="right-items2">
 				<!-- 				<h3>공연장 정보</h3> -->
 				<!-- 공연장 위치 -->
-				<div id="map" style="width: 300px; height: 300px;"></div>
-				${vo2.stage_name} <br> 좌석: ${vo2.seat_cnt}석 <br> 전화번호:
-				${vo2.tel} <br> 싸이트: <a href=${vo2.website}>${vo2.website}</a>
-				<br> 주소: ${vo2.address}
+				<div id="map" class="map"></div>
+				<p class="map-stage">${vo2.stage_name}</p>
+				<div class="map-detail">좌석: ${vo2.seat_cnt}석</div>
+				<div class="map-detail">주소: ${vo2.address}</div>
+				<div class="map-detail">번호: ${vo2.tel}</div>
+				<div class="map-detail">
+					<a href=${vo2.website}>${vo2.website}</a>
+				</div>
 			</div>
 		</div>
 

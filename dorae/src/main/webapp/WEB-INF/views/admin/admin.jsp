@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
-<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="/dorae/resources/css/sidebars.css">
+<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min2.css">
+<link rel="stylesheet" href="/dorae/resources/css/businessSidebars.css">
 <script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
 <style type="text/css">
 	.nav-link {

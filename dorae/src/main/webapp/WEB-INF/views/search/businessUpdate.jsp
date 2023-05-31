@@ -15,7 +15,8 @@ td {
 	width: 100px;
 }
 </style>
-
+<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="/dorae/resources/css/businessSidebars.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
 <link rel="stylesheet"
@@ -69,7 +70,7 @@ td {
 			} //onChange
 		}); //selector flatpickr
 
-		$('#b0').click(function() {
+		$('#btnUpdate').click(function() {
 			//기존의 것 삭제됨.
 			var form = $('#img')[0].files[0];
 			var formData = new FormData();
@@ -111,83 +112,168 @@ td {
 				}//error
 			})//ajax
 		})//b0
-		
-		
 
-// 		$('#b1').click(function() {
-// 			//기존의 것 삭제됨.
-
-
-// 			$.ajax({
-// 				type : "post",
-// 				url : "businessDelete",
-// 				data : {
-// 					play_id:$('#play_id').val()
-// 				},
-// 				success : function(x) {
-// 					alert('공연 삭제 성공')
-// 					window.close()
-// 				},//success
-// 				error : function() {
-// 					alert('필수 항목을 입력해주세요')
-// 				}//error
-// 			})//ajax
-// 		})//b1
 	})
-// 	})
 
 	function openPopup() {
-		window.open("businessInsertStage", "_blank", "width=600,height=600");
+		window.open("businessInsertStage", "_blank", "width=650,height=650");
 	}
 </script>
 </head>
 <body>
-	<h3>공연 수정</h3>
-	<!-- el 속성만 받아올 수 있는 표현식 -->
-	<%-- 	<img src="${vo.poster}" width="300" height="300"> --%>
-	<hr color="red">
-	<input id="play_id" type="hidden" value="${vo.play_id}">
+	<div class="new-page">
+		<div
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2">공연 수정</h1>
+		</div>
+		<input id="play_id" type="hidden" value="${vo.play_id}"> <br>
 
-	<br> 제목 :
-	<input id="play_name" value="${vo.play_name}">
-	<br> 장르 :
-	<input id="genre_name" value="${vo.genre_name}">
-	<br> 공연장 :
-	<mark id="stage_name">${vo.stage_name}</mark>
-	<br>
-	<button type="button" onclick="openPopup()">공연장 변경</button>
-	<input id="stage_id" type="hidden" value="${vo.stage_id}">
-	<!-- 달력 -->
-	<br> 공연 기간:
-	<input id="play_start" class="date" value="${vo.play_start}">
-	<input id="play_end" class="date" value="${vo.play_end}">
-	<br> 요일별 공연 시간 :
-	<input id="play_time" value="${vo.play_time}">
-	<br> 런타임:
-	<input id="runtime" value="${vo.runtime}">
-	<br> 관람연령 :
-	<input id="play_age" value="${vo.play_age}">
-	<br> 출연진 :
-	<input id="casting" value="${vo.casting}">
-	<br> 제작진 :
-	<input id="crew" value="${vo.crew}">
-	<br> 기업 :
-	<input id="enterprise" value="${vo.enterprise}">
-	<br> 가격 :
-	<input id="price" value="${vo.price}">
-	<br> 이미지 변경
-	<input id="img" type="file" name="file">
-	<input id="poster" type="hidden" value="${vo.poster}">
-	<br>
-	<br> 내용 :
-	<br>
-	<textarea id="content" cols="40" rows="8">${vo.content}</textarea>
-	<br> 오픈런 :
-	<input id="openrun" value="${vo.openrun}">
-	<br>
-	<button id="b0">수정</button>
-<!-- 	<button id="b1">삭제</button> -->
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">제목</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="play_name"
+					value="${vo.play_name}">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">장르</label>
+			<div class="col-sm-10">
+				<select id="genre_name" class="form-control" name="type">
+					<option value="뮤지컬">뮤지컬</option>
+					<option value="연극">연극</option>
+					<option value="서커스/마술">서커스/마술</option>
+					<option value="서양음악(클래식)">클래식</option>
+					<option value="한국음악(국악)">국악</option>
+					<option value="대중음악">대중음악</option>
+					<option value="복합">복합</option>
+					<option value="서양/한국무용(무용)">무용</option>
+					<option value="대중무용">대중무용</option>
+				</select>
+			</div>
+		</div>
+
+		<input id="stage_id" type="hidden" value="${vo.stage_id}">
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">공연장</label>
+			<div class="col-sm-10">
+				<mark class="col-sm-2 col-form-label" id="stage_name">${vo.stage_name}</mark>
+				<button type="button" class="btn btn-primary mb-2"
+					onclick="openPopup()">공연장 변경</button>
+			</div>
+		</div>
+
+		<!-- 달력 -->
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">공연
+				시작</label>
+			<div class="col-sm-10">
+				<input type="text" class="date" id="play_start"
+					value="${vo.play_start}">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">공연
+				종료</label>
+			<div class="col-sm-10">
+				<input type="text" class="date" id="play_end" value="${vo.play_end}">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">공연
+				시간</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="play_time"
+					value="${vo.play_time}">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">런타임</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="runtime"
+					value="${vo.runtime}">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">관람연령</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="play_age"
+					value="${vo.play_age}">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">출연진</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="casting"
+					value="${vo.casting}">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">제작진</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="crew" value="${vo.crew}">
+			</div>
+		</div>
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">기업</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="enterprise"
+					value="${vo.enterprise}">
+			</div>
+		</div>
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">가격</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="price"
+					value="${vo.price}">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">이미지
+				변경</label>
+			<div class="col-sm-10">
+				<input id="img" type="file" name="file"> <input id="poster"
+					type="hidden" value="${vo.poster}">
+			</div>
+		</div>
 
 
+		<div class="mb-3 row">
+			<label for="noticeContent" class="col-sm-2 col-form-label">내용</label>
+			<div class="col-sm-10">
+				<textarea class="form-control" id="content" rows="5">${vo.content}</textarea>
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">오픈런</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="openrun"
+					value="${vo.openrun}">
+			</div>
+		</div>
+
+
+
+		<button id="btnUpdate" class="btn btn-danger mb-3" id="b0">수정</button>
+
+
+
+	</div>
+
+	<script>
+		var selectElement = document.getElementById('genre_name');
+		// 		var inputElement = document.getElementById('genre_name');
+		var selectedValue = '${vo.genre_name}';
+
+		selectElement.value = selectedValue;
+	</script>
 </body>
 </html>

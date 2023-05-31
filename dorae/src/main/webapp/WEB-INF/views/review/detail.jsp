@@ -72,10 +72,14 @@ div.centered {
 
 	<!--본인 게시글만 수정, 삭제 가능 -->
 	<c:if test="${sessionScope.email eq review.email}">
-		<a href="update?id=${review.id}">
+		<form action="update" method="post">
+			<input type="hidden" name="id" value="${review.id}">
 			<button>후기 수정</button>
-		</a>
-		<button onclick="confirmDelete(${review.id})">후기 삭제</button>
+		</form>
+		<form action="delete" method="post" id="deleteForm">
+			<input type="hidden" name="id" value="${review.id}">
+			<button type = "button" onclick="confirmDelete()">후기 삭제</button>
+		</form>
 	</c:if>
 </div>
 <!--이미지 뷰 넘어가는 설정 코드 -->
@@ -120,27 +124,11 @@ div.centered {
     updateButtons(); // 초기 버튼 상태 업데이트
     
     // 게시물 삭제 처리 함수
-    function confirmDelete(id) {
-        var result = confirm("정말 삭제하시겠습니까?");
-        if (result) {
-            // 확인을 누른 경우 Ajax를 통해 삭제 요청 보내기
-            $.ajax({
-                url: "delete",
-                type: "POST",
-                data: {
-                    id: id
-                },
-                success: function() {
-                    alert("후기가 삭제되었습니다.");
-                    window.opener.location.reload(); // 부모 창 새로고침
-                    window.close(); // 팝업 창 닫기
-                },
-                error: function() {
-                    alert("삭제 중에 오류가 발생했습니다.");
-                }
-            });
-        } else {
-        	 window.history.back();
-        }
+    function confirmDelete() {
+  	var confirmation = confirm("정말 삭제하시겠습니까?");
+
+  	if (confirmation) {
+    	$('#deleteForm').submit();
     }
+	}
 </script>

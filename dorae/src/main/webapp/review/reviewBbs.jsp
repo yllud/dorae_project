@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../resources/css/reviewStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
@@ -46,10 +46,12 @@
 		// 후기 작성 버튼 클릭 함수
 		$('#writeReview').click(function() {
 			<%if (session.getAttribute("email") != null) {%>
-			location.href = 'http://localhost:8888/dorae/review/reviewInsert.jsp';
+			 var form = $('<form action="reviewInsert.jsp" method="post"></form>');
+			    $('body').append(form);
+			    form.submit();
 			<%} else {%>
 			alert('로그인 후 이용 가능합니다');
-			location.href = 'http://localhost:8888/dorae/login/login.jsp';
+			location.href = '../login/login.jsp';
 			<%}%>
 		});
 
@@ -86,14 +88,15 @@
 	}
 </script>
 <style>
-#reviewBbs{
-	margin-top: 175px;
+.body {
+margin-top: 175px;
+
 }
 </style>
 </head>
 <body>
 <header id="header" class="fixed-top"></header>
-<div id="reviewBbs">
+<div class="body">
 	<button id="test">로그인(테스트)</button>
 	<button id="logout">로그아웃(테스트)</button>
 	<br>

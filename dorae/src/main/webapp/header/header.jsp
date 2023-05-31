@@ -39,7 +39,15 @@
 	<h4 style="margin:10px; margin-top:0; text-align: right">
 	<!-- 마이페이지 클릭 시 경로 수정필요!! -->
 	<% if (session.getAttribute("email") != null) { %>
-    	<%=session.getAttribute("nickname") %>님 <a id="loginBtn" href="../mypage/main.jsp">마이페이지</a> | <a id="logout" href='http://localhost:8888/dorae/login/logout.jsp'>로그아웃</a>
+		<% 
+    		String userType = (String) session.getAttribute("user_type");
+			if (userType != null && userType.equals("business")) { %>
+			<form action="../search/business" method="post" target="_blank">
+				<button>사업자 페이지로</button>
+			</form>
+		<% } %>
+    	<%=session.getAttribute("nickname") %>님 <a id="loginBtn" href="../login/mypage">마이페이지</a> | <a id="logout" href='http://localhost:8888/dorae/login/logout.jsp'>로그아웃</a>
+    	
     <% } else { %>
     	<a href='http://localhost:8888/dorae/login/login.jsp'>로그인/회원가입</a>
     <% } %>
