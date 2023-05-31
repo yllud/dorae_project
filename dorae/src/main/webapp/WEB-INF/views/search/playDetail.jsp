@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../resources/css/playDetail.css">
 <link rel="stylesheet" href="/dorae/resources/css/bootstrap.min.css">
 
+
 <title>Insert title here</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
@@ -33,14 +34,18 @@
 		});
 	
 	})//$
+	
+	  function ratingToPercent(score) {
+	    const percent = +score * 20;
+	    return percent + 1.5;
+	  }
+	
+	function openPopup(x) {
+		window.open("../seat/one?play_id="+x, "_blank", "width=1050,height=670");
+	}
+
 </script>
-<style type="text/css">
-/* body { */
-/* 	display: flex; */
-/* 	/* 	width: 1000px; */
-/* 	/* 	height: 100px; */
-/* } */
-</style>
+
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
@@ -50,11 +55,14 @@
 		<div class="container">
 
 			<div class="left-items">
-				<img src="${vo.poster}" class="poster"> <a
-					href="../seat/one?play_id=${vo.play_id}"></a>
+
 				<c:if test="${a == 1}">
-					<button class="reserve">예매</button>
+					<img src="${vo.poster}" class="poster">
+					<%-- 					<a href="../seat/one?play_id=${vo.play_id}"> --%>
+					<button class="reserve" onclick="openPopup('${vo.play_id}')">예매</button>
+					<!-- 					</a> -->
 				</c:if>
+
 			</div>
 
 			<div class="right-items">
@@ -92,9 +100,11 @@
 					<div class="detail">기간 : ${vo.play_start} ~ ${vo.play_end}</div>
 					<div class="detail">시간 : ${vo.play_time}</div>
 					<div class="detail">등급 : ${vo.play_age}</div>
-					<div class="detail">오픈런: ${vo.openrun}</div>
+					<div class="detail">오픈런 : ${vo.openrun}</div>
 					<div class="detail">
-						내용: <br>${vo.content}</div>
+						내용:
+						<div class="content-scroll">${vo.content}</div>
+					</div>
 				</div>
 			</div>
 			<div class="right-items2">
@@ -102,11 +112,13 @@
 				<!-- 공연장 위치 -->
 				<div id="map" class="map"></div>
 				<p class="map-stage">${vo2.stage_name}</p>
-				<div class="map-detail">좌석: ${vo2.seat_cnt}석</div>
-				<div class="map-detail">주소: ${vo2.address}</div>
-				<div class="map-detail">번호: ${vo2.tel}</div>
-				<div class="map-detail">
-					<a href=${vo2.website}>${vo2.website}</a>
+				<div class="map-scroll">
+					<div class="map-detail">좌석: ${vo2.seat_cnt}석</div>
+					<div class="map-detail">주소: ${vo2.address}</div>
+					<div class="map-detail">번호: ${vo2.tel}</div>
+					<div class="map-detail">싸이트: 
+						<a href="${vo2.website}">${vo2.website}</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -127,21 +139,36 @@
 								<tr>
 									<!-- el 속성만 받아올 수 있는 표현식 -->
 									<td><div class="review-td">${bag.nickname}</div></td>
-									<td><div class="review-td">${bag.score}</div></td>
+									<td><div class="review-td">
+											<div class="star-ratings">
+												<div class="star-ratings-fill space-x-2 text-lg"
+													style="width: ${(bag.score * 10)}%">
+													<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+												</div>
+												<div class="star-ratings-base space-x-2 text-lg">
+													<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+												</div>
+											</div>${bag.score}</div></td>
 									<td><div class="review-td">${bag.text}</div></td>
 									<td><div class="review-td">${bag.upload_date2}</div></td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
+
+
 				</div>
 			</div>
 		</div>
 
 
+
+
+
+
+
+
 	</div>
-
-
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6c86d97abbc1c8a6096906791ce94735"></script>
