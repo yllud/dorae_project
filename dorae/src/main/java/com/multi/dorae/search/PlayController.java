@@ -88,13 +88,14 @@ public class PlayController {
 		
 		//30일 이내에 공연이 있으면 예매버튼 활성화
 		int a=0;
-		int comparison = vo.getPlay_end().compareTo(ReserveDate());
+		int comparison = vo.getPlay_start().compareTo(ReserveDate());
 		if (vo.getState().equals("공연완료")) {
 			a=0;
 		}
 		else if(comparison<=0) {
 			a=1;
 		}
+		System.out.println("예매버튼 여부"+a);
 
 		StageVO vo2 = dao2.stageDetail(stage_id);
 		String score= dao.ReviewScore(play_id);
@@ -105,7 +106,7 @@ public class PlayController {
 		model.addAttribute("vo2", vo2);
 		model.addAttribute("listReview", listReview);
 		model.addAttribute("a", a);
-		model.addAttribute("score", score);
+		model.addAttribute("score_sum", score);
 	}
 
 	// 오늘 날짜

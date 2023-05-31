@@ -55,55 +55,22 @@
 			<%}%>
 		});
 
-		// 임의로 세션값 설정->테스트용 -> 추후 삭제예정
-		$('#test').click(function() {
-			$.ajax({
-				url : "setSession",
-				success : function(response) {
-					alert("세션 값이 설정되었습니다.");
-					location.reload(); // 페이지 새로고침
-				},
-				error : function(xhr, status, error) {
-					alert('세션 설정 중 에러가 발생했습니다.');
-				}
-			});
-		});
-
-		// 임의로 세션값 설정->테스트용 -> 추후 삭제예정
-		$('#logout').click(function() {
-			$.ajax({
-				url : "clearSession",
-				success : function(response) {
-					alert("로그아웃되었습니다.");
-					location.reload(); // 페이지 새로고침
-				},
-				error : function(xhr, status, error) {
-					alert('로그아웃 중 에러가 발생했습니다.');
-				}
-			});
-		});
+		
 	});
 	function openPopup() {
 		window.open("tag.jsp", "_blank", "width=500,height=500");
 	}
 </script>
-<style>
-.body {
-margin-top: 175px;
 
-}
-</style>
 </head>
 <body>
 <header id="header" class="fixed-top"></header>
 <div class="body">
-	<button id="test">로그인(테스트)</button>
-	<button id="logout">로그아웃(테스트)</button>
-	<br>
+	<div id="searchDiv">
 	<button type="button" onclick="openPopup()">태그 선택</button>
 	<input type="text" id="selectedEventName" readonly>
 	<button id="tagSearch">검색</button>
-	<hr>
+	</div>
 	<div id="reviewList"></div>
 	<button id="writeReview">후기 작성</button>
 </div>

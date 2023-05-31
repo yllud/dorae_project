@@ -14,6 +14,7 @@ public class ReplyVO {
 	private Timestamp upload_date;
 	private String nickname;
 	private int score;
+	private String upload_date2;
 	
 	public long getR_number() {
 		return r_number;
@@ -83,12 +84,19 @@ public class ReplyVO {
 	public void setScore(int score) {
 		this.score = score;
 	}
+	public String getUpload_date2() {
+		return upload_date2;
+	}
+	public void setUpload_date2(String upload_date2) {
+		this.upload_date2 = upload_date2;
+	}
 	
 	@Override
 	public String toString() {
 		return "ReplyVO [r_number=" + r_number + ", text=" + text + ", play_id=" + play_id + ", play_name=" + play_name
 				+ ", seat_date=" + seat_date + ", seat_time=" + seat_time + ", seat_id=" + seat_id + ", email=" + email
-				+ ", upload_date=" + upload_date + ", nickname=" + nickname + ", score=" + score + "]";
+				+ ", upload_date=" + upload_date + ", nickname=" + nickname + ", score=" + score + ", upload_date2="
+				+ upload_date2 + "]";
 	}
 	
 }

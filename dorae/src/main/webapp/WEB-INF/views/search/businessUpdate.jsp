@@ -70,48 +70,67 @@ td {
 			} //onChange
 		}); //selector flatpickr
 
-		$('#btnUpdate').click(function() {
-			//기존의 것 삭제됨.
-			var form = $('#img')[0].files[0];
-			var formData = new FormData();
+		$('#btnUpdate').click(
+				function() {
+					//기존의 것 삭제됨.
 
-			formData.append('file', form);
-			formData.append('email', $('#email_id').text());
-			formData.append('play_name', $('#play_name').val());
-			formData.append('play_id', $('#play_id').val());
-			formData.append('genre_name', $('#genre_name').val());
-			formData.append('stage_name', $('#stage_name').text());
-			formData.append('stage_id', $('#stage_id').val());
-			formData.append('play_time', $('#play_time').val());
-			formData.append('play_start', $('#play_start').val());
-			formData.append('play_end', $('#play_end').val());
-			formData.append('runtime', $('#runtime').val());
-			formData.append('play_age', $('#play_age').val());
-			formData.append('casting', $('#casting').val());
-			formData.append('crew', $('#crew').val());
-			formData.append('enterprise', $('#enterprise').val());
-			formData.append('price', $('#price').val());
-			formData.append('poster', $('#poster').val());
-			formData.append('content', $('#content').val());
-			formData.append('openrun', $('#openrun').val());
+					var inputFields = document
+							.querySelectorAll('[data-required="true"]');
+					var isEmpty = false;
 
-			$.ajax({
-				type : "post",
-				url : "businessUpdate2",
-				enctype : 'multipart/form-data',
-				processData : false,
-				contentType : false,
-				cache : false,
-				data : formData,
-				success : function(x) {
-					alert('공연 수정 성공')
-					window.close()
-				},//success
-				error : function() {
-					alert('필수 항목을 입력해주세요')
-				}//error
-			})//ajax
-		})//b0
+					for (var i = 0; i < inputFields.length; i++) {
+						if (inputFields[i].value === '') {
+							isEmpty = true;
+							break;
+						}
+					}
+
+					if (isEmpty) {
+						alert('필수 입력 항목을 입력해주세요.');
+						event.preventDefault(); // 버튼 실행 취소
+						return; // 함수 종료
+					}
+
+					var form = $('#img')[0].files[0];
+					var formData = new FormData();
+
+					formData.append('file', form);
+					formData.append('email', $('#email_id').text());
+					formData.append('play_name', $('#play_name').val());
+					formData.append('play_id', $('#play_id').val());
+					formData.append('genre_name', $('#genre_name').val());
+					formData.append('stage_name', $('#stage_name').text());
+					formData.append('stage_id', $('#stage_id').val());
+					formData.append('play_time', $('#play_time').val());
+					formData.append('play_start', $('#play_start').val());
+					formData.append('play_end', $('#play_end').val());
+					formData.append('runtime', $('#runtime').val());
+					formData.append('play_age', $('#play_age').val());
+					formData.append('casting', $('#casting').val());
+					formData.append('crew', $('#crew').val());
+					formData.append('enterprise', $('#enterprise').val());
+					formData.append('price', $('#price').val());
+					formData.append('poster', $('#poster').val());
+					formData.append('content', $('#content').val());
+					formData.append('openrun', $('#openrun').val());
+
+					$.ajax({
+						type : "post",
+						url : "businessUpdate2",
+						enctype : 'multipart/form-data',
+						processData : false,
+						contentType : false,
+						cache : false,
+						data : formData,
+						success : function(x) {
+							alert('공연 수정 성공')
+							window.close()
+						},//success
+						error : function() {
+							alert('필수 항목을 입력해주세요')
+						}//error
+					})//ajax
+				})//b0
 
 	})
 
@@ -129,17 +148,18 @@ td {
 		<input id="play_id" type="hidden" value="${vo.play_id}"> <br>
 
 		<div class="mb-3 row">
-			<label for="noticeTitle" class="col-sm-2 col-form-label">제목</label>
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*제목</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="play_name"
-					value="${vo.play_name}">
+					value="${vo.play_name}" data-required="true">
 			</div>
 		</div>
 
 		<div class="mb-3 row">
-			<label for="noticeTitle" class="col-sm-2 col-form-label">장르</label>
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*장르</label>
 			<div class="col-sm-10">
-				<select id="genre_name" class="form-control" name="type">
+				<select id="genre_name" class="form-control" name="type"
+					data-required="true">
 					<option value="뮤지컬">뮤지컬</option>
 					<option value="연극">연극</option>
 					<option value="서커스/마술">서커스/마술</option>
@@ -153,9 +173,10 @@ td {
 			</div>
 		</div>
 
-		<input id="stage_id" type="hidden" value="${vo.stage_id}">
+		<input id="stage_id" type="hidden" value="${vo.stage_id}"
+			data-required="true">
 		<div class="mb-3 row">
-			<label for="noticeTitle" class="col-sm-2 col-form-label">공연장</label>
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*공연장</label>
 			<div class="col-sm-10">
 				<mark class="col-sm-2 col-form-label" id="stage_name">${vo.stage_name}</mark>
 				<button type="button" class="btn btn-primary mb-2"
@@ -165,28 +186,48 @@ td {
 
 		<!-- 달력 -->
 		<div class="mb-3 row">
-			<label for="noticeTitle" class="col-sm-2 col-form-label">공연
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*공연
 				시작</label>
 			<div class="col-sm-10">
 				<input type="text" class="date" id="play_start"
-					value="${vo.play_start}">
+					value="${vo.play_start}" data-required="true">
 			</div>
 		</div>
 
 		<div class="mb-3 row">
-			<label for="noticeTitle" class="col-sm-2 col-form-label">공연
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*공연
 				종료</label>
 			<div class="col-sm-10">
-				<input type="text" class="date" id="play_end" value="${vo.play_end}">
+				<input type="text" class="date" id="play_end" value="${vo.play_end}"
+					data-required="true">
 			</div>
 		</div>
 
 		<div class="mb-3 row">
-			<label for="noticeTitle" class="col-sm-2 col-form-label">공연
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*공연
 				시간</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="play_time"
-					value="${vo.play_time}">
+					value="${vo.play_time}" data-required="true">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*가격</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="price"
+					value="${vo.price}" data-required="true">
+			</div>
+		</div>
+
+		<div class="mb-3 row">
+			<label for="noticeTitle" class="col-sm-2 col-form-label">*오픈런</label>
+			<div class="col-sm-10">
+				<select id="openrun" class="form-control" name="type">
+					<option disabled selected hidden value="">오픈런을 선택하세요</option>
+					<option value="Y">Y</option>
+					<option value="N">N</option>
+				</select>
 			</div>
 		</div>
 
@@ -227,13 +268,6 @@ td {
 					value="${vo.enterprise}">
 			</div>
 		</div>
-		<div class="mb-3 row">
-			<label for="noticeTitle" class="col-sm-2 col-form-label">가격</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="price"
-					value="${vo.price}">
-			</div>
-		</div>
 
 		<div class="mb-3 row">
 			<label for="noticeTitle" class="col-sm-2 col-form-label">이미지
@@ -252,13 +286,7 @@ td {
 			</div>
 		</div>
 
-		<div class="mb-3 row">
-			<label for="noticeTitle" class="col-sm-2 col-form-label">오픈런</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="openrun"
-					value="${vo.openrun}">
-			</div>
-		</div>
+
 
 
 
@@ -269,11 +297,14 @@ td {
 	</div>
 
 	<script>
-		var selectElement = document.getElementById('genre_name');
-		// 		var inputElement = document.getElementById('genre_name');
-		var selectedValue = '${vo.genre_name}';
+		var selectElement1 = document.getElementById('genre_name');
+		var selectElement2 = document.getElementById('openrun');
 
-		selectElement.value = selectedValue;
+		var selectedValue1 = '${vo.genre_name}';
+		var selectedValue2 = '${vo.openrun}';
+
+		selectElement1.value = selectedValue1;
+		selectElement2.value = selectedValue2;
 	</script>
 </body>
 </html>
