@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../resources/css/playDetail.css">
+<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min.css">
 <title>Insert title here</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
@@ -44,8 +45,7 @@
 	<header id="header" class="fixed-top"></header>
 	<div class="body">
 
-		<h3>공연 상세</h3>
-		<hr color="red">
+
 		<div class="container">
 
 			<div class="left-items">
@@ -69,14 +69,13 @@
 				</div>
 				<div class="right-grade">
 					<p style="font-weight: 300; color: #888888;">평점</p>
-					<h3> ${score}</h3>
+					<h3>${score_avg}</h3>
 				</div>
 			</div>
-
-			<!--  </div> -->
-			<!-- 			<hr color="red"> -->
-
 		</div>
+
+
+
 		<div class="container2">
 			<div class="left-items2">
 				<div class="left-text2">
@@ -94,26 +93,6 @@
 					<div class="detail">등급 : ${vo.play_age}</div>
 					<div class="detail">${vo.state}</div>
 				</div>
-				<div class="review-items">
-					<div class="reivew-text">
-						<h3>Review</h3>
-						<c:if test="${empty listReview}">
-							<h5>리뷰가 아직 없습니다.</h5>
-						</c:if>
-					</div>
-					<div class="review-scroll">
-						<table>
-							<c:forEach items="${listReview}" var="bag">
-								<tr>
-									<!-- el 속성만 받아올 수 있는 표현식 -->
-									<td><div class="nick-name">${bag.nickname}</div></td>
-									<td><div class="review-content">${bag.text}</div></td>
-								</tr>
-							</c:forEach>
-
-						</table>
-					</div>
-				</div>
 			</div>
 			<div class="right-items2">
 				<!-- 				<h3>공연장 정보</h3> -->
@@ -129,7 +108,39 @@
 			</div>
 		</div>
 
+		<div class="container3">
+			<div class="review-items">
+				<div class="reivew-text">
+					<h3>Review</h3>
+					<c:if test="${empty listReview}">
+						<h5>리뷰가 아직 없습니다.</h5>
+					</c:if>
+				</div>
+				<div id="review-scroll" class="table-responsive">
+					<table class="table table-striped table-hover aling-middle">
+						<tbody>
+							<c:forEach items="${listReview}" var="bag">
+
+								<tr>
+									<!-- el 속성만 받아올 수 있는 표현식 -->
+									<td><div class="review-td">${bag.nickname}</div></td>
+									<td><div class="review-td">${bag.score}</div></td>
+									<td><div class="review-td">${bag.text}</div></td>
+									<td><div class="review-td">${bag.upload_date2}</div></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+
+
 	</div>
+
+
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6c86d97abbc1c8a6096906791ce94735"></script>
@@ -158,7 +169,5 @@
 		// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 		// marker.setMap(null);
 	</script>
-
-
 </body>
 </html>
