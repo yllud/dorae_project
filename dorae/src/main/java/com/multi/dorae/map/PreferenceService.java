@@ -21,9 +21,9 @@ public class PreferenceService implements PreferenceServiceInterface{
 	}
 	
 	@Override
-	public List<PreferenceVO> mypreference(String email) {
-		List<PreferenceVO> list = dao.mypreference(email);
-		return list;
+	public PreferenceVO mypreference(String email) {
+		PreferenceVO vo = dao.mypreference(email);
+		return vo;
 	}
 	
 	@Override

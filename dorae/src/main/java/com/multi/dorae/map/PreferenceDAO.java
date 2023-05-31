@@ -21,9 +21,9 @@ public class PreferenceDAO implements PreferenceDAOInterface{
 	}
 	
 	@Override
-	public List<PreferenceVO> mypreference(String email) {
-		List<PreferenceVO> list = my.selectList("preference.my", email);
-		return list;
+	public PreferenceVO mypreference(String email) {
+		PreferenceVO vo = my.selectOne("preference.my", email);
+		return vo;
 	}
 
 	@Override

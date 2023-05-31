@@ -73,9 +73,10 @@
 			isLogin = true;
 			console.log("로그인 완료함!! >>>> " + userEmail);
 		//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
+			
 			$.ajax({
             type: 'GET',
-            url: '"/dorae/book/select_my',
+            url: "/dorae/book/select_my",
             data: { email: userEmail },
             dataType: 'json',
             async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
@@ -848,7 +849,7 @@
 				            	}
 		                        $.ajax({
 		                            type: 'GET',
-		                            url: '"/dorae/book/select_count',
+		                            url: '/dorae/book/select_count',
 		                            data: { play_id: delist1[j].play_id },
 		                            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
 		                            success: function(response) {
@@ -943,6 +944,19 @@
 				
 		var tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
 		tooltip.appendTo(map.getPanes().floatPane);
+		
+		$.ajax({
+		    url: "/dorae/map/select_recommendPlay",
+		    type: "GET",
+		    data: { email: userEmail },
+		    success: function(response) {
+		        // 서버에서 성공적으로 응답을 받았을 때 실행되는 함수입니다.
+		        $('#result').html(response); // 응답 데이터를 HTML로 설정합니다.
+		    },
+		    error: function() {
+		        alert("데이터를 불러오는 중에 오류가 발생했습니다.");
+		    }
+		});
 	});
 </script>
 <link rel="stylesheet" href="../resources/css/sidemenu.css" />
@@ -1021,23 +1035,5 @@
 	</table>
 	</div>
 	<div id="test"></div>
-<script>
-	$(document).ready(function() {
-		$.ajax({
-	        url: "/dorae/map/select_recommendPlay",
-	        data : {
-				email: '<%= session.getAttribute("email")%>'
-			},
-	        success: function(data) {
-	          $("#test").html(data);
-	        },
-	        error: function() {
-	          alert("데이터를 불러오는 중에 오류가 발생했습니다.");
-	        }
-	      });//ajax 
-	});
-	
-	
-</script>
 </body>
 </html>

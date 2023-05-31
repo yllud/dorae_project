@@ -9,7 +9,7 @@ public interface PreferenceDAOInterface {
 	
 	int insert(PreferenceVO bag);
 	
-	List<PreferenceVO> mypreference(String email);
+	PreferenceVO mypreference(String email);
 	
 	List<PlayVO> getRecommendedPlays(PreferenceVO bag);
 }

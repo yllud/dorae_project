@@ -7,6 +7,12 @@
 span.selected-label {
 	font-size: 12pt;
 }
+#check-container{
+	 align-items: center;
+	 margin-top: 175px;
+ 	 padding: 80px;
+ 	 padding-bottom: 0;
+}
 </style>
 <head>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -25,6 +31,8 @@ var selectedOrders = {
 }; // 체크된 항목의 순서를 저장하는 배열
 
 	$(function() {
+		$("#header").load("../header/header.jsp");
+		
 		$('#submit').click(function() {
 			console.log("Button clicked");
 			var selectedGenre = selectedOrders.genre.map(function(checkbox) {
@@ -210,99 +218,107 @@ var selectedOrders = {
 </script>
 <link rel="stylesheet" href="../resources/css/recommend.css" />
 <body>
-	<div class="search_tit">
-		<strong> 선호하는 장르 선택</strong> 선택한 장르에 따라 공연을 추천해드려요
-	</div>
-	<table class="frame">
-		<tr>
-			<td><input type="checkbox" name="genre" id="genre1" value="뮤지컬"
-				onclick="limitCheckboxSelection(this)"> 뮤지컬 <span
-				id="genre_selected_genre1" class="selected-label"></span></td>
-			<td><input type="checkbox" name="genre" id="genre2" value="연극"
-				onclick="limitCheckboxSelection(this)"> 연극 <span
-				id="genre_selected_genre2" class="selected-label"></span></td>
-			<td><input type="checkbox" name="genre" id="genre3"
-				value="서커스/마술" onclick="limitCheckboxSelection(this)">
-				서커스/마술 <span id="genre_selected_genre3" class="selected-label"></span></td>
-			<td><input type="checkbox" name="genre" id="genre4" value="클래식"
-				onclick="limitCheckboxSelection(this)"> 서양음악(클래식) <span
-				id="genre_selected_genre4" class="selected-label"></span></td>
-			<td><input type="checkbox" name="genre" id="genre5" value="국악"
-				onclick="limitCheckboxSelection(this)"> 한국음악(국악) <span
-				id="genre_selected_genre5" class="selected-label"></span></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" name="genre" id="genre6" value="대중음악"
-				onclick="limitCheckboxSelection(this)"> 대중음악 <span
-				id="genre_selected_genre6" class="selected-label"></span></td>
-			<td><input type="checkbox" name="genre" id="genre7" value="복합"
-				onclick="limitCheckboxSelection(this)"> 복합 <span
-				id="genre_selected_genre7" class="selected-label"></span></td>
-			<td><input type="checkbox" name="genre" id="genre8" value="무용"
-				onclick="limitCheckboxSelection(this)"> 무용 <span
-				id="genre_selected_genre8" class="selected-label"></span></td>
-			<td><input type="checkbox" name="genre" id="genre9" value="대중무용"
-				onclick="limitCheckboxSelection(this)"> 대중무용 <span
-				id="genre_selected_genre9" class="selected-label"></span></td>
-		</tr>
-	</table>
-
-	<br>
-	<br>
-
-	<div class="search_tit">
-		<strong> 원하는 지역 선택</strong> 선택한 지역에 따라 공연을 추천해드려요
-	</div>
-	<table class="frame">
-		<tr>
-			<td><input type="checkbox" name="area" id="area1" value="서울"
-				onclick="limitCheckboxSelection(this)"> 서울 <span
-				id="area_selected_area1" class="selected-label"></span></td>
-			<td><input type="checkbox" name="area" id="area2" value="경기도"
-				onclick="limitCheckboxSelection(this)"> 경기도 <span
-				id="area_selected_area2" class="selected-label"></span></td>
-			<td><input type="checkbox" name="area" id="area3" value="부산"
-				onclick="limitCheckboxSelection(this)"> 부산 <span
-				id="area_selected_area3" class="selected-label"></span></td>
-			<td><input type="checkbox" name="area" id="area4" value="인천"
-				onclick="limitCheckboxSelection(this)"> 인천 <span
-				id="area_selected_area4" class="selected-label"></span></td>
-			<td><input type="checkbox" name="area" id="area5" value="대구"
-				onclick="limitCheckboxSelection(this)"> 대구 <span
-				id="area_selected_area5" class="selected-label"></span></td>
-			<td><input type="checkbox" name="area" id="area6" value="광주"
-				onclick="limitCheckboxSelection(this)"> 광주 <span
-				id="area_selected_area6" class="selected-label"></span></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" name="area" id="area7" value="대전"
-				onclick="limitCheckboxSelection(this)"> 대전 <span
-				id="area_selected_area7" class="selected-label"></span></td>
-			<td><input type="checkbox" name="area" id="area8" value="울산"
-				onclick="limitCheckboxSelection(this)"> 울산 <span
-				id="area_selected_area8" class="selected-label"></span></td>
-			<td><input type="checkbox" name="area" id="area9" value="충청도"
-				onclick="limitCheckboxSelection(this)"> 충청도 <span
-				id="area_selected_area9" class="selected-label"></span></td>
-			<td><input type="checkbox" name="area" id="area10" value="경상도"
-				onclick="limitCheckboxSelection(this)"> 경상도 <span
-				id="area_selected_area10" class="selected-label"></span></td>
-			<td><input type="checkbox" name="area" id="area11" value="전라도"
-				onclick="limitCheckboxSelection(this)"> 전라도 <span
-				id="area_selected_area11" class="selected-label"></span></td>
-			<td><input type="checkbox" name="area" id="area12" value="제주도"
-				onclick="limitCheckboxSelection(this)"> 제주도 <span
-				id="area_selected_area12" class="selected-label"></span></td>
-		</tr>
-	</table>
-	<br>
-	<br>
-
-	<div class="wrap_btn_zone">
-		<button class="btn cancle">
-			<a href="">취소</a>
-		</button>
-		<button id="submit" class="btn submit">설정완료</button>
+	<header id="header"></header>
+	<div id="check-container">
+	<table><tr>
+		<td>
+			<div class="search_tit">
+				<strong> 선호하는 장르 선택</strong> 선택한 장르에 따라 공연을 추천해드려요
+			</div>
+			<table class="frame">
+				<tr>
+					<td><input type="checkbox" name="genre" id="genre1" value="뮤지컬"
+						onclick="limitCheckboxSelection(this)"> 뮤지컬 <span
+						id="genre_selected_genre1" class="selected-label"></span></td>
+					<td><input type="checkbox" name="genre" id="genre2" value="연극"
+						onclick="limitCheckboxSelection(this)"> 연극 <span
+						id="genre_selected_genre2" class="selected-label"></span></td>
+					<td><input type="checkbox" name="genre" id="genre3"
+						value="서커스/마술" onclick="limitCheckboxSelection(this)">
+						서커스/마술 <span id="genre_selected_genre3" class="selected-label"></span></td>
+					<td><input type="checkbox" name="genre" id="genre4" value="클래식"
+						onclick="limitCheckboxSelection(this)"> 서양음악(클래식) <span
+						id="genre_selected_genre4" class="selected-label"></span></td>
+					<td><input type="checkbox" name="genre" id="genre5" value="국악"
+						onclick="limitCheckboxSelection(this)"> 한국음악(국악) <span
+						id="genre_selected_genre5" class="selected-label"></span></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="genre" id="genre6" value="대중음악"
+						onclick="limitCheckboxSelection(this)"> 대중음악 <span
+						id="genre_selected_genre6" class="selected-label"></span></td>
+					<td><input type="checkbox" name="genre" id="genre7" value="복합"
+						onclick="limitCheckboxSelection(this)"> 복합 <span
+						id="genre_selected_genre7" class="selected-label"></span></td>
+					<td><input type="checkbox" name="genre" id="genre8" value="무용"
+						onclick="limitCheckboxSelection(this)"> 무용 <span
+						id="genre_selected_genre8" class="selected-label"></span></td>
+					<td><input type="checkbox" name="genre" id="genre9" value="대중무용"
+						onclick="limitCheckboxSelection(this)"> 대중무용 <span
+						id="genre_selected_genre9" class="selected-label"></span></td>
+				</tr>
+			</table>
+		
+			<br>
+			<br>
+		
+			<div class="search_tit">
+				<strong> 원하는 지역 선택</strong> 선택한 지역에 따라 공연을 추천해드려요
+			</div>
+			<table class="frame">
+				<tr>
+					<td><input type="checkbox" name="area" id="area1" value="서울"
+						onclick="limitCheckboxSelection(this)"> 서울 <span
+						id="area_selected_area1" class="selected-label"></span></td>
+					<td><input type="checkbox" name="area" id="area2" value="경기도"
+						onclick="limitCheckboxSelection(this)"> 경기도 <span
+						id="area_selected_area2" class="selected-label"></span></td>
+					<td><input type="checkbox" name="area" id="area3" value="부산"
+						onclick="limitCheckboxSelection(this)"> 부산 <span
+						id="area_selected_area3" class="selected-label"></span></td>
+					<td><input type="checkbox" name="area" id="area4" value="인천"
+						onclick="limitCheckboxSelection(this)"> 인천 <span
+						id="area_selected_area4" class="selected-label"></span></td>
+					<td><input type="checkbox" name="area" id="area5" value="대구"
+						onclick="limitCheckboxSelection(this)"> 대구 <span
+						id="area_selected_area5" class="selected-label"></span></td>
+					<td><input type="checkbox" name="area" id="area6" value="광주"
+						onclick="limitCheckboxSelection(this)"> 광주 <span
+						id="area_selected_area6" class="selected-label"></span></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="area" id="area7" value="대전"
+						onclick="limitCheckboxSelection(this)"> 대전 <span
+						id="area_selected_area7" class="selected-label"></span></td>
+					<td><input type="checkbox" name="area" id="area8" value="울산"
+						onclick="limitCheckboxSelection(this)"> 울산 <span
+						id="area_selected_area8" class="selected-label"></span></td>
+					<td><input type="checkbox" name="area" id="area9" value="충청도"
+						onclick="limitCheckboxSelection(this)"> 충청도 <span
+						id="area_selected_area9" class="selected-label"></span></td>
+					<td><input type="checkbox" name="area" id="area10" value="경상도"
+						onclick="limitCheckboxSelection(this)"> 경상도 <span
+						id="area_selected_area10" class="selected-label"></span></td>
+					<td><input type="checkbox" name="area" id="area11" value="전라도"
+						onclick="limitCheckboxSelection(this)"> 전라도 <span
+						id="area_selected_area11" class="selected-label"></span></td>
+					<td><input type="checkbox" name="area" id="area12" value="제주도"
+						onclick="limitCheckboxSelection(this)"> 제주도 <span
+						id="area_selected_area12" class="selected-label"></span></td>
+				</tr>
+			</table>
+			<br><br>
+			<div class="wrap_btn_zone">
+				<button class="btn cancle">취소</button>
+				<button id="submit" class="btn submit">설정완료</button>
+			</div>
+		</td>
+		<td style="width:90px;"></td>
+		<td>
+			테스트테스트
+		</td>
+	</tr></table>
+		
 	</div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.dorae.search.PlayVO;
@@ -35,14 +36,19 @@ public class PreferenceController {
 	
 	@RequestMapping("select_myPreference")
 	@ResponseBody
-	public List<PreferenceVO> mypreference(String email) {
-		List<PreferenceVO> list = service.mypreference(email);
+	public PreferenceVO mypreference(String email) {
+		PreferenceVO list = service.mypreference(email);
 		return list;
 	}	
 	
 	@RequestMapping("select_recommendPlay")
-	public String getRecommendedPlays(PreferenceVO bag, Model model) {
+	public String getRecommendedPlays(@RequestParam("email") String email, Model model) {
+		PreferenceVO bag = service.mypreference(email); //사용자의 맞춤설정 bag 가져오기
         List<PlayVO> recommendedPlays = service.getRecommendedPlays(bag);
+        
+        for (PlayVO playVO : recommendedPlays) {
+			System.out.println(playVO);
+		}
         // 필요한 추가 로직을 수행하거나 필터링을 적용할 수 있습니다.
         model.addAttribute("list", recommendedPlays);
         
