@@ -117,7 +117,7 @@ $(document).ready(function() {
 </form>
 <br>
 	<!-- <table border="1" width="150" heigth="30"> -->
-	<table heigth="50">
+	<table height="50">
 		<tr align="center">
 			<td width="70">닉네임</td>
 			<td width="150">${nickname}</td>
@@ -143,6 +143,9 @@ $(document).ready(function() {
   <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/reviewList.jsp" data-target="#reviewList">다녀온 후기</a>
   </li>
   <li>
+  <a href="javascript:void(0);" class="btn-ajax" data-url="../book/select_my" data-target="#bookList">북마크</a>
+  </li>
+  <li>
   <a href="javascript:void(0);" class="btn-ajax" data-url="../help/contactList" data-target="#qnaList">문의내역</a>
   </li>
   </ul>
@@ -155,6 +158,8 @@ $(document).ready(function() {
     <div id="replyList"></div>
     <!-- 작성글을 표시할 영역 -->
     <div id="reviewList"></div>
+    <!-- 북마크를 표시할 영역 -->
+    <div id="bookList"></div>
     <!-- 문의내역을 표시할 영역 -->
     <div id="qnaList"></div>
     
