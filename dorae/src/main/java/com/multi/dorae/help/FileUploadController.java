@@ -25,12 +25,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
-import com.amazonaws.services.s3.model.CanonicalGrantee;
 import com.amazonaws.services.s3.model.GroupGrantee;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.Permission;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
 
 @Controller
 public class FileUploadController {
@@ -82,7 +79,6 @@ public class FileUploadController {
 				ObjectMetadata objectMetadata = new ObjectMetadata();
 				objectMetadata.setContentType("application/x-directory");
 				objectMetadata.setContentLength(Long.parseLong(request.getHeader("file-size")));
-				objectMetadata.setHeader("ACL", "public-read");
 
 				// upload local file
 				try {
