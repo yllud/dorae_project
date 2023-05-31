@@ -125,7 +125,7 @@ button {
 	margin-top: 30px;
 	margin-left: auto;
 	margin-right: auto;
-/* 	background: blue; */
+	/* 	background: blue; */
 	/*   	-webkit-background-clip: text; */
 	/*   	-webkit-text-fill-color: transparent; */
 	border-radius: 20px;
@@ -135,7 +135,7 @@ button {
 	width: 650px;
 	height: 500px;
 	margin-top: 10px;
-	margin-left: 200px;
+	margin-left: 170px;
 	background: LavenderBlush;
 	border-radius: 20px;
 }
@@ -143,7 +143,7 @@ button {
 .left-text2 {
 	width: 650px;
 	height: 450px;
-/* 	background: cyan; */
+	/* 	background: cyan; */
 	/* 	border: 1px solid black; */
 	border-radius: 10px;
 }
@@ -199,32 +199,26 @@ button {
 	margin-top: 5x;
 	margin-left: auto;
 	margin-right: auto;
-/* 	background: blue; */
-	/*   	-webkit-background-clip: text; */
-	/*   	-webkit-text-fill-color: transparent; */
 	border-radius: 20px;
 }
 
 .review-items {
 	width: 1150px;
 	height: 400px;
-	margin-left: 200px;
+	margin-left: 170px;
 	margin-top: 20px;
-	/* 		text-align: center; */
-	/* 	border: 2px solid MediumSpringGreen; */
 	border-radius: 10px;
 	background: LavenderBlush;
 }
 
-
 .review-text {
 	width: 500px;
-/* 	height: 100px; */
+	/* 	height: 100px; */
 	/* 	margin-left: 30px; */
 	margin-top: 20px;
 	/* 	height: 200px; */
 	/* 	overflow: scroll; */
-/* 	background: cyan; */
+	/* 	background: cyan; */
 	border-radius: 10px;
 }
 

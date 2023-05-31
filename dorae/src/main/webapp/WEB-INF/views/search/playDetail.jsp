@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../resources/css/playDetail.css">
 <link rel="stylesheet" href="/dorae/resources/css/bootstrap.min.css">
+
 <title>Insert title here</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
@@ -69,7 +70,7 @@
 				</div>
 				<div class="right-grade">
 					<p style="font-weight: 300; color: #888888;">평점</p>
-					<h3>${score_avg}</h3>
+					<h3>${score_sum}</h3>
 				</div>
 			</div>
 		</div>
@@ -81,8 +82,8 @@
 				<div class="left-text2">
 					<input id="play_id" type="hidden" value="${vo.play_id}"> <input
 						id="stage_name" type="hidden" value="${vo.stage_name}">
-					<h3 class="detail1">공연 상세</h3>
-					<div class="detail">제목 : ${vo.play_name}</div>
+					<h1 class="detail1">${vo.play_name}</h1>
+					<h4 class="detail">#${vo.state}</h4>
 					<div class="detail">장르 : ${vo.genre_name} / ${vo.runtime}</div>
 					<div class="detail">출연 : ${vo.casting}</div>
 					<div class="detail">장소 : ${vo2.stage_name}</div>
@@ -91,7 +92,9 @@
 					<div class="detail">기간 : ${vo.play_start} ~ ${vo.play_end}</div>
 					<div class="detail">시간 : ${vo.play_time}</div>
 					<div class="detail">등급 : ${vo.play_age}</div>
-					<div class="detail">${vo.state}</div>
+					<div class="detail">오픈런: ${vo.openrun}</div>
+					<div class="detail">
+						내용: <br>${vo.content}</div>
 				</div>
 			</div>
 			<div class="right-items2">
@@ -126,7 +129,7 @@
 									<td><div class="review-td">${bag.nickname}</div></td>
 									<td><div class="review-td">${bag.score}</div></td>
 									<td><div class="review-td">${bag.text}</div></td>
-<%-- 									<td><div class="review-td">${bag.upload_date2}</div></td> --%>
+									<td><div class="review-td">${bag.upload_date2}</div></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -134,8 +137,6 @@
 				</div>
 			</div>
 		</div>
-
-
 
 
 	</div>
