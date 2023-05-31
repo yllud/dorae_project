@@ -1,4 +1,4 @@
-package com.multi.dorae.book;
+package com.multi.dorae.map;
 
 public class PreferenceVO {
 	String email;
@@ -54,7 +54,7 @@ public class PreferenceVO {
 	
 	@Override
 	public String toString() {
-		return "PreferVO [email=" + email + ", genre1=" + genre1 + ", genre2=" + genre2 + ", genre3=" + genre3
+		return "PreferenceVO [email=" + email + ", genre1=" + genre1 + ", genre2=" + genre2 + ", genre3=" + genre3
 				+ ", area1=" + area1 + ", area2=" + area2 + ", area3=" + area3 + "]";
 	}
 }

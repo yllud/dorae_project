@@ -73,9 +73,10 @@
 			isLogin = true;
 			console.log("로그인 완료함!! >>>> " + userEmail);
 		//세션이 없다면 북마크 none 있다면 북마크 리스트에 있는지 확인한 후
+			
 			$.ajax({
             type: 'GET',
-            url: '${path}/select_my',
+            url: "/dorae/book/select_my",
             data: { email: userEmail },
             dataType: 'json',
             async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
@@ -134,7 +135,7 @@
 		        if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
 		            // 북마크 추가
 		            $.ajax({
-		                url: "${path}/insert_book",
+		                url: "/dorae/book/insert_book",
 		                method: "POST",
 		                data: { 
 		                    play_id: playId,
@@ -151,7 +152,7 @@
 		        } else {
 		            // 북마크 삭제
 		            $.ajax({
-		                url: "${path}/delete_book",
+		                url: "/dorae/book/delete_book",
 		                method: "POST",
 		                data: { 
 		                    play_id: playId,
@@ -205,7 +206,7 @@
 				            break;
 				        }
 					    table += '<table id="infotable"><tr><td><img id="poster" src="' + delist1[i].poster + '"></td></tr>';
-					    table += "<tr><td><a href='${path}/search/playDetail?play_id=" + delist1[i].play_id + "' data-play-id='" + delist1[i].play_id + "'><b>" + delist1[i].play_name + '</b></a></td></tr>';
+					    table += "<tr><td><a href='/dorae/search/playDetail?play_id=" + delist1[i].play_id + "' data-play-id='" + delist1[i].play_id + "'><b>" + delist1[i].play_name + '</b></a></td></tr>';
 					    table += '<tr><td>' + delist1[i].play_start + " ~ " + delist1[i].play_end + '</td></tr>';
 					    for (var j = 0; j < delist2.length; j++) {
 					        if (delist1[i].stage_id == delist2[j].stage_id) {
@@ -232,7 +233,7 @@
 					    }
 	                    $.ajax({
 	                        type: 'GET',
-	                        url: '${path}/select_count',
+	                        url: '/dorae/book/select_count',
 	                        data: { play_id: delist1[i].play_id },
 	                        async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
 	                        success: function(response) {
@@ -309,7 +310,7 @@
 		      	for (var i = 0; i < selectedPerformances.length; i++) {
 		        	var playinfo = selectedPerformances[i].playinfo;
 	        		table += '<table id="infotable"><tr><td><img id="poster" src="' + playinfo.poster + '"></td></tr>';
-	        		table += "<tr><td><a href='${path}/search/playDetail?play_id=" + playinfo.play_id + "' data-play-id='" + playinfo.play_id + "'><b>" + playinfo.play_name + '</b></a></td></tr>';
+	        		table += "<tr><td><a href='/dorae/search/playDetail?play_id=" + playinfo.play_id + "' data-play-id='" + playinfo.play_id + "'><b>" + playinfo.play_name + '</b></a></td></tr>';
 			        table += '<tr><td>' + playinfo.play_start + ' ~ ' + playinfo.play_end + '</td></tr>';
 			        table += '<tr><td>' + stgname + '</td></tr>';
 			        table += "<tr><td style='text-align:right'>";
@@ -331,7 +332,7 @@
 			        }
                     $.ajax({
                         type: 'GET',
-                        url: '${path}/select_count',
+                        url: '/dorae/book/select_count',
                         data: { play_id: playinfo.play_id },
                         async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
                         success: function(response) {
@@ -827,7 +828,7 @@
 			            for(var j=0; j<delist1.length; j++){
 			            	if(stageinfo.stage_id == delist1[j].stage_id){
 			            		table += '<table id="infotable"><tr><td><img id="poster" src="' + delist1[j].poster + '"></td></tr>';
-			            		table += "<tr><td><a href='${path}/search/playDetail?play_id=" + delist1[j].play_id + "' data-play-id='" + delist1[j].play_id + "'><b>" + delist1[j].play_name + '</b></a></td></tr>';
+			            		table += "<tr><td><a href='/dorae/search/playDetail?play_id=" + delist1[j].play_id + "' data-play-id='" + delist1[j].play_id + "'><b>" + delist1[j].play_name + '</b></a></td></tr>';
 						        table += '<tr><td>' + delist1[j].play_start + ' ~ ' + delist1[j].play_end + '</td></tr>';
 					            table += '<tr><td>' + stageinfo.stage_name + '</td></tr>';
 					            table += "<tr><td style='text-align:right'>"
@@ -848,7 +849,7 @@
 				            	}
 		                        $.ajax({
 		                            type: 'GET',
-		                            url: '${path}/select_count',
+		                            url: '/dorae/book/select_count',
 		                            data: { play_id: delist1[j].play_id },
 		                            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
 		                            success: function(response) {
@@ -943,6 +944,19 @@
 				
 		var tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
 		tooltip.appendTo(map.getPanes().floatPane);
+		
+		$.ajax({
+		    url: "/dorae/map/select_recommendPlay",
+		    type: "GET",
+		    data: { email: userEmail },
+		    success: function(response) {
+		        // 서버에서 성공적으로 응답을 받았을 때 실행되는 함수입니다.
+		        $('#result').html(response); // 응답 데이터를 HTML로 설정합니다.
+		    },
+		    error: function() {
+		        alert("데이터를 불러오는 중에 오류가 발생했습니다.");
+		    }
+		});
 	});
 </script>
 <link rel="stylesheet" href="../resources/css/sidemenu.css" />
@@ -1020,23 +1034,6 @@
 		</tr>
 	</table>
 	</div>
-<script>
-	$(document).ready(function() {
-		/* $.ajax({
-	        url: "../review/all",
-	        data : {
-				page : 1
-			},
-	        success: function(data) {
-	          $("#review").html(data);
-	        },
-	        error: function() {
-	          alert("데이터를 불러오는 중에 오류가 발생했습니다.");
-	        }
-	      });//ajax */
-	});
-	
-	
-</script>
+	<div id="test"></div>
 </body>
 </html>
