@@ -123,11 +123,11 @@ public class BusinessController {
 			String savedName = play_id + savedName0;
 
 			System.out.println(savedName);
-			String uploadPath = request.getSession().getServletContext().getRealPath("resources/img");
+			String uploadPath = request.getSession().getServletContext().getRealPath("resources/upload-play");
 			File target = new File(uploadPath + "/" + savedName);
 			file.transferTo(target);
 			System.out.println("img넣기 전>> " + vo);
-			vo.setPoster("../resources/img/" + savedName);
+			vo.setPoster("../resources/upload-play/" + savedName);
 			System.out.println("img넣은 후>> " + vo);
 		}
 		// 공연 db에 추가
@@ -177,11 +177,11 @@ public class BusinessController {
 			String savedName = vo.getPlay_id() + savedName0;
 
 			System.out.println(savedName);
-			String uploadPath = request.getSession().getServletContext().getRealPath("resources/img");
+			String uploadPath = request.getSession().getServletContext().getRealPath("resources/upload-play");
 			File target = new File(uploadPath + "/" + savedName);
 			file.transferTo(target);
 			System.out.println("img넣기 전>> " + vo);
-			vo.setPoster("../resources/img/" + savedName);
+			vo.setPoster("../resources/upload-play/" + savedName);
 			System.out.println("img넣은 후>> " + vo);
 		}
 		// 공연 db에 추가
