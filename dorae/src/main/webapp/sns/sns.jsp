@@ -7,13 +7,13 @@
 <head>
 
 <meta charset="UTF-8">
-<title>SNS 후기 검색 결과</title>
-<link rel="stylesheet" href="../resources/css/sns.css">
+<title>SNS 후기</title>
+<link rel="stylesheet" href="/dorae/resources/css/sns.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#header").load("../header/header.jsp");
+		$("#header").load("/dorae/header/header.jsp");
 		
         // 추천 검색어로 검색해서 db 저장 기능 -> 현재는 버튼.
         // 테스트용으로 남겨두고 추후에 삭제

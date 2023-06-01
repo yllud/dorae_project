@@ -49,6 +49,10 @@ ul {
 li {
   display: inline-block;
 }
+
+h3 #p_setting{
+ font-size: 17px;
+}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -56,7 +60,7 @@ li {
 <body>
   <div class="recommendList">
     <ul>
-    <h3>맞춤 추천 공연</h3>
+    <h3>맞춤 추천 공연 <div id="p_setting">지역 : ${bag.area1} ${bag.area2} ${bag.area3}<br>장르 : ${bag.genre1} ${bag.genre2} ${bag.genre3}</div></h3> 
       <c:forEach items="${list}" var="play">
         <li class="item_tb">
           <img src="${play.poster}" alt="${play.play_name}">

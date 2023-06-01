@@ -35,11 +35,17 @@
 		where email = #{email}
 	</update>
 
-	<update id="insertProfileImage" parameterType="naverVO">
+	<update id="profileUpdate" parameterType="map">
 		UPDATE member
-		SET profile_image = #{profile_image}
+		SET upload_image = #{upload_image}
 		WHERE email = #{email}
 	</update>
+	
+	<insert id="profileInsert" parameterType="naverVO">
+	INSERT INTO member (upload_image)
+	VALUES (#{upload_image})
+	WHERE email = #{email}
+	</insert>
 	
 	<update id="changeUserType" parameterType="String">
 		update member set user_type='business'

@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이벤트/공지사항 상세페이지</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#header").load("../header/header.jsp");
+		$("#header").load("/dorae/header/header.jsp");
 	})
 </script>
 <style>
@@ -40,6 +40,6 @@
 			</tr>
 		</table>
 	</div>
-	<a href="../noticeBbs/noticeBbs.jsp"><button>전체목록으로</button></a>
+	<a href="/dorae/noticeBbs/noticeBbs.jsp"><button>전체목록으로</button></a>
 </body>
 </html>

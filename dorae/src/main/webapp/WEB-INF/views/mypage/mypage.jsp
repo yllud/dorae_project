@@ -84,7 +84,13 @@ $(document).ready(function() {
       });//ajax
     });//on
   });//ready
+</script>
 
+<!-- 프로필 이미지 수정 팝업 -->
+<script>
+function openPopup(url) {
+    window.open(url, '_blank', 'width=800, height=600, top=100, left=100, resizable=yes');
+}
 </script>
 </head>
 <body>
@@ -98,23 +104,29 @@ $(document).ready(function() {
 	<div class="left">
 	<!-- 프로필 이미지 -->
 	<c:choose>
-	<c:when test="${not empty vo2.profile_image}">
-						<div class="imageContainer">
-							<c:forEach var="image" items="${vo2.profile_image}">
-								<img src="${vo2.profile_image}" width=180 height=180 alt="프로필 이미지" />
-								<%-- <img src="resources/upload/${savedName}" width=200 height=200 alt="프로필 이미지" /> --%>
-							</c:forEach>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="no-image">이미지가 없습니다.</div>
-					</c:otherwise>
-				</c:choose>
+  <c:when test="${not empty vo2.upload_image}">
+    <div class="imageContainer">
+      <img src="/dorae/resources/upload/${vo2.upload_image}" width="180" height="180" alt="프로필 이미지" />
+    </div>
+  </c:when>
+  <c:otherwise>
+    <c:choose>
+      <c:when test="${not empty vo2.profile_image}">
+        <div class="imageContainer">
+          <img src="${vo2.profile_image}" width="180" height="180" alt="프로필 이미지" />
+        </div>
+      </c:when>
+      <c:otherwise>
+        <div class="no-image">이미지가 없습니다.</div>
+      </c:otherwise>
+    </c:choose>
+  </c:otherwise>
+</c:choose>
 	<br>
-<form action="mypage/uploadProfileImage" method="post" enctype="multipart/form-data">
-  <input type="file" name="profileImage">
-  <input type="submit" value="프로필 사진 업로드">
-</form>
+	
+	<!-- 프로필 이미지 수정 / sessionScope로 email정보 가지고 팝업창 열기 -->
+<a href="javascript:void(0);" onclick="openPopup('/dorae/mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a>
+
 <br>
 	<!-- <table border="1" width="150" heigth="30"> -->
 	<table heigth="50">
@@ -136,6 +148,9 @@ $(document).ready(function() {
 	 <li>
     <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/ticketList.jsp" data-target="#ticketInfo">예매내역</a>
     </li>
+	<li>
+    <a href="javascript:void(0);" class="btn-ajax" data-url="/dorae/book/bookList" data-target="#bookInfo">북마크</a>
+	</li>
   <li>
   <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/replyList.jsp" data-target="#replyList">작성한 후기</a>
   </li>
@@ -151,6 +166,8 @@ $(document).ready(function() {
   <div class="right" id="contentContainer">
     <!-- 예매내역을 표시할 영역 -->
     <div id="ticketInfo"></div>
+    <!-- 북마크를 표시할 영역 -->
+    <div id="bookInfo"></div>
     <!-- 후기내역을 표시할 영역 -->
     <div id="replyList"></div>
     <!-- 작성글을 표시할 영역 -->

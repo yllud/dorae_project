@@ -2,6 +2,9 @@ package com.multi.dorae.login;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.multi.dorae.review.ReviewVO;
 
 @Controller
 public class NaverController {
@@ -97,6 +102,7 @@ public class NaverController {
 //	}
 
 
+	 // 마이페이지 버튼 누르면 마이페이지로 이동하는 컨트롤러
 	 @RequestMapping("login/mypage") //() 안에 마이페이지 주소 지정 localhost:8888/dorae/login/mypage가 주소
 	 public String mypage(Model model) { //누를 때 마다 model로 DB 정보 검색해서 불러와야 함
 		 NaverVO vo2 = dao.one((String)session.getAttribute("email"));
@@ -104,18 +110,33 @@ public class NaverController {
 		 return "mypage/mypage";
 	}
 	 
-	 @RequestMapping("mypage/uploadProfileImage")
-	 public void uploadProfileImage(NaverVO naverVO, MultipartFile file, Model model) throws Exception {
-		 String savedName = file.getOriginalFilename();
-		 String uploadPath = request.getSession().getServletContext().getRealPath("resources/upload");
-		 File target = new File(uploadPath + "/" + savedName);
-		 file.transferTo(target);
-		 
-		 model.addAttribute("savedName", savedName);
-		 System.out.println("img 넣기 전 >> " + naverVO);
-		 naverVO.setProfile_image(savedName);
-		 System.out.println("img 넣은 후 >> " + naverVO);
-		 
-		 dao.insertProfileImage(naverVO);
-	}
+	 
+	 @RequestMapping("login/uploadProfile")
+	 public String uploadProfile(NaverVO naverVO, @RequestParam("file") MultipartFile file, Model model) {
+		 try {
+		        if (!file.isEmpty()) {
+		            String savedName = file.getOriginalFilename();
+		            String uploadPath = request.getSession().getServletContext().getRealPath("resources/upload");
+		            File target = new File(uploadPath + "/" + savedName);
+		            file.transferTo(target);
+		            String email = (String) session.getAttribute("email");
+		            
+		            // 파일의 저장 경로와 파일명을 조합한 링크를 생성하여 저장
+		            String fileLink = request.getContextPath() + "/resources/upload/" + savedName;
+		            System.out.println(fileLink);
+		            naverVO.setUpload_image(fileLink);
+		            
+		            dao.ProfileUpdate(email, savedName);
+		            model.addAttribute("message", "프로필 사진이 업로드되었습니다.");
+		        } else {
+		            model.addAttribute("message", "업로드할 파일이 없습니다.");
+		        }
+		    } catch (IOException e) {
+		        model.addAttribute("message", "프로필 사진 업로드 중 오류가 발생했습니다.");
+		        e.printStackTrace();
+		    }
+		    
+		    // 프로필 페이지로 리다이렉트합니다.
+		    return "/mypage/uploadProfile";
+		}
 }

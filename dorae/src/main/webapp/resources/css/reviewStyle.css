@@ -121,6 +121,7 @@ table, th, td {
 	align-items: center;
 	justify-content: center;
 	display: flex;
+	cursor: pointer;
 }
 
 .pages {
@@ -132,11 +133,13 @@ table, th, td {
 #previous {
 	border: 0px;
 	color: blue;
+	cursor: pointer;
 }
 
 #next {
 	border: 0px;
 	color: blue;
+	cursor: pointer;
 }
 
 #writeReview {
@@ -222,3 +225,69 @@ table, th, td {
 	cursor: pointer;
 	margin-left: 10px;
 }
+
+/*태그 검색 스타일  */
+
+#tagBody{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#tagTotal{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#searchBtn, #filterBtn, #return {
+	background-color: #ff9900;
+	color: #fff;
+	padding: 8px 12px;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+
+.leftRight {
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.left {
+	order: 1;
+}
+
+
+.right {
+	order: 3;
+	margin-right: 10px;
+}
+
+
+#tagTotal input[type="text"] {
+	flex: 1;
+	padding: 8px;
+	border: 2px solid #ff9900;
+	border-radius: 3px;
+	background-color: #fff;
+	width: 300px;
+}
+
+.centered {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.tagResult {
+	width: 650px; /* 원하는 너비로 조정 */
+	overflow: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+}
+

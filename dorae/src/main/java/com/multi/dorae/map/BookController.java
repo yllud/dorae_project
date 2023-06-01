@@ -25,7 +25,7 @@ public class BookController {
 	@Autowired
 	BookService service;
 
-//	@Autowired
+	@Autowired
 	PlayDAO dao;
 
 	@RequestMapping("insert_book")
@@ -82,8 +82,12 @@ public class BookController {
 
 		for (BookVO book : list) {
 			list2.add(dao.playDetail(book.play_id));
+			//System.out.println("테스트 출력" + book.play_id + " >>> " + dao.playDetail(book.play_id));
+			//System.out.println(book.play_id);
 		}
-
+//		for (PlayVO play : list2) {
+//			System.out.println("테스트 출력2 >>> " + play);
+//		}
 		model.addAttribute("list", list);
 		model.addAttribute("list2", list2);
 
