@@ -17,7 +17,7 @@ table, th, td {
 .review-img {
 	width: 300px;
 	height: 300px;
-	object-fit: cover;
+	object-fit: contain;
 	border-radius: 10px;
 }
 
@@ -174,8 +174,8 @@ table, th, td {
 }
 
 .imageContainer img {
-	max-width: 100%;
-	max-height: 400px;
+	max-width: 300px;
+	max-height: 300px;
 	object-fit: contain;
 	margin: 0 5px;
 	border-radius: 10px;
@@ -188,20 +188,29 @@ table, th, td {
 	color: #fff;
 }
 
-div.centered {
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	position: fixed;
+.centered {
+	justify-content: center;
+	align-items: center;
+}
+
+#detail-table{
+	margin: auto;
+	width: 350px;
 }
 
 .scrollable-content {
+	max-width: 300px;
 	max-height: 200px; /* 원하는 최대 높이로 설정 */
 	overflow-y: auto;
 }
 
+.clear {
+	clear: both;
+}
+
 #upAndDel {
 	display: flex;
+	justify-content: flex-end;
 }
 
 #upAndDel button {
@@ -211,4 +220,5 @@ div.centered {
 	border: none;
 	border-radius: 3px;
 	cursor: pointer;
+	margin-left: 10px;
 }

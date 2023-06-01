@@ -8,7 +8,7 @@
 
 <!--출력화면내용  -->
 <div class="centered">
-	<table>
+	<table id = "detail-table">
 		<tr>
 			<td><img src="../resources/img/pin.png" width="35" height="40"></td>
 			<td>${review.tag}</td>
@@ -52,6 +52,7 @@
 			<input type="hidden" name="id" value="${review.id}">
 			<button type="button" onclick="confirmDelete()">후기 삭제</button>
 		</form>
+		<div class="clear"></div>
 	</div>
 </c:if>
 <!-- 이미지 뷰 넘어가는 설정 코드 수정 -->
