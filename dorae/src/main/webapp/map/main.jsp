@@ -14,39 +14,6 @@
 <script>
 	$(window).on('load', function() {
 		$('body').scrollTop(0); // 스크롤 위치 초기화
-		
-		$('#btn_map').click(function() {
-			$('#banner').animate({
-				opacity : 0
-			}, 1000, function() {
-				$(this).remove(); // 애니메이션이 끝난 후 요소를 삭제
-			});
-		});
-		
-		$('#btn_check').click(function() {
-			$.ajax({
-			    url: "/dorae/map/select_myPreference",
-			    type: "GET",
-			    data: { email: userEmail },
-			    success: function(response) {
-			    	console.log(response);
-			        if(response == []){
-			        	window.location.href = "recommend.jsp";
-			        }
-			        else{
-			        	// 스크롤을 내리는 코드
-		                $('html, body').animate({
-		                    scrollTop: $("#result").offset().top
-		                }, 500);
-			        }
-			    },
-			    error: function() {
-			        alert("데이터를 불러오는 중에 오류가 발생했습니다.");
-			    }
-			});
-		    
-		});
-		
 		$("#header").load("../header/header.jsp");
 		
 		var map; // 전역 변수로 선언
@@ -64,6 +31,43 @@
 		var startIndex = 0; // 시작 인덱스
 		var dataCount = 10; // 한 번에 가져올 데이터 개수
 		var endIndex = dataCount; // 끝 인덱스
+		
+		$('#btn_map').click(function() {
+			$('#banner').animate({
+				opacity : 0
+			}, 1000, function() {
+				$(this).remove(); // 애니메이션이 끝난 후 요소를 삭제
+			});
+		});
+		
+		$('#btn_check').click(function() {
+			if(userEmail != null){
+				$.ajax({
+				    url: "/dorae/map/select_myPreference",
+				    type: "GET",
+				    data: { email: userEmail },
+				    success: function(response) {
+				    	console.log(response);
+				        if(response == []){
+				        	window.location.href = "recommend.jsp";
+				        }
+				        else{
+				        	// 스크롤을 내리는 코드
+			                $('html, body').animate({
+			                    scrollTop: $("#result").offset().top
+			                }, 500);
+				        }
+				    },
+				    error: function() {
+				        alert("데이터를 불러오는 중에 오류가 발생했습니다.");
+				    }
+				});
+			}
+			else{
+				alert("로그인이 필요한 기능입니다!");
+				window.location.href = "/dorae/login/login.jsp";
+			}
+		});
 		
 		function snsPopup(playName, stageName, playId) {
 			console.log("값넘겨주기!!! >>> " + playName + ", " + stageName + ", " + playId);

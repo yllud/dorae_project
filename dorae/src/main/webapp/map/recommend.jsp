@@ -75,7 +75,7 @@ var selectedOrders = {
 				window.location.href = "main.jsp";
 			<% } else {%>
 				alert("로그인이 필요합니다!");
-				window.location.href = "main.jsp";
+				window.location.href = "/dorae/login/login.jsp";
 			<% } %>
 		});
 	});
