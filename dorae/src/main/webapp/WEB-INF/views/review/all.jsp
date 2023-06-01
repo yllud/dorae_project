@@ -97,18 +97,19 @@ int currentPage = 1;
 %>
 </head>
 <body>
-	
+	<hr color="#ff9900">
 	<div>
-		<h1>다녀온 후기</h1><h3>전체 게시글 수: ${count}</h3>
+		<div id="top"><h1>다녀온 후기</h1><h3>전체 후기 수: ${count}</h3></div>
+	<hr color="#ff9900">
 		<c:choose>
 			<c:when test="${not empty list}">
 				<table>
 				<tr>
 				<c:forEach var="review" items="${list}" varStatus="status">
 				<td class="review-detail" data-id="${review.id}">
-				<table>
+				<table class="review-table">
 					<tr>
-						<td><img src="../resources/img/pin.png" width="40" height="40"></td>
+						<td><img src="../resources/img/pin.png" width="35" height="40"></td>
 						<td>${review.tag}</td>
 					</tr>
 					<tr>
@@ -122,10 +123,10 @@ int currentPage = 1;
 							</c:choose></td>
 					</tr>
 					<tr>
-						<td colspan="2">${review.email}</td>
+						<td colspan="2" class="bold-text">${review.title}</td>
 					</tr>
 					<tr>
-						<td colspan="2">${review.title}</td>
+						<td colspan="2" class="light-text">${review.email}</td>
 					</tr>
 				</table>
 				</td>
@@ -139,7 +140,7 @@ int currentPage = 1;
 		</c:choose>
 	</div>
 	<!--페이지버튼 -->
-
+	<div class="pageButton">
 	<table>
 		<tr>
 			<td><button id="previous">이전</button></td>
@@ -155,5 +156,6 @@ int currentPage = 1;
 			<td><button id="next">다음</button></td>
 		</tr>
 	</table>
+	</div>
 </body>
 </html>
