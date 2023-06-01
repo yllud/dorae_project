@@ -58,7 +58,7 @@
 		
 	});
 	function openPopup() {
-		window.open("tag.jsp", "_blank", "width=500,height=500");
+		window.open("tag.jsp", "_blank", "width=600,height=500");
 	}
 </script>
 
