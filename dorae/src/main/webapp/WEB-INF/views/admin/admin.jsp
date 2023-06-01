@@ -105,6 +105,8 @@
 			console.log(event.state);
 			if (event.state != null) { // state 가 null 이 아닐 때만 ajax로 갱신
 				asyncLoad(event.state.url);				
+			} else {
+				location.reload();
 			}
 		}
 		

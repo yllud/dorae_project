@@ -65,6 +65,7 @@
 	}
 	
 	.btn-small {
+		font-size: 20px;
 		margin: 4px;
 	}
 	
@@ -99,40 +100,112 @@
 	.searchItemBtn p {
 		margin-bottom: 0;
 	}
+	
+	.faqItem:first-child {
+		border-top: 1px solid grey;
+	}
+	
+	.faqItem {
+		list-style: none;
+		border-bottom: 1px solid grey;
+		width: 100%;
+		text-align: left;
+	}
+	
+	.faqItemBtn {
+		padding: 12px;
+		font-size: 24px;
+		border: 0;
+		background-color: transparent;
+		cursor: pointer;
+		text-align: left;
+	}
+	
+	.faqItemContent {
+		font-size: 20px;
+		padding: 12px;
+	}
+	
+	.noResult {
+		font-size: 24px;
+	}
+	
+	.applyItem:first-child {
+		border-top: 1px solid grey;
+	}
+	
+	.applyItem {
+		list-style: none;
+		border-bottom: 1px solid grey;
+		width: 100%;
+		text-align: left;
+	}
+	
+	.applyItem a {
+		padding: 0;
+	}
+	
+	.applyItemBtn {
+		padding: 12px;
+		font-size: 24px;
+		border: 0;
+		background-color: transparent;
+		cursor: pointer;
+		text-align: left;
+	}
+	
+	.contactItem:first-child {
+		border-top: 1px solid grey;
+	}
+	
+	.contactItem {
+		list-style: none;
+		border-bottom: 1px solid grey;
+		width: 100%;
+		text-align: left;
+	}
+	
+	.contactItem a {
+		padding: 0;
+	}
+	
+	.contactItemBtn {
+		padding: 12px;
+		font-size: 24px;
+		border: 0;
+		background-color: transparent;
+		cursor: pointer;
+		text-align: left;
+	}
 </style>
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
 	
 	<div id="helpBody">
-		<!-- FAQ 검색 -->
-		<form action="faqSearch">
-			<h2 id="faqTitle">FAQ 검색</h2>
-			<input type="text" name="page" value="1" hidden="hidden"/>
-			<input type="text" id="searchInput" name="search"/>
-			<button type="submit" id="searchBtn">검색</button>
-		</form>
 
 		<div id="helpContent">
+			<!-- FAQ 검색 -->
+			<div>
+				<h2 id="faqTitle">FAQ 검색</h2>
+				<input type="text" id="searchInput" name="search"/>
+				<button value="faqSearch?page=1&search=" id="searchBtn" onclick="faqSearch(this)">검색</button>
+			</div>
+			
 			<!-- FAQ 유형별 버튼 -->
 			<div id="faqBtnList">
 				<c:forEach items="${helpCategory}" var="item">
-				<a href="faqCategory?help_category_id=${item.help_category_id }">
-					<button class="btn-large">${item.name }</button>
-				</a>
+					<button value="faqCategory?help_category_id=${item.help_category_id }" class="btn-large" onclick="goToList(this)">${item.name }</button>
 				</c:forEach>
 			</div>
 			<hr color="red">
-		</div>
-		
-		<!-- 1:1 문의, 사업자 신청 -->
-		<div id="other">
-			<a href="contactList?page=1">
-				<button class="btn-large">1:1문의</button>
-			</a>
-			<a href="applyBusinessList">
-				<button class="btn-large">사업자 신청</button>
-			</a>
+			
+			<!-- 1:1 문의, 사업자 신청 -->
+			<div id="other">
+				<button value="contactList?page=1" class="btn-large" onclick="goToList(this)">1:1문의</button>
+				<button value="applyBusinessList" class="btn-large" onclick="goToList(this)">사업자 신청</button>
+			</div>
+			
 		</div>
 	</div>
 	
@@ -159,5 +232,47 @@
 	<button id="chatOpenBtn" class="chatBtn chatCommon" onclick="chatToggle()">
 		<span class="material-symbols-outlined symbol">contact_support</span>
 	</button>
+	<script type="text/javascript">		
+		function faqSearch(element) {
+			let url = element.value + $("#searchInput").val();
+			goToPage(url);
+		}
+		
+		function goToList(element, isReplace) {
+			goToPage(element.getAttribute("value"), isReplace);
+		}
+		
+		function goToPage(url, isReplace) {
+			if (isReplace) {
+				history.replaceState({"url": url}, null, location.pathname);
+			} else {
+				history.pushState({"url": url}, null, location.pathname);				
+			}
+			asyncLoad(url);
+		}
+		
+		function asyncLoad(url, type, data) {
+			$.ajax({
+				url: url,
+				type: type,
+				data: data,
+				success: function(res, statusText, jqXHR) {
+					$("#helpContent").html(res);
+				}
+			})			
+		}
+		
+		window.onpopstate = function(event) {
+			console.log(event);
+			console.log(event.state);
+			if (event.state != null && event.state.url != "main") { // state 가 null 이 아닐 때만 ajax로 갱신
+				asyncLoad(event.state.url);				
+			} else {
+				location.reload();
+			}
+		}
+		
+		history.pushState({"url": "main"}, null, location.pathname);				
+	</script>
 </body>
 </html>

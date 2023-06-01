@@ -60,7 +60,6 @@ public class HelpController {
 		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
 		model.addAttribute("faqList", faqService.listBySearchWithPaging(search, pageVO));
 		model.addAttribute("page", pageVO);
-		model.addAttribute("search", search);
 	}
 	
 	@RequestMapping("contactList")
