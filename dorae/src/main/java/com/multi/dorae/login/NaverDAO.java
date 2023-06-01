@@ -2,6 +2,8 @@ package com.multi.dorae.login;
 
 
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,26 +62,26 @@ public class NaverDAO {
 	}
 	
 	
-//	public int update(NaverVO bag) {
-//		int result = 0;
-//		try {
-//		result = mn.update("naverMember.naverUpdate", bag);
-//		System.out.println(result);
-//		}  catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return result;
-//	}
 	
-	public int insertProfileImage(NaverVO vo) {
-        int result = 0;
-        try {
-            result = mn.update("naverMember.insertProfileImage", vo);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+//	// 프로필사진 insert
+//	public int ProfileInsert(NaverVO vo) {
+//        int result = 0;
+//        try {
+//            result = mn.insert("naverMember.ProfileInsert", vo);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
+	
+	// 프로필사진 update
+	public int ProfileUpdate(String email, String uploadImage) {
+	    Map<String, String> parameterMap = new HashMap<>();
+	    parameterMap.put("email", email);
+	    parameterMap.put("upload_image", uploadImage);
+	    return mn.update("naverMember.profileUpdate", parameterMap);
+	}
+
 	
 	// 공연 수정
 		public int updateUserType(String email) {

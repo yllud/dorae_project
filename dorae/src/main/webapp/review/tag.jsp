@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="../resources/css/reviewStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
@@ -79,7 +80,8 @@
 
 </head>
 <body>
-<button id="return">전체목록</button><br>
+<div id="tagTotal">
+<button id="return">전체목록</button>
 	<select id="genre" name="type">
 				<option value="뮤지컬">뮤지컬</option>
 				<option value="연극">연극</option>
@@ -94,6 +96,7 @@
 			<button id="filterBtn">장르로 검색</button><br>
 	공연명 검색 <input type="text" id="query"><button id="searchBtn">검색</button>
 	<div id="tagList">
+	</div>
 	</div>
 </body>
 </html>

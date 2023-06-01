@@ -58,7 +58,7 @@
 		
 	});
 	function openPopup() {
-		window.open("tag.jsp", "_blank", "width=500,height=500");
+		window.open("tag.jsp", "_blank", "width=600,height=500");
 	}
 </script>
 
@@ -67,9 +67,9 @@
 <header id="header" class="fixed-top"></header>
 <div class="body">
 	<div id="searchDiv">
-	<button type="button" onclick="openPopup()">태그 선택</button>
+	<button type="button" onclick="openPopup()" id="tagButton">태그 선택</button>
 	<input type="text" id="selectedEventName" readonly>
-	<button id="tagSearch">검색</button>
+	<button id="tagSearch">적용</button>
 	</div>
 	<div id="reviewList"></div>
 	<button id="writeReview">후기 작성</button>

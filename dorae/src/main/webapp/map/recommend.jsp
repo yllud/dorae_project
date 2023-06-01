@@ -23,7 +23,7 @@ span.selected-label {
 <script>
 var genreCount = 0;
 var areaCount = 0;
-
+var userEmail = "";
 var selectedOrders = {
 	area : [],
 	genre : []
@@ -34,105 +34,51 @@ var selectedOrders = {
 		$("#header").load("../header/header.jsp");
 		
 		$('#submit').click(function() {
-			alert("설정이 완료되었습니다!");
-			console.log("Button clicked");
-			var selectedGenre = selectedOrders.genre.map(function(checkbox) {
-				return checkbox.value;
-			}).slice(0, 3);
-			var selectedArea = selectedOrders.area.map(function(checkbox) {
-				return checkbox.value;
-			}).slice(0, 3);
-			
-			$.ajax({
-				url : "insert_preference",
-				type : "POST",
-				data : {
-					genre1: selectedGenre[0],
-					 genre2: selectedGenre[1],
-					 genre3: selectedGenre[2],
-					 area1: selectedArea[0],
-					 area2: selectedArea[1],
-					 area3: selectedArea[2],
-					 email: "yg9316@naver.com"
-				},
-				success : function(response) {
-					if (response === "success") {
-						console.log("Preference inserted successfully");
-						// 성공 처리 로직 작성
-					} else {
-						console.log("Failed to insert preference");
-						// 실패 처리 로직 작성
+			<% if (session.getAttribute("email") != null) { %>
+				userEmail = '<%= session.getAttribute("email") %>';
+				alert("설정이 완료되었습니다!");
+				console.log("Button clicked");
+				var selectedGenre = selectedOrders.genre.map(function(checkbox) {
+					return checkbox.value;
+				}).slice(0, 3);
+				var selectedArea = selectedOrders.area.map(function(checkbox) {
+					return checkbox.value;
+				}).slice(0, 3);
+				
+				$.ajax({
+					url : "insert_preference",
+					type : "POST",
+					data : {
+						genre1: selectedGenre[0],
+						 genre2: selectedGenre[1],
+						 genre3: selectedGenre[2],
+						 area1: selectedArea[0],
+						 area2: selectedArea[1],
+						 area3: selectedArea[2],
+						 email: userEmail
+					},
+					success : function(response) {
+						if (response === "success") {
+							console.log("Preference inserted successfully");
+							// 성공 처리 로직 작성
+						} else {
+							console.log("Failed to insert preference");
+							// 실패 처리 로직 작성
+						}
+					},
+					error : function(xhr, status, error) {
+						console.log("Error: " + error);
+						// 에러 처리 로직 작성
 					}
-				},
-				error : function(xhr, status, error) {
-					console.log("Error: " + error);
-					// 에러 처리 로직 작성
-				}
-			});
-			
-			window.location.href = "main.jsp";
+				});
+				
+				window.location.href = "main.jsp";
+			<% } else {%>
+				alert("로그인이 필요합니다!");
+				window.location.href = "/dorae/login/login.jsp";
+			<% } %>
 		});
-	})
-	/* //설정완료 버튼 클릭 시 이벤트 처리
-	 var submitButton = document.querySelector(".submit");
-	 if (submitButton) {
-	 submitButton.addEventListener("click", function() {// 선택한 데이터를 가져오는 코드
-	 var selectedGenre = selectedOrders.genre.map(function(checkbox) {
-	 return checkbox.value;
-	 }).slice(0, 3);
-	 var selectedArea = selectedOrders.area.map(function(checkbox) {
-	 return checkbox.value;
-	 }).slice(0, 3);
-	
-	 var email = "yg9316@naver.com";
-	
-	 // 데이터 생성
-	 var data = {
-	 genre1: selectedGenre[0],
-	 genre2: selectedGenre[1],
-	 genre3: selectedGenre[2],
-	 area1: selectedArea[0],
-	 area2: selectedArea[1],
-	 area3: selectedArea[2],
-	 email: email
-	 };
-	
-	 $.ajax({
-	 url: "${path}/insert_preference",
-	 method: "POST",
-	 data: JSON.stringify(data),
-	 success: function(response) {
-	 console.log("Preference inserted successfully.");
-	 alert("삽입성공!");
-	 },
-	 error: function(xhr, status, error) {
-	 console.log("Error occurred while sending Ajax request:", error);
-	 alert("삽입실패!");
-	 }
-	 });
-	 });
-	 } */
-
-	// sendRecommendationRequest 함수 수정
-	function sendRecommendationRequest() {
-		var request = new XMLHttpRequest();
-		request.open("POST", "insert_preference", true); // PreferenceController의 insert 메소드로 요청을 보냄
-		request.setRequestHeader("Content-type",
-				"application/x-www-form-urlencoded");
-		request.onreadystatechange = function() {
-			if (request.readyState === 4 && request.status === 200) {
-				var response = request.responseText;
-				if (response === "success") {
-					alert("설정이 저장되었습니다.");
-				} else {
-					alert("설정 저장에 실패했습니다.");
-				}
-			}
-		};
-		// 선택된 장르 배열과 지역 배열을 파라미터로 전송
-		request.send("selectedGenres=" + encodeURIComponent(selectedGenres)
-				+ "&selectedAreas=" + encodeURIComponent(selectedAreas));
-	}
+	});
 
 	function limitCheckboxSelection(checkbox) {
 		var checkboxes = document.getElementsByName(checkbox.name);
