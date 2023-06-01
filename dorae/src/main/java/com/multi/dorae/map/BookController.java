@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.dorae.search.PlayDAO;
@@ -74,7 +75,7 @@ public class BookController {
 
 	//마이페이지에서 북마크 리스트 확인용
 	@RequestMapping("bookList")
-	public String bookList(String email, Model model) {
+	public String bookList(@RequestParam("email")String email, Model model) {
 
 		List<BookVO> list = service.mybook(email);
 		List<PlayVO> list2 = new ArrayList<>(); // 각 공연의 상세 정보 리스트
