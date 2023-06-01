@@ -35,16 +35,16 @@ public class AdminFilter implements Filter{
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = httpRequest.getSession();
 		
-		System.out.println(httpRequest.getRequestURI());
-		System.out.println(httpRequest.getQueryString());
-		
-		// 비로그인이고, 로그인이 필요하지 않은 url 미요청 시에
+		// 비로그인이고, 로그인이 필요한 url 요청 시에
 		// 로그인이고, 로그인이 필요하지 않은 url 요청 시에
-		if ((session.getAttribute("admin") == null) != (url.contains(httpRequest.getRequestURI()))) { 
-			System.out.println("필터에서 리디렉션");
-			if (httpRequest.getRequestURI().equals("/dorae/admin")) {
+		if ((session.getAttribute("admin") == null) != (url.contains(httpRequest.getRequestURI()))) {
+			if (session.getAttribute("admin") != null) { // 로그인 일 때
+				httpResponse.sendRedirect("/dorae/admin");
+				return;
+			}
+			if (httpRequest.getRequestURI().equals("/dorae/admin")) {	// 비로그인이고 메인 페이지를 요청할 때
 				httpResponse.sendRedirect("/dorae/admin/login");				
-			} else {
+			} else {													// 비로그인이고 상세 페이지를 요청할 때
 				httpResponse.addHeader("invalidated", "/dorae/admin/login");
 			}
 			return;

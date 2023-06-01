@@ -24,14 +24,15 @@ public class AdminNoticeController {
 		
 	}
 	
-	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String noticeCreate(NoticeVO noticeVO, @SessionAttribute("admin") AdminVO adminVO) {
+	@ResponseBody
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public ResponseMessage noticeCreate(NoticeVO noticeVO, @SessionAttribute("admin") AdminVO adminVO) {
+		ResponseMessage mes = new ResponseMessage();
 		if (noticeService.insert(noticeVO, adminVO)) { // 공지사항 생성에 성공하면
-			return "redirect:one?notice_id=" + noticeVO.getNotice_id();
-		} else {
-			return "redirect:list";
+			mes.setSuccess(true);
+			mes.setMessage(String.valueOf(noticeVO.getNotice_id()));
 		}
-		
+		return mes;
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.GET)
@@ -39,13 +40,13 @@ public class AdminNoticeController {
 		model.addAttribute("notice_id", notice_id);
 	}
 	
-	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String noticeUpdate(NoticeVO noticeVO) {
-		if (noticeService.update(noticeVO)) { // 공지사항 수정에 성공하면
-			return "redirect:one?notice_id=" + noticeVO.getNotice_id();
-		} else {
-			return "redirect:one?notice_id=" + noticeVO.getNotice_id();
-		}
+	@ResponseBody
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public ResponseMessage noticeUpdate(NoticeVO noticeVO) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(noticeService.update(noticeVO));
+		System.out.println("notice Update : " + mes.toString());
+		return mes;		
 	}
 	
 	@RequestMapping("one")
@@ -64,5 +65,12 @@ public class AdminNoticeController {
 		model.addAttribute("page", pageVO);
 		model.addAttribute("noticeList", noticeService.listWithPaging(pageVO));
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public ResponseMessage noticeDelete(long notice_id) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(noticeService.delete(notice_id));
+		return mes;
+	}
 }

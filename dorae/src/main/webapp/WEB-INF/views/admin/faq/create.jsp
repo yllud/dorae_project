@@ -32,16 +32,25 @@
 </div>
 
 <button class="btn btn-primary mb-3" onclick="submitFaq(this)">등록</button>
-<button class="btn btn-light mb-3" onclick="javascript:history.back()">뒤로</button>
 
 <script type="text/javascript">
 	function submitFaq(element) {
-		asyncLoad("/dorae/admin/faq/create",
-				"POST", {
-					help_category_id: $("#faqCategory").val(),
-					title: $("#faqTitle").val(),
-					content: $("#faqContent").contents().find("#ir1").val()
-				})
+		$("#faqContent").get(0).contentWindow.submitContents();	// 에디터의 내용이 textarea에 적용됩니다. // 에디터가 iframe 내에 있어서 contentWindow 를 가져와서 함수 호출
+		
+		$.ajax({
+			url: "/dorae/admin/faq/create",
+			type: "POST",
+			data: {
+				help_category_id: $("#faqCategory").val(),
+				title: $("#faqTitle").val(),
+				content: $("#faqContent").contents().find("#ir1").val()
+			},
+			success: function(res) {
+				if (res.success) {
+					goToPage("/dorae/admin/faq/one?page=1&faq_id=" + res.message);
+				}
+			}
+		});
 	}
 	
 	function setContent() {

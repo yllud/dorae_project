@@ -9,6 +9,10 @@
 	<update id="update" parameterType="faqVO">
 		update faq set help_category_id = #{help_category_id}, title = #{title}, content = #{content} where faq_id = #{faq_id}
 	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from faq where faq_id = #{faq_id}
+	</delete>
 
 	<select id="selectOne" parameterType="int" resultType="faqVO">
 		select * from faq where faq_id = #{faq_id}

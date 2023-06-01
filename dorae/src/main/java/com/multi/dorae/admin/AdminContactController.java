@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.multi.dorae.help.ContactService;
@@ -18,13 +19,12 @@ public class AdminContactController {
 	@Autowired
 	ContactService contactService;
 	
-	@RequestMapping(value = "updateAnswer", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String updateAnswer(ContactVO contactVO, @SessionAttribute("admin") AdminVO adminVO) {
-		if (contactService.updateAnswer(contactVO, adminVO)) {
-			return "redirect:one?contact_id=" + contactVO.getContact_id();
-		} else {
-			return "redirect:one?contact_id=" + contactVO.getContact_id();
-		}
+	@ResponseBody
+	@RequestMapping(value = "updateAnswer", method = RequestMethod.POST)
+	public ResponseMessage updateAnswer(ContactVO contactVO, @SessionAttribute("admin") AdminVO adminVO) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(contactService.updateAnswer(contactVO, adminVO));
+		return mes;
 	}
 	
 	@RequestMapping("list")
@@ -36,5 +36,13 @@ public class AdminContactController {
 	@RequestMapping("one")
 	public void contactOne(long contact_id, Model model) {
 		model.addAttribute("contact", contactService.one(contact_id));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public ResponseMessage contactDelete(long contact_id) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(contactService.delete(contact_id));
+		return mes;
 	}
 }

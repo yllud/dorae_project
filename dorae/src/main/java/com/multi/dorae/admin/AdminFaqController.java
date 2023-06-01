@@ -26,17 +26,16 @@ public class AdminFaqController {
 		model.addAttribute("helpCategoryList", categoryService.listByParentId("None"));
 	}
 	
-	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String faqCreate(FaqVO faqVO) {
-		faqService.create(faqVO);
-		return "redirect:one?faq_id=" + faqVO.getFaq_id();
+	@ResponseBody
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public ResponseMessage faqCreate(FaqVO faqVO) {
+		ResponseMessage mes = new ResponseMessage();
+		if (faqService.create(faqVO)) {
+			mes.setSuccess(true);
+			mes.setMessage(String.valueOf(faqVO.getFaq_id()));
+		}
+		return mes;
 	}
-	
-//	@RequestMapping(value = "create", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-//	public String faqCreate(FaqVO vo) {
-//		faqService.create(vo);
-//		return "redirect:one?faq_id=" + vo.getFaq_id();
-//	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public void faqUpdatePage(int faq_id, Model model) {
@@ -44,10 +43,12 @@ public class AdminFaqController {
 		model.addAttribute("faq_id", faq_id);
 	}
 	
-	@RequestMapping(value = "update", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String faqUpdate(FaqVO faqVO) {
-		faqService.update(faqVO);
-		return "redirect:one?faq_id=" + faqVO.getFaq_id();
+	@ResponseBody
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public ResponseMessage faqUpdate(FaqVO faqVO) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(faqService.update(faqVO));
+		return mes;		
 	}
 	
 	@RequestMapping("one")
@@ -71,5 +72,13 @@ public class AdminFaqController {
 		}
 		model.addAttribute("page", pageVO);
 		model.addAttribute("help_category_id", help_category_id);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public ResponseMessage faqDelete(int faq_id) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(faqService.delete(faq_id));
+		return mes;
 	}
 }

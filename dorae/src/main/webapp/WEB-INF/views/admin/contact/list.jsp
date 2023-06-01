@@ -19,7 +19,7 @@
 			<c:forEach items="${contactList }" var="item">
 				<tr>
 					<td>${item.contact_id }</td>
-					<td><button class="btn btn-link" value="/dorae/admin/contact/one?contact_id=${item.contact_id }" onclick="goToPage(this)">${item.title }</button></td>
+					<td><button class="btn btn-link" value="/dorae/admin/contact/one?page=${param.page }&contact_id=${item.contact_id }" onclick="goToList(this)">${item.title }</button></td>
 					<td><fmt:timeZone value="GMT">
 						<fmt:formatDate value="${item.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/>
 					</fmt:timeZone></td>
@@ -38,15 +38,15 @@
 	<nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
 	    <li class="page-item <c:if test="${page.startPage == 1 }">disabled</c:if>">
-	      <button class="page-link" value="/dorae/admin/contact/list?page=${page.startPage - 1 }" onclick="goToPage(this)">&lt;</button>
+	      <button class="page-link" value="/dorae/admin/contact/list?page=${page.startPage - 1 }" onclick="goToList(this)">&lt;</button>
 	    </li>
 	    <c:forEach begin="${page.startPage }" end="${page.endPage }" var="p">
 			<li class="page-item">
-				<button class="page-link <c:if test="${page.page eq p }">active</c:if>" value="/dorae/admin/contact/list?page=${p }" onclick="goToPage(this)">${p }</button>
+				<button class="page-link <c:if test="${page.page eq p }">active</c:if>" value="/dorae/admin/contact/list?page=${p }" onclick="goToList(this)">${p }</button>
 			</li>
 		</c:forEach>
 	    <li class="page-item <c:if test="${page.endPage == page.lastPage}">disabled</c:if>">
-	      <button class="page-link" value="/dorae/admin/contact/list?page=${page.endPage + 1 }" onclick="goToPage(this)">&gt;</button>
+	      <button class="page-link" value="/dorae/admin/contact/list?page=${page.endPage + 1 }" onclick="goToList(this)">&gt;</button>
 	    </li>
 	  </ul>
 	</nav>

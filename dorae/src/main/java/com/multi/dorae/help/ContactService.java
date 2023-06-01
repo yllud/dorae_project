@@ -47,9 +47,19 @@ public class ContactService {
 		
 		if (contactDAO.updateAnswer(contactVO) != 1) {
 			System.out.println("1:1 문의 답변 등록에 실패함");
+			return false;
 		}
 
 		emailSendService.send(contactVO);
+		
+		return true;
+	}
+	
+	public boolean delete(long contact_id) {
+		if (contactDAO.delete(contact_id) != 1) {
+			System.out.println("1:1 문의 삭제에 실패함");
+			return false;
+		}
 		
 		return true;
 	}

@@ -81,15 +81,9 @@ public class FileUploadController {
 				objectMetadata.setContentLength(Long.parseLong(request.getHeader("file-size")));
 
 				// upload local file
-				try {
-					s3.putObject(bucketName, sFileName, request.getInputStream(), objectMetadata);
-				    System.out.format("Object %s has been created.\n", sFileName);
-				} catch (AmazonS3Exception e) {
-				    e.printStackTrace();
-				} catch(SdkClientException e) {
-				    e.printStackTrace();
-				}
-				
+				s3.putObject(bucketName, sFileName, request.getInputStream(), objectMetadata);
+				System.out.format("Object %s has been created.\n", sFileName);
+
 				// 업로드 된 객체(이미지)의 권한을 읽기로 설정
 				// 문의 답변 주신분 감사합니다!!!
 				// get the current ACL
@@ -107,7 +101,12 @@ public class FileUploadController {
 				printWriter.print(sFileInfo);
 				printWriter.flush();
 				printWriter.close();
-			}	
+			}
+			
+		} catch (AmazonS3Exception e) {
+		    e.printStackTrace();
+		} catch(SdkClientException e) {
+		    e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

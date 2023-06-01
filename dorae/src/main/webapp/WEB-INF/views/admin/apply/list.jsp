@@ -39,7 +39,7 @@
 						<fmt:formatDate value="${item.approval_at }" pattern="yyyy-MM-dd hh:mm:ss"/>
 						</fmt:timeZone></td>
 					</c:if>
-					<td><button class="btn btn-link" value="/dorae/admin/apply/one?apply_id=${item.apply_id }" onclick="goToPage(this)">보기</button></td>
+					<td><button class="btn btn-link" value="/dorae/admin/apply/one?page=${param.page }&apply_id=${item.apply_id }" onclick="goToList(this)">보기</button></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -49,15 +49,15 @@
 	<nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
 	    <li class="page-item <c:if test="${page.startPage == 1 }">disabled</c:if>">
-	      <button class="page-link" value="/dorae/admin/apply/list?page=${page.startPage - 1 }" onclick="goToPage(this)">&lt;</button>
+	      <button class="page-link" value="/dorae/admin/apply/list?page=${page.startPage - 1 }" onclick="goToList(this)">&lt;</button>
 	    </li>
 	    <c:forEach begin="${page.startPage }" end="${page.endPage }" var="p">
 			<li class="page-item">
-				<button class="page-link <c:if test="${page.page eq p }">active</c:if>" value="/dorae/admin/apply/list?page=${p }" onclick="goToPage(this)">${p }</button>
+				<button class="page-link <c:if test="${page.page eq p }">active</c:if>" value="/dorae/admin/apply/list?page=${p }" onclick="goToList(this)">${p }</button>
 			</li>
 		</c:forEach>
 	    <li class="page-item <c:if test="${page.endPage == page.lastPage}">disabled</c:if>">
-	      <button class="page-link" value="/dorae/admin/apply/list?page=${page.endPage + 1 }" onclick="goToPage(this)">&gt;</button>
+	      <button class="page-link" value="/dorae/admin/apply/list?page=${page.endPage + 1 }" onclick="goToList(this)">&gt;</button>
 	    </li>
 	  </ul>
 	</nav>

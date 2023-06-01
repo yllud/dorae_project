@@ -15,6 +15,7 @@
 		= #{title},
 		review_content = #{content},
 		review_tag = #{tag}
+		where review_id = #{id}
 	</update>
 
 	<update id="imgUpdate" parameterType="reviewVO">

@@ -68,14 +68,20 @@
 			element.classList.remove("text-white");
 			element.classList.add("active");
 			
-			goToPage(element);
+			goToList(element);
 		}
 		
-		function goToPage(element) {
-			asyncLoad(element.getAttribute("value"));
-			console.log(element.getAttribute("value"));
-			//history.pushState({"url": element.getAttribute("value")}, null, element.getAttribute("value"));
-			history.pushState({"url": element.getAttribute("value")}, null, location.pathname);
+		function goToList(element, isReplace) {
+			goToPage(element.getAttribute("value"), isReplace);
+		}
+		
+		function goToPage(url, isReplace) {
+			if (isReplace) {
+				history.replaceState({"url": url}, null, location.pathname);
+			} else {
+				history.pushState({"url": url}, null, location.pathname);				
+			}
+			asyncLoad(url);
 		}
 		
 		function asyncLoad(url, type, data) {
@@ -84,18 +90,18 @@
 				type: type,
 				data: data,
 				success: function(res, statusText, jqXHR) {
-					$("#contents").html(res);
 					console.log(statusText);
 					console.log(jqXHR);
-					console.log(jqXHR.getResponseHeader("invalidated"));
 					if (jqXHR.getResponseHeader("invalidated") != null) {
 						location.href = jqXHR.getResponseHeader("invalidated");
 					}
+					$("#contents").html(res);
 				}
 			})			
 		}
 		
 		window.onpopstate = function(event) {
+			console.log(event);
 			console.log(event.state);
 			if (event.state != null) { // state 가 null 이 아닐 때만 ajax로 갱신
 				asyncLoad(event.state.url);				

@@ -51,6 +51,15 @@ public class FaqService {
 		return faqDAO.one(faq_id);
 	}
 	
+	public boolean delete(int faq_id) {
+		if (faqDAO.delete(faq_id) != 1) {
+			System.out.println("FAQ 삭제에 실패함");
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public List<FaqVO> listByCategory(String help_category_id) {
 		if (help_category_id == null || help_category_id.trim().isEmpty()) {
 			help_category_id = "D01";
