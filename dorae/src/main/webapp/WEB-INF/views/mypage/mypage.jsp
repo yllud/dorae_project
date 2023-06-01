@@ -70,6 +70,7 @@ $(document).ready(function() {
       var target = $button.data("target");
 
       $contentContainer.children().not(target).empty();
+      $('#bookInfo').empty();
 
       $.ajax({
         url: url,
@@ -86,10 +87,7 @@ $(document).ready(function() {
     
     
     $('.btn-ajax2').click(function() {
-        var userEmail = ''; // 사용자의 이메일 값 설정
-        var url = $(this).data('url');
-        var target = $(this).data('target');
-        
+        var url = "/dorae/book/bookList";
         $.ajax({
           url: url,
           type: 'GET',
@@ -97,13 +95,14 @@ $(document).ready(function() {
           success: function(data) {
             //alert('북마크 클릭됨!');
             //console.log(data);
-            $(target).html(data);
+            $('#bookInfo').html(data);
           },
           error: function() {
             alert('데이터를 불러오는 중에 오류가 발생했습니다.');
           }
         });
       });
+    
   });//ready
 </script>
 
@@ -147,8 +146,6 @@ function openPopup(url) {
 	
 
 <a href="javascript:void(0);" onclick="openPopup('/doare/mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a>
-=======
-<a href="javascript:void(0);" onclick="openPopup('/dorae/mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a>
 
 
 <br>
@@ -174,7 +171,7 @@ function openPopup(url) {
     </li>
 
 	<li>
-    <a href="javascript:void(0);" class="btn-ajax" data-url="/dorae/book/bookList" data-target="#bookInfo">북마크</a>
+    <a href="javascript:void(0);" class="btn-ajax2" data-url="/dorae/book/bookList" data-target="#bookInfo">북마크</a>
 	</li>
 
   <li>
