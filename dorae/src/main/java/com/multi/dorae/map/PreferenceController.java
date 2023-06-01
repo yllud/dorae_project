@@ -50,6 +50,7 @@ public class PreferenceController {
 			System.out.println(playVO);
 		}
         // 필요한 추가 로직을 수행하거나 필터링을 적용할 수 있습니다.
+        model.addAttribute("bag", bag);
         model.addAttribute("list", recommendedPlays);
         
         return "map/recommendPlays";

@@ -9,8 +9,8 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <!-- mypage.css 추가 -->
-<link rel="stylesheet" href="../resources/css/mypage.css">
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<link rel="stylesheet" href="/dorae/resources/css/mypage.css">
+<script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
 <style>
 #mypage{
 	margin-top: 175px;
@@ -70,6 +70,7 @@ $(document).ready(function() {
       var target = $button.data("target");
 
       $contentContainer.children().not(target).empty();
+      $('#bookInfo').empty();
 
       $.ajax({
         url: url,
@@ -83,9 +84,28 @@ $(document).ready(function() {
         }
       });//ajax
     });//on
+    
+    
+    $('.btn-ajax2').click(function() {
+        var url = "/dorae/book/bookList";
+        $.ajax({
+          url: url,
+          type: 'GET',
+          data: { email: '<%=session.getAttribute("email")%>' },
+          success: function(data) {
+            //alert('북마크 클릭됨!');
+            //console.log(data);
+            $('#bookInfo').html(data);
+          },
+          error: function() {
+            alert('데이터를 불러오는 중에 오류가 발생했습니다.');
+          }
+        });
+      });
+    
   });//ready
-
 </script>
+
 <!-- 프로필 이미지 수정 팝업 -->
 <script>
 function openPopup(url) {
@@ -106,7 +126,7 @@ function openPopup(url) {
 	<c:choose>
   <c:when test="${not empty vo2.upload_image}">
     <div class="imageContainer">
-      <img src="../resources/upload/${vo2.upload_image}" width="180" height="180" alt="프로필 이미지" />
+      <img src="/dorae/resources/upload/${vo2.upload_image}" width="180" height="180" alt="프로필 이미지" />
     </div>
   </c:when>
   <c:otherwise>
@@ -124,8 +144,9 @@ function openPopup(url) {
 </c:choose>
 	<br>
 	
-	<!-- 프로필 이미지 수정 / sessionScope로 email정보 가지고 팝업창 열기 -->
-<a href="javascript:void(0);" onclick="openPopup('../mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a>
+
+<a href="javascript:void(0);" onclick="openPopup('/doare/mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a>
+
 
 <br>
 	<!-- <table border="1" width="150" heigth="30"> -->
@@ -148,9 +169,11 @@ function openPopup(url) {
 	 <li>
     <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/ticketList.jsp" data-target="#ticketInfo">예매내역</a>
     </li>
-	 <li>
-    <a href="javascript:void(0);" class="btn-ajax" data-url="../book/bookList" data-target="#bookInfo">북마크</a>
-    </li>
+
+	<li>
+    <a href="javascript:void(0);" class="btn-ajax2" data-url="/dorae/book/bookList" data-target="#bookInfo">북마크</a>
+	</li>
+
   <li>
   <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/replyList.jsp" data-target="#replyList">작성한 후기</a>
   </li>
