@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.multi.dorae.login.NaverVO;
 import com.multi.dorae.search.PlayVO;
@@ -28,8 +29,9 @@ public class SeatDAO {
 		}
 		
 		// 결제 시 좌석 정보 저장
-		public int insert(SeatVO bag) {
-			int result = my.insert("seat.insert", bag);
+		@Transactional
+		public int insert(SeatVO seatvo) {
+			int result = my.insert("seat.insert", seatvo);
 			System.out.println(result);
 			return result;
 		}

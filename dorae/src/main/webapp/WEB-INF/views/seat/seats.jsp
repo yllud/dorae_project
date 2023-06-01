@@ -7,194 +7,56 @@
 <head>
 <meta charset="UTF-8">
 <title>좌석선택</title>
-
+<link rel="stylesheet" href="../resources/css/seat.css">
+<!-- bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<!-- bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<style type="text/css">
-.header {
-    position: fixed;
-    z-index: 100;
-    width: 990px;
-    background: #fff;
-}
-.main {
-    position: relative;
-    width: 1000px;
-    height: 100%;
-}
-.content {
-    position: relative;
-    zoom: 1;
-}
-.left {
-    overflow-y: auto;
-    float: left;
-    position: relative;
-    width: 680px;
-    min-height: 630px;
-    max-height: 630px;
-    padding: 20px;
-    border-right: 1px solid #ecedf2;
-    background: #f8f9fa;
-}
-.white_box {
-	overflow: hidden;
-    border: 1px solid #ecedf2;
-    border-radius: 2px;
-    background: #fff;
-    min-height: 550px;
-    max-height: 550px;
-    padding: 20px;
-}
-.right {
-	font-size: 14px;
-    letter-spacing: -1px;
-    float: left;
-    position: relative;
-    width: 280px;
-    height: auto;
-    min-height: 670px;
-    max-height: 670px;
-    margin-left: -1px;
-    padding: 20px 30px 30px 29px;
-    border-left: 1px solid #ecedf2;
-    box-sizing: border-box;
-    background: #fff;
-}
- 
-.right .info .poster {
-    float: left;
-}
-.info2 {
-    clear: both;
-    font-size: 17px;
-}
 
-.info2 table {
-    width: 100%;
-    font-size: 14px;
-}
-caption {
-    visibility: hidden;
-    overflow: hidden;
-    width: 0;
-    height: 0;
-    font-size: 0;
-    line-height: 0;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-colgroup {
-    display: table-column-group;
-}
-tfoot {
-    display: table-footer-group;
-    vertical-align: middle;
-    border-color: inherit;
-}
-tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
-}
-.info2 tfoot th, .info2 tfoot td {
-    border-width: 1px 0;
-    border-style: solid;
-    border-color: #242428;
-}
-.info2 th {
-    position: relative;
-    padding: 5px 1px;
-    border-top: 1px solid #ecedf2;
-    font-weight: 400;
-    line-height: 18px;
-    vertical-align: top;
-    text-align: left;
-}
-.info2 tfoot td {
-    padding-top: 5px;
-    font-size: 16px;
-    font-weight: 700;
-    color: #fa2828;
-}
-.info2 td {
-    position: relative;
-    padding: 5px 1px;
-    border-top: 1px solid #ecedfe;
-    line-height: 18px;
-    font-size: 16px;
-    text-align: right;
-}
-
-.container { 
-  perspective: 1000px;
-  margin-bottom: 30px; /* container 기준으로 아래 여백*/
-}
-.seat {
-  background-color: #c0e0fe;
-  height: 13px;
-  width: 15px;
-  margin: 3px; /* 여백*/
-  border-top-left-radius: 5px; /* 좌석 왼쪽 모서리 깎은 정도*/
-  border-top-right-radius: 5px; /* 좌석 오른쪽 모서리 깎은 정도*/
-}
-
-.seat.selected { /* 좌석 선택시 색깔*/
-  background-color: #74bcfe;
-}
-
-.seat.sold { /* 예매된 좌석(선택불가) 색깔*/
-  background-color: #d7d7d7;
-  pointer-events: none;
-}
-
-.seat:nth-of-type(5) { /* div의 자식이면서 같은 유형 2번째 오른쪽 공백*/
-  margin-right: 20px;
-}
-
-.seat:nth-last-of-type(5) { /* div의 자식이면서 같은 유형 끝에서 2번째 왼쪽 공백*/
-  margin-left: 20px;
-}
-
-.seat:not(.sold):hover { /* 선택가능한 좌석에 커서를 올렸을 때 좌석의 크기가 1.2배로 확대*/
-  cursor: pointer;
-  transform: scale(1.2);
-}
-
-.stage { /* 무대표시*/
-  background-color: #e4e4e4;
-  height: 50px;
-  width: 500px;
-  margin: 15px auto;
-  transform: rotateX(-45deg);
-}
-.row { /* row 가로 나열*/
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-</style>
 </head>
 <body>
- <input type="hidden" class="class" name="name" id="show_price" value="35000">
+<input type="hidden" class="class" name="name" id="show_price" value="35000">
 <div class="main">
  <div class="content">
    <div class="left">
     <div class="white_box">
-    <div class="container">
+    <div class="container2">
       <div class="stage"></div>		<!-- 무대 -->
-      <div class="row"></div>  <!-- 좌석 -->
+      <div class="row2"></div>  <!-- 좌석 -->
     </div>
-    </div>
-   </div> <!-- left -->
+   
+    <div class="check" style="display:none;">
+     <div class="step1">
+	  <strong class="title">
+	   <i class="bi bi-ticket"></i>
+	   <span>티켓수령방법</span>
+	  </strong>
+     <input value="현장수령" type="text" class="form-control mt-3" readonly><br>
+    </div> <!-- step1 -->
+    
+    <div class="step2">
+	 <strong class="title">
+	  <i class="bi bi-clipboard-check"></i>
+	  <span>주문자정보</span><br>
+	 </strong>
+	 <i class="bi bi-person"></i>
+	  이름 <input id="name" type="text" class="form-control mt-3" readonly ><br>
+	  <i class="bi bi-envelope"></i>
+	  이메일 <input id="email" type="text" class="form-control mt-3" readonly><br>
+	  <i class="bi bi-phone"></i>
+	  휴대폰 번호 <input id="tel" type="text" class="form-control mt-3" placeholder="숫자만 입력해주세요" value="" oninput="phone(this)" maxlength="13"><br>
+    </div> <!-- step2 -->
+   </div> <!-- check -->
+   </div> <!-- white_box -->
+   <button id="clearBtn" class="btn btn-outline-secondary"><i class="bi bi-arrow-repeat"></i></button> <!-- 새로고침버튼 -->
+  </div> <!-- left -->
 	
   <div class="right">
    <div class="info">
@@ -205,7 +67,6 @@ tr {
    </div> <!-- info -->
    <div class="info2">
     <table>
-     <caption>예매정보</caption>
      <colgroup>
       <col style="width:70px"><col>
      </colgroup>
@@ -255,23 +116,34 @@ tr {
       </tr>
      </tbody>
     </table>
-    <fieldset id="check" style="display:none;">
-      <legend>주문자확인</legend>
-	  구매자이름 <input id="name" readonly><br>
-	  이메일 <input id="email" readonly><br>
-	  전화번호 <input id="tel" placeholder="숫자만 입력해주세요" value="" oninput="phone(this)" maxlength="13"><br>
-	  </fieldset>
    </div> <!-- info2 -->
-	 <button onclick="history.back()">이전단계</button>
-	 <button id="clearBtn" class="clear" >새로고침</button>
-     <button id="next">다음단계</button>
-     <button id="payment" style="display:none;" disabled="disabled">결제하기</button>
+	 <button class="btn btn-outline-secondary btn-lg" style="--bs-btn-padding-x: 1.4rem;" onclick="history.back()">날짜선택</button>
+     <button id="next" class="btn btn-outline-secondary btn-lg"  style="--bs-btn-padding-x: 1.4rem;" disabled="disabled">선택완료</button>
+     <button id="payment" class="btn btn-outline-danger btn-lg" style="display:none; --bs-btn-padding-x: 1.4rem;" disabled="disabled">결제하기</button>
   </div> <!-- right -->
  </div>
 </div>
-      
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="bi bi-info-circle" style="color: orange;"></i> 안내</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        선택하신 좌석 정보가 사라집니다
+      </div>
+      <div class="modal-footer">
+        <button id="ok" class="btn btn-outline-secondary" data-bs-dismiss="modal">확인</button>
+        <button id="no" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
 
- <script type="text/javascript">
+      
+<script type="text/javascript">
 $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태그의 로드만을 감지, 중복가능
 	$('#d_day').text(localStorage.getItem("d_day")); 
 	$('#d_time').text(localStorage.getItem("d_time")); 
@@ -288,14 +160,14 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 				 const num_rows = 20; // 좌석의 행 수
 				 const num_cols = 20; // 좌석의 열 수
 
-				  const seatContainer = document.querySelector('.container');
+				  const seatContainer = document.querySelector('.container2');
 				  const seat_arr = []; // 좌석 요소를 저장할 배열
 				  const maxSeats = 4; // 최대 선택 가능한 좌석 수
 				  let clickSeats = []; // 선택한 좌석 배열
 				  
 				  for (let i = 0; i < num_rows; i++) { // 좌석 행 생성
-				    const row = document.createElement('div');
-				    row.classList.add('row');
+				    const row2 = document.createElement('div');
+				    row2.classList.add('row2');
 
 				    for (let j = 0; j < num_cols; j++) { //좌석 열 생성
 				      const seat = document.createElement('div');
@@ -306,7 +178,7 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 				    	  let xx = x.slice(1, -1).trim().split(",").map(item => item.trim()); // 첫 번째, 마지막 문자를 제외한 범위의 문자열을 추출하고 배열의 각 요소에 대해 앞뒤 공백 제거
 				    	  for (var n = 0; n < xx.length; n++) {
 							if(xx[n] === seatNum){
-								seat.classList.add('sold');
+								seat.classList.add('sold'); //sold로 클래스 추가해서 선택못하도록 만들기
 							}
 						}
 				      }
@@ -320,8 +192,9 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 				                if (clickSeats.length < maxSeats) { //4개까지 선택가능
 				                  this.classList.add('selected');
 				                  clickSeats.push(seatNum); // 선택한 좌석 넘버 배열로 push
+				                  
 				                } else {
-				                  alert('최대 선택 가능한 좌석 수를 초과했습니다.');
+				                  alert('최대 4자리까지 선택가능합니다.');
 				                } //else
 				              } //else
 				    	  console.log(clickSeats); 
@@ -329,23 +202,23 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 				    	  updateSelectedCount(); // total과 count 업데이트
 				        }); //seat.addEventListener
 				     
-				      row.appendChild(seat);
+				      row2.appendChild(seat);
 				      seat_arr.push(seat); //좌석 배열에 저장
 				    } //for(seat)
-				    seatContainer.appendChild(row);
+				    seatContainer.appendChild(row2);
 				  } //for(row)
 			} //success - seats2
 		}) //ajax - seats2 
 }); //$
 
-const seats = document.querySelectorAll('.row .seat:not(.sold)'); //sold가 아닌 seat와 row를 seats변수에 저장
+const seats = document.querySelectorAll('.row2 .seat:not(.sold)'); //sold가 아닌 seat와 row를 seats변수에 저장
 let ticketPrice = $('#show_price').val(); 
 
 // total과 count 업데이트
 function updateSelectedCount() {
 
 	// 좌석 클릭 이벤트로 선택된 좌석을 selectedSeats로 저장시킨다.
-  const selectedSeats = document.querySelectorAll('.row .seat.selected');
+  const selectedSeats = document.querySelectorAll('.row2 .seat.selected');
 
 	// 앞서 초기화했던 변수 selectedSeats들을 [...selectedSeats]로 스프레드 문법을 사용해 개별적 값을 만든 후, 배열로 만든다.  
 	// map을 통해 반복문을 돌며 배열 안의 요소들을 [...seats].indexOf(seat)와 1대 1로 짝지어준다.
@@ -353,6 +226,11 @@ function updateSelectedCount() {
   
   	// 선택된 좌석의 배열 개수
   const selectedSeatsCount = selectedSeats.length;
+    if(selectedSeatsCount != 0){ 
+		$('#next').attr("disabled", false); //다음버튼 활성화
+	}else{
+		$('#next').attr("disabled", true); //다음버튼 비활성화
+	}
   
 	// text부분에 나타낼 정보(선택된 좌석, 가격, 수수료, 총 합계)
   $('#count').text(selectedSeatsCount);
@@ -361,18 +239,19 @@ function updateSelectedCount() {
   $('#total').text(selectedSeatsCount * ticketPrice + selectedSeatsCount * 1000 + " " + "원");
 };
 
-$('#next').click(function() { 
-	alert("주문정보 확인해주세요")
+
+$('#next').click(function() { //다음단계버튼
 	$.ajax({
 		url: "memberOne", 
 		data: {
 			email: '${email}' //email가지고 이름 불러오기
 		},
 		success: function(x) {
-			$('#name').val(x) 
+			$('.container2').empty()
+ 			$('#name').val(x) 
 			$('#email').val('${email}')
-			$('#check').show(); //정보확인칸 띄우기
-			$('#next').hide(); //다음버튼 숨기기
+			$('.container2').append($('.check').show()) //정보확인칸 띄우기
+			$('#next').hide() //다음버튼 숨기기 
 		} //success
 	}) //ajax
 }); //next.click
@@ -392,15 +271,85 @@ function phone(target) { //전화번호 정규식 표현
         .replace(/(^01.{1}|[0-9]{2,3})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3"); //$1-$2-$3패턴으로 재구성 
 }
 
-$('#clearBtn').click(function() {
-	if(confirm('선택하신 모든 정보가 사라집니다')){
-		location.reload();
-	} else {
-	}
-}); // 다시선택
+$('#clearBtn').click(function() { 
+	$('#staticBackdrop').modal('show');
+});
+$('#ok').click(function() {
+	location.reload();		
+});
+$('#no').click(function() {
+	$('#staticBackdrop').modal('hide');	
+});
+	
+$('#payment').click(function() { 
+	pay(); // 결제창
+});
+
+function pay() {	
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp60843063'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	IMP.request_pay({//******* API : 함수를 불러서 처리해 달라고 할 때 사용하는 함수의 집합
+		pg : 'kakaopay', // version 1.1.0부터 지원.
+		pay_method : 'card',
+		merchant_uid : 'merchant_' + new Date().getTime(),
+		name : '결제테스트',
+		amount : $("#total").text(),
+		buyer_name : $("#name").val(),
+		buyer_tel : $("#tel").val(),
+		buyer_email : $("#email").val(),
+		m_redirect_url : 'www.yourdomain.com/payments/complete'
+	}, function(rsp) {
+		if (rsp.success) {
+			$.ajax({
+				url: "insert", // 티켓정보(seatDB)
+				data: { 
+					email: $('#email').val(), //회원e-mail
+					play_id: $('#play_id').val(), //공연ID
+					seat_date: $('#d_day').text(), //공연날짜
+					seat_time: $('#d_time').text(), //공연시간
+					seat_number: $('#seat_num').text() //좌석번호
+					// seat_id: 티켓번호(pk) 자동생성 됨
+				 },
+				success: function() {
+					$.ajax({
+			    	  	url: "../pay/insert", // 결제정보(payDB)
+			    	  	data: {      
+			    		 	imp_uid: rsp.imp_uid, //결제고유번호
+			    		 	merchant_uid: rsp.merchant_uid, //주문번호
+			    		 	apply_num: rsp.apply_num, //결제카드번호
+			    		 	paid_amount: rsp.paid_amount, //결제금액
+			    		 	buyer_name: rsp.buyer_name, //주문자 이름
+			    		 	buyer_tel: rsp.buyer_tel, //주문자 전화번호
+			    			email: rsp.buyer_email, //주문자 이메일
+			    			play_id: $('#play_id').val(), //공연ID
+			    			booking: $('#booking').text(),//예매일
+			    		 	//seat_id: 티켓번호 자동생성 됨
+			    	 	 	},
+			    	 	 success: function() {
+			    	 		var msg = '결제가 완료되었습니다.';
+			    			alert(msg);
+			    			location.href = "../test.jsp";
+						  }, //success - pay insert
+						  error: function() {
+							alert("결제에 실패하였습니다.");
+						  } //error - pay insert
+			      	  }); //ajax - pay insert
+			      	 
+				  }, //success -seat insert
+		  	    error: function() {
+					alert("이선좌");
+				} //error - seat insert
+			 });//ajax - seat insert    
+		   } else {
+		     var msg = '결제에 실패하였습니다.';
+		     alert(msg);
+		     location.reload();
+		   } //else
+	  });
+}; //pay
 
 </script>
 
-<script type="text/javascript" src="../resources/js/pay.js"></script>
+<!-- <script type="text/javascript" src="../resources/js/pay.js"></script> -->
 </body>
 </html>

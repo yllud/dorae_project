@@ -8,6 +8,7 @@ public class SeatVO {
 	private String seat_time; //공연시간
 	private String seat_number; //좌석번호
 	private String seat_id; //티켓번호
+	private String cancel; //취소
 	
 	public String getEmail() {
 		return email;
@@ -45,10 +46,16 @@ public class SeatVO {
 	public void setSeat_id(String seat_id) {
 		this.seat_id = seat_id;
 	}
+	public String getCancel() {
+		return cancel;
+	}
+	public void setCancel(String cancel) {
+		this.cancel = cancel;
+	}
 	@Override
 	public String toString() {
-		return "SeatVO [email=" + email + ", play_id=" + play_id + ", seat_date=" + seat_date
-				+ ", seat_time=" + seat_time + ", seat_number=" + seat_number + ", seat_id=" + seat_id + "]";
+		return "SeatVO [email=" + email + ", play_id=" + play_id + ", seat_date=" + seat_date + ", seat_time="
+				+ seat_time + ", seat_number=" + seat_number + ", seat_id=" + seat_id + ", cancel=" + cancel + "]";
 	}
 	
 	

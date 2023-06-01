@@ -18,7 +18,6 @@ function deleteBookmark(playId) {
         success: function(response) {
         	if(response == "success"){
            		alert("북마크 삭제됨!");
-           		location.reload(); // 페이지 전체 새로고침
         	}else{
         		alert("북마크 이미 삭제되었습니다!");
         	}
@@ -30,7 +29,8 @@ function deleteBookmark(playId) {
 }
 </script>
 <div id="contentDiv">
-	<table>
+<h2>북마크 목록</h2>
+	<table style="width:100%;">
 		<tr>
 			<th>공연포스터</th>
 			<th>공연이름</th>

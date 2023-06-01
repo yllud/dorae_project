@@ -13,6 +13,7 @@ public class PayVO {
 	private String play_id; //공연ID
 	private String booking; //예매일
 	private String seat_id; //티켓번호
+	private String cancel; //취소
 	
 	public String getImp_uid() {
 		return imp_uid;
@@ -38,7 +39,6 @@ public class PayVO {
 	public void setPaid_amount(String paid_amount) {
 		this.paid_amount = paid_amount;
 	}
-	
 	public String getBuyer_name() {
 		return buyer_name;
 	}
@@ -75,16 +75,19 @@ public class PayVO {
 	public void setSeat_id(String seat_id) {
 		this.seat_id = seat_id;
 	}
+	public String getcancel() {
+		return cancel;
+	}
+	public void setcancel(String cancel) {
+		this.cancel = cancel;
+	}
 	@Override
 	public String toString() {
 		return "PayVO [imp_uid=" + imp_uid + ", merchant_uid=" + merchant_uid + ", apply_num=" + apply_num
-				+ ", paid_amount=" + paid_amount + ", buyer_name=" + buyer_name
-				+ ", buyer_tel=" + buyer_tel + ", email=" + email + ", play_id=" + play_id + ", booking="
-				+ booking + ", seat_id=" + seat_id + "]";
+				+ ", paid_amount=" + paid_amount + ", buyer_name=" + buyer_name + ", buyer_tel=" + buyer_tel
+				+ ", email=" + email + ", play_id=" + play_id + ", booking=" + booking + ", seat_id=" + seat_id
+				+ ", cancel=" + cancel + "]";
 	}
-	
-	
-	
 	
 	
 	
