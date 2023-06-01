@@ -4,21 +4,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:if test="${empty applyList }">
 <!-- 배열이 비어있으면 -->
-<p>신청 내역이 없습니다.</p>
+<p class="no-result">신청 내역이 없습니다.</p>
 </c:if>
 <c:if test="${not empty applyList }">
 <!-- 배열이 비어있지 않으면 -->
 <c:forEach items="${applyList }" var="item">
-<li class="applyItem">
-	<button class="applyItemBtn"><fmt:formatDate value="${item.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/></button>
+<li class="list-item">
+	<button class="list-item-btn"><fmt:formatDate value="${item.created_at }" pattern="yyyy-MM-dd hh:mm:ss"/></button>
 	<c:if test="${empty item.approval_at }">
-	<button class="applyItemBtn">검토 중</button>
+	<button class="list-item-btn">검토 중</button>
 	</c:if>
 	<c:if test="${not empty item.approval_at and item.approval == true}">
-	<button class="applyItemBtn">승인</button>
+	<button class="list-item-btn">승인</button>
 	</c:if>
 	<c:if test="${not empty item.approval_at and item.approval == false}">
-	<button class="applyItemBtn">거부</button>
+	<button class="list-item-btn">거부</button>
 	</c:if>
 </li>
 </c:forEach>
@@ -26,7 +26,7 @@
 
 <!-- 사업자 신청 -->
 <div id="other">
-	<button id="applyBusiness" class="btn-large">사업자 신청</button>
+	<button id="applyBusiness" class="btn btn-gray btn-large">사업자 신청</button>
 </div>
 
 <script type="text/javascript">

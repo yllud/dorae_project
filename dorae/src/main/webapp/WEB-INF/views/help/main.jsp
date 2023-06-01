@@ -16,46 +16,71 @@
 	})
 </script>
 <style type="text/css">
-	#helpBody {
-		margin: 0 200px;
-		background-color: ivory;
+	.content-body {
+		margin: 0 300px;
 		text-align: center;
 		position: relative;
 		top: 200px;
 	}
 	
-	#faqTitle {
+	.title-faq {
 		display: inline-block;
 		border-right: 1px solid;
 		padding-right: 10px;
 	}
 
-	#search {
-		text-align: center;
+	.search-area {
+		display: inline-flex;
 	}
 	
-	#searchInput {
+	.input {
 		width: 500px;
 		font-size: 20px;
 		margin-left: 7px;
+		outline: none;
+		padding: 5px 10px;	
 	}
 	
-	#searchBtn {
+	.input-search {
+		border: 2px solid orange;
+		border-radius: 10px 0 0 10px;
+	}
+	
+	.input-contact {
+		border-radius: 8px;
+		border: 1px solid black;
+	}
+	
+	.textarea-contact {
+		height: 300px;
+		resize: none;
+	}
+	
+	.btn-search {
 		font-size: 20px;
+		border: 0;
+		border-radius: 0 10px 10px 0;
+		padding: 10px;
+		background-color: orange;
+		color: white;
+		font-weight: bold;
+		cursor: pointer;
 	}
 	
-	#search {
-		text-align: center;
+	.btn {
+		cursor: pointer;
 	}
 	
-	#searchInput {
-		width: 500px;
-		font-size: 20px;
-		margin-left: 7px;
+	.btn:hover {
+		transition: .2s;
+		background-color: orange;
+		color: white;
 	}
 	
-	#searchBtn {
-		font-size: 20px;
+	.btn-gray {
+		border: 1px solid gray;
+		border-radius: 20px;
+		background: ghostwhite;
 	}
 	
 	.btn-large {
@@ -67,52 +92,40 @@
 	.btn-small {
 		font-size: 20px;
 		margin: 4px;
+		padding: 5px 10px;
 	}
 	
-	#searchList {
-		padding: 0 40px;
-	}
-	
-	.searchItem:first-child {
-		border-top: 1px solid grey;
-	}
-	
-	.searchItem {
-		list-style: none;
-		border-bottom: 1px solid grey;
-		text-align: left;
-		width: 100%;
-	}
-	
-	.searchItemBtn {
-		padding: 12px;
+	.btn-page {
 		font-size: 20px;
-		border: 0;
+		margin: 5px;
+		padding: 5px 10px;
 		background-color: transparent;
-		cursor: pointer;
-		text-align: left;
+		border: 0;
+		color: black;
+		border-radius: 8px;
 	}
 	
-	.searchItemBtn h4 {
-		margin-top: 0;
+	.btn-active {
+		background-color: orange;
+		color: white;
 	}
 	
-	.searchItemBtn p {
-		margin-bottom: 0;
+	.list {
+		padding: 0;
 	}
 	
-	.faqItem:first-child {
+	.list-item:first-child {
 		border-top: 1px solid grey;
 	}
 	
-	.faqItem {
+	.list-item {
 		list-style: none;
 		border-bottom: 1px solid grey;
-		width: 100%;
 		text-align: left;
+		width: 100%;
 	}
 	
-	.faqItemBtn {
+	.list-item-btn {
 		padding: 12px;
 		font-size: 24px;
 		border: 0;
@@ -120,90 +133,74 @@
 		cursor: pointer;
 		text-align: left;
 	}
-	
-	.faqItemContent {
+
+	.list-item-content {
 		font-size: 20px;
 		padding: 12px;
 	}
 	
-	.noResult {
+	.no-result {
 		font-size: 24px;
 	}
 	
-	.applyItem:first-child {
-		border-top: 1px solid grey;
+	.label {
+		margin: auto 30px auto 0;
 	}
 	
-	.applyItem {
-		list-style: none;
-		border-bottom: 1px solid grey;
-		width: 100%;
-		text-align: left;
+	.input-wrap {
+		display: flex;
+		justify-content: center;
+		min-width: 500px;
+		margin: 10px;
 	}
 	
-	.applyItem a {
-		padding: 0;
-	}
-	
-	.applyItemBtn {
-		padding: 12px;
-		font-size: 24px;
-		border: 0;
+	.pagination {
 		background-color: transparent;
-		cursor: pointer;
-		text-align: left;
 	}
 	
-	.contactItem:first-child {
-		border-top: 1px solid grey;
+	.table-center {
+		margin: auto;
+		border-collapse: collapse;
 	}
 	
-	.contactItem {
-		list-style: none;
-		border-bottom: 1px solid grey;
-		width: 100%;
-		text-align: left;
+	.table-center * {
+		font-size: 20px;
 	}
 	
-	.contactItem a {
+	.row-border {
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
 		padding: 0;
-	}
-	
-	.contactItemBtn {
-		padding: 12px;
-		font-size: 24px;
-		border: 0;
-		background-color: transparent;
-		cursor: pointer;
-		text-align: left;
 	}
 </style>
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
 	
-	<div id="helpBody">
+	<div class="content-body">
 
 		<div id="helpContent">
 			<!-- FAQ 검색 -->
 			<div>
-				<h2 id="faqTitle">FAQ 검색</h2>
-				<input type="text" id="searchInput" name="search"/>
-				<button value="faqSearch?page=1&search=" id="searchBtn" onclick="faqSearch(this)">검색</button>
+				<h2 class="title-faq">FAQ 검색</h2>
+				<div class="search-area">
+					<input type="text" id="searchInput" class="input input-search"/>
+					<button value="faqSearch?page=1&search=" class="btn-search" onclick="faqSearch(this)">검색</button>
+				</div>
 			</div>
 			
 			<!-- FAQ 유형별 버튼 -->
 			<div id="faqBtnList">
 				<c:forEach items="${helpCategory}" var="item">
-					<button value="faqCategory?help_category_id=${item.help_category_id }" class="btn-large" onclick="goToList(this)">${item.name }</button>
+					<button value="faqCategory?help_category_id=${item.help_category_id }" class="btn btn-gray btn-large" onclick="goToList(this)">${item.name }</button>
 				</c:forEach>
 			</div>
 			<hr color="red">
 			
 			<!-- 1:1 문의, 사업자 신청 -->
 			<div id="other">
-				<button value="contactList?page=1" class="btn-large" onclick="goToList(this)">1:1문의</button>
-				<button value="applyBusinessList" class="btn-large" onclick="goToList(this)">사업자 신청</button>
+				<button value="contactList?page=1" class="btn btn-gray btn-large" onclick="goToList(this)">1:1문의</button>
+				<button value="applyBusinessList" class="btn btn-gray btn-large" onclick="goToList(this)">사업자 신청</button>
 			</div>
 			
 		</div>
@@ -263,12 +260,8 @@
 		}
 		
 		window.onpopstate = function(event) {
-			console.log(event);
-			console.log(event.state);
 			if (event.state != null && event.state.url != "main") { // state 가 null 이 아닐 때만 ajax로 갱신
 				asyncLoad(event.state.url);				
-			} else {
-				location.reload();
 			}
 		}
 		
