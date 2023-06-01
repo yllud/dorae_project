@@ -7,7 +7,7 @@
 	<select id="ticketJoin" resultType="ticketVO" parameterType="ticketVO">
 		SELECT s.email, s.play_id, s.seat_id, s.seat_date, s.seat_time,
 		p.paid_amount, p.booking,
-		pl.play_name, pl.stage_name, pl.image
+		pl.play_name, pl.stage_name, pl.poster
 		FROM seat s
 		JOIN pay p ON s.seat_id = p.seat_id
 		JOIN play pl ON s.play_id = pl.play_id
@@ -20,7 +20,7 @@
             FROM(
             select s.email, s.play_id, s.seat_id, s.seat_date, s.seat_time,
 		p.paid_amount, p.booking,
-		pl.play_name, pl.stage_name, pl.image
+		pl.play_name, pl.stage_name, pl.poster
             FROM seat s
 		JOIN pay p ON s.seat_id = p.seat_id
 		JOIN play pl ON s.play_id = pl.play_id

@@ -10,7 +10,7 @@ public class TicketVO {
 	private String booking;
 	private String play_name;
 	private String stage_name;
-	private String image;
+	private String poster;
 	
 	public String getEmail() {
 		return email;
@@ -66,18 +66,18 @@ public class TicketVO {
 	public void setStage_name(String stage_name) {
 		this.stage_name = stage_name;
 	}
-	public String getImage() {
-		return image;
+	public String getPoster() {
+		return poster;
 	}
-	public void setImage(String image) {
-		this.image = image;
+	public void setPoster(String poster) {
+		this.poster = poster;
 	}
 	
 	@Override
 	public String toString() {
 		return "ticketListVO [email=" + email + ", play_id=" + play_id + ", seat_id=" + seat_id + ", seat_date="
 				+ seat_date + ", seat_time=" + seat_time + ", paid_amount=" + paid_amount + ", booking=" + booking
-				+ ", play_name=" + play_name + ", stage_name=" + stage_name + ", image=" + image + "]";
+				+ ", play_name=" + play_name + ", stage_name=" + stage_name + ", poster=" + poster + "]";
 	}
 	
 }

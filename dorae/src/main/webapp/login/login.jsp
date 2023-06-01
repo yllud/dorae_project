@@ -9,7 +9,7 @@
 <title>로그인페이지</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript"
-	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	src="../resources/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -28,13 +28,13 @@
 		<img src="../resources/img/kakaoLogo.png" style="height: 60px">
 	</a>
 	
-	<div id="naver_id_login">
-	<img src="../resources/img/naverLogo.png" style="height: 60px"></div>
+	<div id="naver_id_login"></div>
+	<img src="../resources/img/naverLogo.png" style="height: 60px">
     <!-- //네이버 로그인 버튼 노출 영역 -->
     <script type="text/javascript">
         var naver_id_login = new naver_id_login("AMkeOwuTJY71fYcpifZl", "http://localhost:8888/dorae/login/callback.jsp");
         var state = naver_id_login.getUniqState();
-        naver_id_login.setButton("white", 2,40);
+        naver_id_login.setButton("green", 10,60);
         naver_id_login.setDomain("http://localhost:8888/dorae");
         naver_id_login.setState(state);
         //naver_id_login.setPopup();
