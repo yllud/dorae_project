@@ -109,13 +109,13 @@ int currentPage = 1;
 				<td class="review-detail" data-id="${review.id}">
 				<table class="review-table">
 					<tr>
-						<td><img src="../resources/img/pin.png" width="35" height="40"></td>
+						<td><img src="/dorae/resources/img/pin.png" width="35" height="40"></td>
 						<td>${review.tag}</td>
 					</tr>
 					<tr>
 						<td colspan="2"><c:choose>
 								<c:when test="${not empty review.images}">
-									<img src="../resources/upload/${review.images[0]}" alt="후기 이미지" class="review-img" />
+									<img src="/dorae/resources/upload/${review.images[0]}" alt="후기 이미지" class="review-img" />
 								</c:when>
 								<c:otherwise>
 									<div class="no-image">후기 이미지가 없습니다.</div>

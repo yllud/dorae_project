@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="../resources/css/reviewStyle.css">
+<title>다녀온 후기</title>
+<link rel="stylesheet" href="/dorae/resources/css/reviewStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 	$(function() {
-		$("#header").load("../header/header.jsp");
+		$("#header").load("/dorae/header/header.jsp");
 		$.ajax({
 			url : "all",
 			data : {
@@ -51,14 +51,14 @@
 			    form.submit();
 			<%} else {%>
 			alert('로그인 후 이용 가능합니다');
-			location.href = '../login/login.jsp';
+			location.href = '/dorae/login/login.jsp';
 			<%}%>
 		});
 
 		
 	});
 	function openPopup() {
-		window.open("tag.jsp", "_blank", "width=600,height=500");
+		window.open("tag.jsp", "_blank", "width=700,height=600");
 	}
 </script>
 

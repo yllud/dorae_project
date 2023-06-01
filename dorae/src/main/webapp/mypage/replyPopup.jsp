@@ -59,7 +59,7 @@ textarea {
 	<div class="input-area">
         <!-- 평가 점수 입력 폼 -->
         <label for="score">평가 점수:</label>
-        <input type="number" name="score" id="score" min="1" max="5" required>
+        <input type="number" name="score" id="score" min="1" max="10" required>
     </div>
 
 	<div class="button-area">

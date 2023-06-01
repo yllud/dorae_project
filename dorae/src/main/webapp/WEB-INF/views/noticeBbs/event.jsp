@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이벤트</title>
 <style>
   .detail:hover {
     cursor: pointer;

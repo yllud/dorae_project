@@ -99,11 +99,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table>
-		<tr>
-			<td>공연명</td>
-			<td>장르</td>
-		</tr>
+<table class="tagResult">
 		<c:forEach var="tag" items="${tag}">
 			<tr>
 				<td class="playName"><a href="#">${tag.play_name}</a></td>
@@ -112,6 +108,7 @@
 		</c:forEach>
 	</table>
 	<!--페이지버튼 -->
+	<div class="pageButton">
 	<table>
 	<tr>
 	<td><button id="previous">이전</button></td>
@@ -123,6 +120,7 @@
 	<td><button id="next">다음</button></td>
 	</tr>
 	</table>
+	</div>
 	
 </body>
 </html>
