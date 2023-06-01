@@ -88,12 +88,22 @@
 		</if>
 	</select>
 
+	
 
+
+	<!-- 북마크했는지 검색 -->
+	<select id="checkBook" resultType="Integer"
+		parameterType="bookVO">
+		select count(*) from book where play_id = #{play_id} and email = #{email}
+	</select>
+	
 	<!-- 리뷰 리스트 -->
 	<select id="review" resultType="replyVO" parameterType="String">
 		select
-		p.play_name, m.nickname, text, score, DATE_FORMAT(upload_date, '%Y-%m-%d %H:%i') as upload_date2
-		from play p inner join m_review r inner
+		p.play_name, m.nickname, text, score, DATE_FORMAT(upload_date,
+		'%Y-%m-%d %H:%i') as upload_date2
+		from play p inner join m_review r
+		inner
 		join member m
 		on p.play_id
 		=r.play_id and m.email =r.email

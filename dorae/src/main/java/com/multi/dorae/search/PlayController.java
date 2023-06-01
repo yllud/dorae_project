@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.multi.dorae.map.BookDAO;
+import com.multi.dorae.map.BookVO;
 import com.multi.dorae.mypage.ReplyVO;
 
 @Controller
@@ -25,6 +27,9 @@ public class PlayController {
 
 	@Autowired
 	RankDAO dao3;
+
+	@Autowired
+	BookDAO dao4;
 
 	@RequestMapping("search/playList")
 	public void playList(Criteria cri, Model model) {
@@ -83,30 +88,67 @@ public class PlayController {
 		System.out.println(play_id);
 		PlayVO vo = dao.playDetail(play_id);
 		String stage_id = dao.stageId(play_id);
-		
-		System.out.println("30일 뒤 날짜:"+ReserveDate());
-		
-		//30일 이내에 공연이 있으면 예매버튼 활성화
-		int a=0;
+
+		// 30일 이내에 공연이 있으면 예매버튼 활성화
+		System.out.println("30일 뒤 날짜:" + ReserveDate());
+		int a = 0;
 		int comparison = vo.getPlay_start().compareTo(ReserveDate());
 		if (vo.getState().equals("공연완료")) {
-			a=0;
+			a = 0;
+		} else if (comparison <= 0) {
+			a = 1;
 		}
-		else if(comparison<=0) {
-			a=1;
-		}
-		System.out.println("예매버튼 여부"+a);
+		System.out.println("예매버튼 여부 : " + a);
 
 		StageVO vo2 = dao2.stageDetail(stage_id);
-		String score= dao.ReviewScore(play_id);
+
+		int book_cnt = dao4.count(play_id);
+
+		String score = dao.ReviewScore(play_id);
 		List<ReplyVO> listReview = dao.ReviewList(play_id);
-		
-		
+
+		// 공연 정보
 		model.addAttribute("vo", vo);
-		model.addAttribute("vo2", vo2);
-		model.addAttribute("listReview", listReview);
 		model.addAttribute("a", a);
+		model.addAttribute("vo2", vo2);
+
+		// 북마크 정보
+		model.addAttribute("book_cnt", book_cnt);
+
+		// 리뷰 정보
+		model.addAttribute("listReview", listReview);
 		model.addAttribute("score_sum", score);
+	}
+	
+	//사용자가 해당 공연 좋아요했는지 미리 체크
+	@RequestMapping("search/playDetailBookCheck")
+	public void playDetailBookCheck(BookVO vo, Model model) {
+		System.out.println("(Controller) playDetailBookCheck 요청");
+		System.out.println(vo);
+
+		int book_true=dao.playCheckBook(vo);
+		String heart="";
+		if(book_true>0) {
+			heart="../resources/img/heart_fill.png";
+		}
+		else {
+			heart="../resources/img/heart_empty.png";
+		}
+		model.addAttribute("heart", heart);
+	}
+
+	@RequestMapping("search/playDetailBookInsert")
+	public void playDetailBookInsert(BookVO vo, Model model) {
+		System.out.println("(Controller) playDetailBookInsert 요청");
+		System.out.println(vo);
+		dao4.insert(vo);
+	}
+	
+	@RequestMapping("search/playDetailBookDelete")
+	public void playDetailBookDelete(BookVO vo, Model model) {
+		System.out.println("(Controller) playDetailBookDelete 요청");
+		System.out.println(vo);
+		dao4.delete(vo);
 	}
 
 	// 오늘 날짜
