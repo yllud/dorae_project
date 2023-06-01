@@ -222,3 +222,9 @@ table, th, td {
 	cursor: pointer;
 	margin-left: 10px;
 }
+
+/*태그 검색 스타일  */
+#tagTotal{
+	justify-content: center;
+	align-items: center;
+}
