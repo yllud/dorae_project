@@ -15,6 +15,92 @@
 <script type="text/javascript">
 	$(function() {
 		$("#header").load("../header/header.jsp");
+		
+		$.ajax({
+				url : "playDetailBookCheck",
+				data : {
+					play_id : $('#play_id').val(),
+					email : $('#email_id').val()
+				},
+				success : function(x) {
+// 					alert('북마크 체크 성공')
+					$('.bookIcon').attr('src',x);
+					
+				},//success
+				error : function() {
+					alert('북마크 체크 실패')
+				}//error
+			})//ajax
+		
+		$('#btnBook').click(function() {
+			
+			var emailId = $('#email_id').val(); // #email_id의 값 가져오기
+
+		    if (emailId=== "null") {
+		        // #email_id가 null인 경우
+		        alert('로그인해주세요');
+		    } 
+		    else {
+			
+			var heartSrc = $('.bookIcon').attr('src');
+			if (heartSrc === '../resources/img/heart_empty.png') {
+		    $.ajax({
+				url : "playDetailBookInsert",
+				data : {
+					play_id : $('#play_id').val(),
+					email : $('#email_id').val()
+				},
+				success : function(x) {
+					$('.bookIcon').attr('src', '../resources/img/heart_fill.png');
+					
+					// 버튼 요소의 텍스트를 가져옵니다.
+				    var buttonText = $('.bookCount').text();
+
+				    // 텍스트를 정수로 변환하고 1을 더합니다.
+				    var newCount = parseInt(buttonText) + 1;
+
+				    // 변환된 값을 다시 버튼에 설정합니다.
+				    $('.bookCount').text(newCount);
+					
+				},//success
+				error : function() {
+					alert('북마크 추가 실패')
+				}//error
+			})//ajax
+		
+			}
+			else{
+				$.ajax({
+					url : "playDetailBookDelete",
+					data : {
+						play_id : $('#play_id').val(),
+						email : $('#email_id').val()
+					},
+					success : function(x) {
+						$('.bookIcon').attr('src', '../resources/img/heart_empty.png');
+						
+						// 버튼 요소의 텍스트를 가져옵니다.
+					    var buttonText = $('.bookCount').text();
+
+					    // 텍스트를 정수로 변환하고 1을 더합니다.
+					    var newCount = parseInt(buttonText) - 1;
+
+					    // 변환된 값을 다시 버튼에 설정합니다.
+					    $('.bookCount').text(newCount);
+						
+					},//success
+					error : function() {
+						alert('북마크 삭제 실패')
+					}//error
+				})//ajax
+				
+			}
+}
+			
+		});
+		
+		
+		
 	})//$
 	
 	$(window).on('load', function() {
@@ -25,8 +111,8 @@
 		    window.open(url, "_blank", "width=500,height=500");
 		}
 		//공유 아이콘 클릭 이벤트
-		$('#infoList').on('click', '.shareIcon', function() {
-// 		    var row = $(this).closest('table');
+// 		$('#infoList').on('click', '.shareIcon', function() {
+		$('#btnShare').click(function() {
 		    var playName = $('#play_id').val();
 		    var stageName = $('#stage_id').val();
 
@@ -35,32 +121,28 @@
 	
 	})//$
 	
-	  function ratingToPercent(score) {
-	    const percent = +score * 20;
-	    return percent + 1.5;
-	  }
-	
 	function openPopup(x) {
 		window.open("../seat/one?play_id="+x, "_blank", "width=1050,height=670");
 	}
 
 </script>
 
+
 </head>
 <body>
+
 	<header id="header" class="fixed-top"></header>
-	<div class="body">
+<!-- 	<div class="body"> -->
 
 
 		<div class="container">
-
+			<input id="email_id" type="hidden"
+				value="<%=session.getAttribute("email")%>">
 			<div class="left-items">
 
 				<c:if test="${a == 1}">
 					<img src="${vo.poster}" class="poster">
-					<%-- 					<a href="../seat/one?play_id=${vo.play_id}"> --%>
 					<button class="reserve" onclick="openPopup('${vo.play_id}')">예매</button>
-					<!-- 					</a> -->
 				</c:if>
 
 			</div>
@@ -69,11 +151,12 @@
 				<div id="infoList" class="right-text">
 					#${vo.genre_name} #${vo2.stage_name} <br>
 					<h1>${vo.play_name}</h1>
-					<button class="btnShare">
-						<img class='bookIcon' src='../resources/img/icon-book_none.jpg'>
+					<button id="btnBook" class="btn-book-share">
+						<img class='bookIcon' src=""><span
+							class="bookCount">${book_cnt}</span>
 					</button>
-					<button class="btnShare">
-						<img class='shareIcon' src='../resources/img/icon-share.png'>
+					<button id="btnShare" class="btn-book-share">
+						<img class='shareIcon' src='../resources/img/share.png'>공유
 					</button>
 				</div>
 				<div class="right-grade">
@@ -88,8 +171,7 @@
 		<div class="container2">
 			<div class="left-items2">
 				<div class="left-text2">
-					<input id="play_id" type="hidden" value="${vo.play_id}"> <input
-						id="stage_name" type="hidden" value="${vo.stage_name}">
+					<input id="play_id" type="hidden" value="${vo.play_id}">
 					<h1 class="detail1">${vo.play_name}</h1>
 					<h4 class="detail">#${vo.state}</h4>
 					<div class="detail">장르 : ${vo.genre_name} / ${vo.runtime}</div>
@@ -116,8 +198,8 @@
 					<div class="map-detail">좌석: ${vo2.seat_cnt}석</div>
 					<div class="map-detail">주소: ${vo2.address}</div>
 					<div class="map-detail">번호: ${vo2.tel}</div>
-					<div class="map-detail">싸이트: 
-						<a href="${vo2.website}">${vo2.website}</a>
+					<div class="map-detail">
+						싸이트: <a href="${vo2.website}">${vo2.website}</a>
 					</div>
 				</div>
 			</div>
@@ -148,7 +230,7 @@
 												<div class="star-ratings-base space-x-2 text-lg">
 													<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 												</div>
-											</div>${bag.score}</div></td>
+											</div><div class="score_one">${bag.score}</div></div></td>
 									<td><div class="review-td">${bag.text}</div></td>
 									<td><div class="review-td">${bag.upload_date2}</div></td>
 								</tr>
@@ -168,7 +250,8 @@
 
 
 
-	</div>
+<!-- 	</div> -->
+
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6c86d97abbc1c8a6096906791ce94735"></script>

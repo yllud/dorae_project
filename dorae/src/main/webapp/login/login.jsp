@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="../resources/css/sns.css">
 <meta charset="UTF-8">
 <title>로그인페이지</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
@@ -26,10 +25,11 @@
 	<a class="p-2"
 		href="https://kauth.kakao.com/oauth/authorize?client_id=7d82a34e6c4c00f0c8af6bad0d046044&redirect_uri=http://localhost:8888/dorae/login/kakaoLogin&response_type=code">
 		<!-- REST_API키 및 REDIRECT_URi는 본인걸로 수정하세요 --> 
-		<img src="../resources/img/카카오버튼.png" style="height: 40px">
+		<img src="../resources/img/kakaoLogo.png" style="height: 60px">
 	</a>
 	
-	<div id="naver_id_login"></div>
+	<div id="naver_id_login">
+	<img src="../resources/img/naverLogo.png" style="height: 60px"></div>
     <!-- //네이버 로그인 버튼 노출 영역 -->
     <script type="text/javascript">
         var naver_id_login = new naver_id_login("AMkeOwuTJY71fYcpifZl", "http://localhost:8888/dorae/login/callback.jsp");

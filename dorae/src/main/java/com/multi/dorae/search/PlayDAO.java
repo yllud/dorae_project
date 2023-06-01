@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.multi.dorae.map.BookVO;
 import com.multi.dorae.mypage.ReplyVO;
 
 @Component
@@ -75,6 +76,14 @@ public class PlayDAO {
 		return vo;
 	}
 
+	// 공연 id, email로 북마크했는지 검색
+	public int playCheckBook(BookVO vo) {
+		System.out.println("(Dao) playCheckBook");
+		System.out.println(vo);
+		int cnt = my.selectOne("play.checkBook", vo);
+		return cnt;
+	}
+
 	// 공연 id로 리뷰 검색
 	public List<ReplyVO> ReviewList(String play_id) {
 		System.out.println("(DAO) reveiw List");
@@ -88,11 +97,11 @@ public class PlayDAO {
 	// 공연 id로 리뷰 평균 평점 검색
 	public String ReviewScore(String play_id) {
 		System.out.println("(DAO) reveiw Score");
-		String score="-";
-		if(my.selectOne("play.reviewScore", play_id)!=null) {
+		String score = "-";
+		if (my.selectOne("play.reviewScore", play_id) != null) {
 			score = my.selectOne("play.reviewScore", play_id);
 		}
-		System.out.println("score: "+score);
+		System.out.println("score: " + score);
 		return score;
 	}
 
