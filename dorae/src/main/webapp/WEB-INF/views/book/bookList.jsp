@@ -18,7 +18,6 @@ function deleteBookmark(playId) {
         success: function(response) {
         	if(response == "success"){
            		alert("북마크 삭제됨!");
-           		location.reload(); // 페이지 전체 새로고침
         	}else{
         		alert("북마크 이미 삭제되었습니다!");
         	}

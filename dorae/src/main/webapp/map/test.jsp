@@ -14,7 +14,7 @@ $(function() {
 	 $.ajax({
 	    	url: "/dorae/book/bookList",
 	        type: "GET",
-	        data: { email: userEmail }, // 이메일 값을 넘겨줌
+	        data: { email: '<%=session.getAttribute("email")%>' }, // 이메일 값을 넘겨줌
 	        success: function(data) {	        	
 	          $('#bookInfo').html(data);
 	        },
