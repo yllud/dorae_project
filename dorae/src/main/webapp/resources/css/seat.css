@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
-.header {
+/* .header {
     position: fixed;
     z-index: 100;
     width: 990px;
     background: #fff;
-}
+} */
 .main {
-    position: relative;
+    position: relative; /* 자기기준으로 기준잡기 */
     width: 1000px;
     height: 100%;
 }
@@ -20,8 +20,8 @@
     float: left;
     position: relative;
     width: 680px;
-    min-height: 630px;
-    max-height: 630px;
+    min-height: 670px;
+    max-height: 670px;
     padding: 20px;
     border-right: 1px solid #ecedf2;
     background: #f8f9fa;
@@ -40,12 +40,11 @@
     letter-spacing: -1px;
     float: left;
     position: relative;
-    width: 280px;
-    height: auto;
+    width: 300px;
     min-height: 670px;
     max-height: 670px;
     margin-left: -1px;
-    padding: 20px 30px 30px 29px;
+    padding: 20px 20px 20px 20px;
     border-left: 1px solid #ecedf2;
     box-sizing: border-box;
     background: #fff;
@@ -57,20 +56,15 @@
 .info2 {
     clear: both;
     font-size: 17px;
+    padding-bottom: 34px;
 }
 
 .info2 table {
     width: 100%;
     font-size: 14px;
+    height: 370px;
 }
-caption {
-    visibility: hidden;
-    overflow: hidden;
-    width: 0;
-    height: 0;
-    font-size: 0;
-    line-height: 0;
-}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -116,15 +110,65 @@ tr {
     font-size: 16px;
     text-align: right;
 }
+.mt-3 {
+    margin-top: 1rem!important;
+}
 
-.container { 
+.form-control {
+    display: block;
+    width: 90%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input{
+    margin: 0;
+   
+}
+#clearBtn{
+	float: right;
+}
+.check {
+	padding: 0px 20px 0px 20px;
+}
+.step1 {
+    width: 450px;
+    padding-right: 21px;
+}
+.step2 {
+    width: 450px;
+    padding-right: 21px;
+}
+.step1, .step2 {
+    padding: 14px 20px 20px;
+}
+.title {
+	font-size: 17px;
+    display: block;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #cfd0d7;
+    text-align: center;
+}
+.container2 { 
   perspective: 1000px;
   margin-bottom: 30px; /* container 기준으로 아래 여백*/
 }
 .seat {
   background-color: #c0e0fe;
-  height: 13px;
-  width: 15px;
+  height: 15px;
+  width: 18px;
   margin: 3px; /* 여백*/
   border-top-left-radius: 5px; /* 좌석 왼쪽 모서리 깎은 정도*/
   border-top-right-radius: 5px; /* 좌석 오른쪽 모서리 깎은 정도*/
@@ -159,7 +203,7 @@ tr {
   margin: 15px auto;
   transform: rotateX(-45deg);
 }
-.row { /* row 가로 나열*/
+.row2 { /* row 가로 나열*/
   display: flex;
   justify-content: center;
   align-items: center;

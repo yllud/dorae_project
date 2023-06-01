@@ -8,13 +8,14 @@
 			FROM seat
 			WHERE seat_id LIKE CONCAT(DATE_FORMAT(NOW(), '%y%m%d'), '%');
 		</selectKey>
-		insert into seat values (#{email}, #{play_id}, #{seat_date}, #{seat_time}, #{seat_number}, #{seat_id})
+		insert into seat values (#{email}, #{play_id}, #{seat_date}, #{seat_time}, #{seat_number}, #{seat_id}, #{cancel})
 	</insert>
 	
-	<!-- 공연ID, 날짜, 시간 전부 같은 좌석넘버 가져오기  -->
+	<!-- 공연ID, 날짜, 시간 전부 같고 취소되지않은 좌석넘버 가져오기  -->
 	<select id="select" resultType="String" parameterType="java.util.Map">
-		select seat_number from seat where play_id = #{play_id} and seat_date = #{seat_date} and seat_time = #{seat_time}
+		select seat_number from seat where play_id = #{play_id} and seat_date = #{seat_date} and seat_time = #{seat_time} and cancel is null
 	</select>
+	
 </mapper>
 
 
