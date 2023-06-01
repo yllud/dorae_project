@@ -20,7 +20,7 @@ public class SnsScheduler {
 	SnsDAO snsDao;
 
 	// 초 분 시 일 월 일
-	@Scheduled(cron = "0 5 8 * * *") // 매일 오전 8시 5분에 최신화
+	@Scheduled(cron = "0 10 0 * * *") // 매일 오전 00시 10분에 최신화
 	public void auto() throws TwitterException {
 		drop(); // 블로그, 트위터 컬렉션 drop
 		List<String> recommend = recommend(); // 추천검색어 추출

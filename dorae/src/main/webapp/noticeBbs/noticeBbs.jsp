@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이벤트</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 	$(function() {
-		$("#header").load("../header/header.jsp");
+		$("#header").load("/dorae/header/header.jsp");
 		// 페이지 로드 시
 
 		$.ajax({
