@@ -41,7 +41,11 @@ public class HelpController {
 	
 	@RequestMapping("main")
 	public void helpMain(Model model, HttpSession session) {
-		System.out.println("email : " + session.getAttribute("email"));
+		System.out.println("고객센터 접속 : email : " + session.getAttribute("email"));
+	}
+	
+	@RequestMapping("mainContent")
+	public void mainContent(Model model) {
 		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
 	}
 	

@@ -178,31 +178,8 @@
 	<header id="header" class="fixed-top"></header>
 	
 	<div class="content-body">
-
+		<!-- 페이지가 삽입될 곳 -->
 		<div id="helpContent">
-			<!-- FAQ 검색 -->
-			<div>
-				<h2 class="title-faq">FAQ 검색</h2>
-				<div class="search-area">
-					<input type="text" id="searchInput" class="input input-search"/>
-					<button value="faqSearch?page=1&search=" class="btn-search" onclick="faqSearch(this)">검색</button>
-				</div>
-			</div>
-			
-			<!-- FAQ 유형별 버튼 -->
-			<div id="faqBtnList">
-				<c:forEach items="${helpCategory}" var="item">
-					<button value="faqCategory?help_category_id=${item.help_category_id }" class="btn btn-gray btn-large" onclick="goToList(this)">${item.name }</button>
-				</c:forEach>
-			</div>
-			<hr color="red">
-			
-			<!-- 1:1 문의, 사업자 신청 -->
-			<div id="other">
-				<button value="contactList?page=1" class="btn btn-gray btn-large" onclick="goToList(this)">1:1문의</button>
-				<button value="applyBusinessList" class="btn btn-gray btn-large" onclick="goToList(this)">사업자 신청</button>
-			</div>
-			
 		</div>
 	</div>
 	
@@ -260,12 +237,12 @@
 		}
 		
 		window.onpopstate = function(event) {
-			if (event.state != null && event.state.url != "main") { // state 가 null 이 아닐 때만 ajax로 갱신
+			if (event.state != null) { // state 가 null 이 아닐 때만 ajax로 갱신
 				asyncLoad(event.state.url);				
 			}
 		}
 		
-		history.pushState({"url": "main"}, null, location.pathname);				
+		goToPage("mainContent");
 	</script>
 </body>
 </html>
