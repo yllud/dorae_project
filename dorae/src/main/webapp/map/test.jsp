@@ -6,13 +6,18 @@
 <script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
 <script>
 $(function() {
-	var email2 = "yg9316@naver.com";
+	//var email2 = "yg9316@naver.com"; //테스트용 이메일 나중에 세션으로 교체예정
+	<% if (session.getAttribute("email") != null) { %>
+	var email2 = '<%=session.getAttribute("email")%>';
+	<% } %>
 	$('#book').click(function(){
 	 $.ajax({
-	    	url: "/dorae/book/select_my",
+	    	url: "/dorae/book/bookList",
 	        type: "GET",
 	        data: { email: email2 }, // 이메일 값을 넘겨줌
-	        success: function(data) {
+	        success: function(data) {	        	
+	        	alert("북마크 클릭됨!!");
+	        	console.log(data);
 	          $('#bookInfo').html(data);
 	        },
 	        error: function() {
