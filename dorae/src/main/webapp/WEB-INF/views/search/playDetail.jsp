@@ -7,14 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../resources/css/playDetail.css">
-<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min2.css">
+<!-- <link rel="stylesheet" href="/dorae/resources/css/bootstrap.detail.css"> -->
 
 
 <title>Insert title here</title>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#header").load("../header/header.jsp");
+		$("#header").load("../header/header2.jsp");
 		
 		$.ajax({
 				url : "playDetailBookCheck",
