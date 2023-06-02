@@ -545,6 +545,7 @@
 	    
 	 	// 공연장 이름 검색
 	    function searchStageName(address) {
+	    	var existing = false;
 	        for (var i = 0; i < delist2.length; i++) {
 	            var stageName = delist2[i].stage_name.trim();
 	            var add = address.trim();
@@ -560,11 +561,13 @@
 
 	                if (existingMarker) {
 	                    handleMarkerClick(existingMarker);
-	                }else{
-	                	alert("검색결과가 없습니다.")
-	                	return 0;
+	                    existing = true;
+	                    return 0;
 	                }
 	            }
+	        }
+	        if(existing == false){
+	        	alert("검색결과가 없습니다!");
 	        }
 	    }
 	    
