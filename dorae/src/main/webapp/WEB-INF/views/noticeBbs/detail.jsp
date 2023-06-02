@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,7 @@
 			</tr>
 			<tr>
 				<td>작성일</td>
-				<td>${one.created_at}</td>
+				<td><fmt:timeZone value="GMT"><fmt:formatDate value="${one.created_at}" pattern="yyyy-MM-dd"/></fmt:timeZone></td>
 			</tr>
 			<tr>
 				<td>내용</td>

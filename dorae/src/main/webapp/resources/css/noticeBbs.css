@@ -28,25 +28,27 @@
 
 /*전체 담기는 부분  */
 #noticeBbs {
-	margin-top : 175px;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+	margin-top: 175px;
 }
 
 #background {
-	margin-top : 300px;
-	margin-right: 500px;
-	margin-left: 500px;
-	background-color: yellow;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+	margin-top: 250px;
+	margin-right: 300px;
+	margin-left: 300px;
+	background-color: rgba(255, 153, 0, 0.2);
+	height: 500px;
+	position: relative;
+}
+
+#result {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 #notice {
 	display: flex;
-	margin-top: 100px;
 	margin-bottom: 0;
 	align-items: center;
 	justify-content: center;
@@ -72,31 +74,37 @@
 }
 /*테이블 설정  */
 .bbs-table {
-  width: 700px;
-  border-collapse: collapse;
+	width: 1000px;
+	border-collapse: collapse;
 }
 
 .bbs-table td {
-  text-align: center;
-  padding: 10px;
-  border : 1px solid lightgrey;
+	text-align: center;
+	padding: 10px;
+}
+
+.bbs-table tr {
+	border-bottom: 1px solid white;
+}
+
+#head{
+	background-color: lightgrey;
 }
 /*첫 번째 td 크기 */
 .td1 {
-	width: 100px;
-	background-color: red;
+	width: 150px;
 }
 /*두 번째 td 크기 */
-.td2{
-	width: 500px;
+.td2 {
+	width: 700px;
 }
 /*세 번째 td 크기 */
-.td3{
+.td3 {
 	width: 150px;
 }
 
 /*상세페이지 클릭  */
 .detail:hover {
-    cursor: pointer;
-    background-color: #f2f2f2; /* 마우스 호버 시 배경색 변경 */
-  }
+	cursor: pointer;
+	background-color: #f2f2f2; /* 마우스 호버 시 배경색 변경 */
+}
