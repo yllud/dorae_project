@@ -81,7 +81,10 @@ table, th, td {
 	align-items: center;
 	height: 100vh;
 }
-
+/*태그 검색창 가운데정렬  */
+#selectedEventName{
+	text-align: center;
+}
 /*타이틀 스타일  */
 #top {
 	display: flex;
