@@ -110,6 +110,11 @@
 		color: white;
 	}
 	
+	.page-item > .disabled {
+		color: lightgray;
+		pointer-events: none;
+	}
+	
 	.list {
 		padding: 0;
 	}
@@ -172,6 +177,14 @@
 		border-bottom: 1px solid black;
 		padding: 0;
 	}
+	
+	.row-content {
+		width: 500px;
+	}
+	
+	footer {
+		height: 300px;
+	}
 </style>
 </head>
 <body>
@@ -182,6 +195,8 @@
 		<div id="helpContent">
 		</div>
 	</div>
+	
+	<footer></footer>
 	
 	<!-- 챗봇 -->
 	<div id="chatMain" class="chatCommon" hidden="hidden">

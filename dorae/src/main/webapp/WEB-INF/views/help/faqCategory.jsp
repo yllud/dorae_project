@@ -16,7 +16,6 @@
 	<button value="faqCategory?help_category_id=${item.help_category_id }" class="btn btn-gray btn-small<c:if test="${item.help_category_id eq param.help_category_id }"> btn-active</c:if>" onclick="goToList(this)">${item.name }</button>
 	</c:forEach>
 </div>
-<hr color="red">
 
 <c:if test="${empty faqList }">
 <p class="no-result">검색결과가 없습니다.</p>

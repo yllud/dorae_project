@@ -4,11 +4,11 @@
 <table class="table-center">
 	<tr>
 		<td class="row-border"><label for="contactTitle" class="label">제목</label></td>
-		<td class="row-border"><p id="contactTitle">${vo.title }</p></td>
+		<td class="row-border row-content"><p id="contactTitle">${vo.title }</p></td>
 	</tr>
 	<tr>
 		<td class="row-border"><label for="contactContent" class="label">내용</label></td>
-		<td class="row-border"><p id="contactContent">${vo.content }</p></td>
+		<td class="row-border row-content"><p id="contactContent">${vo.content }</p></td>
 	</tr>
 	<tr>
 		<td class="row-border" colspan="2">
