@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="../login/uploadProfile" method="post" enctype="multipart/form-data">
+<form action="../mypage/uploadProfile" method="post" enctype="multipart/form-data">
   <input type="file" name="file">
   <input type="submit" value="프로필 사진 업로드">
 </form>

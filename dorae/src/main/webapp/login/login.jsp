@@ -19,17 +19,9 @@
 
 <% if(session.getAttribute("email") == null){ %>
 	<h3>로그인페이지 입니다.</h3>
-
 	<hr color="orange">
-	<!-- 카카오 로그인 -->
-	<a class="p-2"
-		href="https://kauth.kakao.com/oauth/authorize?client_id=7d82a34e6c4c00f0c8af6bad0d046044&redirect_uri=http://localhost:8888/dorae/login/kakaoLogin&response_type=code">
-		<!-- REST_API키 및 REDIRECT_URi는 본인걸로 수정하세요 --> 
-		<img src="../resources/img/kakaoLogo.png" style="height: 60px">
-	</a>
-	
+
 	<div id="naver_id_login"></div>
-	<img src="../resources/img/naverLogo.png" style="height: 60px">
     <!-- //네이버 로그인 버튼 노출 영역 -->
     <script type="text/javascript">
         var naver_id_login = new naver_id_login("AMkeOwuTJY71fYcpifZl", "http://localhost:8888/dorae/login/callback.jsp");
@@ -41,6 +33,14 @@
         naver_id_login.init_naver_id_login();
     </script>
 	<br>
+	
+	<!-- 카카오 로그인 -->
+	<a class="p-2"
+		href="https://kauth.kakao.com/oauth/authorize?client_id=7d82a34e6c4c00f0c8af6bad0d046044&redirect_uri=http://localhost:8888/dorae/login/kakaoLogin&response_type=code">
+		<!-- REST_API키 및 REDIRECT_URi는 본인걸로 수정하세요 --> 
+		<img src="../resources/img/kakaoLogo.png" style="height: 60px">
+	</a>
+	
 	<%}else{ %>
 	out.println("<script type='text/javascript'>alert('${nickname} 님이 로그인 하셨습니다');location.href = 'http://localhost:8888/dorae/map/main.jsp'</script>");
 	<%} %>
