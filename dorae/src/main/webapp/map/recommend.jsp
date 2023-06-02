@@ -242,16 +242,16 @@ var selectedOrders = {
 					<td><input type="checkbox" name="area" id="area8" value="울산"
 						onclick="limitCheckboxSelection(this)"> 울산 <span
 						id="area_selected_area8" class="selected-label"></span></td>
-					<td><input type="checkbox" name="area" id="area9" value="충청도"
+					<td><input type="checkbox" name="area" id="area9" value="충청"
 						onclick="limitCheckboxSelection(this)"> 충청도 <span
 						id="area_selected_area9" class="selected-label"></span></td>
-					<td><input type="checkbox" name="area" id="area10" value="경상도"
+					<td><input type="checkbox" name="area" id="area10" value="경상"
 						onclick="limitCheckboxSelection(this)"> 경상도 <span
 						id="area_selected_area10" class="selected-label"></span></td>
-					<td><input type="checkbox" name="area" id="area11" value="전라도"
+					<td><input type="checkbox" name="area" id="area11" value="전라"
 						onclick="limitCheckboxSelection(this)"> 전라도 <span
 						id="area_selected_area11" class="selected-label"></span></td>
-					<td><input type="checkbox" name="area" id="area12" value="제주도"
+					<td><input type="checkbox" name="area" id="area12" value="제주"
 						onclick="limitCheckboxSelection(this)"> 제주도 <span
 						id="area_selected_area12" class="selected-label"></span></td>
 				</tr>

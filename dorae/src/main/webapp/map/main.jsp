@@ -971,6 +971,7 @@
 		
 
 		$('#result').empty();
+		
 		if(userEmail != null){
 			$.ajax({
 			    url: "/dorae/map/select_myPreference",
@@ -1057,7 +1058,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="result">
+	<div id="result" style="width:100%;">
 	<br><br><br><br><br>
 	<table style="width: 100%;">
 		<tr>
