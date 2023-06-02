@@ -14,6 +14,7 @@
 }
 </style>
 <link rel="stylesheet" href="../resources/css/style.css" />
+<script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
@@ -35,6 +36,24 @@
 	function submitForm(event, element) {
 		event.preventDefault();
 		element.closest("form").submit();
+	}
+	
+	function go() {
+		//alert(window.location.href)
+		let before = window.location.href
+		$.ajax({
+			url: '/dorae/login/before',
+			data: {
+				before: before
+			},
+			success: function() {
+				//alert('이전 주소 세션 추가 ')
+			},
+			error: function(e) {
+				alert(e)
+			}
+		})
+		location.href='http://localhost:8888/dorae/login/login.jsp'
 	}
 </script>
 </head>
@@ -67,8 +86,7 @@
 		<%
 			} else {
 		%>
-		<a href='http://localhost:8888/dorae/login/login.jsp'
-			style="font-weight: bold; font-size: 20px;">로그인/회원가입</a>
+		<a href="#" onclick="go()" style="font-weight: bold; font-size: 20px;">로그인/회원가입</a>
 		<%
 			}
 		%>

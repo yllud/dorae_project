@@ -9,7 +9,7 @@
 	    	<button onclick="openPopup('${ticket.play_id}', '${ticket.play_name}', '${ticket.seat_date}', '${ticket.seat_time}', '${ticket.seat_id}')">후기작성</button></td>
 	    </tr>
 	    <tr>
-	    	<td rowspan=5 style="padding-top:8px; text-align: center;"><img style="width: 150px; height: 170px" alt="${ticket.play_name}" src="${ticket.image}"></td>
+	    	<td rowspan=5 style="padding-top:8px; text-align: center;"><img style="width: 150px; height: 170px" alt="${ticket.play_name}" src="${ticket.poster}"></td>
 	    	<td style="padding-left: 3px; font-style: ">티켓번호</td>
 	    	<td style="padding-left: 3px">${ticket.seat_id}</td>
 	    </tr>
