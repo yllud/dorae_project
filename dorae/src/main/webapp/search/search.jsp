@@ -9,7 +9,7 @@
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#header").load("../header/header2.jsp");
+		$("#header").load("../header/header.jsp");
 		$.ajax({
 			url : "playList",
 			data : {
