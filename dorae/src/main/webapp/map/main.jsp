@@ -1023,39 +1023,29 @@
 			<div id="imgBody">
 				<img src="/dorae/resources/img/temp-banner3.png" id="main-img"/>
 				<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-					<table>
-						<tr>
-							<td>
-								<button id="btn_check" style="background-color: white; padding: 2%; margin: 2%; width: 33%; height: 33%;">
-									<img src="/dorae/resources/img/check.png" style="width: 100%; height: 100%;">
-								</button>
-							</td>
-						</tr>
-						<tr>
-							<td>맞춤추천 공연 보기</td>
-						</tr>
-					</table>
-					<table>
-						<tr>
-							<td>
-								<button id="btn_map" style="background-color: white; padding: 2%; margin: 2%; width: 33%; height: 33%;">
-									<img src="/dorae/resources/img/map.png" style="width: 100%; height: 100%;">
-								</button>
-							</td>
-						</tr>
-						<tr>
-							<td>지도로 찾아보기</td>
-						</tr>
-					</table>
+					<ul style="list-style-type: none; margin-left: 120px; width:auto;">
+						<li>
+							<button id="btn_check" style="background-color: white; padding: 2%; margin: 2% 20px; width: 300px; height: 300px;">
+								<img src="/dorae/resources/img/check.png" style="width: 100%; height: 100%;">
+							</button>
+							<p>맞춤추천 공연 보기</p>
+						</li>
+						<li>
+							<button id="btn_map" style="background-color: white; padding: 2%; margin: 2% 20px; width: 300px; height: 300px;">
+								<img src="/dorae/resources/img/map.png" style="width: 100%; height: 100%;">
+							</button>
+							<p>지도로 찾아보기</p>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
 		<div id="map">
 			<div id="side-bar" class="left-side-bar">
-				<table id="inputtable" style="height:50px;">
-					<tr style="text-align:center;">
+				<table id="inputtable" style="height: 50px;">
+					<tr style="text-align: center;">
 						<td>
-							<img src='/dorae/resources/img/icon-map.png' style='width:40px; margin:5px; heigth:80px;'>
+							<img src='/dorae/resources/img/icon-map.png' style='width: 40px; margin: 5px; height: 80px;'>
 						</td>
 						<td><input id="address" type="text" placeholder="주소를 입력해주세요"></td>
 					</tr>
@@ -1064,8 +1054,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="result" style="width:100%;">
-	</div>
+	<div id="result" style="width: 100%;"></div>
 	<div id="test"></div>
 </body>
 </html>
