@@ -9,7 +9,7 @@ $(function() {
 	var userEmail;
 	<% if (session.getAttribute("email") != null) { %>
 	userEmail = '<%=session.getAttribute("email")%>';
-	<% } %>
+	<% } %>	
 	console.log(userEmail);
 	 $.ajax({
 	    	url: "/dorae/book/bookList",

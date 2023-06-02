@@ -38,7 +38,7 @@ body {
   font-size: 20pt;
 }
 
-ul {
+.recommend_ul {
   margin: 0;
   padding: 10px;
   list-style-type: none;
@@ -59,7 +59,7 @@ h3 #p_setting{
 </head>
 <body>
   <div class="recommendList">
-    <ul>
+    <ul class="recommend_ul">
     <h3>맞춤 추천 공연 <button><a href="/dorae/map/recommend.jsp">맞춤 재설정</a></button><div id="p_setting">지역 : ${bag.area1} ${bag.area2} ${bag.area3}<br>장르 : ${bag.genre1} ${bag.genre2} ${bag.genre3}</div></h3> 
       <c:forEach items="${list}" var="play">
         <li class="item_tb">
