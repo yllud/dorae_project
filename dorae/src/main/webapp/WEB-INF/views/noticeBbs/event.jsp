@@ -1,17 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>이벤트</title>
-<style>
-  .detail:hover {
-    cursor: pointer;
-    background-color: #f2f2f2; /* 마우스 호버 시 배경색 변경 */
-  }
-</style>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script type="text/javascript">
@@ -117,16 +113,20 @@
 %>
 </head>
 <body>
-<table>
+<div id="event-result">
+<div id="event-list">
+<table class="bbs-table">
 <c:forEach var="list" items="${list}">
 <tr class="detail" data-id="${list.notice_id}">
-<td>${list.tag}</td>
-<td>${list.title}</td>
-<td>${list.created_at}</td>
+<td class="td1">${list.tag}</td>
+<td class="td2">${list.title}</td>
+<td class="td3"><fmt:timeZone value="GMT"><fmt:formatDate value="${list.created_at}" pattern="yyyy-MM-dd"/></fmt:timeZone></td>
 </tr>
 </c:forEach>
 </table>
+</div>
 <!--페이지버튼 -->
+<div id="page-button">
 	<table>
 	<tr>
 	<td><button id="previous">이전</button></td>
@@ -138,5 +138,7 @@
 	<td><button id="next">다음</button></td>
 	</tr>
 	</table>
+	</div>
+	</div>
 </body>
 </html>
