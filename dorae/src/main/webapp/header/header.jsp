@@ -92,8 +92,8 @@
 		%>
 	</h4>
 	<div class="menu">
-		<nav class="clearfix">
-			<ul class="clearfix">
+		<nav class="header_nav">
+			<ul class="header_ul">
 				<li class="header_li"><a href="../map/main.jsp">추천</a></li>
 				<li class="header_li"><a href="../search/search.jsp">공연</a></li>
 
