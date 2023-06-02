@@ -134,34 +134,26 @@
 	});
 </script>
 <style>
-#sns{
-	margin-top: 175px;
-}
+
 </style>
 
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
 	<div id="sns">
+	<br>
 	    <button id="saveData">db에 데이터 저장</button>
-	<hr color="red">
-	
-	<table>
-	<tr>
-	<td>
+	<hr color="#ff9900">
+	<div id="recDiv">
+	<div id="radioDiv">
 	<input type="radio" id="blogRadio" name="searchType" value="blog" checked>
 	<label for="blogRadio">블로그</label>
 	<input type="radio" id="twitterRadio" name="searchType" value="twitter">
 	<label for="twitterRadio">트위터</label>
-	</td>
-	<td>
+	</div>
 	<div id="recommend"></div>
-	</td>
-	</tr>
-	</table>
-	
-	
-	<hr color="red">
+	</div>
+	<hr color="#ff9900">
 	<div id="result"></div>
 	</div>
 </body>
