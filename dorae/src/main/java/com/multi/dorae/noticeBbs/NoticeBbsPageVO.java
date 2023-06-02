@@ -8,9 +8,9 @@ public class NoticeBbsPageVO {
 	// 공지사항 페이지 계산
 	public void setStartEnd(int page) {
 		// page별로 start, end값만 구해주면 됨.
-		// 한 페이지에 10개씩 보여주기
-		start = 1 + (page - 1) * 10;
-		end = page * 10;
+		// 한 페이지에 5개씩 보여주기
+		start = 1 + (page - 1) * 5;
+		end = page * 5;
 	}
 	
 	public int getStart() {

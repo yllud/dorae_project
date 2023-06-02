@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트</title>
+<link rel="stylesheet" href="/dorae/resources/css/noticeBbs.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
@@ -41,17 +42,17 @@
 
 	})
 </script>
-<style>
-#noticeBbs {
-	margin-top: 175px;
-}
-</style>
+
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
 	<div id="noticeBbs">
-		<div id="notice"></div>
-		<div id="event"></div>
+		<div></div>
+		<div id="background">
+			<div></div>
+			<div id="notice"></div>
+			<div id="event"></div>
+		</div>
 	</div>
 </body>
 </html>

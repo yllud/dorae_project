@@ -8,6 +8,8 @@ td {
 
 table {
 	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 table, th, td {
@@ -34,6 +36,7 @@ table, th, td {
 	cursor: pointer;
 	justify-content: center;
 	align-items: center;
+	width: 330px;
 }
 
 .review-detail:hover {
@@ -45,12 +48,27 @@ table, th, td {
 	height: 400px; /* 원하는 높이로 설정 */
 }
 
+.td1 {
+	width: 70px;
+}
+
+.td2 {
+	width: 280px;
+	text-align: left;
+}
+
+.img-td {
+	text-align: center;
+}
+
 .bold-text {
 	font-weight: bold;
+	text-align: center;
 }
 
 .light-text {
 	color: #999999;
+	text-align: center;
 }
 
 /*결과 담기는 전체 div  */
@@ -196,7 +214,7 @@ table, th, td {
 	align-items: center;
 }
 
-#detail-table{
+#detail-table {
 	margin: auto;
 	width: 350px;
 }
@@ -227,14 +245,13 @@ table, th, td {
 }
 
 /*태그 검색 스타일  */
-
-#tagBody{
+#tagBody {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-#tagTotal{
+#tagTotal {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -249,7 +266,6 @@ table, th, td {
 	cursor: pointer;
 }
 
-
 .leftRight {
 	margin-top: 10px;
 	display: flex;
@@ -262,12 +278,10 @@ table, th, td {
 	order: 1;
 }
 
-
 .right {
 	order: 3;
 	margin-right: 10px;
 }
-
 
 #tagTotal input[type="text"] {
 	flex: 1;
@@ -290,4 +304,3 @@ table, th, td {
 	width: 650px; /* 원하는 너비로 조정 */
 	overflow: auto; /* 내용이 넘칠 경우 스크롤 표시 */
 }
-
