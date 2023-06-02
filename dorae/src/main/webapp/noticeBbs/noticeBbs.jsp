@@ -46,6 +46,7 @@
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
+	<div id="top"><h1>이벤트</h1><hr color="#ff9900"></div>
 	<div id="noticeBbs">
 		<div id="background">
 			<div id="result">
