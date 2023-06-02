@@ -97,7 +97,6 @@ int currentPage = 1;
 %>
 </head>
 <body>
-	<hr color="#ff9900">
 	<div>
 		<div id="top"><h1>다녀온 후기</h1><h3>전체 후기 수: ${count}</h3></div>
 	<hr color="#ff9900">

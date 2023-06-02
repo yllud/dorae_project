@@ -141,9 +141,10 @@
 <body>
 	<header id="header" class="fixed-top"></header>
 	<div id="sns">
-	<br>
-	    <button id="saveData">db에 데이터 저장</button>
-	<hr color="#ff9900">
+	    <!-- <button id="saveData">db에 데이터 저장</button> -->
+	<div id="top"><h1>SNS후기</h1><hr color="#ff9900">
+	
+	
 	<div id="recDiv">
 	<div id="radioDiv">
 	<input type="radio" id="blogRadio" name="searchType" value="blog" checked>
@@ -154,6 +155,7 @@
 	<div id="recommend"></div>
 	</div>
 	<hr color="#ff9900">
+	</div>
 	<div id="result"></div>
 	</div>
 </body>

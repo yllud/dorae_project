@@ -15,6 +15,7 @@
 	</a>
 </c:forEach> --%>
 
+
 <div class="blog-list">
   <c:forEach var="item" items="${list}">
     <a href="${item.link}" target="_blank" class="blog-link">
