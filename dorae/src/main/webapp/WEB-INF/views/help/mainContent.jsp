@@ -16,7 +16,6 @@
 		<button value="faqCategory?help_category_id=${item.help_category_id }" class="btn btn-gray btn-large" onclick="goToList(this)">${item.name }</button>
 	</c:forEach>
 </div>
-<hr color="red">
 
 <!-- 1:1 문의, 사업자 신청 -->
 <div id="other">
