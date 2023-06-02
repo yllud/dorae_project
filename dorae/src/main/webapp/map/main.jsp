@@ -6,6 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+tr{
+text-align: center;
+}
+</style>
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe"></script>
 <script src="https://openapi.map.naver.com/openapi/v3/maps-geocoder.js"></script>
@@ -152,12 +157,15 @@
         $('#infolist').on('click', '.bookIcon', function() {
 		    if (isLogin == true) {
 		        var bookmarkImg = $(this);
+		        var bookmarkCount = $(this).siblings('.bookmarkCount');
 		        //var bookmarkCount = $(this).data('count');
 		        var playId = bookmarkImg.closest('table').find('a').data('play-id');
 		        
 		        // 이미지 소스 변경 추후 수정예정
 		        if (bookmarkImg.attr('src') === '/dorae/resources/img/icon-book_none.jpg') {
-		            // 북마크 추가
+		        	// 북마크 추가
+		        	var count = parseInt(bookmarkCount.text()) + 1;
+			        bookmarkCount.text(count);
 		            $.ajax({
 		                url: "/dorae/book/insert_book",
 		                method: "POST",
@@ -167,7 +175,6 @@
 		                },
 		                success: function(response) {
 		                    bookmarkImg.attr('src', '/dorae/resources/img/icon-book_selected.jpg');
-		                    alert("북마크 추가됨!");
 		                },
 		                error: function(xhr, status, error) {
 		                    console.log('북마크 추가 중 에러가 발생했습니다.');
@@ -175,6 +182,8 @@
 		            });
 		        } else {
 		            // 북마크 삭제
+		            var count = parseInt(bookmarkCount.text()) - 1;
+			        bookmarkCount.text(count);
 		            $.ajax({
 		                url: "/dorae/book/delete_book",
 		                method: "POST",
@@ -184,7 +193,6 @@
 		                },
 		                success: function(response) {
 		                    bookmarkImg.attr('src', '/dorae/resources/img/icon-book_none.jpg');
-		                    alert("북마크 삭제됨!");
 		                },
 		                error: function(xhr, status, error) {
 		                    console.log('북마크 삭제 중 에러가 발생했습니다.');
@@ -219,7 +227,7 @@
 					$('#infolist').empty(); // infolist 비우기
 
 					// 테이블 생성
-					table += "<br><h3 style='text-align:center;'><전체지역> 검색결과 " + delist1.length + "개</h3>";
+					table += "<br><h3 style='text-align:center; margin-top:10px;'><전체지역> 검색결과 " + delist1.length + "개</h3>";
 				}
 				if(endIndex <= delist1.length){
 					console.log("startIndex 값 : " + startIndex);
@@ -262,7 +270,7 @@
 	                        async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
 	                        success: function(response) {
 	                        	var cnt = response;
-	                            table += cnt + " ";
+	                            table += "<span class='bookmarkCount'>" + cnt + "</span> ";
 	                        },
 	                        error: function(xhr, status, error) {
 	                        	table += "0";  
@@ -329,7 +337,7 @@
 		    	var table = "";
 				$('#infolist').scrollTop(0); // 스크롤 위치 초기화
 				$('#infolist').empty(); // infolist 비우기
-				table += "<br><h3 style='text-align:center;'>" + stgname + "</h3>";
+				table += "<br><h3 style='text-align:center; margin-top:10px;'>" + stgname + "</h3>";
 		    	
 		      	for (var i = 0; i < selectedPerformances.length; i++) {
 		        	var playinfo = selectedPerformances[i].playinfo;
@@ -361,7 +369,7 @@
                         async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
                         success: function(response) {
                         	var cnt = response;
-                            table += cnt + " ";
+                            table += "<span class='bookmarkCount'>" + cnt + "</span> ";
                         },
                         error: function(xhr, status, error) {
                         	table += "0";  
@@ -884,7 +892,7 @@
 		                            async: false, // 동기적으로 실행하여 for문 내에서 결과를 처리
 		                            success: function(response) {
 		                            	var cnt = response;
-		                                table += cnt + " ";
+		                                table += "<span class='bookmarkCount'>" + cnt + "</span> ";
 		                            },
 		                            error: function(xhr, status, error) {
 		                            	table += "0";  
@@ -904,7 +912,7 @@
 			    } else {
 			    	$('#infolist').scrollTop(0); // 스크롤 위치 초기화
 			    	$('#infolist').empty(); // infolist 비우기
-			    	table = "<br><h3 style='text-align:center;'><" + area + " 검색결과></h3>" + "<br><br><br><br><br><br><br><br><br><br><h4 style='text-align:center; color:gray;'>검색결과 없음</h4>";
+			    	table = "<br><h3 style='text-align:center; margin-top:10px;'><" + area + " 검색결과></h3>" + "<br><br><br><br><br><br><br><br><br><br><h4 style='text-align:center; color:gray;'>검색결과 없음</h4>";
 			    	table += "<br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 			    	$('#infolist').html(table);
 			    }	        
@@ -1022,19 +1030,19 @@
 		<div id="banner" style="display: flex; justify-content: center;">
 			<div id="imgBody">
 				<img src="/dorae/resources/img/temp-banner3.png" id="main-img"/>
-				<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-					<ul style="list-style-type: none; margin-left: 120px; width:auto;">
-						<li>
-							<button id="btn_check" style="background-color: white; padding: 2%; margin: 2% 20px; width: 300px; height: 300px;">
+				<div id="main_btn_div" style="position: absolute; top: 52%; left: 62%; transform: translate(-45%, -50%);">
+					<ul class="main_ul" style="list-style-type: none; margin-left: 120px; width: auto; display: flex; justify-content: space-between;">
+						<li class="main_li" style="width:500px;">
+							<button id="btn_check" style="background-color: white; padding: 2%; margin: 2%; width: 400px; height: 300px;">
 								<img src="/dorae/resources/img/check.png" style="width: 100%; height: 100%;">
 							</button>
-							<p>맞춤추천 공연 보기</p>
+							<p style="font-size:18pt;"><b>맞춤추천 공연 보기</b></p>
 						</li>
-						<li>
-							<button id="btn_map" style="background-color: white; padding: 2%; margin: 2% 20px; width: 300px; height: 300px;">
+						<li class="main_li" style="width:500px;">
+							<button id="btn_map" style="background-color: white; padding: 2%; margin: 2%; width: 400px; height: 300px;">
 								<img src="/dorae/resources/img/map.png" style="width: 100%; height: 100%;">
 							</button>
-							<p>지도로 찾아보기</p>
+							<p style="font-size:18pt;"><b>지도로 찾아보기</b></p>
 						</li>
 					</ul>
 				</div>
@@ -1045,7 +1053,7 @@
 				<table id="inputtable" style="height: 50px;">
 					<tr style="text-align: center;">
 						<td>
-							<img src='/dorae/resources/img/icon-map.png' style='width: 40px; margin: 5px; height: 80px;'>
+							<img src='/dorae/resources/img/icon-map.png' style='width: 40px; margin: 5px; height: 40px;'>
 						</td>
 						<td><input id="address" type="text" placeholder="주소를 입력해주세요"></td>
 					</tr>

@@ -30,6 +30,10 @@ body::-webkit-scrollbar-track {
 	box-shadow: 0 2px 5px rgba(0,0,0,.25);
   	overflow: hidden;
 }
+#infotable td{
+	padding: 10px;	
+}
+
 #inputtable {
 	width: 300px;
 	margin: 0 auto;
@@ -38,9 +42,6 @@ body::-webkit-scrollbar-track {
 #poster{
 	width: 250px;
 	margin: 10px;
-}
-th, td {
-	text-align: center;
 }
 #map {
 	width: 100%;
@@ -103,6 +104,18 @@ th, td {
   /* margin: 0 auto; */
   display: block; 
 }
-#sns_tr{
-	text-align: right;
+
+#main_btn_div .main_ul .main_li{
+	width:500px;
+}
+
+#main_btn_div .main_ul{
+	list-style-type: none;
+	margin-left: 120px;
+	width: auto;
+	display: flex;
+	justify-content: space-between;
+}
+tr{
+	text-align: center;
 }

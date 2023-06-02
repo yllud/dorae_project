@@ -267,9 +267,6 @@ var selectedOrders = {
 			</div>
 		</td>
 		<td style="width:90px;"></td>
-		<td>
-			테스트테스트
-		</td>
 	</tr></table>
 		
 	</div>
