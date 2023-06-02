@@ -114,10 +114,6 @@
 						value="/dorae/admin/contact/list?page=1"
 						class="nav-link text-white" aria-current="page"
 						onclick="setActive(this)">공연 목록</button></li>
-<!-- 				<li><button id="btnInsert" -->
-<!-- 						value="/dorae/admin/faq/list?help_category_id=D01&page=1" -->
-<!-- 						class="nav-link text-white" onclick="setActive(this)">공연 -->
-<!-- 						추가</button></li> -->
 				<li><button id="btnDelete" value="/dorae/admin/faq/create"
 						class="nav-link text-white" onclick="setActive(this)">삭제
 						공연 목록</button></li>

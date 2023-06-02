@@ -20,15 +20,15 @@
 </script>
 </head>
 <body>
-
+<div class="total">
 	<form action="insert" method="post" enctype="multipart/form-data"
 		onsubmit="return showSuccessMessage()">
-		<table>
+		<table id="insertTable">
 		<tr>
 		<td><span>행사명</span></td>
 		<td>
 		<div class="tagSelect">
-		<button type="button" onclick="openPopup()">행사명 선택</button>
+		<button type="button" onclick="openPopup()" id="tagSelectBtn">행사명 선택</button>
 		<input type="text" name="tag" id="selectedEventName" readonly>
 		</div>
 		</td>
@@ -44,11 +44,16 @@
 		<tr id = "content">
 		<td><span>내용</span></td>
 		<td><textarea name="content" placeholder="1000자 내로 작성 부탁드립니다." maxlength="1000"></textarea></td>
-		</table>
+		<tr>
+		<td colspan=2>
+		<div class="submitDiv">
 		<button type="submit" class="submitBtn">후기 등록</button>
-
+		</div>
+		</td>
+		</tr>
+		</table>
 	</form>
 
-
+</div>
 </body>
 </html>

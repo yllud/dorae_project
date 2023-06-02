@@ -31,9 +31,9 @@ public class NoticeBbsController {
 		int count = dao.tagCount(tag);
 		int pages = 0;
 		if (count % 10 == 0) {
-			pages = count / 10;
+			pages = count / 5;
 		} else {
-			pages = count / 10 + 1;
+			pages = count / 5 + 1;
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
