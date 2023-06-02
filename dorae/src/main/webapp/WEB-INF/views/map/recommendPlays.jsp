@@ -72,7 +72,7 @@ h3 {
 }
 
 li .name_size{
-	font-size: 18pt;
+	font-size: 15pt;
 }
 </style>
 <meta charset="UTF-8">
