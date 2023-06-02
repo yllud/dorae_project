@@ -117,9 +117,9 @@
      </tbody>
     </table>
    </div> <!-- info2 -->
-	 <button class="btn btn-outline-secondary btn-lg" style="--bs-btn-padding-x: 1.4rem;" onclick="history.back()">날짜선택</button>
-     <button id="next" class="btn btn-outline-secondary btn-lg"  style="--bs-btn-padding-x: 1.4rem;" disabled="disabled">선택완료</button>
-     <button id="payment" class="btn btn-outline-danger btn-lg" style="display:none; --bs-btn-padding-x: 1.4rem;" disabled="disabled">결제하기</button>
+	 <button class="btn btn-outline-secondary btn-lg" style="--bs-btn-padding-x: 1.2rem;" onclick="history.back()"><i class="bi bi-arrow-left"></i>날짜선택</button>
+     <button id="next" class="btn btn-outline-secondary btn-lg"  style="--bs-btn-padding-x: 1.2rem;" disabled="disabled">다음 <i class="bi bi-arrow-right"></i></button>
+     <button id="payment" class="btn btn-outline-danger btn-lg" style="display:none; --bs-btn-padding-x: 1.4rem;" disabled="disabled">결제 <i class="bi bi-arrow-right"></i></button>
   </div> <!-- right -->
  </div>
 </div>
@@ -173,6 +173,21 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 				      const seat = document.createElement('div');
 				      seat.classList.add('seat');
 				      const seatNum = (1 + i) + "열" + (j + 1) + "번"; // 좌석번호
+				      
+				      // Bootstrap 툴팁 설정
+				      seat.setAttribute('data-bs-toggle', 'tooltip');
+				      seat.setAttribute('data-bs-placement', 'top');
+				      seat.setAttribute('title', seatNum);
+
+				      // seat 마우스 오버 이벤트 핸들러 추가
+				      seat.addEventListener('mouseover', function() {
+				        $(this).tooltip('show');
+				      });
+
+				      // seat 마우스 아웃 이벤트 핸들러 추가
+				      seat.addEventListener('mouseout', function() {
+				        $(this).tooltip('hide');
+				      });
 				      
 				      if(x != null) { //(DB에 저장된)예매된 좌석이 null이 아니면 
 				    	  let xx = x.slice(1, -1).trim().split(",").map(item => item.trim()); // 첫 번째, 마지막 문자를 제외한 범위의 문자열을 추출하고 배열의 각 요소에 대해 앞뒤 공백 제거
@@ -240,25 +255,57 @@ function updateSelectedCount() {
 };
 
 
-$('#next').click(function() { //다음단계버튼
-	$.ajax({
-		url: "memberOne", 
-		data: {
-			email: '${email}' //email가지고 이름 불러오기
-		},
-		success: function(x) {
-			$('.container2').empty()
- 			$('#name').val(x) 
-			$('#email').val('${email}')
-			$('.container2').append($('.check').show()) //정보확인칸 띄우기
-			$('#next').hide() //다음버튼 숨기기 
-		} //success
-	}) //ajax
-}); //next.click
+$(function() {
+	$('#next').click(function() { //다음단계버튼
+		$.ajax({
+			url: "sold",
+			data: {
+				play_id: '${vo.play_id}',
+				seat_date: $('#d_day').text(),
+				seat_time: $('#d_time').text()
+			},
+			success: function(res) { 
+				let res2 = res.slice(1, -1).trim().split(",").map(item => item.trim());
+				for (var m = 0; m < res2.length; m++) {
+					if ($('#seat_num').text() === res2[m]){ //누군가 예매했다면
+						alert("이미 선택된 좌석입니다");
+						location.reload();	
+					} else { //예매가능하다면
+						$.ajax({
+							url: "memberOne", 
+							data: {
+								email: '${email}' //email가지고 이름 불러오기
+							},
+							success: function(x) {
+								const x2 = x.split(",");
+								var name = x2[0]; 
+								var nickname = x2[1];
+								if (name) { //회원정보에 이름 있으면 이름사용(네이버)
+									$('#name').val(name);
+								} else { //이름 없으면 닉네임사용(카카오)
+									$('#name').val(nickname);
+								}
+								$('.container2').empty();
+								$('#email').val('${email}');
+								$('.container2').append($('.check').show()); //정보확인칸 띄우기
+								$('#next').hide(); //다음버튼 숨기기 
+								$('#payment').show(); //결제버튼 띄우기
+							} //success
+						}) //ajax
+					} //else
+				} //for
+			}, //success
+			error: function() {
+				alert("다시 선택해 주세요");
+				location.reload();
+			} //error
+		}); //ajax
+	}); //next.click
+}); //function
+
 
 $('#tel').on('input', function() { //전화번호 입력해야 결제버튼 생성
 	if($('#tel').val().length >= 11 && $('#tel').val().length <= 13) { //13자리일때
-		$('#payment').show(); //결제버튼 띄우기
 		$('#payment').attr("disabled", false); //클릭가능
 	} else {
 		$('#payment').attr("disabled", true); //클릭불가능
@@ -271,19 +318,37 @@ function phone(target) { //전화번호 정규식 표현
         .replace(/(^01.{1}|[0-9]{2,3})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3"); //$1-$2-$3패턴으로 재구성 
 }
 
-$('#clearBtn').click(function() { 
+$('#clearBtn').click(function() { //새로고침
 	$('#staticBackdrop').modal('show');
 });
-$('#ok').click(function() {
+$('#ok').click(function() { //모달창 '확인' 클릭
 	location.reload();		
 });
-$('#no').click(function() {
+$('#no').click(function() { //모달창 '취소' 클릭
 	$('#staticBackdrop').modal('hide');	
 });
 	
-$('#payment').click(function() { 
-	pay(); // 결제창
-});
+$('#payment').click(function() { //결제
+	$.ajax({
+		url: "sold",
+		data: {
+			play_id: '${vo.play_id}',
+			seat_date: $('#d_day').text(),
+			seat_time: $('#d_time').text()
+		},
+		success: function(result) { 
+			let result2 = result.slice(1, -1).trim().split(",").map(item => item.trim());
+			for (var k = 0; k < result2.length; k++) {
+				if ($('#seat_num').text() === result2[k]){ //누군가 예매했다면
+					alert("이미 선택된 좌석입니다");
+					location.reload();	
+				} else { //예매가능하다면
+					pay(); 
+				} //else
+			} //for
+		} //success
+	}); //ajax
+}); //payment
 
 function pay() {	
 	var IMP = window.IMP; // 생략가능
@@ -307,47 +372,36 @@ function pay() {
 					play_id: $('#play_id').val(), //공연ID
 					seat_date: $('#d_day').text(), //공연날짜
 					seat_time: $('#d_time').text(), //공연시간
-					seat_number: $('#seat_num').text() //좌석번호
-					// seat_id: 티켓번호(pk) 자동생성 됨
+					seat_number: $('#seat_num').text(), //좌석번호
+					//seat_id: 티켓번호(pk) 자동생성 됨
+					imp_uid: rsp.imp_uid, //결제고유번호
+			    	merchant_uid: rsp.merchant_uid, //주문번호
+			    	apply_num: rsp.apply_num, //결제카드번호
+			    	paid_amount: rsp.paid_amount, //결제금액
+			    	buyer_name: rsp.buyer_name, //주문자 이름
+			    	buyer_tel: rsp.buyer_tel, //주문자 전화번호
+			    	email: rsp.buyer_email, //주문자 이메일
+			    	play_id: $('#play_id').val(), //공연ID
+			    	booking: $('#booking').text(),//예매일
+			    	//seat_id: 티켓번호(fk) 자동생성 됨
 				 },
 				success: function() {
-					$.ajax({
-			    	  	url: "../pay/insert", // 결제정보(payDB)
-			    	  	data: {      
-			    		 	imp_uid: rsp.imp_uid, //결제고유번호
-			    		 	merchant_uid: rsp.merchant_uid, //주문번호
-			    		 	apply_num: rsp.apply_num, //결제카드번호
-			    		 	paid_amount: rsp.paid_amount, //결제금액
-			    		 	buyer_name: rsp.buyer_name, //주문자 이름
-			    		 	buyer_tel: rsp.buyer_tel, //주문자 전화번호
-			    			email: rsp.buyer_email, //주문자 이메일
-			    			play_id: $('#play_id').val(), //공연ID
-			    			booking: $('#booking').text(),//예매일
-			    		 	//seat_id: 티켓번호 자동생성 됨
-			    	 	 	},
-			    	 	 success: function() {
-			    	 		var msg = '결제가 완료되었습니다.';
-			    			alert(msg);
-			    			location.href = "../test.jsp";
-						  }, //success - pay insert
-						  error: function() {
-							alert("결제에 실패하였습니다.");
-						  } //error - pay insert
-			      	  }); //ajax - pay insert
-			      	 
-				  }, //success -seat insert
-		  	    error: function() {
-					alert("이선좌");
-				} //error - seat insert
-			 });//ajax - seat insert    
+					var msg = '결제가 완료되었습니다.';
+	    			alert(msg);
+	    			location.href = "../test.jsp";
+				 }, //success 
+				error: function() {
+					alert("결제에 실패하였습니다.");
+					location.reload();
+				 } //error
+			  }); //ajax 
 		   } else {
 		     var msg = '결제에 실패하였습니다.';
 		     alert(msg);
 		     location.reload();
 		   } //else
-	  });
+	  }); //IMP.request_pay
 }; //pay
-
 </script>
 
 <!-- <script type="text/javascript" src="../resources/js/pay.js"></script> -->

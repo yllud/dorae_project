@@ -6,8 +6,8 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.multi.dorae.login.KakaoVO;
 import com.multi.dorae.login.NaverVO;
 import com.multi.dorae.search.PlayVO;
 
@@ -29,18 +29,23 @@ public class SeatDAO {
 		}
 		
 		// 결제 시 좌석 정보 저장
-		@Transactional
-		public int insert(SeatVO seatvo) {
-			int result = my.insert("seat.insert", seatvo);
-			System.out.println(result);
-			return result;
+		public int  insert(SeatVO seatvo) {
+	        int result = my.insert("seat.insert", seatvo);
+	        return result;
 		}
 		
-		// 다음버튼 눌렀을 때 회원정보 가져오기
-		public NaverVO member(String email) {
-			NaverVO member = my.selectOne("naverMember.naverFind", email);
-			System.out.println(member);
-			return member;
+		// 다음버튼 눌렀을 때 네이버 회원정보 가져오기
+		public NaverVO naverMember(String email) {
+			NaverVO naverMember = my.selectOne("naverMember.naverFind", email);
+			System.out.println(naverMember);
+			return naverMember;
+		}
+		
+		// 다음버튼 눌렀을 때 카카오 회원정보 가져오기
+		public KakaoVO kakaoMember(String email) {
+			KakaoVO kakaoMember = my.selectOne("kakaoMember.kakaoFind", email);
+			System.out.println(kakaoMember);
+			return kakaoMember;
 		}
 		
 		// 좌석선택 누르면 select
