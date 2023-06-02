@@ -1,5 +1,37 @@
 @charset "UTF-8";
+/*수정, 등록 전체div  */
+.total {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 
+/*사진수정div  */
+#imgUp {
+	display: flex;
+	margin-top: 10px;
+	align-items: center;
+	justify-content: center;
+}
+
+#imgUp button[type="submit"] {
+  width: 120px; /* 원하는 너비로 조정 */
+  height: 40px; /* 원하는 높이로 조정 */
+}
+
+/*후기 수정div  */
+#reviewUp {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#reviewUp table{
+	width : 100%;
+}
+
+/*텍스트 공통  */
 input[type="text"] {
 	width: 100%;
 	box-sizing: border-box;
@@ -17,6 +49,7 @@ textarea {
 	height: 300px;
 }
 
+/*버튼 색깔, 디자인  */
 button {
 	background-color: #ff9900;
 	color: #fff;
@@ -26,18 +59,35 @@ button {
 	cursor: pointer;
 }
 
-table {
+#insertTable {
 	width: 70%;
 }
 
-table td {
+#insertTable td {
 	padding: 5px;
+}
+
+/*후기작성 행사장선택 버튼크기 */
+#tagSelectBtn {
+	width: 120px;
+}
+
+/*후기수정 행사장선택 버튼크기  */
+#tagSelectBtn2 {
+	width: 140px;
+}
+
+/*후기 수정, 등록버튼 위치설정  */
+.submitDiv {
+	display: flex;
+	justify-content: flex-end;
 }
 
 .submitBtn {
 	margin-left: auto;
 }
 
+/*행사명 선택부분  */
 .tagSelect {
 	display: flex;
 	align-items: center;

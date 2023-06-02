@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.multi.dorae.admin.ResponseMessage;
+
 @Controller
 @RequestMapping("help")
 public class HelpController {
@@ -39,7 +41,11 @@ public class HelpController {
 	
 	@RequestMapping("main")
 	public void helpMain(Model model, HttpSession session) {
-		System.out.println("email : " + session.getAttribute("email"));
+		System.out.println("고객센터 접속 : email : " + session.getAttribute("email"));
+	}
+	
+	@RequestMapping("mainContent")
+	public void mainContent(Model model) {
 		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
 	}
 	
@@ -60,7 +66,6 @@ public class HelpController {
 		model.addAttribute("helpCategory", helpCategoryService.listByParentId("None"));
 		model.addAttribute("faqList", faqService.listBySearchWithPaging(search, pageVO));
 		model.addAttribute("page", pageVO);
-		model.addAttribute("search", search);
 	}
 	
 	@RequestMapping("contactList")
@@ -85,10 +90,12 @@ public class HelpController {
 
 	}
 	
-	@RequestMapping(value = "contactCreate", method = RequestMethod.POST, produces="application/text;charset=UTF-8")
-	public String contactCreate(ContactVO contactVO, @SessionAttribute String email) {
-		contactService.create(contactVO, email);
-		return "redirect:/help/contactList?page=1";
+	@ResponseBody
+	@RequestMapping(value = "contactCreate", method = RequestMethod.POST)
+	public ResponseMessage contactCreate(ContactVO contactVO, @SessionAttribute String email) {
+		ResponseMessage mes = new ResponseMessage();
+		mes.setSuccess(contactService.create(contactVO, email));
+		return mes;
 	}
 	
 	@RequestMapping(value = "applyBusinessList", method = RequestMethod.GET)
