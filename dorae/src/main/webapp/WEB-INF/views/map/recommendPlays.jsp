@@ -76,22 +76,33 @@ li .name_size{
 }
 
 /* 반응형 CSS */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
 .recommendList {
-	overflow-x: auto;
+    overflow-x: auto;
     overflow-y: hidden;
   }
-
+  
 .recommend_ul {
-    flex-wrap: nowrap;
+    white-space: nowrap;
   }
-
-.item_li {
-    margin-right: 5px;
+  
+.recommend_ul li {
+    margin-right: 10px;
   }
-
+  
 .item_tb img {
     height: 200px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+.recommend_ul li {
+    width: 150px;
+    margin-right: 5px;
+  }
+  
+.item_tb img {
+    height: 150px;
   }
 }
 </style>
