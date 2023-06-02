@@ -71,9 +71,24 @@ public class NaverController {
 	        // 세션 유지 시간 설정 (옵션)
 	        session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
 	        
-	        
-	        return "redirect:../map/main.jsp"; // 로그인 성공 후 마이페이지로 리다이렉트
+	       
+	        // 이전 페이지로 리다이렉트
+	        String before = (String) session.getAttribute("before");
+	        if (before != null) {
+	            session.removeAttribute("previousUrl"); // 세션에서 이전 페이지 URL 제거
+	            return "redirect:" + before;
+	        } else {
+	            // 기본 리다이렉션 페이지로 이동
+	            return "redirect:../map/main.jsp";
+	        }
 	    }
+	}
+	
+	// 로그인시 이전페이지로 이동
+	@RequestMapping("login/before")
+	public void before(HttpSession session, String before) {
+		System.out.println(before);
+		session.setAttribute("before", before);
 	}
 	
 	 @RequestMapping("login/logout")
@@ -111,7 +126,7 @@ public class NaverController {
 	}
 	 
 	 
-	 @RequestMapping("login/uploadProfile")
+	 @RequestMapping("mypage/uploadProfile")
 	 public String uploadProfile(NaverVO naverVO, @RequestParam("file") MultipartFile file, Model model) {
 		 try {
 		        if (!file.isEmpty()) {

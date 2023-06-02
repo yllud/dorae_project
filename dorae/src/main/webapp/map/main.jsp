@@ -9,8 +9,8 @@
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe"></script>
 <script src="https://openapi.map.naver.com/openapi/v3/maps-geocoder.js"></script>
-<script type="text/javascript" src="../resources/js/MarkerClustering.js"></script>
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="/dorae/resources/js/MarkerClustering.js"></script>
+<script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
 <script>
 	$(window).on('load', function() {
 		$('body').scrollTop(0); // 스크롤 위치 초기화
@@ -156,7 +156,7 @@
 		        var playId = bookmarkImg.closest('table').find('a').data('play-id');
 		        
 		        // 이미지 소스 변경 추후 수정예정
-		        if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
+		        if (bookmarkImg.attr('src') === '/dorae/resources/img/icon-book_none.jpg') {
 		            // 북마크 추가
 		            $.ajax({
 		                url: "/dorae/book/insert_book",
@@ -166,7 +166,7 @@
 		                    email: userEmail
 		                },
 		                success: function(response) {
-		                    bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
+		                    bookmarkImg.attr('src', '/dorae/resources/img/icon-book_selected.jpg');
 		                    alert("북마크 추가됨!");
 		                },
 		                error: function(xhr, status, error) {
@@ -183,7 +183,7 @@
 		                    email: userEmail
 		                },
 		                success: function(response) {
-		                    bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
+		                    bookmarkImg.attr('src', '/dorae/resources/img/icon-book_none.jpg');
 		                    alert("북마크 삭제됨!");
 		                },
 		                error: function(xhr, status, error) {
@@ -243,17 +243,17 @@
 					        var hasBookmark = false;
 					        for (var k = 0; k < mylist.length; k++) {
 					            if (delist1[i].play_id == mylist[k].play_id) {
-					                table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+					                table += "<img class='bookIcon' src='/dorae/resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 					                hasBookmark = true;
 					                break;
 					            }
 					        }
 					        if (!hasBookmark) {
-					            table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+					            table += "<img class='bookIcon' src='/dorae/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 					        }
 					    } else {
 					    	console.log("로그인 되어있지않습니다!!");
-					        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+					        table += "<img class='bookIcon' src='/dorae/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 					    }
 	                    $.ajax({
 	                        type: 'GET',
@@ -269,7 +269,7 @@
 	                            console.log("북마크 카운트 ajax 실패!");
 	                        }
 	                    });
-	                    table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+	                    table += "<img class='shareIcon' src='/dorae/resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
 	                    table += '</table>';
 				    } //for
 				    // 테이블 추가
@@ -343,16 +343,16 @@
 			            var hasBookmark = false;
 			            for (var k = 0; k < mylist.length; k++) {
 			                if (playinfo.play_id == mylist[k].play_id) {
-			                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+			                    table += "<img class='bookIcon' src='/dorae/resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 			                    hasBookmark = true;
 			                    break;
 			                }
 			            }
 			            if (!hasBookmark) {
-			                table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+			                table += "<img class='bookIcon' src='/dorae/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 			            }
 			        } else {
-			            table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+			            table += "<img class='bookIcon' src='/dorae/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 			        }
                     $.ajax({
                         type: 'GET',
@@ -368,7 +368,7 @@
                             console.log("북마크 카운트 ajax 실패!");
                         }
                     });
-                    table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+                    table += "<img class='shareIcon' src='/dorae/resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
                     table += '</table>';
 			    } //for
 			    table += '<br><br><br>';
@@ -433,17 +433,17 @@
 				}; //네이버 지도 기본 핀 이미지
 			    
 				var marker2 = {
-				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-2.png);background-size:contain;"></div>',
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(/dorae/resources/img/cluster-marker-2.png);background-size:contain;"></div>',
 				    size: N.Size(40, 40),
 				    anchor: N.Point(20, 20)
 				}; //묶인 마커의 수
 				var marker3 = {
-				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-3.png);background-size:contain;"></div>',
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(/dorae/resources/img/cluster-marker-3.png);background-size:contain;"></div>',
 				    size: N.Size(40, 40),
 				    anchor: N.Point(20, 20)
 				};
 				var marker4 = {
-				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-4.png);background-size:contain;"></div>',
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(/dorae/resources/img/cluster-marker-4.png);background-size:contain;"></div>',
 				    size: N.Size(40, 40),
 				    anchor: N.Point(20, 20)
 				};
@@ -471,7 +471,7 @@
 			
 		//region순서 : 강원도 - 경기도 - 경상남도 - 경상북도 - 광주 - 대구 - 대전 - 부산
 		//			- 서울 - 울산 - 인천 - 전남 - 전북 - 제주도 - 충남 - 충북 - 세종
-	    urlPrefix = '../resources/data/region';
+	    urlPrefix = '/dorae/resources/data/region';
 	    urlSuffix = '.json',
 	    regionGeoJson = [],
 	    loadCount = 0;
@@ -545,6 +545,7 @@
 	    
 	 	// 공연장 이름 검색
 	    function searchStageName(address) {
+	    	var existing = false;
 	        for (var i = 0; i < delist2.length; i++) {
 	            var stageName = delist2[i].stage_name.trim();
 	            var add = address.trim();
@@ -560,8 +561,13 @@
 
 	                if (existingMarker) {
 	                    handleMarkerClick(existingMarker);
+	                    existing = true;
+	                    return 0;
 	                }
 	            }
+	        }
+	        if(existing == false){
+	        	alert("검색결과가 없습니다!");
 	        }
 	    }
 	    
@@ -860,16 +866,16 @@
 				            	    var hasBookmark = false;
 				            	    for (var k = 0; k < mylist.length; k++) {
 				            	        if (delist1[j].play_id == mylist[k].play_id) {
-				            	            table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				            	            table += "<img class='bookIcon' src='/dorae/resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 				            	            hasBookmark = true;
 				            	            break;
 				            	        }
 				            	    }
 				            	    if (!hasBookmark) {
-				            	        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				            	        table += "<img class='bookIcon' src='/dorae/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 				            	    }
 				            	} else {
-				            	    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				            	    table += "<img class='bookIcon' src='/dorae/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 				            	}
 		                        $.ajax({
 		                            type: 'GET',
@@ -885,7 +891,7 @@
 		                                console.log("북마크 카운트 ajax 실패!");
 		                            }
 		                        });
-		                        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+		                        table += "<img class='shareIcon' src='/dorae/resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
 		                        table += '</table>';
 		                        count++;
 			            	}
@@ -971,6 +977,7 @@
 		
 
 		$('#result').empty();
+		
 		if(userEmail != null){
 			$.ajax({
 			    url: "/dorae/map/select_myPreference",
@@ -1000,12 +1007,12 @@
 			});
 		}
 		else{
-			$('#result').html("<button style='margin:20px; width:200px; height:70px;'><a href='/dorae/login/login.jsp'>로그인 후 맞춤설정하러가기</a></button>")
+			$('#result').html("<a href='/dorae/login/login.jsp'><button style='margin:20px; width:200px; height:70px;'>로그인 후 맞춤설정하러가기</button></a>")
 		}
 	});
 </script>
-<link rel="stylesheet" href="../resources/css/sidemenu.css" />
-<link rel="stylesheet" href="../resources/css/page01.css" />
+<link rel="stylesheet" href="/dorae/resources/css/sidemenu.css" />
+<link rel="stylesheet" href="/dorae/resources/css/page01.css" />
 <meta charset="UTF-8">
 <title>지도 추천 페이지</title>
 </head>
@@ -1014,41 +1021,31 @@
 	<div id="map-container">
 		<div id="banner" style="display: flex; justify-content: center;">
 			<div id="imgBody">
-				<img src="../resources/img/temp-banner3.png" id="main-img"/>
+				<img src="/dorae/resources/img/temp-banner3.png" id="main-img"/>
 				<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-					<table>
-						<tr>
-							<td>
-								<button id="btn_check" style="background-color: white; padding: 2%; margin: 2%; width: 33%; height: 33%;">
-									<img src="../resources/img/check.png" style="width: 100%; height: 100%;">
-								</button>
-							</td>
-						</tr>
-						<tr>
-							<td>맞춤추천 공연 보기</td>
-						</tr>
-					</table>
-					<table>
-						<tr>
-							<td>
-								<button id="btn_map" style="background-color: white; padding: 2%; margin: 2%; width: 33%; height: 33%;">
-									<img src="../resources/img/map.png" style="width: 100%; height: 100%;">
-								</button>
-							</td>
-						</tr>
-						<tr>
-							<td>지도로 찾아보기</td>
-						</tr>
-					</table>
+					<ul style="list-style-type: none; margin-left: 120px; width:auto;">
+						<li>
+							<button id="btn_check" style="background-color: white; padding: 2%; margin: 2% 20px; width: 300px; height: 300px;">
+								<img src="/dorae/resources/img/check.png" style="width: 100%; height: 100%;">
+							</button>
+							<p>맞춤추천 공연 보기</p>
+						</li>
+						<li>
+							<button id="btn_map" style="background-color: white; padding: 2%; margin: 2% 20px; width: 300px; height: 300px;">
+								<img src="/dorae/resources/img/map.png" style="width: 100%; height: 100%;">
+							</button>
+							<p>지도로 찾아보기</p>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
 		<div id="map">
 			<div id="side-bar" class="left-side-bar">
-				<table id="inputtable" style="height:50px;">
-					<tr style="text-align:center;">
+				<table id="inputtable" style="height: 50px;">
+					<tr style="text-align: center;">
 						<td>
-							<img src='../resources/img/icon-map.png' style='width:40px; margin:5px; heigth:80px;'>
+							<img src='/dorae/resources/img/icon-map.png' style='width: 40px; margin: 5px; height: 80px;'>
 						</td>
 						<td><input id="address" type="text" placeholder="주소를 입력해주세요"></td>
 					</tr>
@@ -1057,28 +1054,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="result">
-	<br><br><br><br><br>
-	<table style="width: 100%;">
-		<tr>
-			<td style="width: 33.33%;">
-				<div id="review">
-					다녀온 후기
-				</div>
-			</td>
-			<td style="width: 33.33%;">
-				<div id="notice">
-					공지사항
-				</div>
-			</td>
-			<td style="width: 33.33%;">
-				<div id="faq">
-					FAQ
-				</div>
-			</td>
-		</tr>
-	</table>
-	</div>
+	<div id="result" style="width: 100%;"></div>
 	<div id="test"></div>
 </body>
 </html>

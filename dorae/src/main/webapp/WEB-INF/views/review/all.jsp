@@ -10,7 +10,7 @@
 		// 상세페이지 클릭함수
 		$('.review-detail').click(function() {
 			var id = $(this).data('id'); // 클릭한 요소의 data-id 속성에서 id 추출
-			window.open('detail?id=' + id, '_blank', "width=550,height=550"); // 상세 페이지를 새 창에서 열기
+			window.open('detail?id=' + id, '_blank', "width=500,height=550"); // 상세 페이지를 새 창에서 열기
 		});
 
 		// 페이징 버튼 클릭함수
@@ -97,7 +97,6 @@ int currentPage = 1;
 %>
 </head>
 <body>
-	<hr color="#ff9900">
 	<div>
 		<div id="top"><h1>다녀온 후기</h1><h3>전체 후기 수: ${count}</h3></div>
 	<hr color="#ff9900">
@@ -109,11 +108,11 @@ int currentPage = 1;
 				<td class="review-detail" data-id="${review.id}">
 				<table class="review-table">
 					<tr>
-						<td><img src="/dorae/resources/img/pin.png" width="35" height="40"></td>
-						<td>${review.tag}</td>
+						<td class="td1"><img src="/dorae/resources/img/pin.png" width="35" height="40"></td>
+						<td class="td2">${review.tag}</td>
 					</tr>
 					<tr>
-						<td colspan="2"><c:choose>
+						<td colspan="2" class="img-td"><c:choose>
 								<c:when test="${not empty review.images}">
 									<img src="/dorae/resources/upload/${review.images[0]}" alt="후기 이미지" class="review-img" />
 								</c:when>

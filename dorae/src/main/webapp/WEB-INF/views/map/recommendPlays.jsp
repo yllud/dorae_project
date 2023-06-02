@@ -5,53 +5,74 @@
 <head>
 <style>
 body {
-  overflow-x: hidden; /* 가로 스크롤 비활성화 */
+  overflow-x: hidden;
 }
 
-#recommendList {
+.recommendList {
   max-width: 100%;
   overflow-x: auto;
-}
-
-.item_tb {
-  margin: 20px;
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-  text-align: center;
-}
-
-.item_tb img {
-  width: 200px;
-  height: 240px;
-  object-fit: contain;
-}
-.item_tb div {
-  width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#table_title {
-  margin: 25px;
-  font-size: 20pt;
-}
-
-ul {
-  margin: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
   padding: 10px;
+}
+
+.recommend_ul {
+  margin: 0;
+  padding: 0;
   list-style-type: none;
   white-space: nowrap;
-  overflow-x: auto; /* 가로 스크롤 활성화 */
+  overflow-x: auto;
 }
 
 li {
   display: inline-block;
+  width: 200px;
+  margin-right: 10px;
+  text-align: center;
 }
 
-h3 #p_setting{
- font-size: 17px;
+.item_tb {
+  width: 100%;
+  height: 100%;
+}
+
+.item_tb img {
+  width: 200px;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.item_tb div {
+  margin-top: 10px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item_tb a {
+  color: #333;
+  text-decoration: none;
+}
+
+.item_tb a:hover {
+  text-decoration: underline;
+}
+
+h3 {
+  margin: 0;
+  font-weight: bold;
+}
+
+#p_setting {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #777;
+}
+
+li .name_size{
+	font-size: 15pt;
 }
 </style>
 <meta charset="UTF-8">
@@ -59,16 +80,30 @@ h3 #p_setting{
 </head>
 <body>
   <div class="recommendList">
-    <ul>
-    <h3>맞춤 추천 공연 <div id="p_setting">지역 : ${bag.area1} ${bag.area2} ${bag.area3}<br>장르 : ${bag.genre1} ${bag.genre2} ${bag.genre3}</div></h3> 
-      <c:forEach items="${list}" var="play">
-        <li class="item_tb">
-          <img src="${play.poster}" alt="${play.play_name}">
-          <div><a href="/dorae/search/playDetail?play_id=${play.play_id}">${play.play_name}</a></div>
-          <div style="font-size: 15px;">${play.stage_name}</div>
-          <div style="font-size: 15px;">${play.genre_name}</div>
-        </li>
-      </c:forEach>
+    <ul class="recommend_ul">
+      <h3>맞춤 추천 공연 <button><a href="/dorae/map/recommend.jsp">맞춤 재설정</a></button><div id="p_setting">지역 : ${bag.area1} ${bag.area2} ${bag.area3}<br>장르 : ${bag.genre1} ${bag.genre2} ${bag.genre3}</div></h3>
+      <c:choose>
+        <c:when test="${empty list}">
+        	<p>
+          		결과없음
+        	</p>
+        </c:when>
+        <c:otherwise>
+          <c:forEach items="${list}" var="play">
+          	<a href="/dorae/search/playDetail?play_id=${play.play_id}">
+            <li>
+              <div class="item_tb">
+                <img src="${play.poster}" alt="${play.play_name}">
+                <div class="name_size"><b>${play.play_name}</b></div>
+                <div>${play.stage_name}</div>
+                <div>${play.genre_name}</div>
+              </div>
+            </li>
+            </a>
+          </c:forEach>
+        </c:otherwise>
+      </c:choose>
+      
     </ul>
   </div>
 </body>

@@ -1,45 +1,8 @@
 @charset "UTF-8";
-/* .navbar{ */
-/*     height: 60px; */
-/*     padding-left: 30px; */
-/*     padding-right: 30px; */
-
-/* } */
-
-/* .hero-header{ */
-/*     height: 450px; */
-/* /*     background-image: url("https://bakey-api.codeit.kr/files/629/images/hero_header.jpg"); */
-* /
-	/*     background-repeat: no-repeat; */
-	/*     background-size: cover; */
-	/*     background-position: center center; */
-	/*     } */
-	/* .navbar #logo{ */
-	/* /*     line-height: 60px; */ * /
-	/* } */
-	/* .navbar img{ */
-	/*     vertical-align: top; */
-	/*     border: blanchedalmond 5px solid; */
-	/* } */
-	/* .navbar #menu{ */
-	/*     float: right; */
-	/*     list-style-type: none; */
-	/*     padding: 0; */
-	/*     margin: 0; */
-	/* } */
-	/* .navbar #menu li{ */
-	/*     float: left; */
-	/*     margin-left: 50px; */
-	/*     line-height: 60px; */
-	/* } */
-	/* .navbar #menu li a { */
-	/* 	color: #545454; */
-	/* 	font-size: 13px; */
-	/* 	text-decoration: none; */
-	/* } */          
-mark {
+     
+/* mark { */
 	
-}
+/* } */
 
 button {
 	cursor: pointer;
@@ -47,7 +10,7 @@ button {
 
 .container {
 	display: flex;
-	margin-top: 169px;
+	margin-top: 200px;
 	width: 1500px;
 	/* 	background: #ff0000; */
 	margin-left: auto;

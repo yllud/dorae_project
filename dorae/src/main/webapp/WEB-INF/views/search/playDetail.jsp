@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../resources/css/playDetail.css">
-<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min2.css">
+<!-- <link rel="stylesheet" href="/dorae/resources/css/bootstrap.detail.css"> -->
 
 
 <title>Insert title here</title>
@@ -132,116 +133,116 @@
 <body>
 
 	<header id="header" class="fixed-top"></header>
-<!-- 	<div class="body"> -->
+	<!-- 	<div class="body"> -->
+	<input id="email_id" type="hidden"
+		value="<%=session.getAttribute("email")%>">
+
+	<div class="container1">
+
+		<div class="left-items">
+			<c:if test="${a == 1}">
+				<img src="${vo.poster}" class="poster">
+				<button class="reserve" onclick="openPopup('${vo.play_id}')">예매</button>
+			</c:if>
+
+		</div>
+
+		<div class="right-items">
+			<div id="infoList" class="right-text">
+				#${vo.genre_name} #${vo2.stage_name} <br>
+				<h1>${vo.play_name}</h1>
+				<button id="btnBook" class="btn-book-share">
+					<img class='bookIcon' src=""><span class="bookCount">${book_cnt}</span>
+				</button>
+				<button id="btnShare" class="btn-book-share">
+					<img class='shareIcon' src='../resources/img/share.png'>공유
+				</button>
+			</div>
+			<div class="right-grade">
+				<p style="font-weight: 300; color: #888888;">평점</p>
+				<h3>${score_sum}</h3>
+			</div>
+		</div>
+	</div>
 
 
-		<div class="container">
-			<input id="email_id" type="hidden"
-				value="<%=session.getAttribute("email")%>">
-			<div class="left-items">
 
-				<c:if test="${a == 1}">
-					<img src="${vo.poster}" class="poster">
-					<button class="reserve" onclick="openPopup('${vo.play_id}')">예매</button>
+	<div class="container2">
+		<div class="left-items2">
+			<div class="left-text2">
+				<input id="play_id" type="hidden" value="${vo.play_id}">
+				<h1 class="detail1">${vo.play_name}</h1>
+				<h4 class="detail">#${vo.state}</h4>
+				<div class="detail">장르 : ${vo.genre_name} / ${vo.runtime}</div>
+				<div class="detail">출연 : ${vo.casting}</div>
+				<div class="detail">장소 : ${vo2.stage_name}</div>
+				<%-- 					<div>런타임: ${vo.runtime}</div> --%>
+				<div class="detail">가격 : ${vo.price}</div>
+				<div class="detail">기간 : ${vo.play_start} ~ ${vo.play_end}</div>
+				<div class="detail">시간 : ${vo.play_time}</div>
+				<div class="detail">등급 : ${vo.play_age}</div>
+				<div class="detail">오픈런 : ${vo.openrun}</div>
+				<div class="detail">
+					내용:
+					<div class="content-scroll">${vo.content}</div>
+				</div>
+			</div>
+		</div>
+		<div class="right-items2">
+			<!-- 				<h3>공연장 정보</h3> -->
+			<!-- 공연장 위치 -->
+			<div id="map" class="map"></div>
+			<p class="map-stage">${vo2.stage_name}</p>
+			<div class="map-scroll">
+				<div class="map-detail">좌석: ${vo2.seat_cnt}석</div>
+				<div class="map-detail">주소: ${vo2.address}</div>
+				<div class="map-detail">번호: ${vo2.tel}</div>
+				<div class="map-detail">
+					싸이트: <a href="${vo2.website}">${vo2.website}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container3">
+		<div class="review-items">
+			<div class="review-text">
+				<h3 class="review-title">Review</h3>
+				<c:if test="${empty listReview}">
+					<h5 class="review-title">리뷰가 아직 없습니다.</h5>
 				</c:if>
-
 			</div>
+			<div id="review-scroll" class="table-responsive">
+				<table class="table table-striped table-hover aling-middle">
+					<tbody>
+						<c:forEach items="${listReview}" var="bag">
 
-			<div class="right-items">
-				<div id="infoList" class="right-text">
-					#${vo.genre_name} #${vo2.stage_name} <br>
-					<h1>${vo.play_name}</h1>
-					<button id="btnBook" class="btn-book-share">
-						<img class='bookIcon' src=""><span
-							class="bookCount">${book_cnt}</span>
-					</button>
-					<button id="btnShare" class="btn-book-share">
-						<img class='shareIcon' src='../resources/img/share.png'>공유
-					</button>
-				</div>
-				<div class="right-grade">
-					<p style="font-weight: 300; color: #888888;">평점</p>
-					<h3>${score_sum}</h3>
-				</div>
-			</div>
-		</div>
+							<tr>
+								<!-- el 속성만 받아올 수 있는 표현식 -->
+								<td><div class="review-td">${bag.nickname}</div></td>
+								<td><div class="review-td">
+										<div class="star-ratings">
+											<div class="star-ratings-fill space-x-2 text-lg"
+												style="width: ${(bag.score * 10)}%">
+												<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+											</div>
+											<div class="star-ratings-base space-x-2 text-lg">
+												<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+											</div>
+										</div>
+										<div class="score_one">${bag.score}</div>
+									</div></td>
+								<td><div class="review-td">${bag.text}</div></td>
+								<td><div class="review-td">${bag.upload_date2}</div></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 
 
-
-		<div class="container2">
-			<div class="left-items2">
-				<div class="left-text2">
-					<input id="play_id" type="hidden" value="${vo.play_id}">
-					<h1 class="detail1">${vo.play_name}</h1>
-					<h4 class="detail">#${vo.state}</h4>
-					<div class="detail">장르 : ${vo.genre_name} / ${vo.runtime}</div>
-					<div class="detail">출연 : ${vo.casting}</div>
-					<div class="detail">장소 : ${vo2.stage_name}</div>
-					<%-- 					<div>런타임: ${vo.runtime}</div> --%>
-					<div class="detail">가격 : ${vo.price}</div>
-					<div class="detail">기간 : ${vo.play_start} ~ ${vo.play_end}</div>
-					<div class="detail">시간 : ${vo.play_time}</div>
-					<div class="detail">등급 : ${vo.play_age}</div>
-					<div class="detail">오픈런 : ${vo.openrun}</div>
-					<div class="detail">
-						내용:
-						<div class="content-scroll">${vo.content}</div>
-					</div>
-				</div>
-			</div>
-			<div class="right-items2">
-				<!-- 				<h3>공연장 정보</h3> -->
-				<!-- 공연장 위치 -->
-				<div id="map" class="map"></div>
-				<p class="map-stage">${vo2.stage_name}</p>
-				<div class="map-scroll">
-					<div class="map-detail">좌석: ${vo2.seat_cnt}석</div>
-					<div class="map-detail">주소: ${vo2.address}</div>
-					<div class="map-detail">번호: ${vo2.tel}</div>
-					<div class="map-detail">
-						싸이트: <a href="${vo2.website}">${vo2.website}</a>
-					</div>
-				</div>
 			</div>
 		</div>
-
-		<div class="container3">
-			<div class="review-items">
-				<div class="review-text">
-					<h3 class="review-title">Review</h3>
-					<c:if test="${empty listReview}">
-						<h5 class="review-title">리뷰가 아직 없습니다.</h5>
-					</c:if>
-				</div>
-				<div id="review-scroll" class="table-responsive">
-					<table class="table table-striped table-hover aling-middle">
-						<tbody>
-							<c:forEach items="${listReview}" var="bag">
-
-								<tr>
-									<!-- el 속성만 받아올 수 있는 표현식 -->
-									<td><div class="review-td">${bag.nickname}</div></td>
-									<td><div class="review-td">
-											<div class="star-ratings">
-												<div class="star-ratings-fill space-x-2 text-lg"
-													style="width: ${(bag.score * 10)}%">
-													<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-												</div>
-												<div class="star-ratings-base space-x-2 text-lg">
-													<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-												</div>
-											</div><div class="score_one">${bag.score}</div></div></td>
-									<td><div class="review-td">${bag.text}</div></td>
-									<td><div class="review-td">${bag.upload_date2}</div></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-
-
-				</div>
-			</div>
-		</div>
+	</div>
 
 
 
@@ -250,7 +251,7 @@
 
 
 
-<!-- 	</div> -->
+	<!-- 	</div> -->
 
 
 	<script type="text/javascript"

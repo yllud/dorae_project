@@ -68,7 +68,7 @@
 <div class="body">
 	<div id="searchDiv">
 	<button type="button" onclick="openPopup()" id="tagButton">태그 선택</button>
-	<input type="text" id="selectedEventName" readonly>
+	<input type="text" id="selectedEventName" placeholder="태그를 선택하여 검색해보세요" readonly>
 	<button id="tagSearch">적용</button>
 	</div>
 	<div id="reviewList"></div>

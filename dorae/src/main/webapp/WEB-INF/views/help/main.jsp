@@ -16,46 +16,71 @@
 	})
 </script>
 <style type="text/css">
-	#helpBody {
-		margin: 0 200px;
-		background-color: ivory;
+	.content-body {
+		margin: 0 300px;
 		text-align: center;
 		position: relative;
 		top: 200px;
 	}
 	
-	#faqTitle {
+	.title-faq {
 		display: inline-block;
 		border-right: 1px solid;
 		padding-right: 10px;
 	}
 
-	#search {
-		text-align: center;
+	.search-area {
+		display: inline-flex;
 	}
 	
-	#searchInput {
+	.input {
 		width: 500px;
 		font-size: 20px;
 		margin-left: 7px;
+		outline: none;
+		padding: 5px 10px;	
 	}
 	
-	#searchBtn {
+	.input-search {
+		border: 2px solid orange;
+		border-radius: 10px 0 0 10px;
+	}
+	
+	.input-contact {
+		border-radius: 8px;
+		border: 1px solid black;
+	}
+	
+	.textarea-contact {
+		height: 300px;
+		resize: none;
+	}
+	
+	.btn-search {
 		font-size: 20px;
+		border: 0;
+		border-radius: 0 10px 10px 0;
+		padding: 10px;
+		background-color: orange;
+		color: white;
+		font-weight: bold;
+		cursor: pointer;
 	}
 	
-	#search {
-		text-align: center;
+	.btn {
+		cursor: pointer;
 	}
 	
-	#searchInput {
-		width: 500px;
-		font-size: 20px;
-		margin-left: 7px;
+	.btn:hover {
+		transition: .2s;
+		background-color: orange;
+		color: white;
 	}
 	
-	#searchBtn {
-		font-size: 20px;
+	.btn-gray {
+		border: 1px solid gray;
+		border-radius: 20px;
+		background: ghostwhite;
 	}
 	
 	.btn-large {
@@ -65,76 +90,113 @@
 	}
 	
 	.btn-small {
+		font-size: 20px;
 		margin: 4px;
+		padding: 5px 10px;
 	}
 	
-	#searchList {
-		padding: 0 40px;
+	.btn-page {
+		font-size: 20px;
+		margin: 5px;
+		padding: 5px 10px;
+		background-color: transparent;
+		border: 0;
+		color: black;
+		border-radius: 8px;
 	}
 	
-	.searchItem:first-child {
+	.btn-active {
+		background-color: orange;
+		color: white;
+	}
+	
+	.page-item > .disabled {
+		color: lightgray;
+		pointer-events: none;
+	}
+	
+	.list {
+		padding: 0;
+	}
+	
+	.list-item:first-child {
 		border-top: 1px solid grey;
 	}
 	
-	.searchItem {
+	.list-item {
 		list-style: none;
 		border-bottom: 1px solid grey;
 		text-align: left;
 		width: 100%;
 	}
 	
-	.searchItemBtn {
+	.list-item-btn {
 		padding: 12px;
-		font-size: 20px;
+		font-size: 24px;
 		border: 0;
 		background-color: transparent;
 		cursor: pointer;
 		text-align: left;
 	}
-	
-	.searchItemBtn h4 {
-		margin-top: 0;
+
+	.list-item-content {
+		font-size: 20px;
+		padding: 12px;
 	}
 	
-	.searchItemBtn p {
-		margin-bottom: 0;
+	.no-result {
+		font-size: 24px;
+	}
+	
+	.label {
+		margin: auto 30px auto 0;
+	}
+	
+	.input-wrap {
+		display: flex;
+		justify-content: center;
+		min-width: 500px;
+		margin: 10px;
+	}
+	
+	.pagination {
+		background-color: transparent;
+	}
+	
+	.table-center {
+		margin: auto;
+		border-collapse: collapse;
+	}
+	
+	.table-center * {
+		font-size: 20px;
+	}
+	
+	.row-border {
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		padding: 0;
+	}
+	
+	.row-content {
+		width: 500px;
+	}
+	
+	footer {
+		height: 300px;
 	}
 </style>
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
 	
-	<div id="helpBody">
-		<!-- FAQ 검색 -->
-		<form action="faqSearch">
-			<h2 id="faqTitle">FAQ 검색</h2>
-			<input type="text" name="page" value="1" hidden="hidden"/>
-			<input type="text" id="searchInput" name="search"/>
-			<button type="submit" id="searchBtn">검색</button>
-		</form>
-
+	<div class="content-body">
+		<!-- 페이지가 삽입될 곳 -->
 		<div id="helpContent">
-			<!-- FAQ 유형별 버튼 -->
-			<div id="faqBtnList">
-				<c:forEach items="${helpCategory}" var="item">
-				<a href="faqCategory?help_category_id=${item.help_category_id }">
-					<button class="btn-large">${item.name }</button>
-				</a>
-				</c:forEach>
-			</div>
-			<hr color="red">
-		</div>
-		
-		<!-- 1:1 문의, 사업자 신청 -->
-		<div id="other">
-			<a href="contactList?page=1">
-				<button class="btn-large">1:1문의</button>
-			</a>
-			<a href="applyBusinessList">
-				<button class="btn-large">사업자 신청</button>
-			</a>
 		</div>
 	</div>
+	
+	<footer></footer>
 	
 	<!-- 챗봇 -->
 	<div id="chatMain" class="chatCommon" hidden="hidden">
@@ -159,5 +221,43 @@
 	<button id="chatOpenBtn" class="chatBtn chatCommon" onclick="chatToggle()">
 		<span class="material-symbols-outlined symbol">contact_support</span>
 	</button>
+	<script type="text/javascript">		
+		function faqSearch(element) {
+			let url = element.value + $("#searchInput").val();
+			goToPage(url);
+		}
+		
+		function goToList(element, isReplace) {
+			goToPage(element.getAttribute("value"), isReplace);
+		}
+		
+		function goToPage(url, isReplace) {
+			if (isReplace) {
+				history.replaceState({"url": url}, null, location.pathname);
+			} else {
+				history.pushState({"url": url}, null, location.pathname);				
+			}
+			asyncLoad(url);
+		}
+		
+		function asyncLoad(url, type, data) {
+			$.ajax({
+				url: url,
+				type: type,
+				data: data,
+				success: function(res, statusText, jqXHR) {
+					$("#helpContent").html(res);
+				}
+			})			
+		}
+		
+		window.onpopstate = function(event) {
+			if (event.state != null) { // state 가 null 이 아닐 때만 ajax로 갱신
+				asyncLoad(event.state.url);				
+			}
+		}
+		
+		goToPage("mainContent");
+	</script>
 </body>
 </html>
