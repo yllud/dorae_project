@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BlogAPI {
 
-    public static ArrayList<BlogVO> searchNaverBlog(String query) {
+    public ArrayList<BlogVO> searchNaverBlog(String query) {
         String clientId = "CKhVzHdMLVlxvZKdQevz"; // 네이버 개발자센터에서 발급받은 클라이언트 아이디값
         String clientSecret = "mNO5JmmmJs"; // 네이버 개발자센터에서 발급받은 클라이언트 시크릿값
 

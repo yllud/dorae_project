@@ -15,48 +15,6 @@
 	$(function() {
 		$("#header").load("/dorae/header/header.jsp");
 		
-        // 추천 검색어로 검색해서 db 저장 기능 -> 현재는 버튼.
-        // 테스트용으로 남겨두고 추후에 삭제
-        $.ajax({
-            url : "recommend", // 추천 검색어 추출
-            type : "GET",
-            success : function(data) {
-                // 데이터 저장 기능 클릭 함수
-                $('#saveData').click(function() {
-                	 var modifiedData = []; // 수정된 데이터를 저장할 배열
-                	 for (var i = 0; i < data.length; i++) {
-                	        var query = data[i];
-                	        var modifiedQuery = query.replace(/\s*\[.*?\]|\s*\([^)]*\)$/g, "").trim(); // 검색어 수정
-                	        modifiedData.push(modifiedQuery);
-                	        
-                	        var rank = i + 1; // 랭크 값을 설정
-                	        $.ajax({
-                	          url: "saveBlog", // 블로그에 데이터 저장
-                	          type: "GET",
-                	          data: {
-                	            query: modifiedQuery,
-                	            rank: rank
-                	          }
-                	        });
-
-                	        $.ajax({
-                	          url: "saveTwitter", // 트위터에 데이터 저장
-                	          type: "GET",
-                	          data: {
-                	            query: modifiedQuery,
-                	            rank: rank
-                	          }
-                	        });
-                	      } // for
-
-                    alert('데이터 저장 성공');
-                })// click
-            },
-            error : function() {
-                alert('에러 발생');
-            }
-        });
-        
 		// 추천 검색어 출력
 		$.ajax({
 			url : "recommend",
@@ -86,7 +44,7 @@
 			$.ajax({
 				url : "blogList",
 				data : {
-					rank : 1
+					rankNum : 1
 				// 랭크 값을 입력값으로 전달
 				},
 				success : function(table) {
@@ -99,11 +57,11 @@
 		
 		
 		// 추천검색어로 블로그 후기 검색하는 함수
-		function searchBlog(rank) {
+		function searchBlog(rankNum) {
 			$.ajax({
 				url : "blogList",
 				data : {
-					rank : rank
+					rankNum : rankNum
 				// 랭크 값을 입력값으로 전달
 				},
 				success : function(table) {
@@ -115,11 +73,11 @@
 			});
 		}
 		// 추천검색어로 트위터 후기 검색하는 함수
-		function searchTwitter(rank) {
+		function searchTwitter(rankNum) {
 			$.ajax({
 				url : "twitterList",
 				data : {
-					rank : rank
+					rankNum : rankNum
 				// 랭크 값을 입력값으로 전달
 				},
 				success : function(table) {

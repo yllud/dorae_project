@@ -2,7 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blog">
 	
+	<delete id="delete">
+	DELETE FROM blog
+	</delete>
 	
-
+	<insert id="insert" parameterType="blogVO">
+	INSERT INTO blog VALUES
+	(null, #{title}, #{link}, #{description}, #{bloggername}, #{bloggerlink}, #{postdate}, #{rankNum})
+	</insert>
+	
+	<select id="count" resultType="Integer">
+	SELECT COUNT(*) FROM blog
+	</select>
+	
+	<select id="search" parameterType="Integer" resultType="blogVO">
+	SELECT title, link, description, bloggername, bloggerlink, postdate, rankNum
+	FROM blog
+	WHERE rankNum = #{rankNum}
+	</select>
 
 </mapper>

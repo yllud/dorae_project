@@ -2,11 +2,16 @@ package com.multi.dorae.sns;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
+@Service
 public class TwitterAPI {
-    public static List<TwitterVO> searchTweets(String keyword) throws TwitterException {
+    
+	public List<TwitterVO> searchTweets(String keyword) throws TwitterException {
         // Twitter API 인증 정보
         String consumerKey = "2bC5GdvhJiWAqzZs2vq99msHh";
         String consumerSecret = "iqJdooedkoVi1VckFFtu6VvEMXYM3i0HaC3E1jcGoQYhAgqv7S";
