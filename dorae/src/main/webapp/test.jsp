@@ -45,6 +45,11 @@ $(function() {
 	}) //cancle.click
 }) //$
 
+
+function check() {
+	opener.location.href="http://localhost:8888/dorae/login/mypage";
+	window.close();
+};
 </script>
 </head>
 <body>
@@ -57,9 +62,9 @@ $(function() {
       마이페이지에서 예매내역 확인하실 수 있습니다.
     </p>
     <div class="d-inline-flex gap-2 mb-5">
-      <a href="http://localhost:8888/dorae/mypage/ticketList.jsp"><button class="d-inline-flex align-items-center btn btn-outline-warning btn-lg px-4 rounded-pill" >
+      <button class="d-inline-flex align-items-center btn btn-outline-warning btn-lg px-4 rounded-pill" onclick='check()'>
         예매내역확인
-      </button></a>
+      </button>
       <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" onclick="window.close()">
         닫기
       </button>

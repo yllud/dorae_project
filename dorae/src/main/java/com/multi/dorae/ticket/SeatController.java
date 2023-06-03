@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.multi.dorae.login.KakaoVO;
 import com.multi.dorae.login.NaverVO;
 import com.multi.dorae.search.PlayVO;
 
@@ -36,20 +38,23 @@ public class SeatController {
 		model.addAttribute("vo", vo);
 	}
 	
-	//선택해서 결제로 넘어간 좌석
-	@RequestMapping("seat/insert")
-	public void insert(SeatVO seatvo) {
-		System.out.println("seat insert 요청성공");
-		dao.insert(seatvo);
-	}
+//	//선택해서 결제로 넘어간 좌석
+//	@RequestMapping("seat/insert")
+//	public void insert(SeatVO seatvo) {
+//		System.out.println("seat insert 요청성공");
+//		dao.insert(seatvo);
+//	}
 	
-	// 다음버튼 눌렀을 때 회원정보 가져오기
+	// 다음버튼 눌렀을 때 네이버, 카카오 회원정보 가져오기
 	@RequestMapping("seat/memberOne")
 	public void member(String email, Model model) {
 		System.out.println(email +  " " + "seat member 요청성공");
-		NaverVO member = dao.member(email);
-		model.addAttribute("member", member);
+		NaverVO naverMember = dao.naverMember(email);
+		model.addAttribute("naverMember", naverMember);
+		KakaoVO kakaoMember = dao.kakaoMember(email);
+		model.addAttribute("kakaoMember", kakaoMember);
 	}
+
 	
 	//좌석선택 누르면 같은 날짜=시간에 판매된 좌석 불러오기
 	@RequestMapping("seat/sold")

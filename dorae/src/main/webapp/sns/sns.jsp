@@ -142,7 +142,7 @@
 	<header id="header" class="fixed-top"></header>
 	<div id="sns">
 	    <!-- <button id="saveData">db에 데이터 저장</button> -->
-	<div id="top"><h1>SNS후기</h1><hr color="#ff9900">
+	<div id="top"><h1>SNS 후기</h1><hr color="#ff9900">
 	
 	
 	<div id="recDiv">

@@ -20,47 +20,35 @@ function pay() {
 					play_id: $('#play_id').val(), //공연ID
 					seat_date: $('#d_day').text(), //공연날짜
 					seat_time: $('#d_time').text(), //공연시간
-					seat_number: $('#seat_num').text() //좌석번호
-					// seat_id: 티켓번호(pk) 자동생성 됨
+					seat_number: $('#seat_num').text(), //좌석번호
+					//seat_id: 티켓번호(pk) 자동생성 됨
+					imp_uid: rsp.imp_uid, //결제고유번호
+			    	merchant_uid: rsp.merchant_uid, //주문번호
+			    	//apply_num: rsp.apply_num, //결제카드번호
+			    	paid_amount: rsp.paid_amount, //결제금액
+			    	buyer_name: rsp.buyer_name, //주문자 이름
+			    	buyer_tel: rsp.buyer_tel, //주문자 전화번호
+			    	email: rsp.buyer_email, //주문자 이메일
+			    	play_id: $('#play_id').val(), //공연ID
+			    	booking: $('#booking').text()//예매일
+			    	//seat_id: 티켓번호 자동생성 됨
 				 },
 				success: function() {
-					$.ajax({
-			    	  	url: "../pay/insert", // 결제정보(payDB)
-			    	  	data: {      
-			    		 	imp_uid: rsp.imp_uid, //결제고유번호
-			    		 	merchant_uid: rsp.merchant_uid, //주문번호
-			    		 	apply_num: rsp.apply_num, //결제카드번호
-			    		 	paid_amount: rsp.paid_amount, //결제금액
-			    		 	buyer_name: rsp.buyer_name, //주문자 이름
-			    		 	buyer_tel: rsp.buyer_tel, //주문자 전화번호
-			    			email: rsp.buyer_email, //주문자 이메일
-			    			play_id: $('#play_id').val(), //공연ID
-			    			booking: $('#booking').text(),//예매일
-			    		 	//seat_id: 티켓번호 자동생성 됨
-			    	 	 	},
-			    	 	 success: function() {
-			    	 	 	
-						  }, //success - pay insert
-						  error: function() {
-							alert("결제에 실패하였습니다.");
-						  } //error - pay insert
-			      	  }); //ajax - pay insert
-			      	 
-				  }, //success -seat insert
-		  	    error: function() {
-					alert("이선좌");
-				} //error - seat insert
-			 });//ajax - seat insert    
-		
-		    var msg = '결제가 완료되었습니다.';
-			alert(msg);
-			location.href = "../test.jsp";
+					var msg = '결제가 완료되었습니다.';
+	    			alert(msg);
+	    			location.href = "../test.jsp";
+				 }, //success 
+				error: function() {
+					alert("결제에 실패하였습니다.");
+					location.reload();
+				 } //error
+			  }); //ajax 
 		   } else {
 		     var msg = '결제에 실패하였습니다.';
 		     alert(msg);
 		     location.reload();
 		   } //else
-	  });
+	  }); //IMP.request_pay
 }; //pay
 	
 

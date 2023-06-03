@@ -157,6 +157,27 @@ public class ReviewController {
 	public void imgUpdate(ReviewVO reviewVO, HttpServletResponse response, HttpServletRequest request,
 			MultipartFile[] files, Model model) throws Exception {
 
+		// 기존 이미지 삭제 처리를 위한 이미지 리스트 받아오기
+				List<String> deletedImgList = dao.deletedImg(reviewVO.getId());
+				// 이미지가 존재할 경우 삭제
+				String uploadedPath = servletContext.getRealPath("/resources/upload");
+				for (String deletedImg : deletedImgList) {
+					if (deletedImg == null) {
+						continue;
+					}
+					String filePathString = uploadedPath + "/" + deletedImg;
+					Path filePath = Paths.get(filePathString);
+
+					try {
+						Files.delete(filePath);
+						System.out.println("-----삭제한 파일: " + deletedImg);
+					} catch (Exception e) {
+						System.out.println("-----삭제 실패한 파일: " + deletedImg);
+						e.printStackTrace();
+					}
+				}		
+		
+		// 사진 수정
 		List<String> savedNames = new ArrayList<>();
 		String uploadPath = request.getSession().getServletContext().getRealPath("resources/upload");
 
