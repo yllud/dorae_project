@@ -189,7 +189,7 @@ var selectedOrders = {
 					<td><input type="checkbox" name="genre" id="genre3" value="서커스/마술"
 						onclick="limitCheckboxSelection(this)"> 서커스/마술 <span
 						id="genre_selected_genre3" class="selected-label"></span></td>
-					<td><input type="checkbox" name="genre" id="genre4" value="클래식"
+					<td><input type="checkbox" name="genre" id="genre4" value="서양음악(클래식)"
 						onclick="limitCheckboxSelection(this)"> 서양음악(클래식) <span
 						id="genre_selected_genre4" class="selected-label"></span></td>
 					<td><input type="checkbox" name="genre" id="genre5" value="한국음악(국악)"
@@ -267,9 +267,6 @@ var selectedOrders = {
 			</div>
 		</td>
 		<td style="width:90px;"></td>
-		<td>
-			테스트테스트
-		</td>
 	</tr></table>
 		
 	</div>
