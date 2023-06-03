@@ -24,7 +24,7 @@ body {
   overflow-x: auto;
 }
 
-li {
+.item_li {
   display: inline-block;
   width: 200px;
   margin-right: 10px;
