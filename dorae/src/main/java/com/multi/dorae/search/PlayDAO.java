@@ -55,9 +55,6 @@ public class PlayDAO {
 	public List<PlayVO> list(Criteria cri) {
 		System.out.println("(DAO) List");
 		List<PlayVO> list = my.selectList("play.page", cri);
-//		for (PlayVO bag : list) {
-//			System.out.println(bag.getPlay_name());
-//		}
 		return list;
 	}
 

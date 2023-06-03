@@ -55,7 +55,6 @@
 			})//ajax
 		})//b1
 		
-// 		$('.pages').click(function() {
 		$('.footer').on('click', '.pages', function() {
 			// 			var genre_id=$('#genre_id').text();
 			// 			if(genre_id.equals("전체(장르)"))
