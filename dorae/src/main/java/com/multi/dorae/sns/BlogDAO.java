@@ -3,6 +3,7 @@ package com.multi.dorae.sns;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -14,6 +15,9 @@ public class BlogDAO {
 
 	@Autowired
 	MongoTemplate mongo;
+	
+	@Autowired
+	SqlSessionTemplate my;
 	
 	// 검색 결과를 db에 넣기
 	public void insert(ArrayList<BlogVO> resultList) {
