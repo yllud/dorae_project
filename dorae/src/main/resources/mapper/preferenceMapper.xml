@@ -54,7 +54,7 @@
 		    )
 		    AND p.state = '공연중'
 		ORDER BY score DESC
-		LIMIT 20;
+		LIMIT 35;
 	</select>
 	
 </mapper>
