@@ -36,7 +36,6 @@ var selectedOrders = {
 		$('#submit').click(function() {
 			<% if (session.getAttribute("email") != null) { %>
 				userEmail = '<%= session.getAttribute("email") %>';
-				alert("설정이 완료되었습니다!");
 				console.log("Button clicked");
 				var selectedGenre = selectedOrders.genre.map(function(checkbox) {
 					return checkbox.value;
@@ -45,34 +44,39 @@ var selectedOrders = {
 					return checkbox.value;
 				}).slice(0, 3);
 				
-				$.ajax({
-					url : "insert_preference",
-					type : "POST",
-					data : {
-						genre1: selectedGenre[0],
-						 genre2: selectedGenre[1],
-						 genre3: selectedGenre[2],
-						 area1: selectedArea[0],
-						 area2: selectedArea[1],
-						 area3: selectedArea[2],
-						 email: userEmail
-					},
-					success : function(response) {
-						if (response === "success") {
-							console.log("Preference inserted successfully");
-							// 성공 처리 로직 작성
-						} else {
-							console.log("Failed to insert preference");
-							// 실패 처리 로직 작성
+				if(selectedGenre[0] == null || selectedArea[0] == null){
+					alert("지역과 장르는 1가지 이상 필수로 선택해야합니다.");
+				}else{
+					alert("설정이 완료되었습니다!");
+					$.ajax({
+						url : "insert_preference",
+						type : "POST",
+						data : {
+							genre1: selectedGenre[0],
+							 genre2: selectedGenre[1],
+							 genre3: selectedGenre[2],
+							 area1: selectedArea[0],
+							 area2: selectedArea[1],
+							 area3: selectedArea[2],
+							 email: userEmail
+						},
+						success : function(response) {
+							if (response === "success") {
+								console.log("Preference inserted successfully");
+								// 성공 처리 로직 작성
+							} else {
+								console.log("Failed to insert preference");
+								// 실패 처리 로직 작성
+							}
+						},
+						error : function(xhr, status, error) {
+							console.log("Error: " + error);
+							// 에러 처리 로직 작성
 						}
-					},
-					error : function(xhr, status, error) {
-						console.log("Error: " + error);
-						// 에러 처리 로직 작성
-					}
-				});
-				
-				window.location.href = "main.jsp";
+					});
+					
+					window.location.href = "main.jsp";
+				}
 			<% } else {%>
 				alert("로그인이 필요합니다!");
 				window.location.href = "/dorae/login/login.jsp";
@@ -182,13 +186,13 @@ var selectedOrders = {
 					<td><input type="checkbox" name="genre" id="genre2" value="연극"
 						onclick="limitCheckboxSelection(this)"> 연극 <span
 						id="genre_selected_genre2" class="selected-label"></span></td>
-					<td><input type="checkbox" name="genre" id="genre3"
-						value="서커스/마술" onclick="limitCheckboxSelection(this)">
-						서커스/마술 <span id="genre_selected_genre3" class="selected-label"></span></td>
-					<td><input type="checkbox" name="genre" id="genre4" value="클래식"
+					<td><input type="checkbox" name="genre" id="genre3" value="서커스/마술"
+						onclick="limitCheckboxSelection(this)"> 서커스/마술 <span
+						id="genre_selected_genre3" class="selected-label"></span></td>
+					<td><input type="checkbox" name="genre" id="genre4" value="서양음악(클래식)"
 						onclick="limitCheckboxSelection(this)"> 서양음악(클래식) <span
 						id="genre_selected_genre4" class="selected-label"></span></td>
-					<td><input type="checkbox" name="genre" id="genre5" value="국악"
+					<td><input type="checkbox" name="genre" id="genre5" value="한국음악(국악)"
 						onclick="limitCheckboxSelection(this)"> 한국음악(국악) <span
 						id="genre_selected_genre5" class="selected-label"></span></td>
 				</tr>
@@ -242,16 +246,16 @@ var selectedOrders = {
 					<td><input type="checkbox" name="area" id="area8" value="울산"
 						onclick="limitCheckboxSelection(this)"> 울산 <span
 						id="area_selected_area8" class="selected-label"></span></td>
-					<td><input type="checkbox" name="area" id="area9" value="충청도"
+					<td><input type="checkbox" name="area" id="area9" value="충청"
 						onclick="limitCheckboxSelection(this)"> 충청도 <span
 						id="area_selected_area9" class="selected-label"></span></td>
-					<td><input type="checkbox" name="area" id="area10" value="경상도"
+					<td><input type="checkbox" name="area" id="area10" value="경상"
 						onclick="limitCheckboxSelection(this)"> 경상도 <span
 						id="area_selected_area10" class="selected-label"></span></td>
-					<td><input type="checkbox" name="area" id="area11" value="전라도"
+					<td><input type="checkbox" name="area" id="area11" value="전라"
 						onclick="limitCheckboxSelection(this)"> 전라도 <span
 						id="area_selected_area11" class="selected-label"></span></td>
-					<td><input type="checkbox" name="area" id="area12" value="제주도"
+					<td><input type="checkbox" name="area" id="area12" value="제주"
 						onclick="limitCheckboxSelection(this)"> 제주도 <span
 						id="area_selected_area12" class="selected-label"></span></td>
 				</tr>
@@ -263,9 +267,6 @@ var selectedOrders = {
 			</div>
 		</td>
 		<td style="width:90px;"></td>
-		<td>
-			테스트테스트
-		</td>
 	</tr></table>
 		
 	</div>

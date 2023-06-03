@@ -28,25 +28,31 @@
 
 /*전체 담기는 부분  */
 #noticeBbs {
-	margin-top : 175px;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+	margin-top: 50px;
+}
+
+#top{
+	margin-top: 300px;
+	margin-right: 200px;
+	margin-left: 200px;
 }
 
 #background {
-	margin-top : 300px;
-	margin-right: 500px;
-	margin-left: 500px;
-	background-color: yellow;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+	margin-right: 200px;
+	margin-left: 200px;
+	height: 500px;
+	position: relative;
+}
+
+#result {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 #notice {
 	display: flex;
-	margin-top: 100px;
 	margin-bottom: 0;
 	align-items: center;
 	justify-content: center;
@@ -72,31 +78,115 @@
 }
 /*테이블 설정  */
 .bbs-table {
-  width: 700px;
-  border-collapse: collapse;
+	width: 1300px;
+	border-collapse: collapse;
+	
 }
 
 .bbs-table td {
-  text-align: center;
-  padding: 10px;
-  border : 1px solid lightgrey;
+	text-align: center;
+	padding: 10px;
+}
+
+.bbs-table tr {
+	border-bottom: 1px solid rgba(255, 153, 0, 0.3);
+}
+
+#head{
+	background-color: #ff9900;
+	color: white;
 }
 /*첫 번째 td 크기 */
 .td1 {
-	width: 100px;
-	background-color: red;
+	width: 200px;
+	border-right: 1px solid rgba(255, 153, 0, 0.3);
+	font-weight: bold;
 }
 /*두 번째 td 크기 */
-.td2{
-	width: 500px;
+.td2 {
+	width: 900px;
+	border-right: 1px solid rgba(255, 153, 0, 0.3);
 }
 /*세 번째 td 크기 */
-.td3{
-	width: 150px;
+.td3 {
+	width: 200px;
 }
 
 /*상세페이지 클릭  */
 .detail:hover {
-    cursor: pointer;
-    background-color: #f2f2f2; /* 마우스 호버 시 배경색 변경 */
-  }
+	cursor: pointer;
+	background-color: #f2f2f2; /* 마우스 호버 시 배경색 변경 */
+}
+
+/*상세페이지 결과 스타일  */
+#detail {
+	margin-right: 200px;
+	margin-left: 200px;
+	position: relative;
+}
+
+#detail table {
+	width: 1300px;
+	border-collapse: collapse;
+	position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+	
+}
+
+#detail table tr {
+    border-bottom: 1px solid rgba(255, 153, 0, 0.3);
+}
+
+/*tr 높이 및 스타일 */
+.detail-title{
+	height: 80px;
+	font-size: 24px;
+	text-align: center;
+}
+
+.detail-date{
+	
+}
+
+.detail-content {
+	height: 300px;
+}
+
+#tag-td {
+	width: 150px;
+	font-weight: bold;
+	background: rgba(255, 153, 0, 0.3);
+	padding: 20px;
+}
+
+#title-td{
+	width: 1150px;
+	text-align: left;
+	background: rgba(255, 153, 0, 0.1);
+	padding: 20px;
+}
+
+#date-td {
+	text-align: right;
+	color: inherit;
+	padding: 20px;
+}
+
+#content-td{
+	text-align: left;
+	padding: 30px;
+}
+
+
+/*전체목록 버튼  */
+#total{
+	background-color: #ff9900;
+	color: #fff;
+	padding: 8px 12px;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	float: right;
+    margin-right: 100px;
+}

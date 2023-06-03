@@ -10,12 +10,12 @@ public class PayController {
 	@Autowired
 	PayDAO dao;
 	
-	// 결제 성공
-	@RequestMapping("pay/insert")
-	public void insert(PayVO payvo) {
-		System.out.println("pay insert 요청성공");
-		dao.insert(payvo);
-	}
+//	// 결제 성공
+//	@RequestMapping("pay/insert")
+//	public void insert(PayVO payvo) {
+//		System.out.println("pay insert 요청성공");
+//		dao.insert(payvo);
+//	}
 	
 	// 예매취소시 cancle 컬럼에 Y추가
 	@RequestMapping("pay/cancel")

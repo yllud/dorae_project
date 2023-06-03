@@ -4,13 +4,13 @@
 	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
 	;
 
-nav {
+.header_nav {
 	font-size: 15pt;
 	font-family: 'NanumSquare', sans-serif;
 	position: relative;
 }
 
-nav ul {
+.header_nav .header_ul {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -19,7 +19,7 @@ nav ul {
 	background-color: #ff9900;
 }
 
-nav li {
+.header_nav li {
 	display: flex; /* flex item 설정 */
 	align-items: center; /* 수직 정렬 */
 	white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
@@ -27,17 +27,17 @@ nav li {
 	text-overflow: ellipsis; /* 자른 텍스트에 ... 추가 */
 }
 
-nav a {
+.header_nav a {
 	display: block;
 	line-height: 50px;
 	height: 50px;
 }
 
-nav a:hover, nav a:active {
+.header_nav a:hover, .header_nav a:active {
 	font-weight: 800;
 }
 
-nav a#pull {
+.header_nav a#pull {
 	display: none;
 }
 

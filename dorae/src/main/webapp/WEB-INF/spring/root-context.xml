@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.8.xsd">
-
+		
 	<!-- 싱글톤 만들거 있으면 여기에 설정해주세요. @Component과 같은 역할 어노테이션으로 싱글톤 생성하는 것이 불가능할 
 		때 보통 사용함. 1) mybatis 2) dbcp: mybatis에 dbcp를 껴야함. 3) mybtis config: mybatis설정 
 		담당 -->
@@ -72,4 +72,7 @@
 	
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
     
+    
+ 	
+ 	
 </beans>

@@ -46,12 +46,13 @@
 </head>
 <body>
 	<header id="header" class="fixed-top"></header>
+	<div id="top"><h1>이벤트</h1><hr color="#ff9900"></div>
 	<div id="noticeBbs">
-		<div></div>
 		<div id="background">
-			<div></div>
-			<div id="notice"></div>
-			<div id="event"></div>
+			<div id="result">
+				<div id="notice"></div>
+				<div id="event"></div>
+			</div>
 		</div>
 	</div>
 </body>

@@ -70,7 +70,6 @@ $(document).ready(function() {
       var target = $button.data("target");
 
       $contentContainer.children().not(target).empty();
-      $('#bookInfo').empty();
 
       $.ajax({
         url: url,
@@ -93,17 +92,15 @@ $(document).ready(function() {
           type: 'GET',
           data: { email: '<%=session.getAttribute("email")%>' },
           success: function(data) {
-            //alert('북마크 클릭됨!');
-            //console.log(data);
-            $('#bookInfo').html(data);
+            $contentContainer.children().not("#bookInfo").empty(); // 예매내역을 비움
+            $('#bookInfo').html(data); // 북마크를 표시할 영역에 내용을 삽입
           },
           error: function() {
             alert('데이터를 불러오는 중에 오류가 발생했습니다.');
           }
         });
       });
-    
-  });//ready
+    });//ready
 </script>
 
 <!-- 프로필 이미지 수정 팝업 -->
@@ -145,7 +142,7 @@ function openPopup(url) {
 	<br>
 	
 
-<a href="javascript:void(0);" onclick="openPopup('/doare/mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a>
+<a href="javascript:void(0);" onclick="openPopup('../mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a>
 
 
 <br>

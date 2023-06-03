@@ -90,11 +90,12 @@ $(function() {
 	    	
 	    	if (selectedTimes === undefined){ //공연 없는 날
 				$('.time').html('<option selected disabled=disabled>' + "공연이 없습니다" +'</option>'); // 공연없는 날은 시간선택 비활성화
-				$("#b").attr("disabled", true); // 공연 없기 때문에 다음버튼 비활성화
+				$("#b").attr("disabled", true); // 공연 없기 때문에 좌석선택 비활성화
 				
 			}else if(selectedTimes !== undefined){ // 공연 있는 날
 	    	  for (var i = 0; i < selectedTimes.length; i++) { 
 	    		  var option = '<option value=' + selectedTimes[i] + '>' + selectedTimes[i] + '</option>';
+	    		  $("#b").attr("disabled", false); // 좌석선택 활성화
 	    		  var today = luxon.DateTime.local().setZone('Asia/Seoul').toISODate(); // 한국기준으로 현재 날짜가져옴
 				  var selector = $('#selector').val();
 	    		  
@@ -103,11 +104,11 @@ $(function() {
 	    			 var selectedTime = luxon.DateTime.fromISO(selectedTimes[i]); 
 	    		 if (selectedTime < now2.plus({ hours: 1 })) { // 공연당일에는 공연 1시간전 까지만 예매가능(공연시간 < 현재시간 + 1시간)
 	    			 option = '<option disabled=disabled>' + selectedTimes[i] + '</option>';
+	    			 $("#b").attr("disabled", true);
 	    			 } //if
 	    		 } // if
 	    		$('.time').append(option);
 			  } // for
-	    	  $("#b").attr("disabled", false);
 	    	}// else if
 	    	 $('#d_day').text($('#selector').val());
 	    	 $('#d_time').text($('.time').val());
@@ -137,14 +138,14 @@ $('#b').click(function() {
 	//Luxon 라이브러리 사용해서 한국시간으로 바꾸고 YYYY-MM-DD 형식으로 가져옴
 	var today = luxon.DateTime.local().setZone('Asia/Seoul').toISODate();
 	var selector = $('#selector').val();
-	if(selector.substring(0, selector.indexOf('(')) === today){
-		$('#staticBackdrop').modal('show');
-	} else {
+	if(selector.substring(0, selector.indexOf('(')) === today){ //선택한 날짜가 당일이면
+		$('#staticBackdrop').modal('show'); //모달창 띄우기
+	} else { //당일이 아니면 바로 페이지 이동
 		page();
 	}
   }); //b
   
-$('#staticBackdrop').on('hidden.bs.modal', function () { // 모달 닫힐 때 페이지 이동
+$('#staticBackdrop').on('hidden.bs.modal', function () { //모달 닫힐 때 페이지 이동
 	  page(); 
 	});
 }); //$
@@ -251,7 +252,7 @@ out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.j
    </div> <!-- info2 -->
    <!-- 날짜, 시간 선택해야 버튼 활성화 -->
    <div class="d-grid gap-2">
-   <button class="btn btn-outline-secondary btn-lg" disabled="disabled" id="b" name="play_id" value="${vo.play_id}">좌석선택</button>
+   <button class="btn btn-outline-secondary btn-lg" disabled="disabled" id="b" name="play_id" value="${vo.play_id}">좌석선택 <i class="bi bi-arrow-right"></i></button>
    </div>
   </div> <!-- right -->
  </div>	<!-- content -->

@@ -83,6 +83,8 @@
 		<!-- 최현석 -->
 		<mapper resource="mapper/reviewMapper.xml" />
 		<mapper resource="mapper/snsMapper.xml" />
+		<mapper resource="mapper/blogMapper.xml" />
+		<mapper resource="mapper/twitterMapper.xml" />
 
 		<!-- 구윤진 -->
 		<mapper resource="mapper/kakaoMapper.xml" />

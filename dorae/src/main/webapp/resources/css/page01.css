@@ -39,9 +39,6 @@ body::-webkit-scrollbar-track {
 	width: 250px;
 	margin: 10px;
 }
-th, td {
-	text-align: center;
-}
 #map {
 	width: 100%;
 	height: 750px;
@@ -103,6 +100,18 @@ th, td {
   /* margin: 0 auto; */
   display: block; 
 }
-#sns_tr{
-	text-align: right;
+
+#main_btn_div .main_ul .main_li{
+	width:500px;
+}
+
+#main_btn_div .main_ul{
+	list-style-type: none;
+	margin-left: 120px;
+	width: auto;
+	display: flex;
+	justify-content: space-between;
+}
+tr{
+	text-align: center;
 }

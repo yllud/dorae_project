@@ -266,6 +266,20 @@
 	    </dependency>
 	    <!-- 장희정 dependency 끝 -->
 
+		<!-- 이아람 추가(트랜잭션) -->
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<!-- 이아람 끝 -->
+		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.8</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

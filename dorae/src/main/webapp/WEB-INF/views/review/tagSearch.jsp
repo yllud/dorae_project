@@ -100,7 +100,6 @@
 </head>
 <body>
 	<div id="backBtnDiv"><a href="reviewBbs.jsp"><button id="backBtn">전체 목록으로</button></a></div>
-	<hr color="#ff9900">
 	<div>
 		<div id="top"><h1>다녀온 후기</h1><h3>${tag} 태그로 검색된 후기 수: ${count}</h3></div>
 		<hr color="#ff9900">

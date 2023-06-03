@@ -166,7 +166,7 @@ input{
   margin-bottom: 30px; /* container 기준으로 아래 여백*/
 }
 .seat {
-  background-color: #c0e0fe;
+  background-color: #fab575;
   height: 15px;
   width: 18px;
   margin: 3px; /* 여백*/
@@ -175,7 +175,7 @@ input{
 }
 
 .seat.selected { /* 좌석 선택시 색깔*/
-  background-color: #74bcfe;
+  background-color: #fc6c2d;
 }
 
 .seat.sold { /* 예매된 좌석(선택불가) 색깔*/
@@ -207,5 +207,8 @@ input{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.tooltip {
+--bs-tooltip-bg: var(--bs-dark);
 }
 

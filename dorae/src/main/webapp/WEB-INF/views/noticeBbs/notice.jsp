@@ -37,10 +37,10 @@ $(function() {
 <body>
 <div id="notice-result">
 <table class="bbs-table">
-<tr>
+<tr id="head">
 <td class="td1">분류</td>
 <td class="td2">제목</td>
-<td class="td3">공지날짜</td>
+<td class="td3">날짜</td>
 </tr>
 <c:forEach var="list" items="${list}">
 <tr class="detail" data-id="${list.notice_id}">

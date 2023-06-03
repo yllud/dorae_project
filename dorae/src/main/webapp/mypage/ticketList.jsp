@@ -32,11 +32,9 @@
 	<h2>예매내역</h2>
 	${nickname} 님
 	<button id="calendar">캘린더 보기</button>
-<hr color="blue">
 	<div id="result">
 	<!-- ajax의 $('#result').html(x)에서 result(결과)가 표시될 위치 -->
     </div>
-<hr color="blue">
 
 </body>
 </html>
