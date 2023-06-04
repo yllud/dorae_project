@@ -18,7 +18,7 @@ public class PayController {
 //	}
 	
 	// 예매취소시 cancle 컬럼에 Y추가
-	@RequestMapping("pay/cancel")
+	@RequestMapping("pay/update")
 	public void update(PayVO bag) {
 		System.out.println("pay update 요청성공");
 		System.out.println(bag);

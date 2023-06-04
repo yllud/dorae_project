@@ -11,45 +11,15 @@
 
 <!-- bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-
 <script type="text/javascript" src="resources/js/jquery-3.6.4.js"></script>
-<!-- 시간 및 날짜 처리를 위한 라이브러리 -->
-<script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script> 
-<script type="text/javascript">
-$(function() {
-	  //Luxon 라이브러리 사용해서 한국시간으로 바꾸고 YYYY-MM-DD 형식으로 가져옴
-	  var today = luxon.DateTime.local().setZone('Asia/Seoul').toISODate();
-	  
-	$('#cancel').click(function() { //취소버튼 눌렀을 때
-	  var seatDate = $('#seat_date').val();
-		
-	  //공연당일에는 취소 불가능
-	  if(seatDate.substring(0, seatDate.indexOf('(')) === today){
-		 alert("공연 당일에는 취소가 불가능합니다.")
-		 
-	   } else{ //당일 아니면 취소 가능
-	    	 $.ajax({
-					url: "pay/cancel", //inner join 사용해서 한번에 변경
-					data: {
-						email: '${email}',
-						seat_id: $('#seat_id').val()
-					},
-					success: function() {
-						alert("예매가 취소되었습니다.")
-					}, //success
-					error: function() {
-						alert("취소에 실패하였습니다.");
-					} //error
-				}) //ajax
-	     }// else
-	}) //cancle.click
-}) //$
 
+<script type="text/javascript">
 
 function check() {
 	opener.location.href="http://localhost:8888/dorae/login/mypage";
 	window.close();
 };
+
 </script>
 </head>
 <body>
@@ -72,8 +42,5 @@ function check() {
   </div>
 </div>
 
-티켓번호 <input id="seat_id"><br>
-관람날짜 <input id="seat_date">
-<button id="cancel">취소하기</button>
 </body>
 </html>
