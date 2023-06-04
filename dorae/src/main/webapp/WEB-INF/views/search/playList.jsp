@@ -38,8 +38,8 @@
 
 					// 각 div 처리 예시
 					var div1 = $x.filter('.product-list2'); // 클래스가 'product-list2'인 div 선택
-					var div2 = $x.filter('.footer2'); // 클래스가 'footer2'인 div 선택
-					var div3 = $x.filter('.ranking'); // 클래스가 'ranking'인 div 선택
+					var div2 = $x.filter('.footer2'); 		// 클래스가 'footer2'인 div 선택
+					var div3 = $x.filter('.ranking'); 		// 클래스가 'ranking'인 div 선택
 					
 					$('#result2').empty()
 					$('#result3').empty()
@@ -86,7 +86,6 @@
 
 		$('.footer').on('click', '.next', function() {
 			var page_cnt = document.getElementById("a").value;
-<%-- <%=request.getAttribute("page_cnt")%>; --%>
 
 			var lastPage = parseInt($('.pages:last').text()); // 마지막 버튼의 값을 가져옴
 			var end = lastPage + 10;
@@ -108,7 +107,6 @@
 				var buttonN = $('<button>').addClass('next').text("다음");
 				$('.footer').append(buttonN);
 			}
-			
 // 			console.log("page_cnt: " + page_cnt);
 		});
 
@@ -132,7 +130,6 @@
 
 			var buttonN = $('<button>').addClass('next').text("다음");
 			$('.footer').append(buttonN);
-
 		});
 
 	})

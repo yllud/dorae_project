@@ -47,7 +47,7 @@ button {
 	width: 320px;
 	height: 40px;
 	/* 	margin-top: 300px; */
-	margin-left: 372px;
+	margin-left: 365px;
 	margin-top: 30px;
 	margin-bottom: 20px;
 	border: 2px solid #ff9900;
@@ -83,17 +83,6 @@ input.hide-clear[type="search"]::-webkit-search-decoration, input.hide-clear[typ
 	font-weight: bold;
 	font-size: 14px;
 	border-radius: 0 5px 5px 0;
-}
-
-/* select option */
-.filter2 {
-	/* 	display: block; */
-	width: 500px;
-	/* 	margin-top: 300px; */
-	margin-left: 739px;
-	margin-top: 3px;
-	margin-bottom: 15px;
-	/* 	background: #a2d5f2 */
 }
 
 /* 컨테이너 요소 스타일 */
@@ -171,7 +160,7 @@ input.hide-clear[type="search"]::-webkit-search-decoration, input.hide-clear[typ
 	margin-right: 83px;
 	margin-bottom: 80px;
 	/* 	background: #a2d5f2; */
-	border-radius: 10%;
+	border-radius: 10% 10% 7% 7%;
 	box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.4);
 }
 
