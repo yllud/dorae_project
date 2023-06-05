@@ -17,4 +17,8 @@ public class AdminDAO {
 	public AdminVO one(String id) {
 		return sql.selectOne("admin.selectOne", id);
 	}
+	
+	public boolean isExist(String id) {
+		return sql.selectOne("admin.isExist", id);
+	}
 }

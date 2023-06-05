@@ -14,6 +14,10 @@ public class AdminService {
 	
 	public boolean join(AdminVO adminVO) {
 		// 비밀번호 암호화
+		if (adminDAO.isExist(adminVO.getId())) {
+			System.out.println("아이디가 중복됨");
+			return false;
+		}
 		adminVO.setPassword(passwordEncoder.encode(adminVO.getPassword()));
 		
 		if (adminDAO.one(adminVO.getId()) != null) {

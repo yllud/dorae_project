@@ -59,7 +59,7 @@ public class AdminController {
 			session.setAttribute("admin", adminVO);
 		}
 		
-		return "redirect:../admin";
+		return "redirect:join";
 	}
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
@@ -81,7 +81,7 @@ public class AdminController {
 	public String adminLogout(HttpSession session) {
 		session.invalidate(); // 세션 만료시킴
 		
-		return "redirect:../admin";
+		return "redirect:../admin/login";
 	}
 	
 	@RequestMapping("apply/list")

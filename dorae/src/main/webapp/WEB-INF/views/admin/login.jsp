@@ -29,10 +29,6 @@
 			
 			<button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
 		</form>
-		<hr>
-		
-		<a class="w-100 btn btn-lg btn-danger" href="join">관리자 가입</a>
-		<hr>
 	</main>
 </body>
 </html>
