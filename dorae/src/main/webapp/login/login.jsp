@@ -20,6 +20,14 @@
 <% if(session.getAttribute("email") == null){ %>
 	<h3>로그인페이지 입니다.</h3>
 	<hr color="orange">
+	
+	<form action="../login/memberLogin" method="get">
+	아이디 : <input name="email"><br>
+	<!-- 비밀번호 type을 password로 하면 입력할 때 점으로 표시 됨 -->
+	비밀번호 : <input type="password" name="password"><br>
+	<button type="submit">로그인</button>
+</form>
+	<a href="../login/memberCreate.jsp">회원가입</a>
 
 	<div id="naver_id_login"></div>
     <!-- //네이버 로그인 버튼 노출 영역 -->

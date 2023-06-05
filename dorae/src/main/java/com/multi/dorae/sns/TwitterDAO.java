@@ -2,41 +2,33 @@ package com.multi.dorae.sns;
 
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class TwitterDAO {
 
 	@Autowired
-	MongoTemplate mongo;
+	SqlSessionTemplate my;
+
+	// db에 항목이 있는지 체크
+	public int count() {
+		return my.selectOne("twitter.count");
+	}
+
+	// db row 전체 삭제하기
+	public void delete() {
+		my.delete("twitter.delete");
+	}
 
 	// 검색 결과를 db에 넣기
-	public void insert(List<TwitterVO> tweets) {
-		mongo.insert(tweets, "twitter");
+	public void insert(TwitterVO vo) {
+		my.insert("twitter.insert", vo);
 	}
-	
-	// 추천 검색어에 해당하는 db결과값 반환
-	public List<TwitterVO> list(int rank) { // 검색어에 해당하는 rank값
-		Query query = new Query();
-		Criteria criteria = Criteria.where("rank").is(rank);
-		query.addCriteria(criteria);
-		query.fields().exclude("rank"); // 반환값 rank 필드 제외
 
-		return mongo.find(query, TwitterVO.class, "twitter");
+	// 검색 결과 가져오기
+	public List<TwitterVO> search(int rankNum) {
+		return my.selectList("twitter.search", rankNum);
 	}
-	
-	// "twitter" 컬렉션 드랍
-    public void drop() {
-    	mongo.dropCollection("twitter");
-    	System.out.println("----------------twitter삭제가 완료되었습니다.");
-    }
-    
-    // "twitter" 컬렉션이 있는지 확인하는 것
-    public boolean check() {
-        return mongo.collectionExists("twitter");
-    }
 }

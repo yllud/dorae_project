@@ -14,6 +14,7 @@ function pay() {
 	}, function(rsp) {
 		if (rsp.success) {
 			$.ajax({
+				type: "post",
 				url: "insert", // 티켓정보(seatDB)
 				data: { 
 					email: $('#email').val(), //회원e-mail
@@ -24,19 +25,19 @@ function pay() {
 					//seat_id: 티켓번호(pk) 자동생성 됨
 					imp_uid: rsp.imp_uid, //결제고유번호
 			    	merchant_uid: rsp.merchant_uid, //주문번호
-			    	//apply_num: rsp.apply_num, //결제카드번호
+			    	apply_num: rsp.apply_num, //결제카드번호
 			    	paid_amount: rsp.paid_amount, //결제금액
 			    	buyer_name: rsp.buyer_name, //주문자 이름
 			    	buyer_tel: rsp.buyer_tel, //주문자 전화번호
 			    	email: rsp.buyer_email, //주문자 이메일
 			    	play_id: $('#play_id').val(), //공연ID
-			    	booking: $('#booking').text()//예매일
-			    	//seat_id: 티켓번호 자동생성 됨
+			    	booking: $('#booking').text(),//예매일
+			    	//seat_id: 티켓번호(fk) 자동생성 됨
 				 },
 				success: function() {
 					var msg = '결제가 완료되었습니다.';
 	    			alert(msg);
-	    			location.href = "../test.jsp";
+	    			location.href = "../ticket/finish.jsp";
 				 }, //success 
 				error: function() {
 					alert("결제에 실패하였습니다.");

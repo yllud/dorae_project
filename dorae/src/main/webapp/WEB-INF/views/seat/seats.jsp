@@ -14,7 +14,8 @@
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <!-- bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-
+<!-- 시간 및 날짜 처리를 위한 라이브러리 -->
+<script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script> 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
@@ -22,6 +23,12 @@
 
 </head>
 <body>
+<!-- 세션이 null이면 로그인 화면창이 뜨게하고 -->
+<% if(session.getAttribute("email") == null){%>
+out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.jsp';</script>");  
+<!-- 세션이 있으면(아이디 비번 정보가 남아있으면) 좌석선택 화면으로 뜨게하기 -->
+<%} else{ %>
+<%} %> 
 <input type="hidden" class="class" name="name" id="show_price" value="35000">
 <div class="main">
  <div class="content">
@@ -257,52 +264,68 @@ function updateSelectedCount() {
 
 $(function() {
 	$('#next').click(function() { //다음단계버튼
-		$.ajax({
-			url: "sold",
-			data: {
-				play_id: '${vo.play_id}',
-				seat_date: $('#d_day').text(),
-				seat_time: $('#d_time').text()
-			},
-			success: function(res) { 
-				let res2 = res.slice(1, -1).trim().split(",").map(item => item.trim());
-				for (var m = 0; m < res2.length; m++) {
-					if ($('#seat_num').text() === res2[m]){ //누군가 예매했다면
-						alert("이미 선택된 좌석입니다");
-						location.reload();	
-					} else { //예매가능하다면
-						$.ajax({
-							url: "memberOne", 
-							data: {
-								email: '${email}' //email가지고 이름 불러오기
-							},
-							success: function(x) {
-								const x2 = x.split(",");
-								var name = x2[0]; 
-								var nickname = x2[1];
-								if (name) { //회원정보에 이름 있으면 이름사용(네이버)
-									$('#name').val(name);
-								} else { //이름 없으면 닉네임사용(카카오)
-									$('#name').val(nickname);
-								}
-								$('.container2').empty();
-								$('#email').val('${email}');
-								$('.container2').append($('.check').show()); //정보확인칸 띄우기
-								$('#next').hide(); //다음버튼 숨기기 
-								$('#payment').show(); //결제버튼 띄우기
-							} //success
-						}) //ajax
-					} //else
-				} //for
-			}, //success
-			error: function() {
-				alert("다시 선택해 주세요");
-				location.reload();
-			} //error
-		}); //ajax
+		var today = luxon.DateTime.local().setZone('Asia/Seoul').toISODate(); // 한국기준으로 현재 날짜가져옴
+		if($('#d_day').text().substring(0, $('#d_day').text().indexOf('(')) === today) { // 당일공연을 예매하고있다면
+			var now2 = luxon.DateTime.local().setZone('Asia/Seoul'); // 한국기준으로 현재 시간가져와서
+			var selectedTime = luxon.DateTime.fromISO($('#d_time').text()); 
+			  if (selectedTime < now2.plus({ hours: 1 })) { // 공연당일에는 공연 1시간전 까지만 예매가능(공연시간 < 현재시간 + 1시간)
+				alert("예매가능한 시간이 아닙니다");
+				window.close();
+			  } else {
+				  next();
+			  } //else
+		} else {
+			next();
+		} //else
 	}); //next.click
 }); //function
-
+			
+function next() { //예매된 좌석 없으면 회원확인창으로 넘어감
+	$.ajax({
+		url: "sold",
+		data: {
+			play_id: '${vo.play_id}',
+			seat_date: $('#d_day').text(),
+			seat_time: $('#d_time').text()
+		},
+		success: function(res) { 
+			let res2 = res.slice(1, -1).trim().split(",").map(item => item.trim());
+			for (var m = 0; m < res2.length; m++) {
+				if ($('#seat_num').text() === res2[m]){ //누군가 예매했다면
+					alert("이미 선택된 좌석입니다");
+					location.reload();	
+				} else { //예매가능하다면
+					$.ajax({
+						url: "memberOne", 
+						data: {
+							email: '${email}' //email가지고 이름 불러오기
+						},
+						success: function(x) {
+							const x2 = x.split(",");
+							var name = x2[0]; 
+							var nickname = x2[1];
+							if (name) { //회원정보에 이름 있으면 이름사용(네이버)
+								$('#name').val(name);
+							} else { //이름 없으면 닉네임사용(카카오)
+								$('#name').val(nickname);
+							}
+							$('.container2').empty();
+							$('#email').val('${email}');
+							$('.container2').append($('.check').show()); //정보확인칸 띄우기
+							$('#next').hide(); //다음버튼 숨기기 
+							$('#payment').show(); //결제버튼 띄우기
+						} //success
+					}) //ajax
+				} //else
+			} //for
+		}, //success
+		error: function() {
+			alert("다시 선택해 주세요");
+			location.reload();
+		} //error
+	}); //ajax
+} //next
+			
 
 $('#tel').on('input', function() { //전화번호 입력해야 결제버튼 생성
 	if($('#tel').val().length >= 11 && $('#tel').val().length <= 13) { //13자리일때
@@ -350,60 +373,9 @@ $('#payment').click(function() { //결제
 	}); //ajax
 }); //payment
 
-function pay() {	
-	var IMP = window.IMP; // 생략가능
-	IMP.init('imp60843063'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-	IMP.request_pay({//******* API : 함수를 불러서 처리해 달라고 할 때 사용하는 함수의 집합
-		pg : 'kakaopay', // version 1.1.0부터 지원.
-		pay_method : 'card',
-		merchant_uid : 'merchant_' + new Date().getTime(),
-		name : '결제테스트',
-		amount : $("#total").text(),
-		buyer_name : $("#name").val(),
-		buyer_tel : $("#tel").val(),
-		buyer_email : $("#email").val(),
-		m_redirect_url : 'www.yourdomain.com/payments/complete'
-	}, function(rsp) {
-		if (rsp.success) {
-			$.ajax({
-				url: "insert", // 티켓정보(seatDB)
-				data: { 
-					email: $('#email').val(), //회원e-mail
-					play_id: $('#play_id').val(), //공연ID
-					seat_date: $('#d_day').text(), //공연날짜
-					seat_time: $('#d_time').text(), //공연시간
-					seat_number: $('#seat_num').text(), //좌석번호
-					//seat_id: 티켓번호(pk) 자동생성 됨
-					imp_uid: rsp.imp_uid, //결제고유번호
-			    	merchant_uid: rsp.merchant_uid, //주문번호
-			    	apply_num: rsp.apply_num, //결제카드번호
-			    	paid_amount: rsp.paid_amount, //결제금액
-			    	buyer_name: rsp.buyer_name, //주문자 이름
-			    	buyer_tel: rsp.buyer_tel, //주문자 전화번호
-			    	email: rsp.buyer_email, //주문자 이메일
-			    	play_id: $('#play_id').val(), //공연ID
-			    	booking: $('#booking').text(),//예매일
-			    	//seat_id: 티켓번호(fk) 자동생성 됨
-				 },
-				success: function() {
-					var msg = '결제가 완료되었습니다.';
-	    			alert(msg);
-	    			location.href = "../test.jsp";
-				 }, //success 
-				error: function() {
-					alert("결제에 실패하였습니다.");
-					location.reload();
-				 } //error
-			  }); //ajax 
-		   } else {
-		     var msg = '결제에 실패하였습니다.';
-		     alert(msg);
-		     location.reload();
-		   } //else
-	  }); //IMP.request_pay
-}; //pay
+
 </script>
 
-<!-- <script type="text/javascript" src="../resources/js/pay.js"></script> -->
+<script type="text/javascript" src="../resources/js/pay.js"></script>
 </body>
 </html>
