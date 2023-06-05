@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SnsController {
 
 	@Autowired
-	SnsDAO dao;
+	SnsService snsService;
 
 	// 추천검색어 추출
 	@RequestMapping("sns/recommend")
 	@ResponseBody
 	public List<String> recommend() {
-		List<String> list = dao.recommend();
-		return list;
+		return snsService.list();
 	}
 }

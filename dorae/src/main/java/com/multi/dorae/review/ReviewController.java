@@ -1,21 +1,13 @@
 package com.multi.dorae.review;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,104 +20,79 @@ import com.multi.dorae.search.PlayVO;
 public class ReviewController {
 
 	@Autowired
-	ReviewDAO dao;
-	@Autowired
-	private ServletContext servletContext;
+	ReviewService reviewService;
 
 	// 다녀온 후기 등록(사진 복수 첨부)
 	@RequestMapping("review/insert")
-	public String insert(ReviewVO reviewVO, HttpServletRequest request, MultipartFile[] files, Model model)
-			throws Exception {
-		// 세션에서 email 값을 가져와서 reviewVO에 설정
+	public String insert(ReviewVO vo, HttpServletRequest request, MultipartFile[] files) throws Exception {
+		// 세션에서 email 값을 가져와서 vo에 설정
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
-		reviewVO.setEmail(email);
+		vo.setEmail(email);
 
-		List<String> savedNames = new ArrayList<>();
-		String uploadPath = request.getSession().getServletContext().getRealPath("resources/upload");
+		// 파일 업로드 서비스 호출 - 파일명 리턴
+		List<String> savedNames = reviewService.upload(vo, request, files);
 
-		if (files != null && files.length > 0) {
-			for (MultipartFile file : files) {
-				if (!file.isEmpty()) {
-					String originalFilename = file.getOriginalFilename();
-					String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-					String uuid = UUID.randomUUID().toString(); // UUID 생성
-
-					// 파일명 -> 회원이메일+UUID+확장자로 설정 -> 파일명 중복 방지
-					String savedName = reviewVO.getEmail() + "_" + uuid + extension;
-					File target = new File(uploadPath + File.separator + savedName);
-					file.transferTo(target);
-					savedNames.add(savedName);
-				}
-			}
-		}
-
+		// 파일명 vo에 설정
 		if (savedNames.isEmpty()) {
-			reviewVO.setImages(null);
+			vo.setImages(null);
 		} else {
-			reviewVO.setImages(savedNames);
+			vo.setImages(savedNames);
 		}
-		System.out.println("업로드경로: " + uploadPath);
-		dao.insert(reviewVO);
+
+		// db 저장 서비스 호출
+		reviewService.insert(vo);
+
 		return "redirect:/review/reviewBbs.jsp";
 	}
 
-//	다녀온 후기 전체 리스트 불러오기
+	// 다녀온 후기 전체 리스트 불러오기
 	@RequestMapping("review/all")
 	public void all(ReviewPageVO vo, Model model) {
-//		페이징 처리
-		vo.reviewStartEnd(vo.getPage());
-		List<ReviewVO> list = dao.all(vo);
-		int count = dao.count();
-		int pages = 0;
-		if (count % 4 == 0) {
-			pages = count / 4;
-		} else {
-			pages = count / 4 + 1;
-		}
+		// 전체 리스트 가져오는 서비스 호출
+		List<ReviewVO> list = reviewService.getAll(vo);
+
+		// 페이지 수 계산하는 서비스 호출
+		int count = reviewService.getAllCount(); // 전체 게시글 수
+		int pages = reviewService.getAllpages(); // 전체 게시글 페이징 시 필요한 페이지 수
+
+		// 현재 페이지 서비스 호출
+		int currentButtonPage = reviewService.currentButtonPage(vo);
+
+		// 모델에 값 넣기
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
 		model.addAttribute("pages", pages);
-
-		// 버튼 페이징
-		int currentPage = vo.getPage(); // 현재 페이지 값
-		int buttonsPerPage = 10;
-		int currentButtonPage = (int) Math.ceil((double) currentPage / buttonsPerPage); // currentButtonPage 계산
 		model.addAttribute("currentButtonPage", currentButtonPage);
 	}
 
-//	태그로 후기 검색
+	// 태그로 후기 검색
 	@RequestMapping("review/tagSearch")
 	public void tagSearch(ReviewPageVO vo, String tag, Model model) {
-		vo.reviewStartEnd(vo.getPage());
+		// 태그로 검색한 리스트 가져오는 서비스 호출
+		List<ReviewVO> list = reviewService.getReviewsByTag(vo, tag);
 
-		ReviewVO reviewVO = new ReviewVO();
-		reviewVO.setTag(tag);
+		// 페이지 수 계산하는 서비스 호출
+		int count = reviewService.getTagCount(tag); // 태그로 검색한 게시글 수
+		int pages = reviewService.getTagPages(tag); // 태그로 검색한 게시글 페이징 시 필요한 페이지 수
 
-		List<ReviewVO> list = dao.tagSearch(vo, tag);
-		int count = dao.tagCount(tag);
-		int pages = 0;
-		if (count % 4 == 0) {
-			pages = count / 4;
-		} else {
-			pages = count / 4 + 1;
-		}
+		// 현재 페이지 서비스 호출
+		int currentButtonPage = reviewService.currentButtonPage(vo);
+
+		// 모델에 값 넣기
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
 		model.addAttribute("pages", pages);
 		model.addAttribute("tag", tag);
-
-		// 버튼 페이징
-		int currentPage = vo.getPage(); // 현재 페이지 값
-		int buttonsPerPage = 10;
-		int currentButtonPage = (int) Math.ceil((double) currentPage / buttonsPerPage); // currentButtonPage 계산
 		model.addAttribute("currentButtonPage", currentButtonPage);
 	}
 
 	// 상세페이지
 	@RequestMapping("review/detail")
 	public void detail(int id, Model model) {
-		ReviewVO review = dao.one(id);
+		// id로 검색한 값 1개 가져오는 서비스 호출
+		ReviewVO review = reviewService.getReviewById(id);
+		// 모델에 값 넣기
 		model.addAttribute("review", review);
 	}
 
@@ -133,14 +100,17 @@ public class ReviewController {
 	// PostMapping으로 URL 접근 차단
 	@PostMapping("review/update")
 	public void update(int id, Model model) {
-		ReviewVO review = dao.one(id);
+		// id로 검색한 값 1개 가져오는 서비스 호출
+		ReviewVO review = reviewService.getReviewById(id);
+		// 모델에 값 넣기
 		model.addAttribute("review", review);
 	}
 
 	// 후기 수정
 	@RequestMapping("review/update2")
 	public void update2(ReviewVO vo, HttpServletResponse response) throws IOException {
-		dao.update(vo);
+		// 후기 수정 서비스 호출
+		reviewService.update(vo);
 
 		// 작업 완료 후 팝업 창을 닫고 이전 창을 새로고침하는 JavaScript 코드
 		String script = "<script>" + "alert('게시글 수정이 완료되었습니다.');" + "window.opener.location.reload();" + // 이전 창 새로고침
@@ -154,56 +124,27 @@ public class ReviewController {
 
 	// 사진 수정
 	@RequestMapping("review/imgUpdate")
-	public void imgUpdate(ReviewVO reviewVO, HttpServletResponse response, HttpServletRequest request,
-			MultipartFile[] files, Model model) throws Exception {
+	public void imgUpdate(ReviewVO vo, HttpServletResponse response, HttpServletRequest request, MultipartFile[] files)
+			throws Exception {
 
-		// 기존 이미지 삭제 처리를 위한 이미지 리스트 받아오기
-				List<String> deletedImgList = dao.deletedImg(reviewVO.getId());
-				// 이미지가 존재할 경우 삭제
-				String uploadedPath = servletContext.getRealPath("/resources/upload");
-				for (String deletedImg : deletedImgList) {
-					if (deletedImg == null) {
-						continue;
-					}
-					String filePathString = uploadedPath + "/" + deletedImg;
-					Path filePath = Paths.get(filePathString);
+		// 기존 이미지 삭제 처리를 위한 이미지 리스트 받아오는 서비스 호출
+		List<String> deletedImgList = reviewService.getDeletedImg(vo.getId());
 
-					try {
-						Files.delete(filePath);
-						System.out.println("-----삭제한 파일: " + deletedImg);
-					} catch (Exception e) {
-						System.out.println("-----삭제 실패한 파일: " + deletedImg);
-						e.printStackTrace();
-					}
-				}		
-		
-		// 사진 수정
-		List<String> savedNames = new ArrayList<>();
-		String uploadPath = request.getSession().getServletContext().getRealPath("resources/upload");
+		// 이미지 삭제 처리 서비스 호출
+		reviewService.deleteImg(deletedImgList);
 
-		if (files != null && files.length > 0) {
-			for (MultipartFile file : files) {
-				if (!file.isEmpty()) {
-					String originalFilename = file.getOriginalFilename();
-					String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-					String uuid = UUID.randomUUID().toString(); // UUID 생성
+		// 사진 수정 서비스 호출
+		List<String> savedNames = reviewService.upload(vo, request, files);
 
-					// 파일명 -> 회원이메일+UUID+확장자로 설정 -> 파일명 중복 방지
-					String savedName = reviewVO.getEmail() + "_" + uuid + extension;
-					File target = new File(uploadPath + File.separator + savedName);
-					file.transferTo(target);
-					savedNames.add(savedName);
-				}
-			}
-		}
-
+		// 파일명 vo에 설정
 		if (savedNames.isEmpty()) {
-			reviewVO.setImages(null);
+			vo.setImages(null);
 		} else {
-			reviewVO.setImages(savedNames);
+			vo.setImages(savedNames);
 		}
-		System.out.println("업로드경로: " + uploadPath);
-		dao.imgUpdate(reviewVO);
+
+		// 수정된 파일명 db 업데이트하는 서비스 호출
+		reviewService.updateImg(vo);
 
 		// 작업 완료 후 알림 팝업 창을 띄우고 이전페이지로 돌아가는 JavaScript 코드
 		String script = "<script>alert('사진 수정이 완료되었습니다.'); history.back();</script>";
@@ -211,35 +152,19 @@ public class ReviewController {
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(script);
 		response.getWriter().flush();
-		
-		
 	}
 
 	// 후기 삭제
 	@RequestMapping("review/delete")
 	public void delete(int id, HttpServletResponse response) throws IOException {
-		// 이미지 삭제 처리를 위한 이미지 리스트 받아오기
-		List<String> deletedImgList = dao.deletedImg(id);
-		// 이미지가 존재할 경우 삭제
-		String uploadPath = servletContext.getRealPath("/resources/upload");
-		for (String deletedImg : deletedImgList) {
-			if (deletedImg == null) {
-				continue;
-			}
-			String filePathString = uploadPath + "/" + deletedImg;
-			Path filePath = Paths.get(filePathString);
+		// 이미지 삭제 처리를 위한 이미지 리스트 받아오는 서비스 호출
+		List<String> deletedImgList = reviewService.getDeletedImg(id);
 
-			try {
-				Files.delete(filePath);
-				System.out.println("-----삭제한 파일: " + deletedImg);
-			} catch (Exception e) {
-				System.out.println("-----삭제 실패한 파일: " + deletedImg);
-				e.printStackTrace();
-			}
-		}
+		// 이미지 삭제 처리 서비스 호출
+		reviewService.deleteImg(deletedImgList);
 
 		// db 삭제 처리
-		dao.delete(id);
+		reviewService.delete(id);
 
 		// 작업 완료 후 팝업 창을 닫고 이전 창을 새로고침하는 JavaScript 코드
 		String script = "<script>" + "alert('게시글 삭제가 완료되었습니다.');" + "window.opener.location.reload();" + // 이전 창 새로고침
@@ -251,80 +176,61 @@ public class ReviewController {
 		response.getWriter().flush();
 	}
 
-	// 태그 공연명 연동
+	// 전체 공연명 가져오기- 태그로 선택 기능
 	@RequestMapping("review/tag")
 	public void tag(ReviewPageVO vo, Model model) {
-		vo.tagStartEnd(vo.getPage());
 
-		int count = dao.playCount();
-		int pages = 0;
-		if (count % 10 == 0) {
-			pages = count / 10;
-		} else {
-			pages = count / 10 + 1;
-		}
+		// 전체 공연명 리스트 가져오는 서비스 호출
+		List<PlayVO> tag = reviewService.getPlayAll(vo);
 
-		List<PlayVO> tag = dao.tag(vo);
+		// 공연명 페이지 계산 서비스 호출
+		int pages = reviewService.getPlayAllPages();
+
+		// 버튼 페이징 서비스 호출
+		int currentButtonPage = reviewService.currentButtonPage(vo);
+
+		// 모델에 값 넣기
 		model.addAttribute("tag", tag);
 		model.addAttribute("pages", pages);
-
-		// 버튼 페이징
-		int currentPage = vo.getPage(); // 현재 페이지 값
-		int buttonsPerPage = 10;
-		int currentButtonPage = (int) Math.ceil((double) currentPage / buttonsPerPage); // currentButtonPage 계산
 		model.addAttribute("currentButtonPage", currentButtonPage);
 	}
 
-	// 태그 공연명 연동 검색
+	// 검색한 공연명 가져오기
 	@RequestMapping("review/playSearch")
 	public void playSearch(ReviewPageVO vo, String query, Model model) {
-		vo.tagStartEnd(vo.getPage());
 
-		int count = dao.playSearchCount(query);
-		int pages = 0;
-		if (count % 10 == 0) {
-			pages = count / 10;
-		} else {
-			pages = count / 10 + 1;
-		}
+		// 공연명으로 검색한 공연 리스트 가져오는 서비스 호출
+		List<PlayVO> tag = reviewService.getPlayByName(vo, query);
 
-		List<PlayVO> tag = dao.playSearch(vo, query);
-		System.out.println("---------검색 결과 : " + tag);
+		// 공연명으로 검색한 공연 페이지 수 계산 서비스 호출
+		int pages = reviewService.getPlayByNamePages(query);
+
+		// 버튼 페이징 서비스 호출
+		int currentButtonPage = reviewService.currentButtonPage(vo);
+		
+		// 모델에 값 넣기
 		model.addAttribute("tag", tag);
 		model.addAttribute("pages", pages);
-
-		// 버튼 페이징
-		int currentPage = vo.getPage(); // 현재 페이지 값
-		int buttonsPerPage = 10;
-		int currentButtonPage = (int) Math.ceil((double) currentPage / buttonsPerPage); // currentButtonPage 계산
 		model.addAttribute("currentButtonPage", currentButtonPage);
 	}
 
 	// 장르로 공연명 검색
 	@RequestMapping("review/genreSearch")
 	public void genreSearch(ReviewPageVO vo, String genre, Model model) {
-		vo.tagStartEnd(vo.getPage());
 
-		int count = dao.genreCount(genre);
-		int pages = 0;
-		if (count % 10 == 0) {
-			pages = count / 10;
-		} else {
-			pages = count / 10 + 1;
-		}
+		// 장르로 검색한 공연 리스트 가져오는 서비스 호출
+		List<PlayVO> tag = reviewService.getPlayByGenre(vo, genre);
 
-		List<PlayVO> tag = dao.genreSearch(vo, genre);
-		System.out.println("---------검색 결과 : " + tag);
+		// 장르로 검색한 공연 페이지 수 계산 서비스 호출
+		int pages = reviewService.getPlayByGenrePages(genre);
+
+		// 버튼 페이징 서비스 호출
+		int currentButtonPage = reviewService.currentButtonPage(vo);
+		
+		// 모델에 값 넣기
 		model.addAttribute("tag", tag);
 		model.addAttribute("pages", pages);
-
-		// 버튼 페이징
-		int currentPage = vo.getPage(); // 현재 페이지 값
-		int buttonsPerPage = 10;
-		int currentButtonPage = (int) Math.ceil((double) currentPage / buttonsPerPage); // currentButtonPage 계산
 		model.addAttribute("currentButtonPage", currentButtonPage);
 	}
-
-	
 
 }

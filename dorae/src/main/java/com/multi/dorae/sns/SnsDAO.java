@@ -13,7 +13,6 @@ public class SnsDAO {
 	
 	// 추천 검색어 리스트 뽑아오기
 		public List<String> recommend() {
-			List<String> recommendKeyword = my.selectList("sns.recommend");
-			return recommendKeyword;
+			return my.selectList("sns.recommend");
 		}
 }

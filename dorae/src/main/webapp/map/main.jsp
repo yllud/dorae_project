@@ -1062,6 +1062,7 @@ text-align: center;
 			</div>
 		</div>
 	</div>
+	<br><br>
 	<div id="result" style="width: 100%;"></div>
 	<div id="test"></div>
 </body>
