@@ -112,7 +112,12 @@ li .name_size{
 <body>
   <div class="recommendList">
     <ul class="recommend_ul">
-      <h3>맞춤 추천 공연 <button id="btn_reset"><a href="/dorae/map/recommend.jsp">맞춤 재설정</a></button><div id="p_setting">지역 : ${bag.area1} ${bag.area2} ${bag.area3}<br>장르 : ${bag.genre1} ${bag.genre2} ${bag.genre3}</div></h3>
+      <h3>맞춤 추천 공연
+	  	<div id="p_setting">지역 : ${bag.area1} ${bag.area2} ${bag.area3}<br>장르 : ${bag.genre1} ${bag.genre2} ${bag.genre3}</div>
+	  	<div style="text-align: center;">
+	  		<button id="btn_reset" style="margin:10px;"><a href="/dorae/map/recommend.jsp">맞춤 재설정</a></button>
+	  	</div>
+	  </h3>
       <c:choose>
         <c:when test="${empty list}">
         	<p>

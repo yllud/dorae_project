@@ -1006,7 +1006,7 @@ text-align: center;
 						    }
 						});
 			        }else{
-			        	$('#result').html("<button style='margin:20px; width:200px; height:70px;'><a href='/dorae/map/recommend.jsp'>맞춤설정하러가기</a></button>")
+			        	$('#result').html("<a href='/dorae/map/recommend.jsp'><button class='btn-0' style='margin:20px; width:200px; height:70px;'>맞춤설정하러가기</button></a>")
 			        }
 			    },
 			    error: function() {
@@ -1015,7 +1015,7 @@ text-align: center;
 			});
 		}
 		else{
-			$('#result').html("<a href='/dorae/login/login.jsp'><button style='margin:20px; width:200px; height:70px;'>로그인 후 맞춤설정하러가기</button></a>")
+			$('#result').html("<a href='/dorae/login/login.jsp'><button class='btn-0' style='margin:20px; width:200px; height:70px;'>로그인 후 맞춤설정하러가기</button></a>")
 		}
 	});
 </script>
@@ -1063,7 +1063,10 @@ text-align: center;
 		</div>
 	</div>
 	<br><br>
-	<div id="result" style="width: 100%;"></div>
+	<div id="result" style="width: 100%; text-align: center;">
+	취향에 맞는 공연을 추천해드립니다!<br>
+	
+	</div>
 	<div id="test"></div>
 </body>
 </html>
