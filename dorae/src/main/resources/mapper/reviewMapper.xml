@@ -101,7 +101,7 @@
 	<!--아래는 play테이블 정보 가져오는 코드 -->
 	
 	<!--태그 공연명 연동 -->
-	<select id="playList" resultType="playVO"
+	<select id="playList2" resultType="playVO"
 		parameterType="reviewPageVO">
 		SELECT play_name, genre_name
 		FROM (
