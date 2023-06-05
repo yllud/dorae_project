@@ -10,10 +10,11 @@ body {
 
 .recommendList {
   max-width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
   margin-top: 30px;
   margin-bottom: 30px;
   padding: 10px;
+  position: relative;
 }
 
 .recommend_ul {
@@ -21,7 +22,11 @@ body {
   padding: 0;
   list-style-type: none;
   white-space: nowrap;
-  overflow-x: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  transition: transform 0.3s ease-in-out;
 }
 
 .item_li {
@@ -29,6 +34,7 @@ body {
   width: 200px;
   margin-right: 10px;
   text-align: center;
+  scroll-snap-align: start;
 }
 
 .item_tb {
@@ -72,38 +78,35 @@ h3 {
 }
 
 li .name_size{
-	font-size: 15pt;
+  font-size: 15pt;
 }
 
-/* 반응형 CSS */
-@media screen and (max-width: 1200px) {
-.recommendList {
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-  
-.recommend_ul {
-    white-space: nowrap;
-  }
-  
-.recommend_ul li {
-    margin-right: 10px;
-  }
-  
-.item_tb img {
-    height: 200px;
-  }
+.button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
-@media screen and (max-width: 768px) {
-.recommend_ul li {
-    width: 150px;
-    margin-right: 5px;
-  }
-  
-.item_tb img {
-    height: 150px;
-  }
+.button:hover {
+  background-color: #f0f0f0;
+}
+
+#prevBtn {
+  left: 10px;
+}
+
+#nextBtn {
+  right: 10px;
 }
 </style>
 <meta charset="UTF-8">
@@ -111,8 +114,15 @@ li .name_size{
 </head>
 <body>
   <div class="recommendList">
+  	<div id="prevBtn" class="button">&#8249;</div>
+    <div id="nextBtn" class="button">&#8250;</div>
     <ul class="recommend_ul">
-      <h3>맞춤 추천 공연 <button id="btn_reset"><a href="/dorae/map/recommend.jsp">맞춤 재설정</a></button><div id="p_setting">지역 : ${bag.area1} ${bag.area2} ${bag.area3}<br>장르 : ${bag.genre1} ${bag.genre2} ${bag.genre3}</div></h3>
+      <h3>맞춤 추천 공연
+	  	<div id="p_setting">지역 : ${bag.area1} ${bag.area2} ${bag.area3}<br>장르 : ${bag.genre1} ${bag.genre2} ${bag.genre3}</div>
+	  	<div style="text-align: center;">
+	  		<button id="btn_reset" style="margin:10px;"><a href="/dorae/map/recommend.jsp">맞춤 재설정</a></button>
+	  	</div>
+	  </h3>
       <c:choose>
         <c:when test="${empty list}">
         	<p>
@@ -137,5 +147,24 @@ li .name_size{
       
     </ul>
   </div>
+<script>
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const recommendUl = document.querySelector('.recommend_ul');
+
+  prevBtn.addEventListener('click', () => {
+    recommendUl.scrollBy({
+      left: -500,
+      behavior: 'smooth'
+    });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    recommendUl.scrollBy({
+      left: 500,
+      behavior: 'smooth'
+    });
+  });
+</script>
 </body>
 </html>
