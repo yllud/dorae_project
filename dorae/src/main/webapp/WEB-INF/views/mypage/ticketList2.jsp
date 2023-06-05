@@ -3,9 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
      <c:forEach items="${list}" var="ticket">
-	    <table style="width: 500px; float: left; font-size: 14px; font-family:sans-serif; margin-right: 10px; margin-bottom: 5px; border-collapse: collapse;">
+	    <table style="width: 500px; float: left; font-size: 14px; font-family:sans-serif; margin-right: 30px; margin-bottom: 5px; border-collapse: collapse;">
 	    <tr style="border-bottom: 1px solid #bababa ;">
-	    	<td colspan=3 style="height:50px"><span style="font-size: 18px; font-weight: bold; ">공연명: ${ticket.play_name}</span>&nbsp;&nbsp; ${ticket.play_id}
+	    	<td colspan=3 style="height:50px"><span style="font-size: 18px; font-weight: bold; ">&nbsp;&nbsp;&nbsp;&nbsp;공연명: ${ticket.play_name}</span>&nbsp;&nbsp; ${ticket.play_id}
+	    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	    	<button onclick="openPopup('${ticket.play_id}', '${ticket.play_name}', '${ticket.seat_date}', '${ticket.seat_time}', '${ticket.seat_id}')">후기작성</button>
 	    	<button id="cancel" onclick="openPopup2('${ticket.seat_date}', '${ticket.seat_id}')">예매취소</button>
 	    	</td>
