@@ -10,6 +10,16 @@
 
 <% } %>
 
+<style>
+#contentDiv button {
+	background-color: #ff9900;
+	color: #fff;
+	padding: 4px 8px;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
+</style>
 <script type="text/javascript" src="resources/js/jquery-3.6.4.js"></script>
 <script>
 $(document).ready(function() {

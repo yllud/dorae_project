@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<!-- login.css 추가 -->
+<link rel="stylesheet" href="/dorae/resources/css/memberCreate.css">
 <style>
 .id_ok{
 color:#008000;
@@ -77,21 +79,32 @@ function validateForm() {
 </script>
 </head>
 <body>
-<h3>회원가입 화면입니다. </h3>
-<hr color="red">
+ <div id="form-container">
+      <div id="form-inner-container">
+        <!-- Sign up form -->
+        <div id="sign-up-container">
+<h3>회원가입</h3>
+<hr color="#ff9900">
+<br>
 <form action="../login/memberInsert" method="post" onsubmit="return validateForm()">
-    이메일: <input type="text" id="email" name="email" oninput = "checkEmail()" >
+    <label>이메일</label> <input type="email" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" oninput="checkEmail()" required>
 	<span id="emailStatus"></span><br>
 							
-    비밀번호: <input type="password" id="password" name="password"><br>
-    비밀번호 확인: <input type="password" id="confirmPassword" name="confirmPassword" oninput="checkPasswordMatch()"><br>
-    <span id="passwordMatchMessage" style="color: red;"></span><br>
-    이름: <input name="name"><br>
-    닉네임: <input name="nickname"><br>
-    성별:
+    <label>비밀번호</label> <input type="password" id="password" name="password" minlength="6"><br>
+	<label>비밀번호 확인</label> <input type="password" id="confirmPassword" name="confirmPassword" oninput="checkPasswordMatch()" minlength="6"><br>
+	<span id="passwordMatchMessage" style="color: red;"></span><br><br>
+    
+    <label>이름</label> <input name="name"><br>
+    
+    <!-- 닉네임에는 css 적용이 안돼서 직접 적용 -->
+    <label>닉네임</label> 
+    <input name="nickname" id="nickname" style="display: block; margin-bottom: 0px; border: 1px solid #E5E9F5; background-color: #F6F7FA; padding: 12px; margin-top: 10px; border-radius: 5px; width: 225px;"><br>
+    
+    <label>성별&nbsp;&nbsp;&nbsp;&nbsp;</label>
     <label><input type="radio" name="gender" value="F"> 여성</label>
-    <label><input type="radio" name="gender" value="M"> 남성</label><br>
-    연령대: <select name="age">
+    <label><input type="radio" name="gender" value="M"> 남성</label><br><br>
+    
+    <label>연령대&nbsp;&nbsp;</label> <select name="age">
         <option value="0-9">0-9세</option>
         <option value="10-19">10-19세</option>
         <option value="20-29">20-29세</option>
@@ -99,8 +112,9 @@ function validateForm() {
         <option value="40-49">40-49세</option>
         <option value="50-59">50-59세</option>
         <option value="60+">60세 이상</option>
-    </select><br>
-    생일:
+    </select><br><br>
+    
+    <label>생일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
     <select name="birthday">
       <% for (int i = 1; i <= 12; i++) { %>
         <option value="<%= String.format("%02d", i) %>"><%= i %></option>
@@ -110,8 +124,12 @@ function validateForm() {
       <% for (int i = 1; i <= 31; i++) { %>
         <option value="<%= String.format("%02d", i) %>"><%= i %></option>
       <% } %>
-    </select> 일<br>
+    </select> 일<br><br>
+    
     <button type="submit">회원가입</button>
   </form>
+  </div>
+      </div>
+  </div>
 </body>
 </html>
