@@ -32,6 +32,7 @@ body {
 }
 
 .recommend_ul {
+	height: 367px;
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
@@ -41,6 +42,9 @@ body {
 	scroll-snap-type: x mandatory;
 	-webkit-overflow-scrolling: touch;
 	transition: transform 0.3s ease-in-out;
+	display: flex;
+	justify-content: center; /* 가로 중앙 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
 }
 
 .item_li {

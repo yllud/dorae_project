@@ -115,3 +115,6 @@ body::-webkit-scrollbar-track {
 tr{
 	text-align: center;
 }
+.main_li {
+    text-align: center;
+}
