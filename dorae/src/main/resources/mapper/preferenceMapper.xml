@@ -26,15 +26,15 @@
 		    p.poster, p.play_id, p.stage_id, s.stage_name, p.play_name, p.play_start, p.play_end, p.genre_name,
 		    (
 		        CASE
-		            WHEN (s.address LIKE CONCAT(IFNULL(#{area1}, ''), '%') AND p.genre_name = IFNULL(#{genre1}, '')) THEN 0.5
-		            WHEN (s.address LIKE CONCAT(IFNULL(#{area1}, ''), '%') AND p.genre_name = IFNULL(#{genre2}, '')) THEN 0.4
-		            WHEN (s.address LIKE CONCAT(IFNULL(#{area1}, ''), '%') AND p.genre_name = IFNULL(#{genre3}, '')) THEN 0.3
-		            WHEN (s.address LIKE CONCAT(IFNULL(#{area2}, ''), '%') OR s.address LIKE CONCAT(IFNULL(#{area3}, ''), '%')) AND p.genre_name = IFNULL(#{genre1}, '') THEN 0.35
-		            WHEN (s.address LIKE CONCAT(IFNULL(#{area2}, ''), '%') OR s.address LIKE CONCAT(IFNULL(#{area3}, ''), '%')) AND p.genre_name = IFNULL(#{genre2}, '') THEN 0.25
-		            WHEN (s.address LIKE CONCAT(IFNULL(#{area2}, ''), '%') OR s.address LIKE CONCAT(IFNULL(#{area3}, ''), '%')) AND p.genre_name = IFNULL(#{genre3}, '') THEN 0.15
-		            WHEN p.genre_name = IFNULL(#{genre1}, '') THEN 0.3
-		            WHEN p.genre_name = IFNULL(#{genre2}, '') THEN 0.2
-		            WHEN p.genre_name = IFNULL(#{genre3}, '') THEN 0.1
+		            WHEN (s.address LIKE CONCAT(#{area1}, '%') AND p.genre_name = #{genre1}) THEN 0.5
+		            WHEN (s.address LIKE CONCAT(#{area1}, '%') AND p.genre_name = #{genre2}) THEN 0.4
+		            WHEN (s.address LIKE CONCAT(#{area1}, '%') AND p.genre_name = #{genre3}) THEN 0.3
+		            WHEN (s.address LIKE CONCAT(#{area2}, '%') AND p.genre_name = #{genre1}) THEN 0.35
+		            WHEN (s.address LIKE CONCAT(#{area2}, '%') AND p.genre_name = #{genre2}) THEN 0.3
+		            WHEN (s.address LIKE CONCAT(#{area3}, '%') AND p.genre_name = #{genre1}) THEN 0.25
+		            WHEN (s.address LIKE CONCAT(#{area2}, '%') AND p.genre_name = #{genre3}) THEN 0.2
+		            WHEN (s.address LIKE CONCAT(#{area3}, '%') AND p.genre_name = #{genre2}) THEN 0.15
+		            WHEN (s.address LIKE CONCAT(#{area3}, '%') AND p.genre_name = #{genre3}) THEN 0.1
 		            ELSE 0
 		        END * 100
 		    ) AS score
@@ -53,8 +53,20 @@
 		        (#{genre3} IS NOT NULL AND p.genre_name = #{genre3})
 		    )
 		    AND p.state = '공연중'
-		ORDER BY score DESC
-		LIMIT 35;
+		ORDER BY
+		    CASE
+		        WHEN (s.address LIKE CONCAT(#{area1}, '%') AND p.genre_name = #{genre1}) THEN 1
+		        WHEN (s.address LIKE CONCAT(#{area1}, '%') AND p.genre_name = #{genre2}) THEN 2
+		        WHEN (s.address LIKE CONCAT(#{area2}, '%') AND p.genre_name = #{genre1}) THEN 3
+		        WHEN (s.address LIKE CONCAT(#{area1}, '%') AND p.genre_name = #{genre3}) THEN 4
+		        WHEN (s.address LIKE CONCAT(#{area2}, '%') AND p.genre_name = #{genre2}) THEN 5
+		        WHEN (s.address LIKE CONCAT(#{area3}, '%') AND p.genre_name = #{genre1}) THEN 6
+		        WHEN (s.address LIKE CONCAT(#{area2}, '%') AND p.genre_name = #{genre3}) THEN 7
+		        WHEN (s.address LIKE CONCAT(#{area3}, '%') AND p.genre_name = #{genre2}) THEN 8
+		        WHEN (s.address LIKE CONCAT(#{area3}, '%') AND p.genre_name = #{genre3}) THEN 9
+	        ELSE 10
+			END,
+		score DESC;
 	</select>
 	
 </mapper>
