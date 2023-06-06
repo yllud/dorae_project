@@ -10,7 +10,7 @@ body {
 }
 
 .recommendList {
-	max-width: 100%;
+/* 	min-width: 100%; */
 	overflow-x: hidden;
 	margin-top: 30px;
 	margin-bottom: 30px;
@@ -28,6 +28,7 @@ body {
   position: relative;
   overflow-x: hidden;
   background-color: #f0f0f0;
+  justify-content: flex-start; /* 왼쪽 정렬 */
   padding: 10px;
 }
 
@@ -42,9 +43,6 @@ body {
 	scroll-snap-type: x mandatory;
 	-webkit-overflow-scrolling: touch;
 	transition: transform 0.3s ease-in-out;
-	display: flex;
-	justify-content: center; /* 가로 중앙 정렬 */
-	align-items: center; /* 세로 중앙 정렬 */
 }
 
 .item_li {
@@ -129,36 +127,19 @@ li .name_size {
 	right: 10px;
 }
 
-/* 반응형 CSS */
-@media screen and (max-width: 1200px) {
-  .recommendList {
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-  
-  .recommend_ul {
-    white-space: nowrap;
-  }
-  
-  .recommend_ul li {
-    margin-right: 10px;
-  }
-  
-  .item_tb img {
-    height: 200px;
-  }
+#btn_reset{
+padding: 10px;
+background-color: #ff9900;
+border: none;
+border-radius: 10px;
+font-family: 'NanumSquare', sans-serif;
+font-size: 14px;
 }
 
-@media screen and (max-width: 768px) {
-  .recommend_ul li {
-    width: 150px;
-    margin-right: 5px;
-  }
-  
-  .item_tb img {
-    height: 150px;
-  }
+#btn_reset a{
+color: white;
 }
+
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
