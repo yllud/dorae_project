@@ -14,7 +14,7 @@
 
 	<insert id="naverInsert" parameterType="naverVO">
 		insert into member
-		values(#{nickname}, #{name}, #{email}, #{gender}, #{age}, #{birthday}, #{profile_image}, #{joinDate}, 'user')
+		values(#{nickname}, #{name}, #{email}, #{gender}, #{age}, #{birthday}, #{profile_image}, #{joinDate}, 'user', #{visit_count})
 	</insert>
 
 	<delete id="naverDelete" parameterType="String">

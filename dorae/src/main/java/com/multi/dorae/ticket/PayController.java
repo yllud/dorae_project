@@ -2,6 +2,7 @@ package com.multi.dorae.ticket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -10,11 +11,14 @@ public class PayController {
 	@Autowired
 	PayDAO dao;
 	
-//	// 결제 성공
-//	@RequestMapping("pay/insert")
-//	public void insert(PayVO payvo) {
-//		System.out.println("pay insert 요청성공");
-//		dao.insert(payvo);
+
+	
+//	// 예매취소시 select
+//	@RequestMapping("pay/select")
+//	public void one(String seat_id, Model model) {
+//		System.out.println(seat_id + " " + "pay select 요청성공");
+//		PayVO pay = dao.one(seat_id);
+//		model.addAttribute("vo", pay);
 //	}
 	
 	// 예매취소시 cancle 컬럼에 Y추가

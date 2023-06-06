@@ -294,31 +294,37 @@ function next() { //예매된 좌석 없으면 회원확인창으로 넘어감
 				if ($('#seat_num').text() === res2[m]){ //누군가 예매했다면
 					alert("이미 선택된 좌석입니다");
 					location.reload();	
-				} else { //예매가능하다면
-					$.ajax({
-						url: "memberOne", 
-						data: {
-							email: '${email}' //email가지고 이름 불러오기
-						},
-						success: function(x) {
-							const x2 = x.split(",");
-							var name = x2[0]; 
-							var nickname = x2[1];
-							if (name) { //회원정보에 이름 있으면 이름사용(네이버)
-								$('#name').val(name);
-							} else { //이름 없으면 닉네임사용(카카오)
-								$('#name').val(nickname);
-							}
-							$('.container2').empty();
-							$('#email').val('${email}');
-							$('.container2').append($('.check').show()); //정보확인칸 띄우기
-							$('#next').hide(); //다음버튼 숨기기 
-							$('#payment').show(); //결제버튼 띄우기
-						} //success
-					}) //ajax
-				} //else
-			} //for
-		}, //success
+				} //if
+			} //for 
+			$.ajax({
+				url: "memberOne", 
+				data: {
+					email: '${email}' //email가지고 이름 불러오기
+				},
+				success: function(x) {
+					const x2 = x.split(",");
+					var name = x2[0]; 
+					var nickname = x2[1];
+					var name2 = x2[2];
+					if (name) { //이름사용(네이버)
+						$('#name').val(name);
+					} else if (nickname) { //닉네임사용(카카오)
+						$('#name').val(nickname);
+					} else if (name2) {
+						$('#name').val(name2); //이름사용(자체회원)
+					}
+					$('.container2').empty();
+					$('#email').val('${email}');
+					$('.container2').append($('.check').show()); //정보확인칸 띄우기
+					$('#next').hide(); //다음버튼 숨기기 
+					$('#payment').show(); //결제버튼 띄우기
+				}, //success
+				error: function() {
+					alert("다시 선택해 주세요");
+					location.reload();
+				} //error
+			}) //ajax
+	    }, //success
 		error: function() {
 			alert("다시 선택해 주세요");
 			location.reload();
@@ -372,7 +378,6 @@ $('#payment').click(function() { //결제
 		} //success
 	}); //ajax
 }); //payment
-
 
 </script>
 

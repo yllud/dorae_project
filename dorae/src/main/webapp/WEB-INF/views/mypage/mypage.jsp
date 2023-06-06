@@ -9,7 +9,8 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <!-- mypage.css 추가 -->
-<link rel="stylesheet" href="/dorae/resources/css/mypage.css">
+<link type="text/css" rel="stylesheet" media="all" href="/dorae/resources/css/mypage.css?<?=time()?>">
+<!-- <link rel="stylesheet" href="/dorae/resources/css/mypage.css"> -->
 <script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
 <style>
 #mypage{
@@ -19,24 +20,25 @@
 	margin-top: 20px;
 }
     
-      div.row {
-        width: 100%;
-        display: flex;
-        border: 1px solid #003458;
-      }
-      div.left {
-        margin-top:300px;
-        width: 250px;
-        /* float: left; */
-        box-sizing: border-box;
-      }
-      div.right {
-        width: 1400px;
-         float: right;  
-        margin-left:300px;
-        box-sizing: border-box;
-        background: #fcfcfa;
-      }
+div.row {
+	width: 100%;
+    display: flex;
+    /* border: 1px solid #003458; */
+}
+div.left {
+    margin-top:50px;
+    width: 300px;
+    /* float: left; */
+    box-sizing: border-box;
+}
+div.right {
+    width: 1400px;
+    float: right;  
+    margin-left:50px;
+    margin-top:50px;
+    box-sizing: border-box;
+    /* background: #fcfcfa; */
+}
 .imageContainer {
 	display: flex;
 	justify-content: center;
@@ -50,7 +52,7 @@
 	object-fit: contain;
 	margin: 0 5px;
 }
-    
+
 </style>
 
 <!-- 헤더 추가 -->
@@ -113,7 +115,7 @@ function openPopup(url) {
 <body>
 <!-- 헤더 추가 -->
 <header id="header" class="fixed-top"></header>
-<div id="mypage">
+<div id="mypage" class="row">
 <%
 	if(session.getAttribute("email") != null){
 %>
@@ -142,15 +144,15 @@ function openPopup(url) {
 	<br>
 	
 
-<a href="javascript:void(0);" onclick="openPopup('../mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a>
+<a href="javascript:void(0);" onclick="openPopup('../mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a><br><br>
 
 
 <br>
 	<!-- <table border="1" width="150" heigth="30"> -->
 	<table heigth="50">
 		<tr align="center">
-			<td width="70">닉네임</td>
-			<td width="150">${nickname}</td>
+			<td width="80">닉네임</td>
+			<td width="200">${nickname}</td>
 		</tr>
 		<tr align="center">
 			<td>가입일</td>
@@ -158,7 +160,7 @@ function openPopup(url) {
 		</tr>
 		<tr align="center">
 			<td>방문 수</td>
-			<td>1</td>
+			<td>${vo2.visit_count}</td>
 		</tr>
 	</table>
 	 <br>

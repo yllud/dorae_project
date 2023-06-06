@@ -14,19 +14,25 @@
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <!-- 시간 및 날짜 처리를 위한 라이브러리 -->
 <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script> 
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-function fillTicketInfo2(seatDate, seatId) {
-
+function fillTicketInfo2(seatDate, seatId, paid_amount) {
 	$("#seat_date").val(seatDate)
 	$("#seat_id").val(seatId)
 }
+
+
 
 $(function() {
 	  //Luxon 라이브러리 사용해서 한국시간으로 바꾸고 YYYY-MM-DD 형식으로 가져옴
 	  var today = luxon.DateTime.local().setZone('Asia/Seoul').toISODate();
 	  
 	$('#cancel').click(function() { //취소버튼 눌렀을 때
+		
 	 var seatDate = $('#seat_date').val(); //관람날짜
 		
 	  //공연당일에는 취소 불가능
@@ -48,9 +54,12 @@ $(function() {
 						alert("취소에 실패하였습니다.");
 					} //error
 				}) //ajax
+				cancelPay();
 	     }// else
 	}) //cancle.click
 }) //$
+
+
 </script>
 </head>
 <body>
@@ -78,7 +87,10 @@ out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.j
     </div>
   </div>
 </div>
+
 <input type="hidden" id="seat_date" >
-<input type="hidden" id="seat_id" >
+<input type="hidden" id="seat_id" > 
+
+
 </body>
 </html>

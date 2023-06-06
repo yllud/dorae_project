@@ -38,8 +38,8 @@
 
 					// 각 div 처리 예시
 					var div1 = $x.filter('.product-list2'); // 클래스가 'product-list2'인 div 선택
-					var div2 = $x.filter('.footer2'); // 클래스가 'footer2'인 div 선택
-					var div3 = $x.filter('.ranking'); // 클래스가 'ranking'인 div 선택
+					var div2 = $x.filter('.footer2'); 		// 클래스가 'footer2'인 div 선택
+					var div3 = $x.filter('.ranking'); 		// 클래스가 'ranking'인 div 선택
 					
 					$('#result2').empty()
 					$('#result3').empty()
@@ -55,7 +55,6 @@
 			})//ajax
 		})//b1
 		
-// 		$('.pages').click(function() {
 		$('.footer').on('click', '.pages', function() {
 			// 			var genre_id=$('#genre_id').text();
 			// 			if(genre_id.equals("전체(장르)"))
@@ -87,7 +86,6 @@
 
 		$('.footer').on('click', '.next', function() {
 			var page_cnt = document.getElementById("a").value;
-<%-- <%=request.getAttribute("page_cnt")%>; --%>
 
 			var lastPage = parseInt($('.pages:last').text()); // 마지막 버튼의 값을 가져옴
 			var end = lastPage + 10;
@@ -109,7 +107,6 @@
 				var buttonN = $('<button>').addClass('next').text("다음");
 				$('.footer').append(buttonN);
 			}
-			
 // 			console.log("page_cnt: " + page_cnt);
 		});
 
@@ -133,63 +130,69 @@
 
 			var buttonN = $('<button>').addClass('next').text("다음");
 			$('.footer').append(buttonN);
-
 		});
 
 	})
 </script>
 <style type="text/css">
-
 </style>
 </head>
 <body>
 	<div class="all">
-			<hr color="red">
-			
-			<div class="filter2">
-				<select id="genre" name="type">
-					<option value="전체(장르)">전체(장르)</option>
-					<option value="뮤지컬">뮤지컬</option>
-					<option value="연극">연극</option>
-					<option value="서커스/마술">서커스/마술</option>
-					<option value="서양음악(클래식)">클래식</option>
-					<option value="한국음악(국악)">국악</option>
-					<option value="대중음악">대중음악</option>
-					<option value="복합">복합</option>
-					<option value="무용">무용</option>
-					<option value="대중무용">대중무용</option>
-				</select> <select id="district" name="type3">
-					<option value="전체(지역)">전체(지역)</option>
-					<option value="서울">서울</option>
-					<option value="경기">경기도</option>
-					<option value="부산">부산</option>
-					<option value="인천">인천</option>
-					<option value="대구">대구</option>
-					<option value="광주">광주</option>
-					<option value="대전">대전</option>
-					<option value="울산">울산</option>
-					<option value="충청">충청도</option>
-					<option value="경상">경상도</option>
-					<option value="전라">전라도</option>
-					<option value="제주">제주도</option>
-				</select> <select id="state" name="type2">
-					<option value="공연중">공연중</option>
-					<option value="공연예정">공연예정</option>
-					<option value="공연완료">공연완료</option>
-				</select>
+		<hr color="#ff9900">
 
-				<button id="b1">적용</button>
-			</div>
-			<!-- 		<div> -->
-			<mark class="hidden-mark" id="title_id">${cri.title}</mark>
-			<mark class="hidden-mark" id="genre_id">${cri.genre}</mark>
-			<mark class="hidden-mark" id="district_id">${cri.district}</mark>
-			<mark class="hidden-mark" id="state_id">${cri.state}</mark>
-
-			<!-- 			<hr color="red"> -->
-			<!-- 		</div> -->
-
+		<div class="select-container" style="margin-left:675px;">
+			<select id="genre" name="type">
+				<option value="전체(장르)">전체(장르)</option>
+				<option value="뮤지컬">뮤지컬</option>
+				<option value="연극">연극</option>
+				<option value="서커스/마술">서커스/마술</option>
+				<option value="서양음악(클래식)">클래식</option>
+				<option value="한국음악(국악)">국악</option>
+				<option value="대중음악">대중음악</option>
+				<option value="복합">복합</option>
+				<option value="무용">무용</option>
+				<option value="대중무용">대중무용</option>
+			</select>
+		</div>
+		<div class="select-container">
+			<select id="district" name="type3">
+				<option value="전체(지역)">전체(지역)</option>
+				<option value="서울">서울</option>
+				<option value="경기">경기도</option>
+				<option value="부산">부산</option>
+				<option value="인천">인천</option>
+				<option value="대구">대구</option>
+				<option value="광주">광주</option>
+				<option value="대전">대전</option>
+				<option value="울산">울산</option>
+				<option value="충청">충청도</option>
+				<option value="경상">경상도</option>
+				<option value="전라">전라도</option>
+				<option value="제주">제주도</option>
+			</select>
+		</div>
+		<div class="select-container">
+			<select id="state" name="type2">
+				<option value="공연중">공연중</option>
+				<option value="공연예정">공연예정</option>
+				<option value="공연완료">공연완료</option>
+				
+			</select>
+		</div>
+		<button id="b1">적용</button>
 		
+		<br>
+		<!-- 		<div> -->
+		<mark class="hidden-mark" id="title_id">${cri.title}</mark>
+		<mark class="hidden-mark" id="genre_id">${cri.genre}</mark>
+		<mark class="hidden-mark" id="district_id">${cri.district}</mark>
+		<mark class="hidden-mark" id="state_id">${cri.state}</mark>
+
+		<!-- 			<hr color="red"> -->
+		<!-- 		</div> -->
+
+
 
 		<div class="products">
 			<!-- 		<h3>검색 결과</h3> -->
@@ -201,8 +204,9 @@
 						<div class="product-name">${bag.play_name}</div>
 						<div class="product-name1">${bag.stage_name}</div>
 						<div class="product-name2">
-							<mark id="markGenre"> ${bag.genre_name == "서양음악(클래식)" ? "클래식" : (bag.genre_name == "한국음악(국악)" ? "국악" : bag.genre_name)}</mark>
-							<mark id="markState"> ${bag.state}</mark>
+							<mark id="markGenre" style="padding: 2px;">
+								${bag.genre_name == "서양음악(클래식)" ? "클래식" : (bag.genre_name == "한국음악(국악)" ? "국악" : bag.genre_name)}</mark>
+							<mark id="markState" style="padding: 2px;"> ${bag.state}</mark>
 						</div> <%-- 					<div>${bag.play_start}~${bag.play_end}</div> --%>
 					</a>
 
