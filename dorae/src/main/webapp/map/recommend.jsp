@@ -22,6 +22,11 @@ var selectedOrders = {
 	$(function() {
 		$("#header").load("../header/header.jsp");
 		
+		$('.cancle').click(function() {
+			alert("설정이 취소되었습니다!");
+			location.href = "main.jsp";
+		})
+		
 		$('#submit').click(function() {
 			<% if (session.getAttribute("email") != null) { %>
 				userEmail = '<%= session.getAttribute("email") %>';
@@ -102,12 +107,9 @@ var selectedOrders = {
 				selectedOrder.unshift(checkbox);
 				isFirstCheckboxChecked = true;
 			} else if (selectedOrder.length < 3) {
-				// 2순위인 경우 배열 맨 뒤에 추가(push)
+				// 이미 1~2개가 선택되었다면 끝에 push
 				selectedOrder.push(checkbox);
-			} else {
-				// 3순위인 경우 배열 중간에 추가
-				selectedOrder.splice(1, 0, checkbox);
-			}
+			} 
 		} else {
 			// 체크박스가 선택 해제되면 배열에서 제거
 			var group = checkbox.name;
@@ -255,7 +257,6 @@ var selectedOrders = {
 			</div>
 		</td>
 	</tr></table>
-		
 	</div>
 </body>
 </html>

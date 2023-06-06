@@ -54,19 +54,23 @@ a {
 }
 
 .submit {
-	background-color: #FF9900; /* Orange */
+	background-color: #FF9900;
 }
 
 .submit a{
 	color: white;
 }
 
+.cancle{
+background-color: #dcdcdc;	
+}
+
 .submit:hover{
-	background-color: #ff8200; /* Orange */
+	background-color: #ff8200;
 }
 
 .cancle:hover{
-	background-color: #dcdcdc; /* Orange */
+	background-color: #c0c0c0;
 }
 
 span.selected-label {
