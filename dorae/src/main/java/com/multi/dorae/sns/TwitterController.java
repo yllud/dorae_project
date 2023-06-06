@@ -13,8 +13,7 @@ public class TwitterController {
 
 	@Autowired
 	TwitterService twitterService;
-	@Autowired
-	TwitterAPI twitterApi;
+	
 
 //	키워드로 검색한 트위터 data 가져오기
 	@RequestMapping("sns/twitterList")
