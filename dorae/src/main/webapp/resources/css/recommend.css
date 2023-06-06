@@ -57,10 +57,3 @@ a {
 span.selected-label {
   font-size: 12pt;
 }
-
-#check-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
