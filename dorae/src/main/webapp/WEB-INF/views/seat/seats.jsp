@@ -29,7 +29,7 @@ out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.j
 <!-- 세션이 있으면(아이디 비번 정보가 남아있으면) 좌석선택 화면으로 뜨게하기 -->
 <%} else{ %>
 <%} %> 
-<input type="hidden" class="class" name="name" id="show_price" value="35000">
+<input type="hidden" class="class" name="name" id="show_price" value="40000">
 <div class="main">
  <div class="content">
    <div class="left">

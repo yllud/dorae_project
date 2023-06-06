@@ -11,7 +11,7 @@
 		FROM seat s
 		JOIN pay p ON s.seat_id = p.seat_id
 		JOIN play pl ON s.play_id = pl.play_id
-		WHERE s.email = #{email}
+		WHERE s.email = #{email} and s.cancel is null
 	</select>
 	
 	<select id="ticketPaging" parameterType="map" resultType="ticketVO">
@@ -24,7 +24,7 @@
             FROM seat s
 		JOIN pay p ON s.seat_id = p.seat_id
 		JOIN play pl ON s.play_id = pl.play_id
-		WHERE s.email = #{email}
+		WHERE s.email = #{email} and s.cancel is null
 		) r
         ) paging
         WHERE rnum BETWEEN #{start} AND #{end}
@@ -39,7 +39,7 @@
 		FROM seat s
 		JOIN pay p ON s.seat_id = p.seat_id
 		JOIN play pl ON s.play_id = pl.play_id
-		WHERE s.email = 'koo_yj@naver.com'
+		WHERE s.email = #{email} and s.cancel is null
 		) AS subquery;
     </select>
 	

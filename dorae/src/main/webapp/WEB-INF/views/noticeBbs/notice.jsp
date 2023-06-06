@@ -19,7 +19,7 @@ $(function() {
 			data: {
 				notice_id: id
 			},
-			success: function(result) { // 수정된 부분
+			success: function(result) { 
 				$('#noticeBbs').html(result);
 			},
 			error: function(xhr, status, error) {

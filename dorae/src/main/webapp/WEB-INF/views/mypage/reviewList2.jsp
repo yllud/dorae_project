@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%-- JSP 파일에서 데이터 출력 --%>
 <table>
         <tr>
             <th>글번호</th>
