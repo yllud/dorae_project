@@ -12,6 +12,7 @@ public class MemberVO {
 	private String birthday;
 	private Date joinDate;
 	private String user_type;
+	private int visit_count;
 	
 	public String getNickname() {
 		return nickname;
@@ -68,11 +69,17 @@ public class MemberVO {
 		this.gender = gender;
 	}
 	
+	public int getVisit_count() {
+		return visit_count;
+	}
+	public void setVisit_count(int visit_count) {
+		this.visit_count = visit_count;
+	}
 	@Override
 	public String toString() {
 		return "MemberVO [nickname=" + nickname + ", name=" + name + ", gender=" + gender + ", email=" + email
 				+ ", password=" + password + ", age=" + age + ", birthday=" + birthday + ", joinDate=" + joinDate
-				+ ", user_type=" + user_type + "]";
+				+ ", user_type=" + user_type + ", visit_count=" + visit_count + "]";
 	}
 	
 }

@@ -4,8 +4,8 @@
 	
 	
 	<insert id="create" parameterType="memberVO">
-		insert into member(nickname, name, gender, email, age, birthday, password, joinDate, user_type)
-			values(#{nickname}, #{name}, #{gender}, #{email}, #{age}, #{birthday}, #{password}, #{joinDate}, 'user')
+		insert into member(nickname, name, gender, email, age, birthday, password, joinDate, user_type, visit_count)
+			values(#{nickname}, #{name}, #{gender}, #{email}, #{age}, #{birthday}, #{password}, #{joinDate}, 'user', #{visit_count})
 	</insert>
 	
 	<delete id="delete"  parameterType="memberVO">
@@ -26,8 +26,13 @@
 		where email=#{email}
 	</select>
 	
-	<select id="checkEmail" resultType="java.lang.Integer" parameterType="int">
+	<select id="checkEmail" resultType="java.lang.Integer" parameterType="String">
         SELECT COUNT(*) FROM member WHERE email=#{email}
     </select>
 	
+	<update id="updateVisitCount" parameterType="String">
+    UPDATE member
+    SET visit_count = visit_count + 1
+    WHERE email = #{email}
+	</update>
 </mapper>

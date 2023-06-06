@@ -36,10 +36,20 @@ form input[type="password"] {
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-
 </head>
 <body>
-<% if(session.getAttribute("email") == null){ %>
+
+<% 
+	/* out.println(request.getParameter("alertMessage")); */
+if(request.getParameter("alertMessage") == null){ 
+	/* out.println("1111"); */
+}else{
+	/* out.println("2222"); */
+
+	String alertMessage = request.getParameter("alertMessage");
+	out.println("<script type='text/javascript'>alert('"+ alertMessage +"')</script>");
+}
+if(session.getAttribute("email") == null){ %>
 	<div id="form-container">
       <div id="form-inner-container">
 	 <!-- Sign in form -->
@@ -47,7 +57,7 @@ form input[type="password"] {
 	<h3>Login</h3>
 	<hr color="#ff9900">
         <br>
-	<form action="../login/memberLogin" method="get">
+	<form action="../login/memberLogin" method="post">
 	<label for="username">이메일</label>
 	<input name="email" id="username" placeholder="user@example.com"><br>
 	<!-- 비밀번호 type을 password로 하면 입력할 때 점으로 표시 됨 -->
@@ -83,7 +93,7 @@ form input[type="password"] {
 	</div>
 	</div>
 	<%}else{ %>
-	out.println("<script type='text/javascript'>alert('${nickname} 님이 로그인 하셨습니다');location.href = 'http://localhost:8888/dorae/map/main.jsp'</script>");
+		out.println("<script type='text/javascript'>alert('${nickname} 님이 로그인 하셨습니다');location.href = 'http://localhost:8888/dorae/map/main.jsp'</script>");
 	<%} %>
 </body>
 </html>

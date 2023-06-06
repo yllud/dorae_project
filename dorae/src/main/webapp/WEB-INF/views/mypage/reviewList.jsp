@@ -3,13 +3,37 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     int pages = (int) request.getAttribute("pages");
-    for (int p = 1; p <= pages; p++) {
 %>
 
+<!-- 페이징 버튼을 감싸는 div를 추가 -->
+<div id="page-buttons">
+    <% for (int p = 1; p <= pages; p++) { %>
         <button class="page-number"><%= p %></button>
+    <% } %>
+</div>
 
-<% } %>
+<style>
+#contentDiv button {
+    background-color: #ff9900;
+    color: #fff;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
 
+/* 페이지 버튼을 하단에 고정하고 가운데 정렬하기 위한 CSS 추가 */
+#page-buttons {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: white;
+    padding: 10px 0;
+    /* box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.1); */
+}
+</style>
 <script type="text/javascript" src="resources/js/jquery-3.6.4.js"></script>
 <script>
 $(document).ready(function() {
