@@ -3,17 +3,6 @@
 	uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<style>
-span.selected-label {
-	font-size: 12pt;
-}
-#check-container{
-	 align-items: center;
-	 margin-top: 175px;
- 	 padding: 80px;
- 	 padding-bottom: 0;
-}
-</style>
 <head>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
@@ -212,13 +201,12 @@ var selectedOrders = {
 				</tr>
 			</table>
 		
-			<br>
-			<br>
+			<table style="height:50px"></table>
 		
 			<div class="search_tit">
 				<strong> 원하는 지역 선택</strong> 선택한 지역에 따라 공연을 추천해드려요
 			</div>
-			<table class="frame">
+			<table class="frame" style="text-align: center;">
 				<tr>
 					<td><input type="checkbox" name="area" id="area1" value="서울"
 						onclick="limitCheckboxSelection(this)"> 서울 <span
@@ -266,7 +254,6 @@ var selectedOrders = {
 				<button id="submit" class="btn submit">설정완료</button>
 			</div>
 		</td>
-		<td style="width:90px;"></td>
 	</tr></table>
 		
 	</div>
