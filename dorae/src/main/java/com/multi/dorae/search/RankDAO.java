@@ -15,7 +15,6 @@ public class RankDAO {
 
 	public int insert(RankVO bag) {
 		System.out.println("rank 추가요청");
-		System.out.println(bag);
 		int result = my.insert("rank.create", bag);
 		return result;
 	}

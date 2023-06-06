@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.dorae.login.KakaoVO;
+import com.multi.dorae.login.MemberVO;
 import com.multi.dorae.login.NaverVO;
 import com.multi.dorae.search.PlayVO;
 
@@ -38,14 +39,8 @@ public class SeatController {
 		model.addAttribute("vo", vo);
 	}
 	
-//	//선택해서 결제로 넘어간 좌석
-//	@RequestMapping("seat/insert")
-//	public void insert(SeatVO seatvo) {
-//		System.out.println("seat insert 요청성공");
-//		dao.insert(seatvo);
-//	}
 	
-	// 다음버튼 눌렀을 때 네이버, 카카오 회원정보 가져오기
+	// 다음버튼 눌렀을 때 자체 회원, 네이버, 카카오 회원정보 가져오기
 	@RequestMapping("seat/memberOne")
 	public void member(String email, Model model) {
 		System.out.println(email +  " " + "seat member 요청성공");
@@ -53,13 +48,15 @@ public class SeatController {
 		model.addAttribute("naverMember", naverMember);
 		KakaoVO kakaoMember = dao.kakaoMember(email);
 		model.addAttribute("kakaoMember", kakaoMember);
+		MemberVO member = dao.member(email);
+		model.addAttribute("member", member);
 	}
 
 	
 	//좌석선택 누르면 같은 날짜=시간에 판매된 좌석 불러오기
 	@RequestMapping("seat/sold")
 	public void list(String play_id, String seat_date, String seat_time, String cancle, Model model) {
-	    Map<String, Object> params = new HashMap<>(); // 3가지 조건들을 map에 넣고
+	    Map<String, Object> params = new HashMap<>(); // 4가지 조건들을 map에 넣고
 	    params.put("play_id", play_id);
 	    params.put("seat_date", seat_date);
 	    params.put("seat_time", seat_time);

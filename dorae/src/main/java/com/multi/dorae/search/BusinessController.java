@@ -37,9 +37,7 @@ public class BusinessController {
 
 	@RequestMapping(value = "search/business", method = RequestMethod.POST)
 	public void businessPage(String email, Model model) {
-
 		System.out.println("(Controller) business 요청");
-
 	}
 
 	@RequestMapping(value = "search/businessList", method = RequestMethod.POST)

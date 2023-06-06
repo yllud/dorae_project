@@ -66,7 +66,7 @@ public class ReviewDAO {
 	
 	// 태그 공연 장소 연동
 	public List<PlayVO> playList(ReviewPageVO vo) {
-		return my.selectList("review.playList", vo);
+		return my.selectList("review.playList2", vo);
 	}
 	
 	// 태그 공연 장소 수 카운트

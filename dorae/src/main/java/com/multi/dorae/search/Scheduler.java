@@ -25,12 +25,10 @@ public class Scheduler {
 	public void auto() throws ClassNotFoundException, IOException, ParserConfigurationException, SAXException, SQLException {
 		System.out.println("오후 00:01에 매일 호출됨...");
 		
-		//play 공연 상태 업데이트(공연 시작,종료날짜 오늘과 비교)
 		service.dbUpdate();
 		service.deleteRank();
 		service.apiPlay();
 		service.apiStage();
 		service.apiRank();
-
 	}
 }

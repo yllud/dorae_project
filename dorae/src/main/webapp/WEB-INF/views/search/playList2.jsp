@@ -103,7 +103,7 @@
 	<div class="ranking">
 	<table class="typeRank">
 		<thead>
-			<tr>
+			<tr class="rank-tr">
 				<th scope="cols" colspan="2" class="rank-right1">박스오피스
 					${cri.genre == "서양음악(클래식)" ? "클래식" : (cri.genre == "한국음악(국악)" ? "국악" : (cri.genre == "전체(장르)" ? "뮤지컬" : cri.genre))}
 					랭킹</th>

@@ -124,8 +124,6 @@ public class PlayController {
 	@RequestMapping("search/playDetailBookCheck")
 	public void playDetailBookCheck(BookVO vo, Model model) {
 		System.out.println("(Controller) playDetailBookCheck 요청");
-		System.out.println(vo);
-
 		int book_true=dao.playCheckBook(vo);
 		String heart="";
 		if(book_true>0) {
