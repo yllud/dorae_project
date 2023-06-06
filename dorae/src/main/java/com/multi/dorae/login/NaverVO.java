@@ -14,7 +14,7 @@ public class NaverVO {
 	private Date joinDate;
 	private String user_type;
 	private String upload_image;
-//	private int visit_count;
+	private int visit_count;
 	
 	
 	
@@ -80,19 +80,12 @@ public class NaverVO {
 		this.user_type = user_type;
 	}
 	
-//	public int getVisit_count() {
-//		return visit_count;
-//	}
-//	public void setVisit_count(int visit_count) {
-//		this.visit_count = visit_count;
-//	}
-//	@Override
-//	public String toString() {
-//		return "NaverVO [id=" + id + ", nickname=" + nickname + ", name=" + name + ", email=" + email + ", gender="
-//				+ gender + ", age=" + age + ", birthday=" + birthday + ", profile_image=" + profile_image
-//				+ ", joinDate=" + joinDate + ", user_type=" + user_type + ", visit_count=" + visit_count + "]";
-//	}
-		
+	public int getVisit_count() {
+	    return visit_count;
+	}
+	public void setVisit_count(int visit_count) {
+	    this.visit_count = visit_count;
+	}
 	public String getUpload_image() {
 		return upload_image;
 	}
@@ -103,7 +96,8 @@ public class NaverVO {
 	public String toString() {
 		return "NaverVO [id=" + id + ", nickname=" + nickname + ", name=" + name + ", email=" + email + ", gender="
 				+ gender + ", age=" + age + ", birthday=" + birthday + ", profile_image=" + profile_image
-				+ ", joinDate=" + joinDate + ", user_type=" + user_type + ", upload_image=" + upload_image + "]";
+				+ ", joinDate=" + joinDate + ", user_type=" + user_type + ", upload_image=" + upload_image
+				+ ", visit_count=" + visit_count + "]";
 	}
 		
 }

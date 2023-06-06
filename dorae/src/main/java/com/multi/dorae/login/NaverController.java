@@ -45,8 +45,6 @@ public class NaverController {
 
 	    if (vo2 == null || vo2.getEmail() == null) { // vo2가 null이거나 email이 null인 경우 insert
 	    	
-//	    	// 방문 수 증가 (실패함 안되면 이거 한줄만 삭제)
-//	        dao.updateVisitCount(vo.getEmail());
 	    	
 	        int result = dao.insert(vo);
 	        System.out.println(result);
@@ -70,6 +68,10 @@ public class NaverController {
 
 	        // 세션 유지 시간 설정 (옵션)
 	        session.setMaxInactiveInterval(60 * 30); // 30분 동안 유지되도록 설정 (단위: 초)
+	        
+	     // visit_count 증가 처리
+	        dao.updateVisitCount(vo.getEmail());
+
 	        
 	       
 	        // 이전 페이지로 리다이렉트
