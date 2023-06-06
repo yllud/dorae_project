@@ -15,7 +15,7 @@ import com.multi.dorae.search.StageVO;
 public class PreferenceService implements PreferenceServiceInterface{
 	
 	@Autowired
-	PreferenceDAOInterface dao;
+	PreferenceDAO dao;
 	
 	@Autowired
 	StageDAO dao2;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class BookService implements BookServiceInterface{
 	
 	@Autowired
-	BookDAOInterface dao;
+	BookDAO dao;
 	
 	@Override
 	public int insert(BookVO bag) {
