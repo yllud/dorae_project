@@ -14,18 +14,13 @@
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <!-- 시간 및 날짜 처리를 위한 라이브러리 -->
 <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script> 
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+
 <script type="text/javascript">
 
-function fillTicketInfo2(seatDate, seatId, paid_amount) {
+function fillTicketInfo2(seatDate, seatId) {
 	$("#seat_date").val(seatDate)
 	$("#seat_id").val(seatId)
 }
-
-
 
 $(function() {
 	  //Luxon 라이브러리 사용해서 한국시간으로 바꾸고 YYYY-MM-DD 형식으로 가져옴
@@ -37,7 +32,7 @@ $(function() {
 		
 	  //공연당일에는 취소 불가능
 	  if(seatDate.substring(0, seatDate.indexOf('(')) === today){
-		 alert("공연 당일에는 취소가 불가능합니다.")
+		 alert("당일공연은 취소가 불가능합니다.")
 		 
 	   } else{ //당일 아니면 취소 가능
 	    	 $.ajax({
