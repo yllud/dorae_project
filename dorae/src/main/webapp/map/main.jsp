@@ -10,6 +10,18 @@
 tr{
 text-align: center;
 }
+.btn-0{
+margin:20px;
+padding: 10px;
+width:300px;
+height:70px;
+border:none;
+border-radius:20px;
+font-family: 'NanumSquare', sans-serif;
+font-size: 16pt;
+color: white;
+background-color: #ff9900;
+}
 </style>
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe"></script>
@@ -29,7 +41,6 @@ text-align: center;
 		var delist1 = []; //play
 		var delist2 = []; //stage
 		var mylist = []; //myBook
-		var filteredList = []; //선택된 지역의 공연리스트
 		var userEmail; //로그인 이메일
 		var click = "all";
 		
@@ -283,10 +294,6 @@ text-align: center;
 				    // 테이블 추가
 				    $('#infolist').append(table);
 				}//if문
-			}else if(click == "area"){
-				
-			}else if(click == "marker"){
-				
 			}
 			
 		}//addItems
@@ -779,8 +786,9 @@ text-align: center;
 		
 		    //지역 클릭 시
 		    map.data.addListener('click', function(e) {
+		    	var filteredList = []; //선택된 지역의 공연리스트
 		    	startIndex = 0;
-		    	dataCount = 20;
+		    	dataCount = 10;
 		        var feature = e.feature;
 		       	var area = feature.getProperty('area1');
 		       	
@@ -855,12 +863,9 @@ text-align: center;
 			    	click = "area";
 			    	var count = 0;
 			    	var table = "";
-			    	if(startIndex == 0)
-			    	{
-			    		$('#infolist').scrollTop(0); // 스크롤 위치 초기화
-			    		$('#infolist').empty(); // infolist 비우기
-
-			    	}
+			    	$('#infolist').scrollTop(0); // 스크롤 위치 초기화
+			    	$('#infolist').empty(); // infolist 비우기
+			    	
 			    	for (var i = 0; i < filteredList.length; i++) {
 			            var stageinfo = filteredList[i].stageinfo;
 			            for(var j=0; j<delist1.length; j++){
@@ -905,9 +910,7 @@ text-align: center;
 			            	}
 			            }//for ㅓ문       	
 			        }//for i문
-			        if(startIndex == 0)
-				    	table = "<br><h3 style='text-align:center'><" + area + "> 검색결과 " + count + "개</h3>" + table;
-			    	
+			    	table = "<br><h3 style='text-align:center'><" + area + "> 검색결과 " + count + "개</h3>" + table;
 			    	$('#infolist').html(table);			    	
 			    } else {
 			    	$('#infolist').scrollTop(0); // 스크롤 위치 초기화
@@ -1015,7 +1018,7 @@ text-align: center;
 			});
 		}
 		else{
-			$('#result').html("<a href='/dorae/login/login.jsp'><button class='btn-0' style='margin:20px; width:200px; height:70px;'>로그인 후 맞춤설정하러가기</button></a>")
+			$('#result').html("<a href='/dorae/login/login.jsp'><button class='btn-0'>로그인 후 맞춤설정하러가기</button></a>")
 		}
 	});
 </script>
