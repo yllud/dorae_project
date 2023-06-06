@@ -144,43 +144,43 @@ function openPopup(url) {
 	<br>
 	
 
-<a href="javascript:void(0);" onclick="openPopup('../mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a><br><br>
+<a style="font-size: 13px;" href="javascript:void(0);" onclick="openPopup('../mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a><br><br>
 
 
 <br>
 	<!-- <table border="1" width="150" heigth="30"> -->
 	<table heigth="50">
 		<tr align="center">
-			<td width="80">닉네임</td>
-			<td width="200">${nickname}</td>
+			<td width="80" style="font-size: 15px;">닉네임</td>
+			<td width="220" style="font-size: 15px;"> ${nickname}</td>
 		</tr>
 		<tr align="center">
-			<td>가입일</td>
-			<td><fmt:formatDate value="${vo2.joinDate}" pattern="yyyy년 MM월 dd일"/></td>
+			<td style="font-size: 15px;">가입일</td>
+			<td style="font-size: 15px;"><fmt:formatDate value="${vo2.joinDate}" pattern="yyyy년 MM월 dd일"/></td>
 		</tr>
 		<tr align="center">
-			<td>방문 수</td>
-			<td>${vo2.visit_count}</td>
+			<td style="font-size: 15px;">방문 수</td>
+			<td style="font-size: 15px;">${vo2.visit_count}</td>
 		</tr>
 	</table>
 	 <br>
 	 <ul>
 	 <li>
-    <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/ticketList.jsp" data-target="#ticketInfo">예매내역</a>
+    <a style="font-size: 18px;" href="javascript:void(0);" class="btn-ajax" data-url="../mypage/ticketList.jsp" data-target="#ticketInfo">예매내역</a>
     </li>
 
 	<li>
-    <a href="javascript:void(0);" class="btn-ajax2" data-url="/dorae/book/bookList" data-target="#bookInfo">북마크</a>
+    <a style="font-size: 18px;" href="javascript:void(0);" class="btn-ajax2" data-url="/dorae/book/bookList" data-target="#bookInfo">북마크</a>
 	</li>
 
   <li>
-  <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/replyList.jsp" data-target="#replyList">작성한 후기</a>
+  <a style="font-size: 18px;" href="javascript:void(0);" class="btn-ajax" data-url="../mypage/replyList.jsp" data-target="#replyList">작성한 후기</a>
   </li>
   <li>
-  <a href="javascript:void(0);" class="btn-ajax" data-url="../mypage/reviewList.jsp" data-target="#reviewList">다녀온 후기</a>
+  <a style="font-size: 18px;" href="javascript:void(0);" class="btn-ajax" data-url="../mypage/reviewList.jsp" data-target="#reviewList">다녀온 후기</a>
   </li>
   <li>
-  <a href="javascript:void(0);" class="btn-ajax" data-url="../help/contactList" data-target="#qnaList">문의내역</a>
+  <a style="font-size: 18px;" href="javascript:void(0);" class="btn-ajax" data-url="../help/contactList" data-target="#qnaList">문의내역</a>
   </li>
   </ul>
     

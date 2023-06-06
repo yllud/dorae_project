@@ -71,9 +71,7 @@ public class NaverController {
 	        
 	     // visit_count 증가 처리
 	        dao.updateVisitCount(vo.getEmail());
-
-	        
-	       
+       	       
 	        // 이전 페이지로 리다이렉트
 	        String before = (String) session.getAttribute("before");
 	        if (before != null) {
