@@ -183,7 +183,7 @@ out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.j
    </div> <!-- white_box -->
     <strong class="title_notice"><i class="bi bi-exclamation-diamond"></i> 주의사항</strong>
     <ul class="notice">
-     <li> 1인당 최대 4매까지 구매 가능합니다.</li>
+     <li> 1회시 결제시 최대 4매까지 가능합니다.</li>
      <li> 결제수단은 카카오페이를 이용한 카드결제만 가능합니다.</li>
      <li> 2매 이상 예매시 결제 부분취소는 불가능합니다.</li>
      <li> 공연시작 '1시간' 전까지 예매가능합니다.</li>
