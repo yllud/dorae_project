@@ -19,6 +19,13 @@ public class PayDAO {
 		return result;
 	}	
 	
+//	// 결제취소 시 결제 정보 select
+//	public PayVO one(String seat_id) {
+//		PayVO pay = my.selectOne("pay.select", seat_id);
+//		System.out.println(pay);
+//		return pay;
+//	}
+	
 	// 결제취소 시 결제 정보 update
 	public int update(PayVO bag) {
 		int result = my.update("pay.update", bag);
@@ -26,4 +33,5 @@ public class PayDAO {
 		return result;
 	}
 	
+
 }

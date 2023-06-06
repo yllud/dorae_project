@@ -18,7 +18,9 @@
 	WHERE pay.email = #{email} and pay.seat_id = #{seat_id}
 	</update>
 	
-
+	<!-- <select id="select" resultType="payVO" parameterType="payVO">
+	select * from pay where seat_id = #{seat_id}
+	</select> -->
 </mapper>
 
 
