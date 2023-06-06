@@ -15,10 +15,7 @@ span.selected-label {
   	justify-content: center;
   	align-items: center;
   	height: 100%;
-}
-.frame {
-	margin: 0 auto;
-	text-align: center;
+  	text-align: center;
 }
 </style>
 <head>
@@ -219,8 +216,7 @@ var selectedOrders = {
 				</tr>
 			</table>
 		
-			<br>
-			<br>
+			<table style="height:50px"></table>
 		
 			<div class="search_tit">
 				<strong> 원하는 지역 선택</strong> 선택한 지역에 따라 공연을 추천해드려요
@@ -246,7 +242,6 @@ var selectedOrders = {
 						onclick="limitCheckboxSelection(this)"> 광주 <span
 						id="area_selected_area6" class="selected-label"></span></td>
 				</tr>
-				<br>
 				<tr>
 					<td><input type="checkbox" name="area" id="area7" value="대전"
 						onclick="limitCheckboxSelection(this)"> 대전 <span

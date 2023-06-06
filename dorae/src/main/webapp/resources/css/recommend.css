@@ -3,8 +3,7 @@
 .frame {
 	border: 1px solid;
 	padding: 40px;
-	margin: 10px;
-	align-content: center;
+	margin: 10px auto;
 }
 
 .frame td {
@@ -39,7 +38,7 @@ a {
   cursor: pointer;
 }
 .wrap_btn_zone{
-	margin: 20px;
+	margin: 60px;
 }
 .submit {
 	background-color: #FF9900; /* Orange */
