@@ -10,6 +10,18 @@
 tr{
 text-align: center;
 }
+.btn-0{
+margin:20px;
+padding: 10px;
+width:300px;
+height:70px;
+border:none;
+border-radius:20px;
+font-family: 'NanumSquare', sans-serif;
+font-size: 16pt;
+color: white;
+background-color: #ff9900;
+}
 </style>
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe"></script>
@@ -1006,7 +1018,7 @@ text-align: center;
 			});
 		}
 		else{
-			$('#result').html("<a href='/dorae/login/login.jsp'><button class='btn-0' style='margin:20px; width:200px; height:70px;'>로그인 후 맞춤설정하러가기</button></a>")
+			$('#result').html("<a href='/dorae/login/login.jsp'><button class='btn-0'>로그인 후 맞춤설정하러가기</button></a>")
 		}
 	});
 </script>
