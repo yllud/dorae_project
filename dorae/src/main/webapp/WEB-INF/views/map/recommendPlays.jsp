@@ -28,6 +28,7 @@ body {
   position: relative;
   overflow-x: hidden;
   background-color: #f0f0f0;
+  justify-content: flex-start; /* 왼쪽 정렬 */
   padding: 10px;
 }
 
@@ -42,9 +43,6 @@ body {
 	scroll-snap-type: x mandatory;
 	-webkit-overflow-scrolling: touch;
 	transition: transform 0.3s ease-in-out;
-	display: flex;
-	justify-content: flex-start; /* 가로 중앙 정렬 */
-	align-items: center; /* 세로 중앙 정렬 */
 }
 
 .item_li {
@@ -127,6 +125,19 @@ li .name_size {
 
 #nextBtn {
 	right: 10px;
+}
+
+#btn_reset{
+padding: 10px;
+background-color: #ff9900;
+border: none;
+border-radius: 10px;
+font-family: 'NanumSquare', sans-serif;
+font-size: 14px;
+}
+
+#btn_reset a{
+color: white;
 }
 
 </style>
