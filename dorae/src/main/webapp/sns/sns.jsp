@@ -51,7 +51,7 @@
 					$('#result').html(table);
 				},
 				error : function(xhr, status, error) {
-					alert('에러 발생');
+					alert('결과 없음');
 				}
 			});
 		
@@ -68,7 +68,7 @@
 					$('#result').html(table);
 				},
 				error : function(xhr, status, error) {
-					alert('에러 발생');
+					alert('결과 없음');
 				}
 			});
 		}
@@ -84,7 +84,7 @@
 					$('#result').html(table);
 				},
 				error : function(xhr, status, error) {
-					alert('에러 발생');
+					alert('결과 없음');
 				}
 			});
 		}
