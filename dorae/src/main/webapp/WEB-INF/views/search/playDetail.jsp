@@ -25,7 +25,7 @@
 				},
 				success : function(x) {
 // 					alert('북마크 체크 성공')
-					$('.bookIcon').attr('src',x);
+					$('.bookIcon').attr('src',"../resources/img/"+x);
 					
 				},//success
 				error : function() {

@@ -15,7 +15,7 @@
 	}
 	// 태그할 공연 검색창 열기
 	function openPopup() {
-		window.open("tag.jsp", "_blank", "width=500,height=500");
+		window.open("tag.jsp", "_blank", "width=700,height=600");
 	}
 </script>
 </head>
