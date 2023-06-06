@@ -110,11 +110,10 @@ public class ApiParsing {
 					// listSi[i]시or도
 					// 공연 데이터 중 500개까지 불러옴
 					String parsingUrl = "http://www.kopis.or.kr/openApi/restful/" + kind[i]
-							+ "?service=e2622608ee6c4fa2a38d5f75a26a7e50" 
+							+ "?service=e2622608ee6c4fa2a38d5f75a26a7e50"
 //							+ "&stdate=20210527&eddate=20230627"
 							+ "&stdate=" + formattedCurrentDate + "&eddate=" + formattedFutureDate + "&cpage=1&rows=500"
-							+ "&prfstate="+play_state[j]
-							+ "&signgucode=" + listSi[k];
+							+ "&prfstate=" + play_state[j] + "&signgucode=" + listSi[k];
 
 					System.out.println(parsingUrl);
 
@@ -332,28 +331,27 @@ public class ApiParsing {
 		int[] list_cnt = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		for (int i = 0; i < listGenre.length; i++) {
-			for (int j = 0; j < 1; j++) {	// 서울만
-				
+			for (int j = 0; j < 1; j++) { // 서울만
+
 				// 오늘 날짜 생성
-		        Date currentDate = new Date(System.currentTimeMillis());
+				Date currentDate = new Date(System.currentTimeMillis());
 
-		        // 어제 날짜 계산
-		        Calendar calendar = Calendar.getInstance();
-		        calendar.setTime(currentDate);
-		        calendar.add(Calendar.DAY_OF_MONTH, -2);
-		        Date yesterdayDate = new Date(calendar.getTimeInMillis()); 
+				// 어제 날짜 계산
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(currentDate);
+				calendar.add(Calendar.DAY_OF_MONTH, -2);
+				Date yesterdayDate = new Date(calendar.getTimeInMillis());
 
-		        // 날짜 포맷 지정
-		        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+				// 날짜 포맷 지정
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
-		        // 어제 날짜 출력
-		        String formattedYesterdayDate = dateFormat.format(yesterdayDate);
-		        System.out.println("어제 날짜: " + formattedYesterdayDate);
-				
+				// 어제 날짜 출력
+				String formattedYesterdayDate = dateFormat.format(yesterdayDate);
+				System.out.println("어제 날짜: " + formattedYesterdayDate);
+
 				String parsingUrl = "http://kopis.or.kr/openApi/restful/boxoffice?service=e2622608ee6c4fa2a38d5f75a26a7e50"
-						+ "&ststype=day&date="+formattedYesterdayDate
-						+ "&catecode=" + listGenre[i] + 
-						"&area=" + listSi[j];
+						+ "&ststype=day&date=" + formattedYesterdayDate + "&catecode=" + listGenre[i] + "&area="
+						+ listSi[j];
 
 				System.out.println(parsingUrl);
 
@@ -429,12 +427,12 @@ public class ApiParsing {
 			dao.updateState(vo);
 		}
 	}
-	
+
 	public void deleteRank()
 			throws IOException, ParserConfigurationException, SAXException, ClassNotFoundException, SQLException {
 		// 공연 id 목록을 저장할 리스트 생성
 		dao3.deleteRank();
-		
+
 	}
 
 	// 날짜가 yyyymmdd 형식으로 입력되었을 경우 Date로 변경
@@ -463,23 +461,17 @@ public class ApiParsing {
 	}
 
 	public Date CurrentDate() {
-
 		// 현재 날짜 구하기
 		LocalDate now = LocalDate.now();
-
 		// 포맷 정의
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
 		// 포맷 적용
 		String formatedNow = now.format(formatter);
-
 		Date today = Date.valueOf(formatedNow);
-
 		return today;
 	}
 
 	public String playState(Date start, Date end, Date now) {
-
 		int s = start.compareTo(now);
 		int e = end.compareTo(now);
 		if (e < 0) {

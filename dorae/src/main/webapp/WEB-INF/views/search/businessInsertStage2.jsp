@@ -41,23 +41,24 @@
 </style>
 </head>
 <body>
+	<br>
+	<div style="max-height: 400px; overflow-y: auto;">
+		
+		<table class="table table-striped table-hover aling-middle">
 
-
-	<table>
-
-		<tbody>
-			<c:forEach items="${list}" var="vo">
-				<tr>
-					<td><a href="#" data-stage-id="${vo.stage_id}"
-						class="stageSelect">${vo.stage_name}</a></td>
-					<td>${vo.address}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+			<tbody>
+				<c:forEach items="${list}" var="vo">
+					<tr>
+						<td><a href="#" data-stage-id="${vo.stage_id}"
+							class="stageSelect">${vo.stage_name}</a><br>${vo.address}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 	<br>
 	<mark id="select0"></mark>
 	<br>
-	<button id="complete">선택</button>
+	<button class="btn btn-primary mb-1" id="complete">선택</button>
 </body>
 </html>

@@ -23,12 +23,11 @@
 			success : function(x) {
 
 				$('#result').html(x)
+				
 				var $x = $(x); // x를 jQuery 객체로 변환
 
-// 				var div1 = $x.filter('.all'); // 클래스가 'class1'인 div 선택
 				var div2 = $x.filter('.ranking0'); // 클래스가 'class2'인 div 선택
 
-// 				$('#result').append(div1);
 				$('#resultRank').append(div2);
 				$('#ranking0').empty();
 

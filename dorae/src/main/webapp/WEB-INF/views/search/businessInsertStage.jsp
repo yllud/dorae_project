@@ -64,8 +64,8 @@
 	</div>
 
 
-	<input id="title">
-	<button id="findStage">검색</button>
+	<input id="title" class="form-control" style="width:200px; display:inline-block;">
+	<button id="findStage" class="btn btn-primary mb-1">검색</button>
 	<div id="result2"></div>
 </div>
 </body>

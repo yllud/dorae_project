@@ -15,7 +15,6 @@ public class StageDAO {
 
 	public int insert(StageVO bag) {
 		System.out.println("stage 추가 요청");
-		System.out.println(bag);
 		int result = my.insert("stage.create", bag);
 		return result;
 	}
