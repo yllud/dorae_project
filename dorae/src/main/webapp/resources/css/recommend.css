@@ -1,5 +1,16 @@
 @charset "UTF-8";
 
+#check-container{
+  	display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 175px;
+    padding: 80px;
+    padding-bottom: 0;
+    text-align: center;
+}
+
 .frame {
 	border: 1px solid;
 	padding: 40px;
@@ -37,18 +48,23 @@ a {
   margin: 4px 2px;
   cursor: pointer;
 }
+
 .wrap_btn_zone{
-	margin: 60px;
+	margin: 40px;
 }
+
 .submit {
 	background-color: #FF9900; /* Orange */
 }
+
 .submit a{
 	color: white;
 }
+
 .submit:hover{
 	background-color: #ff8200; /* Orange */
 }
+
 .cancle:hover{
 	background-color: #dcdcdc; /* Orange */
 }

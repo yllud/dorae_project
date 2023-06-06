@@ -3,21 +3,6 @@
 	uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<style>
-span.selected-label {
-	font-size: 12pt;
-}
-#check-container{
- 	margin-top: 175px;
- 	padding: 80px;
- 	padding-bottom: 0;
-	display: flex;
-  	justify-content: center;
-  	align-items: center;
-  	height: 100%;
-  	text-align: center;
-}
-</style>
 <head>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
