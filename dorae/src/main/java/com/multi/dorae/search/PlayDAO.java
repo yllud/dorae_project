@@ -31,7 +31,7 @@ public class PlayDAO {
 
 	// 공연중, 공연완료인 공연 id, 날짜, 시작날짜, 종료날짜 검색 (api)
 	public List<PlayVO> listPlayDate() {
-		List<PlayVO> list = my.selectList("listPlayDate");
+		List<PlayVO> list = my.selectList("play.listPlayDate");
 		return list;
 	}
 
@@ -151,7 +151,7 @@ public class PlayDAO {
 
 	// 공연중인 전체 공연목록 검색 (api)
 	public List<PlayVO> listPlay() {
-		List<PlayVO> list = my.selectList("playList");
+		List<PlayVO> list = my.selectList("play.playList");
 		return list;
 	}
 }

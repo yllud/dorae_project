@@ -127,10 +127,10 @@ public class PlayController {
 		int book_true=dao.playCheckBook(vo);
 		String heart="";
 		if(book_true>0) {
-			heart="../resources/img/heart_fill.png";
+			heart="heart_fill.png";
 		}
 		else {
-			heart="../resources/img/heart_empty.png";
+			heart="heart_empty.png";
 		}
 		model.addAttribute("heart", heart);
 	}
