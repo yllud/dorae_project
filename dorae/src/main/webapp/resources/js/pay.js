@@ -51,5 +51,7 @@ function pay() {
 		   } //else
 	  }); //IMP.request_pay
 }; //pay
+
+
 	
 

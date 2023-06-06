@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.multi.dorae.login.KakaoVO;
+import com.multi.dorae.login.MemberVO;
 import com.multi.dorae.login.NaverVO;
 import com.multi.dorae.search.PlayVO;
 
 @Component
-public class SeatDAO {
+public class SeatDAO  {
 
 	@Autowired
 	SqlSessionTemplate my;
@@ -22,6 +23,7 @@ public class SeatDAO {
 			PlayVO vo = my.selectOne("play.one", play_id);
 			return vo;
 		}
+		
 		
 		public PlayVO one2(String play_id) {
 			PlayVO vo = my.selectOne("play.one", play_id);
@@ -46,6 +48,13 @@ public class SeatDAO {
 			KakaoVO kakaoMember = my.selectOne("kakaoMember.kakaoFind", email);
 			System.out.println(kakaoMember);
 			return kakaoMember;
+		}
+		
+		// 다음버튼 눌렀을 때 자체 회원정보 가져오기
+		public MemberVO member(String email) {
+			MemberVO member = my.selectOne("member.find", email);
+			System.out.println(member);
+			return member;
 		}
 		
 		// 좌석선택 누르면 select
