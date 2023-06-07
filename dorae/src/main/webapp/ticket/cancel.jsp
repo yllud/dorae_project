@@ -33,7 +33,7 @@ $(function() {
 	  //공연당일 및 이전공연 취소 불가능
 	  if(seatDate.substring(0, seatDate.indexOf('(')) <= today){ 
 		 alert("취소가 불가능합니다.")
-		 
+		 window.close();
 	   } else{ //당일 아니면 취소 가능
 	    	 $.ajax({
 					url: "../pay/update", //inner join 사용해서 한번에 변경
