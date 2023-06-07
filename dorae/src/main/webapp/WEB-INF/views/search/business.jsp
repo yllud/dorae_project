@@ -92,9 +92,6 @@
 	})//$
 </script>
 
-<!-- <form action="businessInsert" method="post" target="_blank"> -->
-<!-- 		<button>공연 추가</button> -->
-<!-- 	</form> -->
 </head>
 <body>
 
@@ -111,30 +108,12 @@
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
 				<li><button id="btnList"
-						value="/dorae/admin/contact/list?page=1"
 						class="nav-link text-white" aria-current="page"
 						onclick="setActive(this)">공연 목록</button></li>
-				<li><button id="btnDelete" value="/dorae/admin/faq/create"
-						class="nav-link text-white" onclick="setActive(this)">삭제
+				<li><button id="btnDelete" class="nav-link text-white" onclick="setActive(this)">삭제
 						공연 목록</button></li>
 			</ul>
 			<hr>
-
-			<div class="dropdown">
-				<button
-					class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-					data-bs-toggle="dropdown" aria-expanded="false"
-					style="background-color: transparent; border: 0;">
-					<strong>${adminVO.id }</strong>
-				</button>
-				<ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-					<li><a class="dropdown-item" href="#">New project...</a></li>
-					<li><a class="dropdown-item" href="#">Settings</a></li>
-					<li><a class="dropdown-item" href="#">Profile</a></li>
-					<li><hr class="dropdown-divider"></li>
-					<li>로그아웃</li>
-				</ul>
-			</div>
 		</div>
 		<div class="b-example-divider b-example-vr"></div>
 
@@ -148,7 +127,6 @@
 			</div>
 		</div>
 	</div>
-
 
 </body>
 </html>

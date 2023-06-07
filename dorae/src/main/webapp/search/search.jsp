@@ -118,8 +118,5 @@
 		<div id="resultRank" class="rank0"></div>
 	</div>
 
-	<!-- 	<div class="container2"> -->
-	<!-- 		<div class="rank0">안뇽</div> -->
-	<!-- 	</div> -->
 </body>
 </html>
