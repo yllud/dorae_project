@@ -127,7 +127,7 @@ function page() { //좌석선택 창 오픈
 			play_id: '${vo.play_id}',
 		},
 		success: function() {
-			location.href ='http://localhost:8888/dorae/seat/seats?play_id=${vo.play_id}', '좌석선택', 'width=1200, height=900, location=no, status=no, scrollbars=yes';
+			location.href ='../seat/seats?play_id=${vo.play_id}', '좌석선택', 'width=1200, height=900, location=no, status=no, scrollbars=yes';
 			localStorage.setItem("d_day", $('#selector').val()); 
 			localStorage.setItem("d_time", $('.time').val()); //부모 창에서 로컬 스토리지에 정보 저장
 		} //success
@@ -155,7 +155,7 @@ $('#staticBackdrop').on('hidden.bs.modal', function () { //모달 닫힐 때 페
 <body>
 <!-- 세션이 null이면 로그인 화면창이 뜨게하고 -->
 <% if(session.getAttribute("email") == null){%>
-out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.jsp';</script>");  
+out.println("<script> location.href = '../login/login.jsp';</script>");  
 <!-- 세션이 있으면(아이디 비번 정보가 남아있으면) 좌석선택 화면으로 뜨게하기 -->
 <%} else{ %>
 <%} %> 
