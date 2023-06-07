@@ -144,7 +144,7 @@ function openPopup(url) {
 	<br>
 	
 
-<a style="font-size: 13px;" href="javascript:void(0);" onclick="openPopup('../mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 수정</a><br><br>
+<a style="font-size: 13px;" href="javascript:void(0);" onclick="openPopup('../mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 이미지 수정</a><br><br>
 
 
 <br>

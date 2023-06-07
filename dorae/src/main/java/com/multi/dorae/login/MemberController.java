@@ -75,7 +75,7 @@ public class MemberController {
 
 	    // 이메일 중복 체크
 	    int existingMember = dao.checkEmail(bag.getEmail());
-	    if (existingMember == 1) {
+	    if (existingMember == -1) {
 	        response.setContentType("text/plain");
 	        response.setCharacterEncoding("UTF-8");
 	        response.getWriter().write("중복된 이메일입니다.");
@@ -86,7 +86,24 @@ public class MemberController {
 	    dao.create(bag);
 	    return "login/memberInsert"; // 회원 가입 성공 시 memberInsert.jsp로 리다이렉트
 	    }
+	}
 
+
+	
+	@ResponseBody
+	@RequestMapping(value = "login/checkEmail2", method = RequestMethod.POST)
+	public String checkEmail(String email) {
+		System.out.println("1================");
+	    int existingMember = dao.checkEmail(email);
+	    System.out.println("2================" + existingMember);
+//	    if (existingMember == 1) {
+//	        // 중복된 이메일인 경우
+//	        return "duplicate"; // 'duplicate' 문자열을 반환
+//	    } else {
+//	        // 중복되지 않은 이메일인 경우
+//	        return "not_duplicate"; // 'not_duplicate' 문자열을 반환
+//	    }
+	    return String.valueOf(existingMember);
 	}
 	
 	@RequestMapping("login/memberUpdate")
@@ -113,20 +130,5 @@ public class MemberController {
 //		model.addAttribute("bag", bag);
 //		//views까지 전달할 속성으로 추가해주세요. 
 //	}
-	
-	@ResponseBody
-	@RequestMapping(value = "login/checkEmail", method = RequestMethod.POST)
-	public int checkEmail(@RequestParam("email") String email) {
-	    int existingMember = dao.checkEmail(email);
-	    System.out.println("aaa" + existingMember);
-//	    if (existingMember == 1) {
-//	        // 중복된 이메일인 경우
-//	        return "duplicate"; // 'duplicate' 문자열을 반환
-//	    } else {
-//	        // 중복되지 않은 이메일인 경우
-//	        return "not_duplicate"; // 'not_duplicate' 문자열을 반환
-//	    }
-	    return existingMember;
-	}
 	
 }

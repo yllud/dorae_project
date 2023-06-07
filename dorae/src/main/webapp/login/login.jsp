@@ -55,21 +55,20 @@ if(session.getAttribute("email") == null){ %>
 	 <!-- Sign in form -->
         <div id="sign-in-container">
 	<h3>Login</h3>
-	<hr color="#ff9900">
-        <br>
+	<hr color="#ff9900"><br>
 	<form action="../login/memberLogin" method="post">
 	<label for="username">이메일</label>
 	<input name="email" id="username" placeholder="user@example.com"><br>
 	<!-- 비밀번호 type을 password로 하면 입력할 때 점으로 표시 됨 -->
 	<label for="password">비밀번호</label>
 	<input type="password" name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"><br>
-	 <div id="form-controls">
+	<div id="form-controls">
 	<button type="submit">로그인</button>
 	<a href="../login/memberCreate.jsp" class="createButton">회원가입</a>
 	</div>
 	</form>
 	
-
+	<!-- 네이버 로그인 -->
 	<div id="naver_id_login"></div>
     <!-- //네이버 로그인 버튼 노출 영역 -->
     <script type="text/javascript">

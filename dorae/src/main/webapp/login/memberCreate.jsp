@@ -53,12 +53,12 @@ function validateForm() {
 		  var emailStatus = $('#emailStatus');
 
 		  $.ajax({
-		    url: '/dorae/login/checkEmail',
+		    url: '/dorae/login/checkEmail2',
 		    type: 'post',
 		    data: { email: email },
 		    success: function (response) {
 		    	console.log("-----" + response);
-		      if (response == 'duplicate') {
+		      if (response == '1') {
 		        // 중복된 이메일인 경우 처리
 		        emailStatus.text('중복된 이메일입니다.');
 		        emailStatus.css('color', 'red');
