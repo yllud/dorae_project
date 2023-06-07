@@ -29,7 +29,7 @@ form input[type="password"] {
 }
 </style>
 <!-- login.css 추가 -->
-<link rel="stylesheet" href="/dorae/resources/css/login.css">
+<link rel="stylesheet" href="../resources/css/login.css">
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript"
 	src="../resources/js/naverLogin_implicit-1.0.3.js"
