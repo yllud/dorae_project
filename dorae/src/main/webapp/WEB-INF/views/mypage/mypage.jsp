@@ -11,7 +11,7 @@
 <!-- mypage.css 추가 -->
 <link type="text/css" rel="stylesheet" media="all" href="/dorae/resources/css/mypage.css?<?=time()?>">
 <!-- <link rel="stylesheet" href="/dorae/resources/css/mypage.css"> -->
-<script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <style>
 #mypage{
 	margin-top: 175px;
@@ -125,7 +125,7 @@ function openPopup(url) {
 	<c:choose>
   <c:when test="${not empty vo2.upload_image}">
     <div class="imageContainer">
-      <img src="/dorae/resources/upload/${vo2.upload_image}" width="180" height="180" alt="프로필 이미지" />
+      <img src="../resources/upload/${vo2.upload_image}" width="180" height="180" alt="프로필 이미지" />
     </div>
   </c:when>
   <c:otherwise>

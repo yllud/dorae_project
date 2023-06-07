@@ -91,18 +91,11 @@ public class MemberController {
 
 	
 	@ResponseBody
-	@RequestMapping(value = "login/checkEmail2", method = RequestMethod.POST)
+	@RequestMapping(value = "login/checkEmail", method = RequestMethod.POST)
 	public String checkEmail(String email) {
 		System.out.println("1================");
 	    int existingMember = dao.checkEmail(email);
 	    System.out.println("2================" + existingMember);
-//	    if (existingMember == 1) {
-//	        // 중복된 이메일인 경우
-//	        return "duplicate"; // 'duplicate' 문자열을 반환
-//	    } else {
-//	        // 중복되지 않은 이메일인 경우
-//	        return "not_duplicate"; // 'not_duplicate' 문자열을 반환
-//	    }
 	    return String.valueOf(existingMember);
 	}
 	

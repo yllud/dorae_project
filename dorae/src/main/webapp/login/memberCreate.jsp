@@ -18,9 +18,9 @@ color:#6A82FB;
 display: none;
 }
 </style>
-<script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
-function validateForm() {
+	function validateForm() {
 	  var password = document.getElementById('password').value;
 	  var confirmPassword = document.getElementById('confirmPassword').value;
 
@@ -53,7 +53,7 @@ function validateForm() {
 		  var emailStatus = $('#emailStatus');
 
 		  $.ajax({
-		    url: '/dorae/login/checkEmail2',
+		    url: '/dorae/login/checkEmail',
 		    type: 'post',
 		    data: { email: email },
 		    success: function (response) {
@@ -85,11 +85,14 @@ function validateForm() {
 <hr color="#ff9900">
 <br>
 <form action="../login/memberInsert" method="post" onsubmit="return validateForm()">
-    <label>이메일</label> <input type="email" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" oninput="checkEmail()" required>
+    <label>이메일</label> 
+    <input type="email" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" oninput="checkEmail()" required>
 	<span id="emailStatus"></span><br>
 							
-    <label>비밀번호</label> <input type="password" id="password" name="password" minlength="6"><br>
-	<label>비밀번호 확인</label> <input type="password" id="confirmPassword" name="confirmPassword" oninput="checkPasswordMatch()" minlength="6"><br>
+    <label>비밀번호</label> 
+    <input type="password" id="password" name="password" minlength="6"><br>
+	<label>비밀번호 확인</label> 
+	<input type="password" id="confirmPassword" name="confirmPassword" oninput="checkPasswordMatch()" minlength="6"><br>
 	<span id="passwordMatchMessage" style="color: red;"></span><br><br>
     
     <label>이름</label> <input name="name"><br>
