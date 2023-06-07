@@ -7,7 +7,7 @@
 <html>
 <head>
 <script type="text/javascript"
-	src="${path}/resources/js/jquery-3.6.4.js"></script>
+	src="../resources/js/jquery-3.6.4.js"></script>
 <style>
 .main-img {
 	width: 100%;
@@ -30,7 +30,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		// 처음에 이미지 띄우기
-		var mainImg = $('<img src="${path}/resources/img/풍경.jpg" class="main-img"/>');
+		var mainImg = $('<img src="../resources/img/풍경.jpg" class="main-img"/>');
 		//var mainImgContainer = $('<div id="ImgBody"></div>');
 		$('#imgBody').append(mainImg);
 
