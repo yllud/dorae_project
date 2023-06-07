@@ -53,10 +53,10 @@ $(document).ready(
 	<h2>마이스테이지박스</h2>
 	${nickname} 님
 	
-	<a href="http://localhost:8888/dorae/login/login.jsp">
+	<a href="../login/login.jsp">
 		<button>로그인</button>
 	</a>
-	<a href="http://localhost:8888/dorae/login/login.jsp">
+	<a href="../login/login.jsp">
 		<button>회원가입</button>
 	</a>
 	<hr color="orange">

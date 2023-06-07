@@ -8,7 +8,7 @@
 </head>
 <body>
 <%
-out.println("<script type='text/javascript'>alert('회원가입이 완료되었습니다.');location.href = 'http://localhost:8888/dorae/login/login.jsp'</script>");
+out.println("<script type='text/javascript'>alert('회원가입이 완료되었습니다.');location.href = '../login/login.jsp'</script>");
 %>
 </body>
 </html>

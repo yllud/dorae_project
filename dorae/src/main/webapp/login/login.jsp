@@ -89,7 +89,7 @@ if(session.getAttribute("email") == null){ %>
 	</div>
 	</div>
 	<%}else{ %>
-		out.println("<script type='text/javascript'>alert('${nickname} 님이 로그인 하셨습니다');location.href = 'http://localhost:8888/dorae/map/main.jsp'</script>");
+		out.println("<script type='text/javascript'>alert('${nickname} 님이 로그인 하셨습니다');location.href = '../map/main.jsp'</script>");
 	<%} %>
 </body>
 </html>

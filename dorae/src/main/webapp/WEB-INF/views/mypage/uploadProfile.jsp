@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-이미지 등록 완료 <img src="resources/upload/${vo2.upload_image}">
+이미지 등록 완료 <img src="../resources/upload/${vo2.upload_image}">
 </body>
 </html>
