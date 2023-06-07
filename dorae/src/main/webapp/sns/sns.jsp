@@ -8,12 +8,12 @@
 
 <meta charset="UTF-8">
 <title>SNS 후기</title>
-<link rel="stylesheet" href="/dorae/resources/css/sns.css">
+<link rel="stylesheet" href="../resources/css/sns.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#header").load("/dorae/header/header.jsp");
+		$("#header").load("../header/header.jsp");
 		
 		// 추천 검색어 출력
 		$.ajax({

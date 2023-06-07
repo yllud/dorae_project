@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트</title>
-<link rel="stylesheet" href="/dorae/resources/css/noticeBbs.css">
+<link rel="stylesheet" href="../resources/css/noticeBbs.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 	$(function() {
-		$("#header").load("/dorae/header/header.jsp");
+		$("#header").load("../header/header.jsp");
 		// 페이지 로드 시
 
 		$.ajax({

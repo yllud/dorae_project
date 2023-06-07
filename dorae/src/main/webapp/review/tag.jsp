@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/dorae/resources/css/reviewStyle.css">
+<link rel="stylesheet" href="../resources/css/reviewStyle.css">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>

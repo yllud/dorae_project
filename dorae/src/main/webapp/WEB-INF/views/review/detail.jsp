@@ -10,7 +10,7 @@
 <div class="centered">
 	<table id = "detail-table">
 		<tr>
-			<td><img src="/dorae/resources/img/pin.png" width="35" height="40"></td>
+			<td><img src="../resources/img/pin.png" width="35" height="40"></td>
 			<td>${review.tag}</td>
 		</tr>
 		<tr>
@@ -19,7 +19,7 @@
 						<div class="imageContainer">
 							<button id="prevButton" ${review.images.size() > 1 ? '' : 'disabled'}>&lt;</button>
 							<c:forEach var="image" items="${review.images}">
-								<img src="/dorae/resources/upload/${image}" alt="후기 이미지" />
+								<img src="../resources/upload/${image}" alt="후기 이미지" />
 							</c:forEach>
 							<button id="nextButton"
 								${review.images.size() > 1 ? '' : 'disabled'}>&gt;</button>

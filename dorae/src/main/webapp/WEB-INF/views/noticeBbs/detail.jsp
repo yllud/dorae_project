@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div id="detail">
-	<a href="/dorae/noticeBbs/noticeBbs.jsp"><button id="total">전체목록으로</button></a>
+	<a href="../noticeBbs/noticeBbs.jsp"><button id="total">전체목록으로</button></a>
 	<br><br>
 		<table>
 			<tr class="detail-title">
