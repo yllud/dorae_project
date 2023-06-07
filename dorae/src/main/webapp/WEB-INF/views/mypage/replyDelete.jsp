@@ -7,12 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <%
-    out.println("<script type='text/javascript'>");
-    out.println("alert('삭제 완료');");
-    out.println("window.close();");
-    out.println("window.history.back();");
-    out.println("</script>");
-    %>
+<%
+out.println("<script type='text/javascript'>");
+out.println("alert('삭제 완료');");
+out.println("window.history.back();");
+out.println("window.location.reload();");
+out.println("</script>");
+%>
 </body>
 </html>

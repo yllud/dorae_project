@@ -27,12 +27,12 @@
 #page-buttons {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     background: white;
     padding: 10px 0;
-    /* box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.1); */
 }
 </style>
 <style>
@@ -73,17 +73,17 @@ $(document).ready(function() {
           <div id="contentDiv">
 	<table>
         <tr>
-            <th>글번호</th>
-            <th>평점</th>
-            <th>공연id</th>
-            <th>공연명</th>
-            <th>내용</th>
-            <th>공연날짜</th>
-            <th>티켓번호</th>
-            <th>작성자</th>
-            <th>작성시간</th>
-            <th></th>
-            <th></th>
+            <th style="width: 60px;">글번호</th>
+            <th style="width: 60px;">평점</th>
+            <th style="width: 60px;">공연id</th>
+            <th style="width: 60px;">공연명</th>
+            <th style="width: 150px;">내용</th>
+            <th style="width: 120px;">공연날짜</th>
+            <th style="width: 100px;">티켓번호</th>
+            <th style="width: 100px;">작성자</th>
+            <th style="width: 100px;">작성시간</th>
+            <th style="width: 60px;"></th>
+            <th style="width: 60px;"></th>
         </tr>
 
         <!-- Controller에서 Model 이름을 list로 지정해서 ${list} -->

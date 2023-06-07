@@ -63,17 +63,18 @@ public class MemberDAO { // CRUD
 	}
 
 	public int update(MemberVO bag) {
-		int result = 0;
-		try {
-			if (result == 1) {
-				System.out.println("회원정보수정 성공.");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// System.out.println(result);
-		return result;
+	    int result = 0;
+	    try {
+	        result = my.update("member.update", bag);
+	        if (result == 1) {
+	            System.out.println("회원정보 수정 성공.");
+	        } else {
+	            System.out.println("회원정보 수정 실패.");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return result;
 	}
 	
 	public int updateVisitCount(String email) {
