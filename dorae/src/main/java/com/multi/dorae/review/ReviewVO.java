@@ -1,6 +1,5 @@
 package com.multi.dorae.review;
 
-import java.sql.Date;
 import java.util.List;
 
 public class ReviewVO {
@@ -62,7 +61,9 @@ public class ReviewVO {
 	@Override
 	public String toString() {
 		return "ReviewVO [id=" + id + ", email=" + email + ", title=" + title + ", images=" + images + ", content="
-				+ content + ", tag=" + tag + ", deleteDate=" + deleteDate + "]";
+				+ content + ", tag=" + tag + "]";
 	}
+
+	
 
 }
