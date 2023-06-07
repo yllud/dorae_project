@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PlayController_map {
 
 	@Autowired
-	PlayServiceInterface service;
+	PlayService service;
 
 	@RequestMapping(value ="map/infoList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody

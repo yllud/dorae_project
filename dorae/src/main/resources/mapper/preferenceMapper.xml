@@ -52,7 +52,7 @@
 		        (#{genre2} IS NOT NULL AND p.genre_name = #{genre2}) OR
 		        (#{genre3} IS NOT NULL AND p.genre_name = #{genre3})
 		    )
-		    AND p.state = '공연중'
+		    AND p.state = '공연중' AND p.delete_date IS NULL
 		ORDER BY
 		    CASE
 		        WHEN (s.address LIKE CONCAT(#{area1}, '%') AND p.genre_name = #{genre1}) THEN 1

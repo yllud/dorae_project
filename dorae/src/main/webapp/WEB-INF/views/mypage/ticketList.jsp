@@ -1,15 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
+<!-- 페이징 버튼을 감싸는 div를 추가 -->
+<div id="page-buttons">
 <%
     int pages = (int) request.getAttribute("pages");
-    for (int p = 1; p <= pages; p++) {
 %>
-
+    <% for (int p = 1; p <= pages; p++) { %>
         <button class="page-number"><%= p %></button>
+    <% } %>
+</div>
 
-<% } %>
+<style>
+#contentDiv button {
+    background-color: #ff9900;
+    color: #fff;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
 
+/* 페이지 버튼을 하단에 고정하고 가운데 정렬하기 위한 CSS 추가 */
+#page-buttons {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: white;
+    padding: 10px 0;
+    /* box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.1); */
+}
+</style>
 <style>
 #contentDiv button {
 	background-color: #ff9900;
@@ -79,10 +104,24 @@ $(document).ready(function() {
     <c:forEach items="${list}" var="ticket">
 	    <table style="width: 500px; float: left; font-size: 14px; font-family:sans-serif; margin-right: 30px; margin-bottom: 5px; border-collapse: collapse;">
 	    <tr style="border-bottom: 1px solid #bababa ;">
-	    	<td colspan=3 style="height:50px"><span style="font-size: 18px; font-weight: bold; ">&nbsp;&nbsp;&nbsp;&nbsp;공연명: ${ticket.play_name}</span>&nbsp;&nbsp; ${ticket.play_id}
-	    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    	<td colspan=3 style="height:50px">
+	    	<table>
+	    	<tr>
+	    	<td>
+	    	
+
+	    	<span style="font-size: 18px; font-weight: bold; ">
+	    	&nbsp;&nbsp;&nbsp;&nbsp;공연명: ${ticket.play_name}</span>&nbsp;&nbsp; ${ticket.play_id}
+	   		</td>
+	    	<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+	    	<td width="30%">
+	    	<div align="right">
 	    	<button onclick="openPopup('${ticket.play_id}', '${ticket.play_name}', '${ticket.seat_date}', '${ticket.seat_time}', '${ticket.seat_id}')">후기작성</button>
 	    	<button id="cancel" onclick="openPopup2('${ticket.seat_date}', '${ticket.seat_id}')">예매취소</button>
+	    	</div>
+	    	</td>
+	    	</tr>
+	    	</table>
 	    	</td>
 	    </tr>
 	    <tr>

@@ -3,17 +3,6 @@
 	uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<style>
-span.selected-label {
-	font-size: 12pt;
-}
-#check-container{
-	 align-items: center;
-	 margin-top: 175px;
- 	 padding: 80px;
- 	 padding-bottom: 0;
-}
-</style>
 <head>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
@@ -32,6 +21,11 @@ var selectedOrders = {
 
 	$(function() {
 		$("#header").load("../header/header.jsp");
+		
+		$('.cancle').click(function() {
+			alert("설정이 취소되었습니다!");
+			location.href = "main.jsp";
+		})
 		
 		$('#submit').click(function() {
 			<% if (session.getAttribute("email") != null) { %>
@@ -113,12 +107,9 @@ var selectedOrders = {
 				selectedOrder.unshift(checkbox);
 				isFirstCheckboxChecked = true;
 			} else if (selectedOrder.length < 3) {
-				// 2순위인 경우 배열 맨 뒤에 추가(push)
+				// 이미 1~2개가 선택되었다면 끝에 push
 				selectedOrder.push(checkbox);
-			} else {
-				// 3순위인 경우 배열 중간에 추가
-				selectedOrder.splice(1, 0, checkbox);
-			}
+			} 
 		} else {
 			// 체크박스가 선택 해제되면 배열에서 제거
 			var group = checkbox.name;
@@ -212,13 +203,12 @@ var selectedOrders = {
 				</tr>
 			</table>
 		
-			<br>
-			<br>
+			<table style="height:50px"></table>
 		
 			<div class="search_tit">
 				<strong> 원하는 지역 선택</strong> 선택한 지역에 따라 공연을 추천해드려요
 			</div>
-			<table class="frame">
+			<table class="frame" style="text-align: center;">
 				<tr>
 					<td><input type="checkbox" name="area" id="area1" value="서울"
 						onclick="limitCheckboxSelection(this)"> 서울 <span
@@ -266,9 +256,7 @@ var selectedOrders = {
 				<button id="submit" class="btn submit">설정완료</button>
 			</div>
 		</td>
-		<td style="width:90px;"></td>
 	</tr></table>
-		
 	</div>
 </body>
 </html>

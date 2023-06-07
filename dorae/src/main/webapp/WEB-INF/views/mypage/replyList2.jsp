@@ -19,17 +19,17 @@
         <!-- Controller에서 Model 이름을 list로 지정해서 ${list} -->
         <c:forEach items="${list}" var="reply">
             <tr>
-                <td>${reply.r_number}</td>
-                <td>${reply.score}</td>
-                <td>${reply.play_id}</td>
-                <td>${reply.play_name}</td>
-                <td>${reply.text}</td>
-                <td>${reply.seat_date} ${reply.seat_time}</td>
-                <td>${reply.seat_id}</td>
-                <td>${reply.nickname}</td>
-                <td>${reply.upload_date}</td>
-                <td><button onclick="openEditPopup('${reply.r_number}', '${reply.text}')">수정</button></td>
-                <td><button onclick="deleteReply(${reply.r_number})">삭제</button></td>
+                <td style="font-size: 15px; width: 60px;">${reply.r_number}</td>
+                <td style="font-size: 15px; width: 50px;">${reply.score}</td>
+                <td style="font-size: 13px; width: 75px;">${reply.play_id}</td>
+                <td style="font-weight: bold; font-size: 15px; width: 120px;">${reply.play_name}</td>
+                <td style="font-size: 15px; width: 150px;">${reply.text}</td>
+                <td style="font-size: 13px; width: 120px;">${reply.seat_date} ${reply.seat_time}</td>
+                <td style="font-size: 13px; width: 100px;">${reply.seat_id}</td>
+                <td style="font-size: 15px; width: 100px;">${reply.nickname}</td>
+                <td style="font-size: 13px; width: 100px;">${reply.upload_date}</td>
+                <td style="width: 50px;"><button onclick="openEditPopup('${reply.r_number}', '${reply.text}')">수정</button></td>
+                <td style="width: 50px;"><button onclick="deleteReply(${reply.r_number})">삭제</button></td>
             </tr>
         </c:forEach>
     

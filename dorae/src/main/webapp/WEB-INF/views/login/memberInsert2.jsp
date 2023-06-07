@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%
+out.println("<script type='text/javascript'>alert('회원가입 실패.');location.href = 'http://localhost:8888/dorae/login/memberCreate.jsp'</script>");
+%>
 </body>
 </html>

@@ -10,15 +10,6 @@ public class ReviewVO {
 	private List<String> images;
 	private String content;
 	private String tag;
-	private Date deleteDate;
-
-	public Date getDeleteDate() {
-		return deleteDate;
-	}
-
-	public void setDeleteDate(Date deleteDate) {
-		this.deleteDate = deleteDate;
-	}
 
 	public int getId() {
 		return id;

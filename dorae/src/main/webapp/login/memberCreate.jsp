@@ -49,25 +49,23 @@ function validateForm() {
 	}
 	function checkEmail() {
 		  var email = $('#email').val();
+		  console.log(email);
 		  var emailStatus = $('#emailStatus');
 
 		  $.ajax({
-		    url: '../login/checkEmail',
+		    url: '/dorae/login/checkEmail',
 		    type: 'post',
 		    data: { email: email },
 		    success: function (response) {
-		      if (response === 'duplicate') {
+		    	console.log("-----" + response);
+		      if (response == 'duplicate') {
 		        // 중복된 이메일인 경우 처리
 		        emailStatus.text('중복된 이메일입니다.');
 		        emailStatus.css('color', 'red');
-		      } else if (response === 'not_duplicate') {
+		      } else {
 		        // 중복되지 않은 이메일인 경우 처리
 		        emailStatus.text('사용 가능한 이메일입니다.');
 		        emailStatus.css('color', 'green');
-		      } else {
-		        // 이외의 경우 처리
-		        emailStatus.text('에러가 발생하였습니다.');
-		        emailStatus.css('color', 'red');
 		      }
 		    },
 		    error: function () {

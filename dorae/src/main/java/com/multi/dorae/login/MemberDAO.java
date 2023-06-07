@@ -40,6 +40,7 @@ public class MemberDAO { // CRUD
 	    }
 	    return result;
 	}
+	
 	public MemberVO login(MemberVO bag) {
 		MemberVO vo = null; 
 		try {
@@ -50,14 +51,9 @@ public class MemberDAO { // CRUD
 		return vo;
 	}
 
-	public MemberVO checkEmail(String email) {
-		MemberVO vo = null; 
-		try {
-			vo = my.selectOne("member.checkEmail", email);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return vo;
+	public int checkEmail(String email) {
+		int result = my.selectOne("member.checkEmail", email);
+		return result;
 	}
 	
 	public int delete(String email) {
@@ -77,6 +73,16 @@ public class MemberDAO { // CRUD
 		}
 		// System.out.println(result);
 		return result;
+	}
+	
+	public int updateVisitCount(String email) {
+	    int result = 0;
+	    try {
+	        result = my.update("member.updateVisitCount", email);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return result;
 	}
 
 }
