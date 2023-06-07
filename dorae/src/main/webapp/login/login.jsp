@@ -40,11 +40,8 @@ form input[type="password"] {
 <body>
 
 <% 
-	/* out.println(request.getParameter("alertMessage")); */
 if(request.getParameter("alertMessage") == null){ 
-	/* out.println("1111"); */
 }else{
-	/* out.println("2222"); */
 
 	String alertMessage = request.getParameter("alertMessage");
 	out.println("<script type='text/javascript'>alert('"+ alertMessage +"')</script>");
