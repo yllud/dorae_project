@@ -110,6 +110,11 @@
 		color: white;
 	}
 	
+	.pagination	{
+		display: inline-flex;
+		list-style: none;
+	}
+	
 	.page-item > .disabled {
 		color: lightgray;
 		pointer-events: none;
