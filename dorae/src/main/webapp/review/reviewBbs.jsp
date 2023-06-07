@@ -6,12 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>다녀온 후기</title>
-<link rel="stylesheet" href="/dorae/resources/css/reviewStyle.css">
+<link rel="stylesheet" href="../resources/css/reviewStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 	$(function() {
-		$("#header").load("/dorae/header/header.jsp");
+		$("#header").load("../header/header.jsp");
 		$.ajax({
 			url : "all",
 			data : {
@@ -51,7 +51,7 @@
 			    form.submit();
 			<%} else {%>
 			alert('로그인 후 이용 가능합니다');
-			location.href = '/dorae/login/login.jsp';
+			location.href = '../login/login.jsp';
 			<%}%>
 		});
 
