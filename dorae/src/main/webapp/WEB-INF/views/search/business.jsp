@@ -104,7 +104,7 @@
 	<div class="d-flex flex-nowrap">
 		<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
 			style="width: 280px;">
-			<a href="/dorae/admin"
+			<a href="#"
 				class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 				<span class="fs-4">사업자 페이지</span>
 			</a>
