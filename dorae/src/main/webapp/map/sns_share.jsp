@@ -13,7 +13,7 @@
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
 
-var thisUrl = "http://localhost:8888/dorae/search/playDetail?play_id=";
+var thisUrl = "http://localhost:8888/dorae/search/playDetail?play_id="; //배포 url들어가야함
 var snsTitle = "도래도래";
 
 <%

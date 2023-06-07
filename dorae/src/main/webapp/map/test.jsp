@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script>
 $(function() {
 	var userEmail;
@@ -12,7 +12,7 @@ $(function() {
 	<% } %>	
 	console.log(userEmail);
 	 $.ajax({
-	    	url: "/dorae/book/bookList",
+	    	url: "../book/bookList",
 	        type: "GET",
 	        data: { email: '<%=session.getAttribute("email")%>' }, // 이메일 값을 넘겨줌
 	        success: function(data) {	        	
@@ -24,7 +24,7 @@ $(function() {
 	  	});//ajax
 	$('#play').click(function(){
 		$.ajax({
-		    url: "/dorae/map/select_recommendPlay",
+		    url: "../map/select_recommendPlay",
 		    type: "GET",
 		    data: { email: userEmail },
 		    success: function(response) {
