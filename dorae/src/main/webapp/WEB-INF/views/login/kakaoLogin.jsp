@@ -20,7 +20,7 @@
 <%
 int r = (int)request.getAttribute("result");
 if(r == 0){
-	out.println("<script type='text/javascript'>alert('중복된 이메일인 경우(로그인 성공시 사용)');location.href = 'http://localhost:8888/dorae/map/main.jsp'</script>");
+	out.println("<script type='text/javascript'>alert('로그인 성공');location.href = 'http://localhost:8888/dorae/map/main.jsp'</script>");
 }
 %>
 </body>

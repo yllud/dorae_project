@@ -28,19 +28,6 @@ public class NaverDAO {
 	    }
 	    return result;
 	}
-//	public int insert(NaverVO bag) {
-//		int result = 0;
-//		try {
-//			Date joinDate = new Date(System.currentTimeMillis());
-//			bag.setJoinDate(joinDate);
-//			
-//			result = mn.insert("naverMember.naverInsert", bag);
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return result;
-//	}
 	
 	public NaverVO login(NaverVO bag) {
 		NaverVO vo = null; 
@@ -51,6 +38,7 @@ public class NaverDAO {
 		}
 		return vo;
 	}
+	
 	public NaverVO one(String email) {
 		NaverVO vo = null; 
 		try {
@@ -60,19 +48,6 @@ public class NaverDAO {
 		}
 		return vo;
 	}
-	
-	
-	
-//	// 프로필사진 insert
-//	public int ProfileInsert(NaverVO vo) {
-//        int result = 0;
-//        try {
-//            result = mn.insert("naverMember.ProfileInsert", vo);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
 	
 	// 프로필사진 update
 	public int ProfileUpdate(String email, String uploadImage) {

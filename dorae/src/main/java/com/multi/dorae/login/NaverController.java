@@ -105,18 +105,6 @@ public class NaverController {
 	        return "redirect:../login/login.jsp";
 	    }
 	
-//	@RequestMapping("login/update")
-//	public void update(NaverVO bag, Model model) {
-//		System.out.println(bag);
-//		int result = dao.update(bag);
-//		if(result == 0) {
-//			model.addAttribute("bag", bag);
-//		}else {
-//			model.addAttribute("result", result);
-//		}
-//	}
-
-
 	 // 마이페이지 버튼 누르면 마이페이지로 이동하는 컨트롤러
 	 @RequestMapping("login/mypage") //() 안에 마이페이지 주소 지정 localhost:8888/dorae/login/mypage가 주소
 	 public String mypage(Model model) { //누를 때 마다 model로 DB 정보 검색해서 불러와야 함

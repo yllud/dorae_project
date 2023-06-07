@@ -41,6 +41,12 @@ public class MemberDAO { // CRUD
 	    return result;
 	}
 	
+	public int checkEmail(String email) {
+		int result = my.selectOne("member.checkEmail", email);
+		return result;
+	}
+	
+	
 	public MemberVO login(MemberVO bag) {
 		MemberVO vo = null; 
 		try {
@@ -51,11 +57,6 @@ public class MemberDAO { // CRUD
 		return vo;
 	}
 
-	public int checkEmail(String email) {
-		int result = my.selectOne("member.checkEmail", email);
-		return result;
-	}
-	
 	public int delete(String email) {
 		int result = my.delete("member.delete", email); // int반환값!
 		return result;

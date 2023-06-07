@@ -11,7 +11,8 @@
 <head>
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-	charset="utf-8"></script>
+	charset="utf-8">
+</script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
@@ -19,8 +20,6 @@
 	<script type="text/javascript">
 		var naver_id_login = new naver_id_login("AMkeOwuTJY71fYcpifZl",
 				"http://localhost:8888/dorae/login/callback.jsp");
-		//alert(naver_id_login.oauthParams.access_token);
-		//naver_id_login.setPopup();
 		naver_id_login.get_naver_userprofile("naverSignInCallback()");
 		// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
 		function naverSignInCallback() {
@@ -33,10 +32,6 @@
 			birthday = naver_id_login.getProfileData('birthday')
 			profile_image = naver_id_login.getProfileData('profile_image')
 
-			//alert("naverLogin?nickname=" + nickname
-			//		+ "&name=" + name + "&email=" + email + "&gender=" + gender
-			//		+ "&age=" + age + "&birthday=" + birthday
-			//		+ "&profile_image=" + profile_image)
 			location.href ="naverLogin?nickname=" + nickname
 					+ "&name=" + name + "&email=" + email + "&gender=" + gender
 					+ "&age=" + age + "&birthday=" + birthday

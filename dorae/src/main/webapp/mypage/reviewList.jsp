@@ -19,7 +19,7 @@ $(function() {
 </script>
 </head>
 <body>
-<h2>커뮤니티 글 내역</h2>
+<h2>다녀온 후기 내역</h2>
 <div id="result">
 </body>
 </html>
