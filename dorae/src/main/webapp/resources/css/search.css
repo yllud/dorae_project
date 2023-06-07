@@ -143,7 +143,7 @@ input.hide-clear[type="search"]::-webkit-search-decoration, input.hide-clear[typ
 }
 
 .product-list {
-	width: 1150px;
+	width: 1160px;
 	margin-left: 0px;
 	margin-right: auto;
 	/* 	text-align: center; */
@@ -152,6 +152,7 @@ input.hide-clear[type="search"]::-webkit-search-decoration, input.hide-clear[typ
 .product {
 	display: block;
 	width: 200px;
+	height: 335px;
 	/*     text-align: center; */
 	text-decoration: none;
 	color: black;
@@ -175,10 +176,10 @@ input.hide-clear[type="search"]::-webkit-search-decoration, input.hide-clear[typ
 }
 
 .product-name {
-	/* 	width:300px; */
+/* 		width:150px; */
 	margin-top: 5px;
-	margin-left: 5px;
-	margin-right: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -187,11 +188,11 @@ input.hide-clear[type="search"]::-webkit-search-decoration, input.hide-clear[typ
 }
 
 .product-name1 {
-	/* 	width:300px; */
+/* 		width:300px; */
 	margin-top: 5px;
 	margin-bottom: 5px;
-	margin-left: 5px;
-	margin-right: 5px;
+	margin-left: 8px;
+	margin-right: 8px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
