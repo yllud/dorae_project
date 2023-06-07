@@ -159,7 +159,7 @@ function openPopup(url) {
 			<td style="font-size: 15px;"><fmt:formatDate value="${vo2.joinDate}" pattern="yyyy년 MM월 dd일"/></td>
 		</tr>
 		<tr align="center">
-			<td style="font-size: 15px;">방문 수</td>
+			<td style="font-size: 15px;">방문수</td>
 			<td style="font-size: 15px;">${vo2.visit_count}</td>
 		</tr>
 	</table>
