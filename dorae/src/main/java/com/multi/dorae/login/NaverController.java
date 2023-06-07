@@ -31,6 +31,7 @@ public class NaverController {
 	
 	@Autowired
 	private HttpServletRequest request;
+	
 	@Autowired
 	private ServletContext servletContext;
 	
