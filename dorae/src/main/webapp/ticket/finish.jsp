@@ -16,7 +16,7 @@
 <script type="text/javascript">
 
 function check() {
-	opener.location.href="http://localhost:8888/dorae/login/mypage";
+	opener.location.href="../login/mypage";
 	window.close();
 };
 

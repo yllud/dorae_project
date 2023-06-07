@@ -160,7 +160,7 @@ $(document).ready(function() {
     }
  // 후기 작성 버튼 클릭 시 팝업 창을 열고 티켓 정보 전달(예매취소)
     function openPopup2(seatDate, seatId) {
-        var popupWindow2 = window.open("../ticket/cancel.jsp", "popupWindow2", "width=500,height=500");
+        var popupWindow2 = window.open("../ticket/cancel.jsp", "popupWindow2", "width=500,height=650, left=500, top=400");
         popupWindow2.onload = function() {
             popupWindow2.fillTicketInfo2(seatDate, seatId);
         };

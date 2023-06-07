@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 로그인 페이지</title>
-<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="/dorae/resources/css/signin.css">
+<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="../resources/css/signin.css">
 <style type="text/css">
 	.nav-link {
 		text-align: center;

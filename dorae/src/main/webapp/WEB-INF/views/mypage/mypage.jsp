@@ -88,7 +88,7 @@ $(document).ready(function() {
     
     
     $('.btn-ajax2').click(function() {
-        var url = "/dorae/book/bookList";
+        var url = "../book/bookList";
         $.ajax({
           url: url,
           type: 'GET',
@@ -198,7 +198,7 @@ function openPopup(url) {
     <div id="qnaList"></div>
     
   </div>
-<%}else{out.println("<script type='text/javascript'>alert('로그인 실패');location.href = 'http://localhost:8888/dorae/login/login.jsp'</script>");} %>
+<%}else{out.println("<script type='text/javascript'>alert('로그인 실패');location.href = '../login/login.jsp'</script>");} %>
 </div>
 </body>
 </html>

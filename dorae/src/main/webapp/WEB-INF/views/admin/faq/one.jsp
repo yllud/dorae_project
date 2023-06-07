@@ -27,15 +27,15 @@
 	<div class="col-sm-10 py-2">${faq.content }</div>
 </div>
 
-<button class="btn btn-primary mb-3" value="/dorae/admin/faq/update?page=${param.page }&faq_id=${faq.faq_id }" onclick="goToList(this, true)">내용 수정</button>
-<button class="btn btn-light mb-3" value="/dorae/admin/faq/list?page=${param.page }" onclick="goToList(this)" id="toList">목록으로</button>
+<button class="btn btn-primary mb-3" value="admin/faq/update?page=${param.page }&faq_id=${faq.faq_id }" onclick="goToList(this, true)">내용 수정</button>
+<button class="btn btn-light mb-3" value="admin/faq/list?page=${param.page }" onclick="goToList(this)" id="toList">목록으로</button>
 <button class="btn btn-danger mb-3" onclick="deleteFaq()">삭제</button>
 
 <script type="text/javascript">
 	function deleteFaq() {
 		if (confirm("정말 삭제하시겠습니까?")) {
 			$.ajax({
-				url: "/dorae/admin/faq/delete",
+				url: "admin/faq/delete",
 				type: "POST",
 				data: {
 					faq_id: ${faq.faq_id}

@@ -49,7 +49,7 @@
 	</div>
 </div>
 
-<button class="btn btn-light mb-3" value="/dorae/admin/apply/list?page=${param.page }" onclick="goToList(this)" id="toList">목록으로</button>
+<button class="btn btn-light mb-3" value="admin/apply/list?page=${param.page }" onclick="goToList(this)" id="toList">목록으로</button>
 
 <c:if test="${empty apply.approval_at }">
 <script type="text/javascript">
@@ -63,7 +63,7 @@
 		
 		if (confirm(confirmStr)) {
 			$.ajax({
-				url: "/dorae/admin/apply/update",
+				url: "admin/apply/update",
 				type: "POST",
 				data: {
 					apply_id: ${apply.apply_id},
@@ -71,7 +71,7 @@
 				},
 				success: function(res) {
 					if (res.success) {
-						goToPage("/dorae/admin/apply/one?page=" + ${param.page } + "&apply_id=" + ${apply.apply_id }, true);
+						goToPage("admin/apply/one?page=" + ${param.page } + "&apply_id=" + ${apply.apply_id }, true);
 					}
 				}
 			})	

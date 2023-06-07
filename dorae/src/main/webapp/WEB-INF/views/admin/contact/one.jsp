@@ -33,14 +33,14 @@
 <button class="btn btn-primary mb-3" onclick="submitAnswer(this)">답변 등록</button>
 </c:if>
 
-<button class="btn btn-light mb-3" value="/dorae/admin/contact/list?page=${param.page }" onclick="goToList(this)" id="toList">목록으로</button>
+<button class="btn btn-light mb-3" value="admin/contact/list?page=${param.page }" onclick="goToList(this)" id="toList">목록으로</button>
 <button class="btn btn-danger mb-3" onclick="deleteContact()">삭제</button>
 
 <script type="text/javascript">
 	function deleteContact() {
 		if (confirm("정말 삭제하시겠습니까?")) {
 			$.ajax({
-				url: "/dorae/admin/contact/delete",
+				url: "admin/contact/delete",
 				type: "POST",
 				data: {
 					contact_id: ${contact.contact_id}
@@ -58,7 +58,7 @@
 <script type="text/javascript">
 	function submitAnswer(element) {
 		$.ajax({
-			url: "/dorae/admin/contact/updateAnswer",
+			url: "admin/contact/updateAnswer",
 			type: "POST",
 			data: {
 				contact_id: ${contact.contact_id },
@@ -66,7 +66,7 @@
 			},
 			success: function(res) {
 				if (res.success) {
-					goToPage("/dorae/admin/contact/one?page=" + ${param.page } + "&contact_id=" + ${contact.contact_id}, true);
+					goToPage("admin/contact/one?page=" + ${param.page } + "&contact_id=" + ${contact.contact_id}, true);
 				}
 			}
 		})

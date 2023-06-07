@@ -43,13 +43,14 @@ $(function() {
 					},
 					success: function() {
 						alert("예매가 취소되었습니다.");
+						opener.parent.location.reload();
 						window.close();
+						
 					}, //success
 					error: function() {
 						alert("취소에 실패하였습니다.");
 					} //error
 				}) //ajax
-				cancelPay();
 	     }// else
 	}) //cancle.click
 }) //$
@@ -60,7 +61,7 @@ $(function() {
 <body>
 <!-- 세션이 null이면 로그인 화면창이 뜨게하고 -->
 <% if(session.getAttribute("email") == null){%>
-out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.jsp';</script>");  
+out.println("<script> location.href = '../login/login.jsp';</script>");  
 <!-- 세션이 있으면(아이디 비번 정보가 남아있으면) 좌석선택 화면으로 뜨게하기 -->
 <%} else{ %>
 <%} %> 

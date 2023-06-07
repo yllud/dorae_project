@@ -32,15 +32,15 @@
 <nav aria-label="Page-navigation">
 	<ul class="pagination">
 		<li class="page-item">
-		    <button class="btn btn-page<c:if test="${page.startPage == 1 }"> disabled</c:if>" value="/dorae/help/faqSearch?search=${param.search }&page=${page.startPage - 1 }" onclick="goToList(this)">&lt;</button>
+		    <button class="btn btn-page<c:if test="${page.startPage == 1 }"> disabled</c:if>" value="faqSearch?search=${param.search }&page=${page.startPage - 1 }" onclick="goToList(this)">&lt;</button>
 		</li>
 		<c:forEach begin="${page.startPage }" end="${page.endPage }" var="p">
 		<li class="page-item">
-			<button class="btn btn-page <c:if test="${page.page eq p }">btn-active</c:if>" value="/dorae/help/faqSearch?search=${param.search }&page=${p }" onclick="goToList(this)">${p }</button>
+			<button class="btn btn-page <c:if test="${page.page eq p }">btn-active</c:if>" value="faqSearch?search=${param.search }&page=${p }" onclick="goToList(this)">${p }</button>
 		</li>
 		</c:forEach>
 		<li class="page-item">
-		    <button class="btn btn-page<c:if test="${page.endPage == page.lastPage}"> disabled</c:if>" value="/dorae/help/faqSearch?search=${param.search }&page=${page.endPage + 1 }" onclick="goToList(this)">&gt;</button>
+		    <button class="btn btn-page<c:if test="${page.endPage == page.lastPage}"> disabled</c:if>" value="faqSearch?search=${param.search }&page=${page.endPage + 1 }" onclick="goToList(this)">&gt;</button>
 		</li>
 	</ul>
 </nav>

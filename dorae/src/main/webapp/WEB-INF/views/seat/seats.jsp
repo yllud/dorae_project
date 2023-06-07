@@ -25,7 +25,7 @@
 <body>
 <!-- 세션이 null이면 로그인 화면창이 뜨게하고 -->
 <% if(session.getAttribute("email") == null){%>
-out.println("<script> location.href = 'http://localhost:8888/dorae/login/login.jsp';</script>");  
+out.println("<script> location.href = '../login/login.jsp';</script>");  
 <!-- 세션이 있으면(아이디 비번 정보가 남아있으면) 좌석선택 화면으로 뜨게하기 -->
 <%} else{ %>
 <%} %> 
@@ -197,6 +197,7 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 				      });
 				      
 				      if(x != null) { //(DB에 저장된)예매된 좌석이 null이 아니면 
+				    	  console.log(x)
 				    	// 첫 번째, 마지막 문자를 제외한 범위의 문자열을 추출하고 배열의 각 요소에 대해 앞뒤 공백 제거
 				    	  let xx = x.slice(1, -1).trim().split(",").map(item => item.trim()); 
 				    	  for (var n = 0; n < xx.length; n++) {
