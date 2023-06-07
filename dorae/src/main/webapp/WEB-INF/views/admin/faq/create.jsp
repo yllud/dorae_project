@@ -15,7 +15,7 @@
 <div class="mb-3 row">
   <label for="faqContent" class="col-sm-2 col-form-label">내용</label>
   <div class="col-sm-10" style="height: 500px;">
-		<iframe src="/dorae/resources/smarteditor2-2.8.2.3/SmartEditor2.jsp" width="100%" height="100%" id="faqContent"></iframe>
+		<iframe src="resources/smarteditor2-2.8.2.3/SmartEditor2.jsp" width="100%" height="100%" id="faqContent"></iframe>
 	</div>
 </div>
 
@@ -38,7 +38,7 @@
 		$("#faqContent").get(0).contentWindow.submitContents();	// 에디터의 내용이 textarea에 적용됩니다. // 에디터가 iframe 내에 있어서 contentWindow 를 가져와서 함수 호출
 		
 		$.ajax({
-			url: "/dorae/admin/faq/create",
+			url: "admin/faq/create",
 			type: "POST",
 			data: {
 				help_category_id: $("#faqCategory").val(),
@@ -47,7 +47,7 @@
 			},
 			success: function(res) {
 				if (res.success) {
-					goToPage("/dorae/admin/faq/one?page=1&faq_id=" + res.message);
+					goToPage("admin/faq/one?page=1&faq_id=" + res.message);
 				}
 			}
 		});

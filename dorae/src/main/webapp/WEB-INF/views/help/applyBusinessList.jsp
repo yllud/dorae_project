@@ -38,7 +38,7 @@
 					console.log(res);
 					if (res.success) {
 						alert("신청에 성공하였습니다.");
-						asyncLoad("/dorae/help/applyBusinessList");
+						asyncLoad("applyBusinessList");
 					} else {
 						alert("신청에 실패하였습니다.\n잠시 후 다시 시도해주세요.");
 					}

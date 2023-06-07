@@ -17,7 +17,7 @@
 			<c:forEach items="${faqList }" var="item">
 				<tr>
 					<td>${item.faq_id }</td>
-					<td><button class="btn btn-link" value="/dorae/admin/faq/one?page=${param.page }&faq_id=${item.faq_id }" onclick="goToList(this)">${item.title }</button></td>
+					<td><button class="btn btn-link" value="admin/faq/one?page=${param.page }&faq_id=${item.faq_id }" onclick="goToList(this)">${item.title }</button></td>
 					<td>${item.help_category_id }</td>
 				</tr>
 			</c:forEach>
@@ -28,15 +28,15 @@
 	<nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
 	    <li class="page-item <c:if test="${page.startPage == 1 }">disabled</c:if>">
-	      <button class="page-link" value="/dorae/admin/faq/list?page=${page.startPage - 1 }" onclick="goToList(this)">&lt;</button>
+	      <button class="page-link" value="admin/faq/list?page=${page.startPage - 1 }" onclick="goToList(this)">&lt;</button>
 	    </li>
 	    <c:forEach begin="${page.startPage }" end="${page.endPage }" var="p">
 			<li class="page-item">
-				<button class="page-link <c:if test="${page.page eq p }">active</c:if>" value="/dorae/admin/faq/list?page=${p }" onclick="goToList(this)">${p }</button>
+				<button class="page-link <c:if test="${page.page eq p }">active</c:if>" value="admin/faq/list?page=${p }" onclick="goToList(this)">${p }</button>
 			</li>
 		</c:forEach>
 	    <li class="page-item <c:if test="${page.endPage == page.lastPage}">disabled</c:if>">
-	      <button class="page-link" value="/dorae/admin/faq/list?page=${page.endPage + 1 }" onclick="goToList(this)">&gt;</button>
+	      <button class="page-link" value="admin/faq/list?page=${page.endPage + 1 }" onclick="goToList(this)">&gt;</button>
 	    </li>
 	  </ul>
 	</nav>

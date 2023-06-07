@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
-<link rel="stylesheet" href="/dorae/resources/css/bootstrap.min2.css">
-<link rel="stylesheet" href="/dorae/resources/css/businessSidebars.css">
-<script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
+<link rel="stylesheet" href="./resources/css/bootstrap.min2.css">
+<link rel="stylesheet" href="./resources/css/businessSidebars.css">
+<script type="text/javascript" src="./resources/js/jquery-3.6.4.js"></script>
 <style type="text/css">
 	.nav-link {
 		width: 100%;
@@ -27,17 +27,17 @@
 <body>
 	<div class="d-flex flex-nowrap">
 		<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
-			<a href="/dorae/admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+			<a href="admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 				<span class="fs-4">관리자 페이지</span>
 			</a>
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
-				<li><button value="/dorae/admin/contact/list?page=1" class="nav-link text-white" aria-current="page" onclick="setActive(this)"> 1:1 문의 목록 </button></li>
-				<li><button value="/dorae/admin/faq/list?page=1" class="nav-link text-white" onclick="setActive(this)">FAQ 목록 </button></li>
-				<li><button value="/dorae/admin/faq/create" class="nav-link text-white" onclick="setActive(this)">FAQ 등록 </button></li>
-				<li><button value="/dorae/admin/notice/list?page=1" class="nav-link text-white" onclick="setActive(this)">공지사항 목록 </button></li>
-				<li><button value="/dorae/admin/notice/create" class="nav-link text-white" onclick="setActive(this)">공지사항 등록 </button></li>
-				<li><button value="/dorae/admin/apply/list?page=1" class="nav-link text-white" onclick="setActive(this)">사업자 신청 목록 </button></li>
+				<li><button value="admin/contact/list?page=1" class="nav-link text-white" aria-current="page" onclick="setActive(this)"> 1:1 문의 목록 </button></li>
+				<li><button value="admin/faq/list?page=1" class="nav-link text-white" onclick="setActive(this)">FAQ 목록 </button></li>
+				<li><button value="admin/faq/create" class="nav-link text-white" onclick="setActive(this)">FAQ 등록 </button></li>
+				<li><button value="admin/notice/list?page=1" class="nav-link text-white" onclick="setActive(this)">공지사항 목록 </button></li>
+				<li><button value="admin/notice/create" class="nav-link text-white" onclick="setActive(this)">공지사항 등록 </button></li>
+				<li><button value="admin/apply/list?page=1" class="nav-link text-white" onclick="setActive(this)">사업자 신청 목록 </button></li>
 			</ul>
 			<hr>
 			
