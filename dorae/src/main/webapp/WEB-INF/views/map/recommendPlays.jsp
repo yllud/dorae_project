@@ -199,7 +199,7 @@ color: white;
   const nextBtn = document.getElementById('nextBtn');
   const recommendUl = document.querySelector('.recommend_ul');
 
-  prevBtn.addEventListener('click', () => {
+  prevBtn.addEventListener('click', function() {
     if (recommendUl.scrollLeft === 0) {
       recommendUl.scrollTo({
         left: recommendUl.scrollWidth,
@@ -213,8 +213,8 @@ color: white;
     }
   });
 
-  nextBtn.addEventListener('click', () => {
-    if (recommendUl.scrollLeft + recommendUl.clientWidth === recommendUl.scrollWidth) {
+  nextBtn.addEventListener('click', function() {
+    if (recommendUl.scrollLeft + recommendUl.clientWidth >= recommendUl.scrollWidth - 1) {
       recommendUl.scrollTo({
         left: 0,
         behavior: 'smooth'
