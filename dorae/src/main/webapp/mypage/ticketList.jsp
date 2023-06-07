@@ -15,9 +15,8 @@
                 $('#result').html(x);
             }
         });
-
         // 캘린더 보기 버튼 클릭 시 팝업 창 열기
-        /* $('#calendar').click(function() {
+        $('#calendar').click(function() {
             openPopup();
         });
 
@@ -25,7 +24,7 @@
         function openPopup() {
             var popupWindow = window.open("../mypage/calendarPopup.jsp", "popupWindow", "width=800,height=800");
         }
-    }); */
+    }); 
 </script>
 </head>
 <body>
