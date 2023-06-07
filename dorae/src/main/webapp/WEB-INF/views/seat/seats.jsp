@@ -197,7 +197,8 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 				      });
 				      
 				      if(x != null) { //(DB에 저장된)예매된 좌석이 null이 아니면 
-				    	  let xx = x.slice(1, -1).trim().split(",").map(item => item.trim()); // 첫 번째, 마지막 문자를 제외한 범위의 문자열을 추출하고 배열의 각 요소에 대해 앞뒤 공백 제거
+				    	// 첫 번째, 마지막 문자를 제외한 범위의 문자열을 추출하고 배열의 각 요소에 대해 앞뒤 공백 제거
+				    	  let xx = x.slice(1, -1).trim().split(",").map(item => item.trim()); 
 				    	  for (var n = 0; n < xx.length; n++) {
 							if(xx[n] === seatNum){
 								seat.classList.add('sold'); //sold로 클래스 추가해서 선택못하도록 만들기

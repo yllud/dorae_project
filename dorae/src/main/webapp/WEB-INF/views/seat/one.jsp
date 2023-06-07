@@ -92,12 +92,13 @@ $(function() {
 				$('.time').html('<option selected disabled=disabled>' + "공연이 없습니다" +'</option>'); // 공연없는 날은 시간선택 비활성화
 				$("#b").attr("disabled", true); // 공연 없기 때문에 좌석선택 비활성화
 				
-			}else if(selectedTimes !== undefined){ // 공연 있는 날
+			}else if(selectedTimes != undefined){ // 공연 있는 날
 	    	  for (var i = 0; i < selectedTimes.length; i++) { 
 	    		  var option = '<option value=' + selectedTimes[i] + '>' + selectedTimes[i] + '</option>';
 	    		  $("#b").attr("disabled", false); // 좌석선택 활성화
+	    		  
 	    		  var today = luxon.DateTime.local().setZone('Asia/Seoul').toISODate(); // 한국기준으로 현재 날짜가져옴
-				  var selector = $('#selector').val();
+				  var selector = $('#selector').val(); // 달력에서 선택한 날짜
 	    		  
 	    		if (selector.substring(0, selector.indexOf('(')) === today) { // 당일공연
 	    			 var now2 = luxon.DateTime.local().setZone('Asia/Seoul'); // 한국기준으로 현재 시간가져옴
@@ -107,16 +108,16 @@ $(function() {
 	    			 $("#b").attr("disabled", true);
 	    			 } //if
 	    		 } // if
-	    		$('.time').append(option);
+	    		$('.time').append(option); // 시간옵션에 추가 
 			  } // for
 	    	}// else if
-	    	 $('#d_day').text($('#selector').val());
-	    	 $('#d_time').text($('.time').val());
+	    	 $('#d_day').text($('#selector').val()); //선택한 날짜 표시
+	    	 $('#d_time').text($('.time').val()); //선택한 시간 표시
 		    } // onChange
 	  }); // selector flatpickr
 	  
-	$('.time').click(function() {
-		$('#d_time').text($('.time').val());
+ 	$('.time').click(function() {
+		$('#d_time').text($('.time').val()); // 선택한 시간 표시
 	}) //time
 	
 function page() { //좌석선택 창 오픈
@@ -125,7 +126,7 @@ function page() { //좌석선택 창 오픈
 		data: {
 			play_id: '${vo.play_id}',
 		},
-		success: function(x) {
+		success: function() {
 			location.href ='http://localhost:8888/dorae/seat/seats?play_id=${vo.play_id}', '좌석선택', 'width=1200, height=900, location=no, status=no, scrollbars=yes';
 			localStorage.setItem("d_day", $('#selector').val()); 
 			localStorage.setItem("d_time", $('.time').val()); //부모 창에서 로컬 스토리지에 정보 저장
