@@ -77,4 +77,24 @@ public class TicketController {
 		    // list만 가져와서 보여주는거라 count,pages 필요X
 		    model.addAttribute("list", list);
 		}
+		
+		@RequestMapping("mypage/mypage")
+		public void myList(MypagePageVO vo, Model model) {
+		    vo.mypageStartEnd(vo.getPage());
+		    String email = (String) session.getAttribute("email");
+		    
+		    int count = dao.ticketCount();
+		    int pages = count / 10 + 1;
+		    
+		    Map<String, Object> map = new HashMap<>();
+		    map.put("email", email);
+		    map.put("start", vo.getStart());
+		    map.put("end", vo.getEnd());
+		    
+		    List<TicketVO> list = dao.ticketPaging(map);
+
+		    model.addAttribute("list", list);
+		    model.addAttribute("count", count);
+		    model.addAttribute("pages", pages);
+		}
 }

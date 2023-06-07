@@ -2,14 +2,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <!-- mypage.css 추가 -->
-<link type="text/css" rel="stylesheet" media="all" href="/dorae/resources/css/mypage.css?<?=time()?>">
+<link type="text/css" rel="stylesheet" media="all" href="../resources/css/mypage.css?<?=time()?>">
 <!-- <link rel="stylesheet" href="/dorae/resources/css/mypage.css"> -->
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <style>
@@ -61,7 +63,6 @@ div.right {
 		$("#header").load("../header/header.jsp");
 	});
 </script>
-
 <script>
 $(document).ready(function() {
     var $contentContainer = $("#contentContainer");
@@ -102,9 +103,26 @@ $(document).ready(function() {
           }
         });
       });
+   /*  $(document).on("click", ".btn-ajax3", function() {
+        var url = $(this).data("url");
+        var target = $(this).data("target");
+
+        $contentContainer.children().not(target).empty(); // 이전 내용 지우기
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "html",
+            success: function(data) {
+                $(target).html(data); // 새로운 내용 업데이트
+            },
+            error: function() {
+                alert("데이터를 불러오는 중에 오류가 발생했습니다.");
+            }
+        });
+    }); */
     });//ready
 </script>
-
 <!-- 프로필 이미지 수정 팝업 -->
 <script>
 function openPopup(url) {
@@ -123,31 +141,27 @@ function openPopup(url) {
 	<div class="left">
 	<!-- 프로필 이미지 -->
 	<c:choose>
-  <c:when test="${not empty vo2.upload_image}">
-    <div class="imageContainer">
-      <img src="../resources/upload/${vo2.upload_image}" width="180" height="180" alt="프로필 이미지" />
-    </div>
-  </c:when>
-  <c:otherwise>
-    <c:choose>
-      <c:when test="${not empty vo2.profile_image}">
-        <div class="imageContainer">
-          <img src="${vo2.profile_image}" width="180" height="180" alt="프로필 이미지" />
-        </div>
-      </c:when>
-      <c:otherwise>
-        <div class="no-image">이미지가 없습니다.</div>
-      </c:otherwise>
-    </c:choose>
-  </c:otherwise>
-</c:choose>
-	<br>
-	
-
-<a style="font-size: 13px;" href="javascript:void(0);" onclick="openPopup('../mypage/profileUpdate.jsp?email=${sessionScope.email}')">프로필 이미지 수정</a><br><br>
-
-
-<br>
+    <c:when test="${not empty vo2.upload_image}">
+      <div class="imageContainer">
+        <img src="../resources/upload/${vo2.upload_image}" width="180" height="180" alt="프로필 이미지" />
+      </div>
+    </c:when>
+    <c:otherwise>
+      <c:choose>
+        <c:when test="${not empty vo2.profile_image}">
+          <div class="imageContainer">
+            <img src="${vo2.profile_image}" width="180" height="180" alt="프로필 이미지" />
+          </div>
+        </c:when>
+        <c:otherwise>
+          <div class="imageContainer">
+            <img src="https://imson.imweb.me/common/img/default_profile.png" width="180" height="180" alt="프로필 이미지" />
+          </div>
+        </c:otherwise>
+      </c:choose>
+    </c:otherwise>
+  </c:choose>
+	<br><br>
 	<!-- <table border="1" width="150" heigth="30"> -->
 	<table heigth="50">
 		<tr align="center">
@@ -185,7 +199,91 @@ function openPopup(url) {
   </ul>
     
   </div>
+  
+  
   <div class="right" id="contentContainer">
+  
+  <h2>&nbsp;회원정보</h2>
+  <!-- <hr color="#ff9900"> -->
+  <a style="font-size: 15px;" href="javascript:void(0);" onclick="openPopup('../mypage/profileUpdate.jsp?email=${sessionScope.email}')">
+	&nbsp;&nbsp;프로필 이미지 수정 [클릭]</a><br><br><br>
+  	<table class="user-info">
+  	
+  	<tr>
+  	  <td style="font-size: 15px; width: 150px;"></td>
+      <td style="font-weight: bold; font-size: 15px; width: 100px; height: 50px;">이름</td>
+      <td>${vo2.name}</td>
+    </tr>
+  	
+  	<tr>
+  	  <td></td>
+      <td style="font-weight: bold; font-size: 15px; width: 100px; height: 50px;">닉네임</td>
+      <td>${vo2.nickname}</td>
+    </tr>
+    
+    <tr>
+      <td></td>
+      <td style="font-weight: bold; font-size: 15px; width: 60px; height: 50px;">이메일</td>
+      <td>${vo2.email}</td>
+    </tr>
+  	
+  	<tr>
+      <td></td>
+      <td style="font-weight: bold; font-size: 15px; width: 60px; height: 50px;">연령대</td>
+      <td>${vo2.age}</td>
+    </tr>
+  	
+  	<tr>
+  	  <td></td>
+      <td style="font-weight: bold; font-size: 15px; width: 60px; height: 50px;">생일</td>
+      <%-- vo2.birthday 값을 String에서 Date로 변환 --%>
+		<%
+		  NaverVO vo2 = (NaverVO) request.getAttribute("vo2");
+		  String birthdayString = vo2.getBirthday();
+		  SimpleDateFormat format = new SimpleDateFormat("MM-dd");
+		  Date birthdayDate = format.parse(birthdayString);
+		%>
+		<td><fmt:formatDate value="<%= birthdayDate %>" pattern="MM월 dd일"/></td>
+    </tr>
+    
+    <tr>
+      <td></td>
+      <td style="font-weight: bold; font-size: 15px; width: 60px; height: 50px;">가입일</td>
+      <td><fmt:formatDate value="${vo2.joinDate}" pattern="yyyy년 MM월 dd일"/></td>
+    </tr>
+    
+    <tr>
+   	  <td></td>
+      <td style="font-weight: bold; font-size: 15px; width: 60px; height: 50px;">방문수</td>
+      <td>${vo2.visit_count}</td>
+    </tr>
+    
+    <tr>
+      <td></td>
+	  <td style="font-weight: bold; font-size: 15px; width: 60px; height: 50px;">회원등급</td>
+	  <td>
+	    <c:choose>
+	      <c:when test="${vo2.user_type eq 'user'}">
+	        일반회원
+	      </c:when>
+	      <c:when test="${vo2.user_type eq 'business'}">
+	        사업자
+	      </c:when>
+	      <c:otherwise>
+	        기타
+	      </c:otherwise>
+	    </c:choose>
+	  </td>
+	</tr>
+	<!-- <tr>
+   	  <td></td>
+      <td><button class="btn-ajax3" data-url="../mypage/memberUpdate.jsp" data-target="#memberInfo">회원수정</button></td>
+      <td></td>
+    </tr> -->
+  </table>
+  	
+    <!-- 수정내역을 표시할 영역 -->
+    <div id="memberInfo"></div>
     <!-- 예매내역을 표시할 영역 -->
     <div id="ticketInfo"></div>
     <!-- 북마크를 표시할 영역 -->

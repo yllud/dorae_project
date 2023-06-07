@@ -99,11 +99,17 @@ public class MemberController {
 	    return String.valueOf(existingMember);
 	}
 	
-	@RequestMapping("login/memberUpdate")
-	public void update(MemberVO bag) {
-		System.out.println("update요청됨.");
-		System.out.println(bag);
-		dao.update(bag);
+	@RequestMapping("mypage/memberUpdate")
+	public String update(MemberVO bag, Model model) {
+	    System.out.println("update 요청됨.");
+	    System.out.println(bag);
+	    
+	    dao.update(bag);
+	    
+	    System.out.println("회원 정보가 성공적으로 업데이트되었습니다.");
+
+	    // 업데이트 후에 마이페이지로 이동
+	    return "mypage/mypage";
 	}
 	
 	@RequestMapping("login/memberDelete")

@@ -26,12 +26,12 @@
 #page-buttons {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     background: white;
     padding: 10px 0;
-    /* box-shadow: 0px -2px 5px 0px rgba(0,0,0,0.1); */
 }
 </style>
 <script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
