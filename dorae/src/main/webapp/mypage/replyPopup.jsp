@@ -46,7 +46,7 @@ textarea {
 	<h2>후기 작성</h2>
 	<form action="replyInsert" method="get">
 	<div class="input-area">
-		공연id : <span id="playId"></span> <input type="hidden" name="play_id" id="playIdInput" value="${play_id}"><br>
+		<input type="hidden" name="play_id" id="playIdInput" value="${play_id}"><br>
 		공연명 : <span id="playName"></span> <input type="hidden" name="play_name" id="playNameInput" value="${play_name}"><br>
 		관람일 : <span id="seatDate"></span> <input type="hidden" name="seat_date" id="seatDateInput" value="${seat_date}">
 		<span id="seatTime"></span> <input type="hidden" name="seat_time" id="seatTimeInput" value="${seat_time}"><br>
@@ -77,7 +77,6 @@ textarea {
 		        console.log("선택된 점수: " + score);
 		}
 		function fillTicketInfo(playId, playName, seatDate, seatTime, seatId) {
-			document.getElementById("playId").textContent = playId;
 			document.getElementById("playIdInput").value = playId;
 			document.getElementById("playName").textContent = playName;
 			document.getElementById("playNameInput").value = playName;

@@ -13,7 +13,7 @@
 	</delete>
 	
 	<update id="update"  parameterType="memberVO">
-		update member set nickname = #{nickname} where email = #{email}
+		update member set nickname = #{nickname}, password = #{password}, age = #{age} where email = #{email}
 	</update>
 	
 	<select id="find" resultType="memberVO" parameterType="memberVO">

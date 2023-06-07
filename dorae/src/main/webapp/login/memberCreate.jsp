@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <!-- login.css 추가 -->
-<link rel="stylesheet" href="/dorae/resources/css/memberCreate.css">
+<link rel="stylesheet" href="../resources/css/memberCreate.css">
 <style>
 .id_ok{
 color:#008000;
@@ -32,9 +32,15 @@ display: none;
 	    document.getElementById('passwordMatchMessage').textContent = '일치';
 	    document.getElementById('passwordMatchMessage').style.color = 'green';
 	  }
+	  
+	  var birthday_month = document.getElementById('birthday_month').value;
+	  var birthday_day = document.getElementById('birthday_day').value;
+	  var birthday = birthday_month + '-' + birthday_day;
+	  document.getElementById('birthday').value = birthday;
+	  
 	  return true;
 	}
-
+	
 	function checkPasswordMatch() {
 	  var password = document.getElementById('password').value;
 	  var confirmPassword = document.getElementById('confirmPassword').value;
@@ -116,16 +122,19 @@ display: none;
     </select><br><br>
     
     <label>생일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-    <select name="birthday">
-      <% for (int i = 1; i <= 12; i++) { %>
-        <option value="<%= String.format("%02d", i) %>"><%= i %></option>
-      <% } %>
-    </select> 월
-    <select name="birthday">
-      <% for (int i = 1; i <= 31; i++) { %>
-        <option value="<%= String.format("%02d", i) %>"><%= i %></option>
-      <% } %>
-    </select> 일<br><br>
+	<select name="birthday_month" id="birthday_month" onchange="updateBirthday()">
+	  <% for (int i = 1; i <= 12; i++) { %>
+	    <option value="<%= String.format("%02d", i) %>"><%= i %></option>
+	  <% } %>
+	</select> 월
+	
+	<select name="birthday_day" id="birthday_day" onchange="updateBirthday()">
+	  <% for (int i = 1; i <= 31; i++) { %>
+	    <option value="<%= String.format("%02d", i) %>"><%= i %></option>
+	  <% } %>
+	</select> 일<br><br>
+
+<input type="hidden" id="birthday" name="birthday">
     
     <button type="submit">회원가입</button>
   </form>
