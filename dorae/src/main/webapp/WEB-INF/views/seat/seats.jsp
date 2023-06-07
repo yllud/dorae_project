@@ -210,7 +210,8 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 				    	  if (this.classList.contains('selected')) {
 				              // 클릭된 좌석 다시 클릭하면 선택 해제
 				              this.classList.remove('selected');
-				              clickSeats = clickSeats.filter((seat) => seat !== seatNum); //seatNum과 일치하지 않는 좌석을 제거하고 새로운 배열생성
+				              //seatNum과 일치하지 않는 좌석을 제거하고 새로운 배열생성
+				              clickSeats = clickSeats.filter((seat) => seat !== seatNum); 
 				              } else {
 				                // 좌석 클릭할 때
 				                if (clickSeats.length < maxSeats) { //4개까지 선택가능
@@ -235,19 +236,20 @@ $(document).ready(function() { // ajax 사용해서 비동기 통신 할 때 태
 		}) //ajax - seats2 
 }); //$
 
-const seats = document.querySelectorAll('.row2 .seat:not(.sold)'); //sold가 아닌 seat와 row를 seats변수에 저장
+//const seats = document.querySelectorAll('.row2 .seat:not(.sold)'); //sold가 아닌 seat와 row를 seats변수에 저장
 let ticketPrice = $('#show_price').val(); 
 
 // total과 count 업데이트
 function updateSelectedCount() {
 
 	// 좌석 클릭 이벤트로 선택된 좌석을 selectedSeats로 저장시킨다.
+	// 특정 CSS 선택자를 가진 모든 요소를 배열로 가져오는 메서드
   const selectedSeats = document.querySelectorAll('.row2 .seat.selected');
 
-	// 앞서 초기화했던 변수 selectedSeats들을 [...selectedSeats]로 스프레드 문법을 사용해 개별적 값을 만든 후, 배열로 만든다.  
-	// map을 통해 반복문을 돌며 배열 안의 요소들을 [...seats].indexOf(seat)와 1대 1로 짝지어준다.
-  const seatsIndex = [...selectedSeats].map(seat => { return [...seats].indexOf(seat); });
-  
+//앞서 초기화했던 변수 selectedSeats들을 [...selectedSeats]로 스프레드 문법을 사용해 개별적 값을 만든 후, 배열로 만든다.  
+// map을 통해 반복문을 돌며 배열 안의 요소들을 [...seats].indexOf(seat)와 1대 1로 짝지어준다.
+//const seatsIndex = [...selectedSeats].map(seat => { return [...seats].indexOf(seat); });
+
   	// 선택된 좌석의 배열 개수
   const selectedSeatsCount = selectedSeats.length;
     if(selectedSeatsCount != 0){ 
