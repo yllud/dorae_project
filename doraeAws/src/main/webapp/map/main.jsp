@@ -26,8 +26,8 @@ background-color: #ff9900;
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=uez2akrxoe"></script>
 <script src="https://openapi.map.naver.com/openapi/v3/maps-geocoder.js"></script>
-<script type="text/javascript" src="../resources/js/MarkerClustering.js"></script>
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/MarkerClustering.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <script>
 	$(window).on('load', function() {
 		$('body').scrollTop(0); // 스크롤 위치 초기화
@@ -173,7 +173,7 @@ background-color: #ff9900;
 		        var playId = bookmarkImg.closest('table').find('a').data('play-id');
 		        
 		        // 이미지 소스 변경 추후 수정예정
-		        if (bookmarkImg.attr('src') === '../resources/img/icon-book_none.jpg') {
+		        if (bookmarkImg.attr('src') === 'https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_none.jpg') {
 		        	// 북마크 추가
 		        	var count = parseInt(bookmarkCount.text()) + 1;
 			        bookmarkCount.text(count);
@@ -185,7 +185,7 @@ background-color: #ff9900;
 		                    email: userEmail
 		                },
 		                success: function(response) {
-		                    bookmarkImg.attr('src', '../resources/img/icon-book_selected.jpg');
+		                    bookmarkImg.attr('src', 'https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_selected.jpg');
 		                },
 		                error: function(xhr, status, error) {
 		                    console.log('북마크 추가 중 에러가 발생했습니다.');
@@ -203,7 +203,7 @@ background-color: #ff9900;
 		                    email: userEmail
 		                },
 		                success: function(response) {
-		                    bookmarkImg.attr('src', '../resources/img/icon-book_none.jpg');
+		                    bookmarkImg.attr('src', 'https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_none.jpg');
 		                },
 		                error: function(xhr, status, error) {
 		                    console.log('북마크 삭제 중 에러가 발생했습니다.');
@@ -262,17 +262,17 @@ background-color: #ff9900;
 					        var hasBookmark = false;
 					        for (var k = 0; k < mylist.length; k++) {
 					            if (delist1[i].play_id == mylist[k].play_id) {
-					                table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+					                table += "<img class='bookIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 					                hasBookmark = true;
 					                break;
 					            }
 					        }
 					        if (!hasBookmark) {
-					            table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+					            table += "<img class='bookIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 					        }
 					    } else {
 					    	console.log("로그인 되어있지않습니다!!");
-					        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+					        table += "<img class='bookIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 					    }
 	                    $.ajax({
 	                        type: 'GET',
@@ -288,7 +288,7 @@ background-color: #ff9900;
 	                            console.log("북마크 카운트 ajax 실패!");
 	                        }
 	                    });
-	                    table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+	                    table += "<img class='shareIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
 	                    table += '</table>';
 				    } //for
 				    // 테이블 추가
@@ -358,16 +358,16 @@ background-color: #ff9900;
 			            var hasBookmark = false;
 			            for (var k = 0; k < mylist.length; k++) {
 			                if (playinfo.play_id == mylist[k].play_id) {
-			                    table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+			                    table += "<img class='bookIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 			                    hasBookmark = true;
 			                    break;
 			                }
 			            }
 			            if (!hasBookmark) {
-			                table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+			                table += "<img class='bookIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 			            }
 			        } else {
-			            table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+			            table += "<img class='bookIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 			        }
                     $.ajax({
                         type: 'GET',
@@ -383,7 +383,7 @@ background-color: #ff9900;
                             console.log("북마크 카운트 ajax 실패!");
                         }
                     });
-                    table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+                    table += "<img class='shareIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
                     table += '</table>';
 			    } //for
 			    table += '<br><br><br>';
@@ -448,17 +448,17 @@ background-color: #ff9900;
 				}; //네이버 지도 기본 핀 이미지
 			    
 				var marker2 = {
-				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-2.png);background-size:contain;"></div>',
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/cluster-marker-2.png);background-size:contain;"></div>',
 				    size: N.Size(40, 40),
 				    anchor: N.Point(20, 20)
 				}; //묶인 마커의 수
 				var marker3 = {
-				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-3.png);background-size:contain;"></div>',
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/cluster-marker-3.png);background-size:contain;"></div>',
 				    size: N.Size(40, 40),
 				    anchor: N.Point(20, 20)
 				};
 				var marker4 = {
-				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../resources/img/cluster-marker-4.png);background-size:contain;"></div>',
+				    content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/cluster-marker-4.png);background-size:contain;"></div>',
 				    size: N.Size(40, 40),
 				    anchor: N.Point(20, 20)
 				};
@@ -486,7 +486,7 @@ background-color: #ff9900;
 			
 		//region순서 : 강원도 - 경기도 - 경상남도 - 경상북도 - 광주 - 대구 - 대전 - 부산
 		//			- 서울 - 울산 - 인천 - 전남 - 전북 - 제주도 - 충남 - 충북 - 세종
-	    urlPrefix = '../resources/data/region';
+	    urlPrefix = 'https://dorae.s3.ap-northeast-2.amazonaws.com/resources/data/region';
 	    urlSuffix = '.json',
 	    regionGeoJson = [],
 	    loadCount = 0;
@@ -879,16 +879,16 @@ background-color: #ff9900;
 				            	    var hasBookmark = false;
 				            	    for (var k = 0; k < mylist.length; k++) {
 				            	        if (delist1[j].play_id == mylist[k].play_id) {
-				            	            table += "<img class='bookIcon' src='../resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				            	            table += "<img class='bookIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_selected.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 				            	            hasBookmark = true;
 				            	            break;
 				            	        }
 				            	    }
 				            	    if (!hasBookmark) {
-				            	        table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				            	        table += "<img class='bookIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 				            	    }
 				            	} else {
-				            	    table += "<img class='bookIcon' src='../resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
+				            	    table += "<img class='bookIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_none.jpg' style='width:35px; padding-top:15px;' alt='북마크'>";
 				            	}
 		                        $.ajax({
 		                            type: 'GET',
@@ -904,7 +904,7 @@ background-color: #ff9900;
 		                                console.log("북마크 카운트 ajax 실패!");
 		                            }
 		                        });
-		                        table += "<img class='shareIcon' src='../resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
+		                        table += "<img class='shareIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-share.png' style='width:35px; padding-top:10px;' alt='sns공유'></td></tr>";
 		                        table += '</table>';
 		                        count++;
 			            	}
@@ -1022,8 +1022,8 @@ background-color: #ff9900;
 		}
 	});
 </script>
-<link rel="stylesheet" href="../resources/css/sidemenu.css" />
-<link rel="stylesheet" href="../resources/css/page01.css" />
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/sidemenu.css" />
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/page01.css" />
 <meta charset="UTF-8">
 <title>지도 추천 페이지</title>
 </head>
@@ -1032,18 +1032,18 @@ background-color: #ff9900;
 	<div id="map-container">
 		<div id="banner" style="display: flex; justify-content: center;">
 			<div id="imgBody">
-				<img src="../resources/img/temp-banner3.png" id="main-img"/>
+				<img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/temp-banner3.png" id="main-img"/>
 				<div id="main_btn_div" style="position: absolute; top: 52%; left: 62%; transform: translate(-45%, -50%);">
 					<ul class="main_ul" style="list-style-type: none; margin-left: 120px; width: auto; display: flex; justify-content: space-between;">
 						<li class="main_li" style="width:500px;">
 							<button id="btn_check" style="background-color: white; padding: 2%; margin: 2%; width: 400px; height: 300px;">
-								<img src="../resources/img/check.png" style="width: 100%; height: 100%;">
+								<img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/check.png" style="width: 100%; height: 100%;">
 							</button>
 							<p style="font-size:18pt;"><b>맞춤추천 공연 보기</b></p>
 						</li>
 						<li class="main_li" style="width:500px;">
 							<button id="btn_map" style="background-color: white; padding: 2%; margin: 2%; width: 400px; height: 300px;">
-								<img src="../resources/img/map.png" style="width: 100%; height: 100%;">
+								<img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/map.png" style="width: 100%; height: 100%;">
 							</button>
 							<p style="font-size:18pt;"><b>지도로 찾아보기</b></p>
 						</li>
@@ -1056,7 +1056,7 @@ background-color: #ff9900;
 				<table id="inputtable" style="height: 50px;">
 					<tr style="text-align: center;">
 						<td>
-							<img src='../resources/img/icon-map.png' style='width: 40px; margin: 5px; height: 40px;'>
+							<img src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-map.png' style='width: 40px; margin: 5px; height: 40px;'>
 						</td>
 						<td><input id="address" type="text" placeholder="주소를 입력해주세요"></td>
 					</tr>

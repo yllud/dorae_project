@@ -5,7 +5,7 @@
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -73,7 +73,7 @@ var selectedOrders = {
 				}
 			<% } else {%>
 				alert("로그인이 필요합니다!");
-				window.location.href = "/dorae/login/login.jsp";
+				window.location.href = "../login/login.jsp";
 			<% } %>
 		});
 	});
@@ -160,7 +160,7 @@ var selectedOrders = {
 				}).join(", "));
 	}
 </script>
-<link rel="stylesheet" href="../resources/css/recommend.css" />
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/recommend.css" />
 <body>
 	<header id="header"></header>
 	<div id="check-container">

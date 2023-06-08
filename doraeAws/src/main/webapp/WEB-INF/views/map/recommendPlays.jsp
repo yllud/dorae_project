@@ -143,6 +143,7 @@ color: white;
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 </head>
 <body>
 	<div class="recommendList">
@@ -155,18 +156,18 @@ color: white;
 				</div>
 				<div style="text-align: center;">
 					<button id="btn_reset" style="margin: 10px;">
-						<a href="/dorae/map/recommend.jsp">맞춤 재설정</a>
+						<a href="../map/recommend.jsp">맞춤 재설정</a>
 					</button>
 				</div>
 			</h3>
 		</div>
 		<div class="recommend_scroll">
 			<div id="prevBtn" class="button">
-				<img src="/dorae/resources/img/arrow.png" alt="Previous"
+				<img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/arrow.png" alt="Previous"
 					style="max-width: 100%; max-height: 100%;">
 			</div>
 			<div id="nextBtn" class="button">
-				<img src="/dorae/resources/img/arrow.png" alt="Next"
+				<img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/arrow.png" alt="Next"
 					style="max-width: 100%; max-height: 100%; transform: scaleX(-1);">
 			</div>
 			<ul class="recommend_ul">
@@ -176,7 +177,7 @@ color: white;
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${list}" var="play">
-							<a href="/dorae/search/playDetail?play_id=${play.play_id}">
+							<a href="../search/playDetail?play_id=${play.play_id}">
 								<li class="item_li">
 									<div class="item_tb">
 										<img src="${play.poster}" alt="${play.play_name}">
