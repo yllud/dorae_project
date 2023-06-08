@@ -184,7 +184,7 @@ function openPopup(url) {
     </li>
 
 	<li>
-    <a style="font-size: 18px;" href="javascript:void(0);" class="btn-ajax2" data-url="/dorae/book/bookList" data-target="#bookInfo">북마크</a>
+    <a style="font-size: 18px;" href="javascript:void(0);" class="btn-ajax2" data-url="../book/bookList" data-target="#bookInfo">북마크</a>
 	</li>
 
   <li>
