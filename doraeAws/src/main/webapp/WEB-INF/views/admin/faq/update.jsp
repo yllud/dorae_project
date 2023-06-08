@@ -15,7 +15,7 @@
 <div class="mb-3 row">
 	<label for="faqContent" class="col-sm-2 col-form-label">내용</label>
 	<div class="col-sm-10" style="height: 500px;">
-		<iframe src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/smarteditor2-2.8.2.3/SmartEditor2.html" width="100%" height="100%" id="faqContent"></iframe>
+		<iframe src="resources/smarteditor2-2.8.2.3/SmartEditor2.html" width="100%" height="100%" id="faqContent"></iframe>
 	</div>
 </div>
 
