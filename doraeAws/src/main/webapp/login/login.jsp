@@ -83,7 +83,7 @@ if(session.getAttribute("email") == null){ %>
 	<a class="p-2"
 		href="https://kauth.kakao.com/oauth/authorize?client_id=7d82a34e6c4c00f0c8af6bad0d046044&redirect_uri=http://localhost:8888/dorae/login/kakaoLogin&response_type=code">
 		<!-- REST_API키 및 REDIRECT_URi는 본인걸로 수정하세요 --> 
-		<img src="../resources/img/kakaoLogo.png" style="height: 60px">
+		<img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/kakaoLogo.png" style="height: 60px">
 	</a>
 	</div>
 	</div>
