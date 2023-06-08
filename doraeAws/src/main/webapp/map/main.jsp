@@ -486,7 +486,7 @@ background-color: #ff9900;
 			
 		//region순서 : 강원도 - 경기도 - 경상남도 - 경상북도 - 광주 - 대구 - 대전 - 부산
 		//			- 서울 - 울산 - 인천 - 전남 - 전북 - 제주도 - 충남 - 충북 - 세종
-	    urlPrefix = 'https://dorae.s3.ap-northeast-2.amazonaws.com/resources/data/region';
+	    urlPrefix = '../resources/data/region';
 	    urlSuffix = '.json',
 	    regionGeoJson = [],
 	    loadCount = 0;
