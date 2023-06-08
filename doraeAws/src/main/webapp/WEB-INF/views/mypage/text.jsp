@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 $(document).ready(
 		function() {

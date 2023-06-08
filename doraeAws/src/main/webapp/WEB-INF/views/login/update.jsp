@@ -9,7 +9,7 @@
 <body>
 <c:if test="${result != 0 }">
 <P> ${vo.nickname}!!! welcome </P>
-<a href="http://localhost:8888/dorae/mypage/mypage.jsp">
+<a href="../map/main.jsp">
 	<button style="background: pink;" >처음화면으로</button>
 	</a>
 </c:if>
