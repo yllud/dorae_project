@@ -66,9 +66,9 @@ if(session.getAttribute("email") == null){ %>
 	</form>
 	
 	<!-- 네이버 로그인 -->
-	<div id="naver_id_login"></div>
+	<!-- <div id="naver_id_login"></div>-->
     <!-- //네이버 로그인 버튼 노출 영역 -->
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         var naver_id_login = new naver_id_login("AMkeOwuTJY71fYcpifZl", "http://localhost:8888/dorae/login/callback.jsp");
         var state = naver_id_login.getUniqState();
         naver_id_login.setButton("green", 10,60);
@@ -76,7 +76,7 @@ if(session.getAttribute("email") == null){ %>
         naver_id_login.setState(state);
         //naver_id_login.setPopup();
         naver_id_login.init_naver_id_login();
-    </script>
+    </script> -->
 	<br>
 	
 	<!-- 카카오 로그인 -->

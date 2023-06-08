@@ -12,7 +12,7 @@
 
 
 <title>Insert title here</title>
-<script type="text/javascript" src="https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#header").load("../header/header.jsp");
@@ -25,7 +25,7 @@
 				},
 				success : function(x) {
 // 					alert('북마크 체크 성공')
-					$('.bookIcon').attr('src',"https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/img/"+x);
+					$('.bookIcon').attr('src',"https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/"+x);
 					
 				},//success
 				error : function() {
@@ -44,7 +44,7 @@
 		    else {
 			
 			var heartSrc = $('.bookIcon').attr('src');
-			if (heartSrc === 'https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/img/heart_empty.png') {
+			if (heartSrc === 'https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/heart_empty.png') {
 		    $.ajax({
 				url : "playDetailBookInsert",
 				data : {
@@ -52,7 +52,7 @@
 					email : $('#email_id').val()
 				},
 				success : function(x) {
-					$('.bookIcon').attr('src', 'https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/img/heart_fill.png');
+					$('.bookIcon').attr('src', 'https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/heart_fill.png');
 					
 					// 버튼 요소의 텍스트를 가져옵니다.
 				    var buttonText = $('.bookCount').text();
@@ -78,7 +78,7 @@
 						email : $('#email_id').val()
 					},
 					success : function(x) {
-						$('.bookIcon').attr('src', 'https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/img/heart_empty.png');
+						$('.bookIcon').attr('src', 'https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/heart_empty.png');
 						
 						// 버튼 요소의 텍스트를 가져옵니다.
 					    var buttonText = $('.bookCount').text();
@@ -155,7 +155,7 @@
 					<img class='bookIcon' src=""><span class="bookCount">${book_cnt}</span>
 				</button>
 				<button id="btnShare" class="btn-book-share">
-					<img class='shareIcon' src='https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/img/share.png'>공유
+					<img class='shareIcon' src='https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/share.png'>공유
 				</button>
 			</div>
 			<div class="right-grade">
