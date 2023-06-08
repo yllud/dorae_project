@@ -7,9 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/css/businessSidebars.css">
-<script type="text/javascript" src="https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/businessSidebars.css">
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
 		function searchStage(){

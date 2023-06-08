@@ -205,7 +205,7 @@
 			<version>1.1</version>
 		</dependency>
 
-		<!--트위터 api 사용  -->
+		<!--트위터 api 사용 -->
 		<dependency>
 			<groupId>org.twitter4j</groupId>
 			<artifactId>twitter4j-core</artifactId>
@@ -223,7 +223,7 @@
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>1.9.1.RELEASE</version>
 		</dependency>
-		
+
 		<!--파일 업로드 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -236,35 +236,35 @@
 			<artifactId>imgscalr-lib</artifactId>
 			<version>4.2</version>
 		</dependency>
-		
+
 		<!-- 최현석 추가 끝 -->
 
 		<!-- 허성만 - dependency 시작 -->
 		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-websocket</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-web</artifactId>
-		    <version>${org.springframework-version}</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.amazonaws</groupId>
-		    <artifactId>aws-java-sdk-s3</artifactId>
-		    <version>1.11.238</version>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.11.238</version>
 		</dependency>
-        <!-- 허성만 - dependency 끝 -->
-        
-         <!-- 장희정 기타의존성 dependency 시작  -->
-	    <dependency>
-	        <groupId>com.fasterxml.jackson.core</groupId>
-	        <artifactId>jackson-databind</artifactId>
-	        <version>2.12.3</version>
-	    </dependency>
-	    <!-- 장희정 dependency 끝 -->
+		<!-- 허성만 - dependency 끝 -->
+
+		<!-- 장희정 기타의존성 dependency 시작 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<!-- 장희정 dependency 끝 -->
 
 		<!-- 이아람 추가(트랜잭션) -->
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
@@ -274,11 +274,19 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		<!-- 이아람 끝 -->
-		
+
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.8.8</version>
+		</dependency>
+	
+			
+<!-- 		aws 파일 업로드 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-aws</artifactId>
+			<version>2.2.6.RELEASE</version>
 		</dependency>
 	</dependencies>
 	<build>

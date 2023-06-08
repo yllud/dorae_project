@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('.stageSelect').click(function() {
