@@ -5,7 +5,7 @@
 	width: 40px;
 }
 </style>
-<script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <script>
 function deleteBookmark(playId) {
     $.ajax({
@@ -42,10 +42,10 @@ function deleteBookmark(playId) {
 		<c:forEach items="${list2}" var="list">
 			<tr style="min-width: 120px;">
 				<td style="min-width: 200px;"><img src="${list.poster}" style="width: 200px; height: 240px;"></td>
-				<td style="min-width: 150px;"><a href="/dorae/search/playDetail?play_id=${list.play_id}">${list.play_name}</a></td>
+				<td style="min-width: 150px;"><a href="../search/playDetail?play_id=${list.play_id}">${list.play_name}</a></td>
 				<td style="min-width: 100px;">${list.genre_name}</td>
 				<td style="width: 400px;">${list.stage_name}</td>
-				<td style="width: 100px;"><img class="book-icon" src="/dorae/resources/img/icon-book_selected.jpg" onclick="deleteBookmark('${list.play_id}')"></td>
+				<td style="width: 100px;"><img class="book-icon" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/icon-book_selected.jpg" onclick="deleteBookmark('${list.play_id}')"></td>
 			</tr>
 		</c:forEach>
 	</table>
