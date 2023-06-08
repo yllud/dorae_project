@@ -13,8 +13,8 @@
 	padding-bottom: 0;
 }
 </style>
-<link rel="stylesheet" href="/dorae/resources/css/style.css" />
-<script type="text/javascript" src="/dorae/resources/js/jquery-3.6.4.js"></script>
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/style.css" />
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
@@ -53,13 +53,13 @@
 				alert(e)
 			}
 		})
-		location.href='http://localhost:8888/dorae/login/login.jsp'
+		location.href='../login/login.jsp'
 	}
 </script>
 </head>
 <body>
 	<div class="logo">
-		<a href="/dorae/map/main.jsp"><b>도래도래</b></a>
+		<a href="../map/main.jsp"><b>도래도래</b></a>
 	</div>
 	<h4 style="margin: 10px; margin-top: 0; text-align: right">
 		<!-- 마이페이지 클릭 시 경로 수정필요!! -->
@@ -80,7 +80,7 @@
 			}
 		%> | 
 		<a id="loginBtn" href="../login/mypage"
-			style="font-weight: bold; font-size: 20px;">마이페이지</a> | <a id="logout" href='http://localhost:8888/dorae/login/logout.jsp'
+			style="font-weight: bold; font-size: 20px;">마이페이지</a> | <a id="logout" href='../login/logout.jsp'
 			style="font-weight: bold; font-size: 20px;">로그아웃</a>
 
 		<%
@@ -94,18 +94,18 @@
 	<div class="menu">
 		<nav class="header_nav">
 			<ul class="header_ul">
-				<li class="header_li"><a href="/dorae/map/main.jsp">추천</a></li>
-				<li class="header_li"><a href="/dorae/search/search.jsp">공연</a></li>
+				<li class="header_li"><a href="../map/main.jsp">추천</a></li>
+				<li class="header_li"><a href="../search/search.jsp">공연</a></li>
 
 				<div class="dropdown">
-					<li class="header_li"><a href="/dorae/review/reviewBbs.jsp">커뮤니티</a></li>
+					<li class="header_li"><a href="../review/reviewBbs.jsp">커뮤니티</a></li>
 					<div class="dropdown-content">
-						<a href="/dorae/review/reviewBbs.jsp">다녀온 후기</a> <a
-							href="/dorae/sns/sns.jsp">SNS 후기</a> <a
-							href="/dorae/noticeBbs/noticeBbs.jsp">이벤트</a>
+						<a href="../review/reviewBbs.jsp">다녀온 후기</a> <a
+							href="../sns/sns.jsp">SNS 후기</a> <a
+							href="../noticeBbs/noticeBbs.jsp">이벤트</a>
 					</div>
 				</div>
-				<li class="header_li"><a href="/dorae/help/main">고객센터</a></li>
+				<li class="header_li"><a href="../help/main">고객센터</a></li>
 
 
 			</ul>
