@@ -7,7 +7,7 @@
 		select p.play_name
 		from ranking r
 		join play p on r.play_id = p.play_id
-		order by ranking
+		order by ranking, rank_genre
 		limit 5
 	</select>
 
