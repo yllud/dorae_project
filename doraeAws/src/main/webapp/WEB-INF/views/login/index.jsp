@@ -10,7 +10,7 @@
 <meta name="author" content="" />
 <title>Freelancer - Start Bootstrap Theme</title>
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="resources/assets/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
 	crossorigin="anonymous"></script>
@@ -21,7 +21,7 @@
 	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
 	rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="resources/css/styles.css" rel="stylesheet" />
+<link href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/styles.css" rel="stylesheet" />
 </head>
 <body id="page-top">
 	<!-- Navigation-->
@@ -53,7 +53,7 @@
 	<header class="masthead bg-primary text-white text-center">
 		<div class="container d-flex align-items-center flex-column">
 			<!-- Masthead Avatar Image-->
-			<img class="masthead-avatar mb-5" src="resources/assets/img/avataaars.svg"
+			<img class="masthead-avatar mb-5" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/avataaars.svg"
 				alt="..." />
 			<!-- Masthead Heading-->
 			<h1 class="masthead-heading text-uppercase mb-0">Start Bootstrap</h1>
@@ -97,7 +97,7 @@
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
 						</div>
-						<img class="img-fluid" src="resources/assets/img/portfolio/cabin.png"
+						<img class="img-fluid" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/cabin.png"
 							alt="..." />
 					</div>
 				</div>
@@ -112,7 +112,7 @@
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
 						</div>
-						<img class="img-fluid" src="resources/assets/img/portfolio/cake.png"
+						<img class="img-fluid" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/cake.png"
 							alt="..." />
 					</div>
 				</div>
@@ -127,7 +127,7 @@
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
 						</div>
-						<img class="img-fluid" src="resources/assets/img/portfolio/circus.png"
+						<img class="img-fluid" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/circus.png"
 							alt="..." />
 					</div>
 				</div>
@@ -142,7 +142,7 @@
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
 						</div>
-						<img class="img-fluid" src="resources/assets/img/portfolio/game.png"
+						<img class="img-fluid" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/game.png"
 							alt="..." />
 					</div>
 				</div>
@@ -157,7 +157,7 @@
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
 						</div>
-						<img class="img-fluid" src="resources/assets/img/portfolio/safe.png"
+						<img class="img-fluid" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/safe.png"
 							alt="..." />
 					</div>
 				</div>
@@ -172,7 +172,7 @@
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
 						</div>
-						<img class="img-fluid" src="resources/assets/img/portfolio/submarine.png"
+						<img class="img-fluid" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/submarine.png"
 							alt="..." />
 					</div>
 				</div>
@@ -373,7 +373,7 @@
 								</div>
 								<!-- Portfolio Modal - Image-->
 								<img class="img-fluid rounded mb-5"
-									src="resources/assets/img/portfolio/cabin.png" alt="..." />
+									src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/cabin.png" alt="..." />
 								<!-- Portfolio Modal - Text-->
 								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
 									adipisicing elit. Mollitia neque assumenda ipsam nihil,
@@ -417,7 +417,7 @@
 								</div>
 								<!-- Portfolio Modal - Image-->
 								<img class="img-fluid rounded mb-5"
-									src="resources/assets/img/portfolio/cake.png" alt="..." />
+									src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/cake.png" alt="..." />
 								<!-- Portfolio Modal - Text-->
 								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
 									adipisicing elit. Mollitia neque assumenda ipsam nihil,
@@ -461,7 +461,7 @@
 								</div>
 								<!-- Portfolio Modal - Image-->
 								<img class="img-fluid rounded mb-5"
-									src="resources/assets/img/portfolio/circus.png" alt="..." />
+									src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/circus.png" alt="..." />
 								<!-- Portfolio Modal - Text-->
 								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
 									adipisicing elit. Mollitia neque assumenda ipsam nihil,
@@ -504,7 +504,7 @@
 								</div>
 								<!-- Portfolio Modal - Image-->
 								<img class="img-fluid rounded mb-5"
-									src="resources/assets/img/portfolio/game.png" alt="..." />
+									src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/game.png" alt="..." />
 								<!-- Portfolio Modal - Text-->
 								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
 									adipisicing elit. Mollitia neque assumenda ipsam nihil,
@@ -548,7 +548,7 @@
 								</div>
 								<!-- Portfolio Modal - Image-->
 								<img class="img-fluid rounded mb-5"
-									src="resources/assets/img/portfolio/safe.png" alt="..." />
+									src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/safe.png" alt="..." />
 								<!-- Portfolio Modal - Text-->
 								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
 									adipisicing elit. Mollitia neque assumenda ipsam nihil,
@@ -591,7 +591,7 @@
 								</div>
 								<!-- Portfolio Modal - Image-->
 								<img class="img-fluid rounded mb-5"
-									src="resources/assets/img/portfolio/submarine.png" alt="..." />
+									src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/assets/img/portfolio/submarine.png" alt="..." />
 								<!-- Portfolio Modal - Text-->
 								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
 									adipisicing elit. Mollitia neque assumenda ipsam nihil,

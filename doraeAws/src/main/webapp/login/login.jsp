@@ -29,10 +29,10 @@ form input[type="password"] {
 }
 </style>
 <!-- login.css 추가 -->
-<link rel="stylesheet" href="../resources/css/login.css">
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/login.css">
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript"
-	src="../resources/js/naverLogin_implicit-1.0.3.js"
+	src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
