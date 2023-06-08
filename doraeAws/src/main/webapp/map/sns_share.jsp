@@ -36,7 +36,7 @@ function shareTwitter() {
 
 function shareNaver() {
     var url = encodeURIComponent(DetailUrl);
-    var title = encodeURIComponent("도래도래 <" +  "<%=playName%>" + ">");
+    var title = encodeURIComponent("도래도래 <" + "<%= playName %>" + ">");
     var shareURL = "https://share.naver.com/web/shareView?url=" + url + "&title=" + title;
     window.open(shareURL);
     window.close();
@@ -75,5 +75,6 @@ function shareKakao() {
 <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
 <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>
 <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();">카카오</a>
+<!-- <a id="btnNaver" class="link-icon naver" href="javascript:shareNaver();">네이버</a> -->
 </body>
 </html>
