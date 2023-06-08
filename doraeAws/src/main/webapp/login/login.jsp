@@ -77,6 +77,7 @@ if(session.getAttribute("email") == null){ %>
         //naver_id_login.setPopup();
         naver_id_login.init_naver_id_login();
     </script> -->
+    <img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/naverLogo.png" style="height: 59.5px">
 	<br>
 	
 	<!-- 카카오 로그인 -->
