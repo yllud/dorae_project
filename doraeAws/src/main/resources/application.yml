@@ -1,0 +1,11 @@
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA4NJHVZKRLWUBXKLM
+      secret-key: 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
+    s3:
+      bucket: dorae
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
