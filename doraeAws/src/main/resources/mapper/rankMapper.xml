@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rank">
+
+	<insert id="create" parameterType="rankVO">
+		insert into ranking values
+		(#{rank_id}, #{play_id},#{rank_genre},#{rank_area}, #{rank_date},
+		#{ranking})
+	</insert>
+
+	<select id="playIdList" resultType="String">
+		select p.play_id from ranking
+		as r inner join play as p
+		on r.play_id=p.play_id
+		where p.state="공연중"
+	</select>
+
+	<delete id="delete">
+		delete from ranking
+	</delete>
+
+	<!-- <select id="stageIdList" resultType="String"> -->
+	<!-- select stage_id from ranking -->
+	<!-- </select> -->
+
+	<!-- <select id="idList" resultType="String"> -->
+	<!-- select play_id from play -->
+	<!-- </select> -->
+	<!-- <update id="update" parameterType="playVO"> -->
+	<!-- update member set play_name = #{play_name} where play_id = #{play_id} -->
+	<!-- </update> -->
+
+	<!-- <delete id="delete" parameterType="String"> -->
+	<!-- delete from member where play_id =#{play_id} -->
+	<!-- </delete> -->
+
+	<!-- <select id="one" parameterType="String" resultType="playVO"> -->
+	<!-- select * from -->
+	<!-- play where play_id=#{play_id} -->
+	<!-- </select> -->
+
+	<select id="list" parameterType="cri" resultType="rankVO">
+		select
+		rank_id, ranking.play_id , rank_genre,rank_area,
+		rank_date,ranking,play_name
+		from ranking inner join play on
+		ranking.play_id =play.play_id 
+		and play.state!="공연완료"
+		where
+		<if test='genre!="전체(장르)"'>
+			ranking.rank_genre =#{genre}
+		</if>
+		<if test='genre=="전체(장르)"'>
+			ranking.rank_genre ="뮤지컬"
+		</if>
+		limit 10
+		
+	</select>
+
+
+</mapper>

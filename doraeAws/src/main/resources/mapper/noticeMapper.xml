@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	
+	<!-- keyProperty 는 DB의 필드명을 써야함 -->
+	<insert id="insert" parameterType="noticeVO" useGeneratedKeys="true" keyProperty="notice_id">
+		insert into notice values (#{notice_id}, #{admin_id}, #{title}, #{content}, now(), #{tag})
+	</insert>
+	
+	<select id="selectOne" resultType="noticeVO" parameterType="long">
+		select * from notice where notice_id = #{notice_id}
+	</select>
+	
+	<select id="selectList" resultType="noticeVO">
+		select * from notice
+	</select>
+	
+	<select id="selectListByTag" resultType="noticeVO" parameterType="String">
+		select * from notice where tag = #{tag}
+	</select>
+	
+	<select id="selectListWithPaging" resultType="noticeVO" parameterType="hashMap">
+		select * from (
+			select ROW_NUMBER() over (order by notice_id desc) as notice, n.*
+			from notice n) n2
+		where n2.notice between #{start} and #{end}
+	</select>
+	
+	<select id="selectListByTagWithPaging" resultType="noticeVO" parameterType="hashMap">
+		select * from (
+			select ROW_NUMBER() over (order by notice_id desc) as notice, n.*
+			from notice n where n.tag = #{tag}) n2
+		where n2.notice between #{start} and #{end}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from notice
+	</select>
+	
+	<select id="countByTag" resultType="int">
+		select count(*) from notice where tag = #{tag}
+	</select>
+	
+	<update id="update" parameterType="noticeVO">
+		update notice set title = #{title}, content = #{content}, tag = #{tag} where notice_id = #{notice_id}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		delete from notice where notice_id = #{notice_id}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stage">
+
+	<insert id="create" parameterType="stageVO">
+		insert into stage values
+		(#{stage_id}, #{stage_name},#{stage_cnt}, #{kind}, 
+		#{open_year},#{seat_cnt},#{tel}, #{website},
+		#{address},#{latitude},#{longitude})
+	</insert>
+	
+	<select id="idList" resultType="String">
+		select stage_id from stage
+	</select>
+	
+	<select id="one" resultType="stageVO" parameterType="String">
+		select * from stage where stage_id=#{stage_id}
+	
+	</select>
+	
+	
+	<select id="list" resultType="stageVO" parameterType="String">
+		select * from stage
+		where stage_name LIKE CONCAT('%', #{title}, '%')
+	</select>
+	
+	<select id="stageList" resultType="stageVO">
+        SELECT * FROM stage WHERE stage_id IN (SELECT stage_id FROM play where state = '공연중');
+    </select>
+	<!-- <update id="update" parameterType="playVO"> -->
+	<!-- update member set play_name = #{play_name} where play_id = #{play_id} -->
+	<!-- </update> -->
+
+	<!-- <delete id="delete" parameterType="String"> -->
+	<!-- delete from member where play_id =#{play_id} -->
+	<!-- </delete> -->
+
+	<!-- <select id="one" parameterType="String" resultType="playVO"> -->
+	<!-- select * from -->
+	<!-- play where play_id=#{play_id} -->
+	<!-- </select> -->
+
+	<!-- <select id="all" resultType="playVO"> -->
+	<!-- select * from member -->
+	<!-- </select> -->
+
+</mapper>

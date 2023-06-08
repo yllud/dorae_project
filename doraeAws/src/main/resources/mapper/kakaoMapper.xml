@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="kakaoMember"> 
+
+	<select id="kakaoFind" parameterType="java.util.HashMap" resultType="kakaoVO">
+		select * from member where email=#{email}
+		<!-- select * from member where nickname=#{nickname} and email=#{email} -->
+	</select>
+
+	<insert id="kakaoInsert" parameterType="kakaoVO">
+
+		insert into member(nickname, email, joinDate, user_type)
+			values(#{nickname}, #{email}, #{joinDate}, 'user')
+	</insert>
+	
+	<delete id="kakaoDelete" parameterType="String">
+		delete from member
+		where email = #{email}
+	</delete>
+	
+</mapper>

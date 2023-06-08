@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="book">
+
+	<!-- 공연 북마크 입력 -->
+	<insert id="create" parameterType="bookVO">
+		insert into book values (null, #{email}, #{play_id})
+	</insert>
+
+	<!-- 공연 북마크 삭제 -->
+	<delete id="del" parameterType="bookVO">
+		delete from book where play_id = #{play_id} and email = #{email}
+	</delete>
+<!-- 
+	<update id="up" parameterType="bookVO">
+		update book set name = #{name}
+		where id = #{id}
+	</update>
+
+	<select id="one" parameterType="int" resultType="bookVO">
+		select * from
+		book where id = #{id}
+	</select>
+-->
+	<!-- 특정 공연의 북마크 수 -->
+	<select id="cnt" parameterType="String" resultType="java.lang.Integer">
+		select COUNT(*) from book where play_id = #{play_id}
+	</select>
+	
+	<!-- 본인의 북마크 리스트 -->
+	<select id="my" parameterType="String" resultType="bookVO">
+		select * from book where email = #{email}
+	</select>
+
+</mapper>

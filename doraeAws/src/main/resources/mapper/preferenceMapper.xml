@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="preference">
+
+	<!-- 공연 취향 입력 -->
+	<insert id="create" parameterType="preferenceVO">
+		INSERT INTO preference (email, genre1, genre2, genre3, area1, area2, area3)
+		VALUES (#{email}, #{genre1}, #{genre2}, #{genre3}, #{area1}, #{area2}, #{area3})
+		ON DUPLICATE KEY UPDATE
+		    genre1 = VALUES(genre1),
+		    genre2 = VALUES(genre2),
+		    genre3 = VALUES(genre3),
+		    area1 = VALUES(area1),
+		    area2 = VALUES(area2),
+		    area3 = VALUES(area3)
+	</insert>
+	
+	<!-- 본인의 취향설정 -->
+	<select id="my" parameterType="String" resultType="preferenceVO">
+		select * from preference where email = #{email}
+	</select>
+
+	<!-- 본인의 취향설정에 맞는 공연 추천 -->
+	<select id="type" parameterType="preferenceVO" resultType="playVO">
+		SELECT 
+		    p.poster, p.play_id, p.stage_id, s.stage_name, p.play_name, p.play_start, p.play_end, p.genre_name,
+		    (
+		        CASE
+		            WHEN (s.address LIKE CONCAT(#{area1}, '%') AND p.genre_name = #{genre1}) THEN 0.6
+		            WHEN (s.address LIKE CONCAT(#{area1}, '%') AND #{genre2} IS NOT NULL AND p.genre_name = #{genre2}) THEN 0.5
+		            WHEN (s.address LIKE CONCAT(#{area1}, '%') AND #{genre3} IS NOT NULL AND p.genre_name = #{genre3}) THEN 0.4
+		            WHEN (s.address LIKE CONCAT(#{area2}, '%') AND p.genre_name = #{genre1}) THEN 0.35
+		            WHEN (s.address LIKE CONCAT(#{area2}, '%') AND #{genre2} IS NOT NULL AND p.genre_name = #{genre2}) THEN 0.3
+		            WHEN (s.address LIKE CONCAT(#{area3}, '%') AND p.genre_name = #{genre1}) THEN 0.25
+		            WHEN (s.address LIKE CONCAT(#{area2}, '%') AND #{genre3} IS NOT NULL AND p.genre_name = #{genre3}) THEN 0.2
+		            WHEN (s.address LIKE CONCAT(#{area3}, '%') AND #{genre2} IS NOT NULL AND p.genre_name = #{genre2}) THEN 0.15
+		            WHEN (s.address LIKE CONCAT(#{area3}, '%') AND #{genre3} IS NOT NULL AND p.genre_name = #{genre3}) THEN 0.1
+		            ELSE 0
+		        END * 100
+		    ) AS score
+		FROM 
+		    play p
+		    JOIN stage s ON p.stage_id = s.stage_id
+		WHERE 
+		    (
+		        (#{area1} IS NOT NULL AND s.address LIKE CONCAT(#{area1}, '%')) OR
+		        (#{area2} IS NOT NULL AND s.address LIKE CONCAT(#{area2}, '%')) OR
+		        (#{area3} IS NOT NULL AND s.address LIKE CONCAT(#{area3}, '%'))
+		    )
+		    AND (
+		        (#{genre1} IS NOT NULL AND p.genre_name = #{genre1}) OR
+		        (#{genre2} IS NOT NULL AND p.genre_name = #{genre2}) OR
+		        (#{genre3} IS NOT NULL AND p.genre_name = #{genre3})
+		    )
+		    AND p.state = '공연중' AND p.delete_date IS NULL
+		ORDER BY
+		    CASE
+		        WHEN (s.address LIKE CONCAT(#{area1}, '%') AND p.genre_name = #{genre1}) THEN 1
+		        WHEN (s.address LIKE CONCAT(#{area1}, '%') AND #{genre2} IS NOT NULL AND p.genre_name = #{genre2}) THEN 2
+		        WHEN (s.address LIKE CONCAT(#{area2}, '%') AND p.genre_name = #{genre1}) THEN 3
+		        WHEN (s.address LIKE CONCAT(#{area1}, '%') AND #{genre3} IS NOT NULL AND p.genre_name = #{genre3}) THEN 4
+		        WHEN (s.address LIKE CONCAT(#{area2}, '%') AND #{genre2} IS NOT NULL AND p.genre_name = #{genre2}) THEN 5
+		       	WHEN (s.address LIKE CONCAT(#{area3}, '%') AND p.genre_name = #{genre1}) THEN 6
+				WHEN (s.address LIKE CONCAT(#{area2}, '%') AND #{genre3} IS NOT NULL AND p.genre_name = #{genre3}) THEN 7
+				WHEN (s.address LIKE CONCAT(#{area3}, '%') AND #{genre2} IS NOT NULL AND p.genre_name = #{genre2}) THEN 8
+				WHEN (s.address LIKE CONCAT(#{area3}, '%') AND #{genre3} IS NOT NULL AND p.genre_name = #{genre3}) THEN 9
+		ELSE 10
+		END,
+		score DESC;
+	</select>
+</mapper>

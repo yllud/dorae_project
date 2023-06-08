@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- SQL문 정의할 때 VO표현을 간단하게 하고 싶은 경우. 별명을 지어서 사용 -->
+	<typeAliases>
+
+		<!-- 안정우 -->
+		<typeAlias type="com.multi.dorae.search.PlayVO"
+			alias="playVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.search.StageVO"
+			alias="stageVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.search.RankVO"
+			alias="rankVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.search.Criteria"
+			alias="cri"></typeAlias>
+		<typeAlias type="com.multi.dorae.search.BusinessVO"
+			alias="businessVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.search.CriteriaB"
+			alias="cri2"></typeAlias>
+
+		<!-- 장희정 -->
+		<typeAlias type="com.multi.dorae.map.BookVO" alias="bookVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.map.PreferenceVO" alias="preferenceVO"></typeAlias>
+
+		<!-- 최현석 -->
+		<typeAlias type="com.multi.dorae.review.ReviewVO"
+			alias="reviewVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.review.ReviewPageVO"
+			alias="reviewPageVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.sns.BlogVO" alias="blogVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.sns.TwitterVO"
+			alias="twitterVO"></typeAlias>
+		
+		<!-- 구윤진 -->
+		<typeAlias type="com.multi.dorae.login.KakaoVO" alias="kakaoVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.login.NaverVO" alias="naverVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.login.MemberVO" alias="memberVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.mypage.ReplyVO" alias="replyVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.mypage.TicketVO" alias="ticketVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.mypage.ReviewListVO" alias="ReviewListVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.mypage.MypagePageVO" alias="mypagePageVO"></typeAlias>
+
+
+		<!-- 이아람 -->
+		<typeAlias type="com.multi.dorae.ticket.PayVO" alias="payVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.ticket.SeatVO"
+			alias="seatVO"></typeAlias>
+		
+
+		<!-- 허성만 -->
+		<typeAlias type="com.multi.dorae.help.ContactVO"
+			alias="contactVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.help.FaqVO" alias="faqVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.help.NoticeVO"
+			alias="noticeVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.help.HelpCategoryVO"
+			alias="helpCategoryVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.help.ApplyBusinessVO"
+		alias="applyVO"></typeAlias>
+		<typeAlias type="com.multi.dorae.admin.AdminVO"
+			alias="adminVO"></typeAlias>
+
+	</typeAliases>
+	<typeHandlers>
+		<!-- 커스텀 타입 핸들러 등록 -->
+		<typeHandler
+			handler="com.multi.dorae.review.StringListTypeHandler" />
+	</typeHandlers>
+	<mappers>
+		<!-- SQL문 정의하는 파일들의 목록을 지정. -->
+
+		<!-- 안정우 -->
+		<mapper resource="mapper/playMapper.xml" />
+		<mapper resource="mapper/stageMapper.xml" />
+		<mapper resource="mapper/rankMapper.xml" />
+		<mapper resource="mapper/businessMapper.xml" />
+
+		<!-- 장희정 -->
+		<mapper resource="mapper/bookMapper.xml" />
+		<mapper resource="mapper/preferenceMapper.xml" />
+
+		<!-- 최현석 -->
+		<mapper resource="mapper/reviewMapper.xml" />
+		<mapper resource="mapper/snsMapper.xml" />
+		<mapper resource="mapper/blogMapper.xml" />
+		<mapper resource="mapper/twitterMapper.xml" />
+
+		<!-- 구윤진 -->
+		<mapper resource="mapper/kakaoMapper.xml" />
+		<mapper resource="mapper/naverMapper.xml" />
+		<mapper resource="mapper/replyMapper.xml" />
+		<mapper resource="mapper/mypageMapper.xml" />
+		<mapper resource="mapper/memberMapper.xml" />
+
+		<!-- 이아람 -->
+		<mapper resource="mapper/seatMapper.xml" />
+		<mapper resource="mapper/payMapper.xml" />
+
+		<!-- 허성만 -->
+		<mapper resource="mapper/noticeMapper.xml" />
+		<mapper resource="mapper/contactMapper.xml" />
+		<mapper resource="mapper/faqMapper.xml" />
+		<mapper resource="mapper/helpCategoryMapper.xml" />
+		<mapper resource="mapper/adminMapper.xml" />
+		<mapper resource="mapper/applyBusinessMapper.xml" />
+	</mappers>
+</configuration>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="apply">
+
+	<insert id="insert" parameterType="String" useGeneratedKeys="true" keyProperty="id">
+		insert into apply_business values (null, #{member_id}, now(), null, null)
+	</insert>
+
+	<select id="selectOne" parameterType="long" resultType="applyVO">
+		select * from apply_business where apply_id = #{apply_id}
+	</select>
+	
+	<select id="selectListWithPaging" resultType="applyVO">
+		select * from (
+			select ROW_NUMBER() over (order by apply_id desc) as apply, a.*
+			from apply_business a) a2
+		where a2.apply between #{start} and #{end}
+	</select>
+	
+	<select id="selectListByMemberId" resultType="applyVO">
+		select * from apply_business where member_id = #{member_id}
+	</select>
+	
+	<update id="updateApproval">
+		update apply_business set approval = #{approval}, approval_at = now() where apply_id = #{apply_id}
+	</update>
+	
+	<select id="count" resultType="int">
+		select count(*) from apply_business
+	</select>
+		
+	<select id="isUnderReview" parameterType="String" resultType="boolean">
+		select EXISTS (
+			select * from apply_business where member_id = #{member_id} and approval_at is null) as exi
+	</select>
+</mapper>

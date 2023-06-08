@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		insert into admin values (#{id}, #{password}, #{name}, #{nickname}, now())
+	</insert>
+
+	<select id="selectOne" parameterType="String" resultType="adminVO">
+		select * from admin where id = #{id}
+	</select>
+	
+	<select id="isExist" parameterType="String" resultType="boolean">
+		select EXISTS (
+			select * from admin where id = #{id}) as exi
+	</select>
+		
+</mapper>

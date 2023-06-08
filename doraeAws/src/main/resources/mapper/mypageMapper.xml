@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mypageList">
+
+	<!-- ticketList 예매내역 -->
+	<select id="ticketJoin" resultType="ticketVO" parameterType="ticketVO">
+		SELECT s.email, s.play_id, s.seat_id, s.seat_date, s.seat_time,
+		p.paid_amount, p.booking,
+		pl.play_name, pl.stage_name, pl.poster
+		FROM seat s
+		JOIN pay p ON s.seat_id = p.seat_id
+		JOIN play pl ON s.play_id = pl.play_id
+		WHERE s.email = #{email} and s.cancel is null
+	</select>
+	
+	<select id="ticketPaging" parameterType="map" resultType="ticketVO">
+        SELECT * FROM (
+            SELECT ROW_NUMBER() OVER (ORDER BY substr(replace(seat_date,"-",""),1,8) DESC, seat_time DESC) AS rnum, r.*
+            FROM(
+            select s.email, s.play_id, s.seat_id, s.seat_date, s.seat_time,
+		p.paid_amount, p.booking,
+		pl.play_name, pl.stage_name, pl.poster
+            FROM seat s
+		JOIN pay p ON s.seat_id = p.seat_id
+		JOIN play pl ON s.play_id = pl.play_id
+		WHERE s.email = #{email} and s.cancel is null
+		) r
+        ) paging
+        WHERE rnum BETWEEN #{start} AND #{end}
+    </select>
+    
+    <select id="ticketCount" resultType="Integer">
+   		SELECT COUNT(*) FROM (
+		SELECT
+		s.email, s.play_id, s.seat_id, s.seat_date, s.seat_time,
+		p.paid_amount, p.booking,
+		pl.play_name, pl.stage_name, pl.poster
+		FROM seat s
+		JOIN pay p ON s.seat_id = p.seat_id
+		JOIN play pl ON s.play_id = pl.play_id
+		WHERE s.email = #{email} and s.cancel is null
+		) AS subquery;
+    </select>
+	
+	<!-- reviewList 다녀온 후기 -->
+	<select id="listByEmail" parameterType="String" resultType="reviewListVO">
+    SELECT
+		review_id, review_title, review_content, review_tag, review_img, email
+		FROM review
+		where email = #{email}
+	</select>
+	
+	<select id="reviewPaging" parameterType="map" resultType="reviewListVO">
+        SELECT * FROM (
+            SELECT ROW_NUMBER() OVER (ORDER BY review_id DESC) AS rnum, r.*
+            FROM review r
+            WHERE r.email = #{email}
+        ) paging
+        WHERE rnum BETWEEN #{start} AND #{end}
+    </select>
+    
+    <select id="reviewCount" resultType="Integer">
+   		select count(*) from review 
+    </select>
+	
+</mapper>

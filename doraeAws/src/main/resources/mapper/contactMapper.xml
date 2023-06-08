@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="contact">
+	
+	<insert id="insert" parameterType="contactVO" useGeneratedKeys="true" keyProperty="contact_id">
+		insert into contact values (#{contact_id}, #{member_id}, #{title}, #{content}, now(), #{admin_id}, #{answer})
+	</insert>
+	
+	<delete id="delete"  parameterType="contactVO">
+		delete from contact where contact_id = #{contact_id}
+	</delete>
+	
+	<select id="selectList" resultType="contactVO" parameterType="String">
+		select * from contact where member_id = #{member_id}
+	</select>
+	
+	<select id="selectListWithPaging" resultType="contactVO" parameterType="hashMap">
+		select * from (
+			select ROW_NUMBER() over (order by contact_id desc) as contact, c.*
+			from contact c) c2
+		where c2.contact between #{start} and #{end}
+	</select>
+	
+	<select id="selectListByMemberIdWithPaging" resultType="contactVO" parameterType="hashMap">
+		select * from (
+			select ROW_NUMBER() over (order by contact_id desc) as contact, c.*
+			from contact c where member_id = #{member_id}) c2
+		where c2.contact between #{start} and #{end}
+	</select>
+	
+	<select id="selectOne" resultType="contactVO" parameterType="long">
+		select * from contact where contact_id = #{contact_id}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from contact
+	</select>
+	
+	<update id="updateAnswer" parameterType="contactVO">
+		update contact set admin_id = #{admin_id}, answer = #{answer} where contact_id = #{contact_id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="play">
+
+	<insert id="create" parameterType="playVO">
+		insert into play (play_id,
+		stage_id,
+		play_name,play_start,play_end,stage_name,casting,crew,runtime,play_age,
+		enterprise,price,poster,content,genre_name,state,openrun,image,play_time)
+		values
+		(#{play_id}, #{stage_id},#{play_name},#{play_start},
+		#{play_end},
+		#{stage_name},#{casting},#{crew}, #{runtime},
+		#{play_age},#{enterprise},#{price},#{poster},
+		#{content},#{genre_name},#{state},#{openrun},
+		#{image},#{play_time}
+		)
+	</insert>
+
+	<select id="playIdList" resultType="String">
+		select play_id from play
+	</select>
+
+	<select id="stageIdList" resultType="String">
+		select stage_id from play
+	</select>
+
+	<select id="listPlayDate" resultType="playVO">
+		select
+		play_id,play_name,play_start,play_end,state
+		from play where state =
+		"공연중" or state="공연예정"
+	</select>
+
+	<update id="updateState" parameterType="playVO">
+		update play set
+		state=#{state}
+		where play_id=#{play_id}
+	</update>
+
+
+	<select id="one" parameterType="String" resultType="playVO">
+		select * from
+		play where play_id=#{play_id}
+	</select>
+
+
+	<!-- 페이지 생성 -->
+	<!-- 공연 리스트 불러오기 -->
+	<select id="page" resultType="playVO" parameterType="cri">
+		select * from
+		(select ROW_NUMBER() over(order by play_id desc) as
+		rownum,
+		p.play_id,p.play_name,p.state,p.genre_name,p.poster,s.stage_name,s.address
+		from play p inner join stage s
+		on s.stage_id=p.stage_id
+		where
+		(p.play_name LIKE CONCAT('%', #{title}, '%') or s.stage_name LIKE
+		CONCAT('%', #{title}, '%') or p.casting LIKE CONCAT('%', #{title},
+		'%'))
+		and p.delete_date is null
+		and p.state=#{state}
+		<if test='genre!="전체(장르)"'>
+			and p.genre_name=#{genre}
+		</if>
+		<if test='district!="전체(지역)"'>
+			and s.address LIKE CONCAT(#{district}, '%')
+		</if>
+		) play2
+		where play2.rownum between #{start} and #{end}
+	</select>
+
+	<!-- 공연 리스트 개수(페이지 버튼 생성에 필요) -->
+	<select id="count" resultType="Integer" parameterType="cri">
+		select count(*) from play p inner join stage s
+		on s.stage_id=p.stage_id
+		where
+		(p.play_name LIKE CONCAT('%', #{title}, '%') or s.stage_name LIKE
+		CONCAT('%', #{title}, '%') or p.casting LIKE CONCAT('%', #{title},
+		'%'))
+		and p.delete_date is null
+		and p.state=#{state}
+		<if test='genre!="전체(장르)"'>
+			and p.genre_name=#{genre}
+		</if>
+		<if test='district!="전체(지역)"'>
+			and s.address LIKE CONCAT(#{district}, '%')
+		</if>
+	</select>
+
+	
+
+
+	<!-- 북마크했는지 검색 -->
+	<select id="checkBook" resultType="Integer"
+		parameterType="bookVO">
+		select count(*) from book where play_id = #{play_id} and email = #{email}
+	</select>
+	
+	<!-- 리뷰 리스트 -->
+	<select id="review" resultType="replyVO" parameterType="String">
+		select
+		p.play_name, m.nickname, text, score, DATE_FORMAT(upload_date,
+		'%Y-%m-%d %H:%i') as upload_date2
+		from play p inner join m_review r
+		inner
+		join member m
+		on p.play_id
+		=r.play_id and m.email =r.email
+		where
+		p.play_id = #{play_id}
+		ORDER BY upload_date DESC
+	</select>
+
+	<!-- 리뷰 총점 -->
+	<select id="reviewScore" resultType="String"
+		parameterType="String">
+		select
+		ROUND(AVG(r.score), 1) from play as p inner join
+		m_review as r
+		on p.play_id =r.play_id
+		where p.play_id= #{play_id}
+	</select>
+
+
+
+	<!-- 공연 수정(사업자) -->
+	<update id="updateAll" parameterType="playVO">
+		update play set
+		play_name=#{play_name},genre_name=#{genre_name},stage_name=#{stage_name},stage_id=#{stage_id},
+		play_start=#{play_start},play_end=#{play_end},play_time=#{play_time},runtime=#{runtime},
+		play_age=#{play_age},casting=#{casting},crew=#{crew},enterprise=#{enterprise},
+		price=#{price},poster=#{poster},content=#{content},openrun=#{openrun},
+		state=#{state}
+		where play_id=#{play_id}
+	</update>
+
+
+	<!-- 공연 삭제(사업자) -->
+	<update id="deleteOne" parameterType="playVO">
+		update play set
+		delete_date=#{delete_date}
+		where play_id=#{play_id}
+	</update>
+
+	<!-- 삭제 공연 복원(사업자) -->
+	<update id="recoverOne" parameterType="playVO">
+		update play set
+		delete_date=null
+		where play_id=#{play_id}
+	</update>
+
+	<delete id="deleteComplete" parameterType="String">
+		delete from play where
+		play_id=#{play_id}
+	</delete>
+
+	<!-- user_type 변경 요청 -->
+	<!-- <update id="changeUserType" parameterType="String"> -->
+	<!-- update member set user_type='business' -->
+	<!-- where email=#{email} -->
+	<!-- </update> -->
+
+
+	<select id="searchStageId" parameterType="String"
+		resultType="String">
+		select stage_id from play where play_id =#{play_id}
+	</select>
+
+	<!-- 공연중인 전체 공연목록 -->
+	<select id="playList" resultType="playVO">
+		select play_id, stage_id,
+		play_name, play_start, play_end, stage_name,
+		poster, genre_name from
+		play where state = '공연중'
+	</select>
+
+</mapper>
