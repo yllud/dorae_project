@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
-<link rel="stylesheet" href="./resources/css/bootstrap.min2.css">
-<link rel="stylesheet" href="./resources/css/businessSidebars.css">
-<script type="text/javascript" src="./resources/js/jquery-3.6.4.js"></script>
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/bootstrap.min2.css">
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/businessSidebars.css">
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <style type="text/css">
 	.nav-link {
 		width: 100%;

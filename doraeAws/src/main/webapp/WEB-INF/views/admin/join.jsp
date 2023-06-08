@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 가입 페이지</title>
-<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="../resources/css/signin.css">
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/signin.css">
 <style type="text/css">
 	.form-floating {
 		margin-bottom: 10px;

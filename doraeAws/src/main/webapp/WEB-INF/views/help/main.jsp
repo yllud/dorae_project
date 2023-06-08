@@ -7,10 +7,10 @@
 <meta charset="UTF-8">
 <title>고객센터</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" /> <!-- 구글 폰트/아이콘 -->
-<link rel="stylesheet" href="../resources/css/chatBot.css" />
-<link rel="stylesheet" href="../resources/css/help.css" />
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
-<script defer type="text/javascript" src="../resources/js/chatBot.js"></script>
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/chatBot.css" />
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/help.css" />
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
+<script defer type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/chatBot.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#header").load("../header/header.jsp");

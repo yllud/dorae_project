@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:if test="${!fn:contains(header.referer, 'help')}">
-	<link rel="stylesheet" href="/dorae/resources/css/help.css" />
+	<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/help.css" />
 </c:if>
 <table class="table-center">
 	<tr>
