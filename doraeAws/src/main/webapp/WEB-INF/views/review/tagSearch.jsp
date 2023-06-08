@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="../resources/css/reviewStyle.css">
+<link rel="stylesheet" type="text/css" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/reviewStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script type="text/javascript">
@@ -111,7 +111,7 @@
 							<td class="review-detail" data-id="${review.id}">
 				<table>
 					<tr>
-						<td class="td1"><img src="../resources/img/pin.png" width="35" height="40"></td>
+						<td class="td1"><img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/pin.png" width="35" height="40"></td>
 						<td class="td2">${review.tag}</td>
 					</tr>
 					<tr>

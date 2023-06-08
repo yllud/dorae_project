@@ -6,7 +6,7 @@
 
 <meta charset="UTF-8">
 <title>후기 작성</title>
-<link rel="stylesheet" href="../resources/css/reviewInsertUp.css">
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/reviewInsertUp.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>

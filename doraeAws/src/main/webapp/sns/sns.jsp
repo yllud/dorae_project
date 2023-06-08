@@ -8,7 +8,7 @@
 
 <meta charset="UTF-8">
 <title>SNS 후기</title>
-<link rel="stylesheet" href="../resources/css/sns.css">
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/sns.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script type="text/javascript">

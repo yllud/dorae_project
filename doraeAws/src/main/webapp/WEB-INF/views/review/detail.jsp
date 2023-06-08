@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css"
-	href="../resources/css/reviewStyle.css">
+	href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/reviewStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <title>후기 상세</title>
@@ -10,7 +10,7 @@
 <div class="centered">
 	<table id = "detail-table">
 		<tr>
-			<td><img src="../resources/img/pin.png" width="35" height="40"></td>
+			<td><img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/pin.png" width="35" height="40"></td>
 			<td>${review.tag}</td>
 		</tr>
 		<tr>
