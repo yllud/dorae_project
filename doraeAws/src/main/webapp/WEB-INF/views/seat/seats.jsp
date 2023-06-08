@@ -7,11 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>좌석선택</title>
-<link rel="stylesheet" href="../resources/css/seat.css">
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/seat.css">
 <!-- bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <!-- bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <!-- 시간 및 날짜 처리를 위한 라이브러리 -->
@@ -385,6 +385,6 @@ $('#payment').click(function() { //결제
 
 </script>
 
-<script type="text/javascript" src="../resources/js/pay.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/pay.js"></script>
 </body>
 </html>
