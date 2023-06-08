@@ -19,7 +19,7 @@ public class SnsScheduler {
 	SnsService snsService;
 
 	// 초 분 시 일 월 일
-	@Scheduled(cron = "0 10 0 * * *") // 매일 오전 00시 10분에 최신화
+	@Scheduled(cron = "0 37 14 * * *") // 매일 오전 00시 10분에 최신화
 	public void auto() throws TwitterException {
 		// 블로그, 트위터 row 삭제 메서드
 		blogService.delete();
