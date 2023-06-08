@@ -26,7 +26,7 @@ td {
 	color: white;
 }
 </style>
-<script type="text/javascript" src="resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 $(function() {
 	//시작하자마자 보여줄 ajax

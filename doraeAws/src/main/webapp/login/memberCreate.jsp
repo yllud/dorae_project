@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <!-- login.css 추가 -->
-<link rel="stylesheet" href="../resources/css/memberCreate.css">
+<link rel="stylesheet" href="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/css/memberCreate.css">
 <style>
 .id_ok{
 color:#008000;
@@ -18,7 +18,7 @@ color:#6A82FB;
 display: none;
 }
 </style>
-<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	function validateForm() {
 	  var password = document.getElementById('password').value;
