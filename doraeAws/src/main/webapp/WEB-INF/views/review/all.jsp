@@ -108,7 +108,7 @@ int currentPage = 1;
 				<td class="review-detail" data-id="${review.id}">
 				<table class="review-table">
 					<tr>
-						<td class="td1"><img src="../resources/img/pin.png" width="35" height="40"></td>
+						<td class="td1"><img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/pin.png" width="35" height="40"></td>
 						<td class="td2">${review.tag}</td>
 					</tr>
 					<tr>
