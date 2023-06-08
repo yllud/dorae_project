@@ -89,7 +89,7 @@ background-color: #ff9900;
 			console.log("값넘겨주기!!! >>> " + playName + ", " + stageName + ", " + playId);
 			var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName) + "&playId=" + encodeURIComponent(playId);
 			//var url = "sns_share.jsp?playName=" + encodeURIComponent(playName) + "&stageName=" + encodeURIComponent(stageName)  + "&latitude=" + encodeURIComponent(share_lat)  + "&longitude=" + encodeURIComponent(share_lng);
-		    window.open(url, "_blank", "width=500,height=500");
+		    window.open(url, "_blank", "width=300,height=200");
 		}
 		
 		// 네이버 지도 API를 로드합니다.
