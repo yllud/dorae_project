@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/css/search.css">
+<link rel="stylesheet" href="../resources/css/search.css">
 <title>Insert title here</title>
-<script type="text/javascript" src="https://dorae-aws.s3.ap-northeast-2.amazonaws.com/resources/js/jquery-3.6.4.js"></script>
+<script type="text/javascript" src="../resources/js/jquery-3.6.4.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#header").load("../header/header.jsp");
