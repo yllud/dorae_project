@@ -155,7 +155,7 @@ function openPopup(url) {
         </c:when>
         <c:otherwise>
           <div class="imageContainer">
-            <img src="https://imson.imweb.me/common/img/default_profile.png" width="180" height="180" alt="프로필 이미지" />
+            <img src="https://dorae.s3.ap-northeast-2.amazonaws.com/resources/img/default_profile.png" width="180" height="180" alt="프로필 이미지" />
           </div>
         </c:otherwise>
       </c:choose>
