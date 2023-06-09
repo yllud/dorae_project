@@ -159,12 +159,9 @@ background-color: #ff9900;
                     }
                     addItems();
                 }
-                else if(click == "area"){
-                	
-                }
             }
         });
-      
+      	
         $('#infolist').on('click', '.bookIcon', function() {
 		    if (isLogin == true) {
 		        var bookmarkImg = $(this);

@@ -36,14 +36,12 @@ public class PreferenceService implements PreferenceServiceInterface{
 	public List<PlayVO> getRecommendedPlays(PreferenceVO bag) {
 	    List<PlayVO> recommendedPlays = dao.getRecommendedPlays(bag);
 	    List<StageVO> recommendedStages = new ArrayList<>();
-	    int[] count = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-	    int cnt_arr[] = {8, 7, 6, 5, 4, 3, 2, 2, 1}; //ê° ìˆœìœ„ ë³„ ì¶œë ¥ë  count ë°°ì—´
+	    int[] count = {0, 0, 0, 0, 0, 0, 0, 0, 0}; // °¢ ¼øÀ§º° Ãâ·ÂÇÏ´Â °ø¿¬°³¼ö Ä«¿îÆ® ¹è¿­
+	    int cnt_arr[] = {8, 7, 6, 5, 4, 3, 2, 2, 1}; // °¢ ¼øÀ§º° Ãâ·ÂÇÏ´Â °ø¿¬°³¼ö
 
 	    for (PlayVO vo : recommendedPlays) {
 	        recommendedStages.add(dao2.stageDetail(vo.getStage_id()));
 	    }
-
-	    // í•„ìš”í•œ ì¶”ê°€ ë¡œì§ì„ ìˆ˜í–‰í•˜ê±°ë‚˜ í•„í„°ë§ì„ ì ìš©
 	    List<PlayVO> filteredPlays = new ArrayList<>();
 
 	    // Filter by priority (genre and area matching)
@@ -91,8 +89,7 @@ public class PreferenceService implements PreferenceServiceInterface{
 	            filteredPlays.add(play);
 	            count[8]++;
 	        }
-	    }
-
+	    }	    
 	    return filteredPlays;
     }
 }
