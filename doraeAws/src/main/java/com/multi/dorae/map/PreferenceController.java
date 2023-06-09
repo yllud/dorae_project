@@ -22,9 +22,7 @@ public class PreferenceController {
 	@RequestMapping("insert_preference")
 	@ResponseBody
 	public String insert(PreferenceVO bag) {
-		System.out.println("insert_preference요청됨.");
-		
-		// 이메일이 이미 존재하는지 확인
+		System.out.println("insert_preference");
 		
 		int result = service.insert(bag);
 		if (result > 0) {
@@ -43,7 +41,7 @@ public class PreferenceController {
 	
 	@RequestMapping("select_recommendPlay")
 	public String getRecommendedPlays(@RequestParam("email") String email, Model model) {
-		PreferenceVO bag = service.mypreference(email); //사용자의 맞춤설정 bag 가져오기
+		PreferenceVO bag = service.mypreference(email); //filterdList 값 받음
         List<PlayVO> recommendedPlays = service.getRecommendedPlays(bag);
         
         model.addAttribute("bag", bag);
