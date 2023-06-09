@@ -166,11 +166,11 @@ function openPopup(url) {
 	<table heigth="50">
 		<tr align="center">
 			<td width="80" style="font-size: 15px;">닉네임</td>
-			<td width="220" style="font-size: 15px;"> ${nickname}</td>
+			<td style="font-size: 15px; width: 220px;"> ${nickname}</td>
 		</tr>
 		<tr align="center">
 			<td style="font-size: 15px;">가입일</td>
-			<td style="font-size: 15px;"><fmt:formatDate value="${vo2.joinDate}" pattern="yyyy년 MM월 dd일"/></td>
+			<td style="font-size: 15px; width: 220px;"><fmt:formatDate value="${vo2.joinDate}" pattern="yyyy년 MM월 dd일"/></td>
 		</tr>
 		<tr align="center">
 			<td style="font-size: 15px;">방문수</td>

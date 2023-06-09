@@ -59,7 +59,7 @@ display: none;
 		  var emailStatus = $('#emailStatus');
 
 		  $.ajax({
-		    url: '/dorae/login/checkEmail',
+		    url: '../login/checkEmail',
 		    type: 'post',
 		    data: { email: email },
 		    success: function (response) {
